@@ -1,7 +1,5 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { db } from "@/lib/firebase";
 import {
   collection,
@@ -72,8 +70,6 @@ export default async function NoteDetailPage({ params }: Props) {
       className="min-h-screen"
       style={{ background: "var(--bg)" }}
     >
-      <Navbar />
-
       <main>
         {/* HEADER */}
         <section className="max-w-5xl mx-auto px-5 pt-10 pb-12 md:pt-16 md:pb-16">
@@ -222,8 +218,6 @@ export default async function NoteDetailPage({ params }: Props) {
           </div>
         </section>
       </main>
-
-      <Footer />
     </div>
   );
 }

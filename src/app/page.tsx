@@ -1,6 +1,4 @@
 export const dynamic = "force-dynamic";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import Link from "next/link";
 import { db } from "@/lib/firebase";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
@@ -73,8 +71,6 @@ export default async function Home() {
       className="min-h-screen overflow-x-hidden"
       style={{ background: "var(--bg)" }}
     >
-      <Navbar />
-
       <main>
         {/* HERO */}
         <section className="max-w-5xl mx-auto px-5 pt-14 pb-16 md:pt-24 md:pb-24">
@@ -506,8 +502,6 @@ export default async function Home() {
           </div>
         </section>
       </main>
-
-      <Footer />
     </div>
   );
 }

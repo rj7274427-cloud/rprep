@@ -1,6 +1,4 @@
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 
 export default function NotFound() {
   return (
@@ -8,8 +6,6 @@ export default function NotFound() {
       className="min-h-screen"
       style={{ background: "var(--bg)" }}
     >
-      <Navbar />
-
       <main className="max-w-5xl mx-auto px-5 py-24 md:py-32">
         <div className="max-w-2xl mx-auto text-center">
 
@@ -63,8 +59,6 @@ export default function NotFound() {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

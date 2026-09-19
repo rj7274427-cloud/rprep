@@ -1,6 +1,4 @@
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { db } from "@/lib/firebase";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 
@@ -38,8 +36,6 @@ export default async function NotesPage() {
       className="min-h-screen"
       style={{ background: "var(--bg)" }}
     >
-      <Navbar />
-
       <main>
         {/* HEADER */}
         <section className="max-w-5xl mx-auto px-5 pt-16 pb-12 md:pt-24 md:pb-16">
@@ -208,8 +204,6 @@ export default async function NotesPage() {
           </div>
         </section>
       </main>
-
-      <Footer />
     </div>
   );
 }

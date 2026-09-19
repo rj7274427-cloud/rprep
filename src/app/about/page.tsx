@@ -1,11 +1,7 @@
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen" style={{ background: "var(--bg)" }}>
-      <Navbar />
-
       <main>
         {/* HEADER */}
         <section className="max-w-5xl mx-auto px-5 pt-16 pb-12 md:pt-24 md:pb-16">
@@ -287,8 +283,6 @@ export default function AboutPage() {
           </div>
         </section>
       </main>
-
-      <Footer />
     </div>
   );
 }

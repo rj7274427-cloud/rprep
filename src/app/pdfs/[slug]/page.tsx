@@ -1,7 +1,5 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { db } from "@/lib/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import type { Metadata } from "next";
@@ -89,8 +87,6 @@ export default async function PdfDetailPage({
       className="min-h-screen"
       style={{ background: "var(--bg)" }}
     >
-      <Navbar />
-
       <main>
 
         {/* HEADER */}
@@ -474,8 +470,6 @@ export default async function PdfDetailPage({
         />
 
       </main>
-
-      <Footer />
     </div>
   );
 }

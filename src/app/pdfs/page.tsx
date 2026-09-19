@@ -1,7 +1,5 @@
 export const dynamic = "force-dynamic";
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { db } from "@/lib/firebase";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import type { Metadata } from "next";
@@ -27,8 +25,6 @@ export default async function PdfsPage() {
 
   return (
     <>
-      <Navbar />
-
       <section className="max-w-6xl mx-auto px-4 py-10">
         <h1 className="text-3xl font-bold mb-2">📚 All PDFs</h1>
         <p className="text-gray-600 mb-8">
@@ -69,8 +65,6 @@ export default async function PdfsPage() {
           </div>
         )}
       </section>
-
-      <Footer />
     </>
   );
 }
