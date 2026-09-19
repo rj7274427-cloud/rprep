@@ -37,39 +37,31 @@ export default function Navbar() {
         background: "color-mix(in srgb, var(--bg) 90%, transparent)",
       }}
     >
-      <div className="max-w-5xl mx-auto px-5 h-16 flex items-center justify-between">
+      <div className="max-w-5xl mx-auto px-4 sm:px-5 h-16 flex items-center justify-between gap-3">
 
-        {/* BRAND */}
+        {/* Logo */}
         <Link
           href="/"
-          className="font-black text-lg tracking-tight shrink-0"
+          className="font-black text-base sm:text-lg tracking-tight shrink-0"
           style={{ color: "var(--fg)" }}
         >
           RPrep <span style={{ color: "var(--accent)" }}>Nursing</span>
         </Link>
 
-        {/* NAVIGATION */}
-        <div className="flex items-center gap-4 sm:gap-6">
+        {/* Navigation */}
+        <nav className="flex items-center gap-3 sm:gap-6">
 
           <Link
             href="/"
-            className="text-sm font-semibold transition-opacity hover:opacity-70"
+            className="text-sm font-semibold whitespace-nowrap transition-opacity hover:opacity-70"
             style={{ color: "var(--fg-soft)" }}
           >
             Home
           </Link>
 
           <Link
-            href="/pdfs"
-            className="text-sm font-semibold transition-opacity hover:opacity-70"
-            style={{ color: "var(--fg-soft)" }}
-          >
-            MCQ PDFs
-          </Link>
-
-          <Link
             href="/notes"
-            className="text-sm font-semibold transition-opacity hover:opacity-70"
+            className="text-sm font-semibold whitespace-nowrap transition-opacity hover:opacity-70"
             style={{ color: "var(--fg-soft)" }}
           >
             Notes
@@ -77,18 +69,18 @@ export default function Navbar() {
 
           <Link
             href="/norcet-11"
-            className="text-sm font-semibold transition-opacity hover:opacity-70"
+            className="text-sm font-semibold whitespace-nowrap transition-opacity hover:opacity-70"
             style={{ color: "var(--fg-soft)" }}
           >
-            NORCET 11
+            Norcet11
           </Link>
 
-          {/* THEME TOGGLE */}
+          {/* Theme Toggle */}
           <button
             type="button"
             onClick={toggleTheme}
             aria-label="Toggle light and dark theme"
-            className="w-9 h-9 rounded-xl border flex items-center justify-center text-base transition-opacity hover:opacity-70"
+            className="w-9 h-9 rounded-xl border flex items-center justify-center text-base shrink-0 transition-opacity hover:opacity-70"
             style={{
               borderColor: "var(--border)",
               color: "var(--fg)",
@@ -98,7 +90,7 @@ export default function Navbar() {
             {dark ? "☀" : "☾"}
           </button>
 
-        </div>
+        </nav>
       </div>
     </header>
   );
