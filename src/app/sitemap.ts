@@ -22,6 +22,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     },
     {
+      url: `${BASE_URL}/notes`,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/norcet-11`,
+      changeFrequency: "daily",
+      priority: 0.95,
+    },
+    {
       url: `${BASE_URL}/about`,
       changeFrequency: "monthly",
       priority: 0.6,
@@ -49,16 +59,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   try {
-    const q = query(
+    const pdfQuery = query(
       collection(db, "pdfs"),
       orderBy("date", "desc")
     );
 
-    const snap = await getDocs(q);
+    const notesQuery = query(
+      collection(db, "notes"),
+      orderBy("date", "desc")
+    );
 
-    const pdfPages: MetadataRoute.Sitemap = snap.docs
-      .map((doc) => {
-        const data = doc.data();
+    const [pdfSnap, notesSnap] = await Promise.all([
+      getDocs(pdfQuery),
+      getDocs(notesQuery),
+    ]);
+
+    const pdfPages: MetadataRoute.Sitemap = pdfSnap.docs
+      .map((item) => {
+        const data = item.data();
 
         if (!data.slug) return null;
 
@@ -73,7 +91,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       })
       .filter(Boolean) as MetadataRoute.Sitemap;
 
-    return [...staticPages, ...pdfPages];
+    const notePages: MetadataRoute.Sitemap = notesSnap.docs
+      .map((item) => {
+        const data = item.data();
+
+        if (!data.slug) return null;
+
+        return {
+          url: `${BASE_URL}/notes/${data.slug}`,
+          lastModified: data.date
+            ? new Date(data.date)
+            : new Date(),
+          changeFrequency: "monthly" as const,
+          priority: 0.8,
+        };
+      })
+      .filter(Boolean) as MetadataRoute.Sitemap;
+
+    return [
+      ...staticPages,
+      ...pdfPages,
+      ...notePages,
+    ];
   } catch {
     return staticPages;
   }

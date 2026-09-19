@@ -75,6 +75,14 @@ export default function Navbar() {
             Notes
           </Link>
 
+          <Link
+            href="/norcet-11"
+            className="text-sm font-semibold transition-opacity hover:opacity-70"
+            style={{ color: "var(--fg-soft)" }}
+          >
+            NORCET 11
+          </Link>
+
           {/* THEME TOGGLE */}
           <button
             type="button"

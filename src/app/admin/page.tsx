@@ -50,6 +50,19 @@ export default function AdminPage() {
   const [notes, setNotes] = useState<any[]>([]);
   const [editingNoteId, setEditingNoteId] = useState<string | null>(null);
 
+  /* NORCET 11 STATES */
+  const [norcetQuestion, setNorcetQuestion] = useState("");
+  const [norcetOptionA, setNorcetOptionA] = useState("");
+  const [norcetOptionB, setNorcetOptionB] = useState("");
+  const [norcetOptionC, setNorcetOptionC] = useState("");
+  const [norcetOptionD, setNorcetOptionD] = useState("");
+  const [norcetAnswer, setNorcetAnswer] = useState("A");
+  const [norcetExplanation, setNorcetExplanation] = useState("");
+  const [norcetSubject, setNorcetSubject] = useState("Medical-Surgical Nursing");
+  const [norcetSaving, setNorcetSaving] = useState(false);
+  const [norcetQuestions, setNorcetQuestions] = useState<any[]>([]);
+  const [editingNorcetId, setEditingNorcetId] = useState<string | null>(null);
+
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (u) => {
       if (!u) {
@@ -73,6 +86,7 @@ export default function AdminPage() {
 
       loadPdfs();
       loadNotes();
+      loadNorcetQuestions();
     });
 
     return () => unsub();
@@ -318,6 +332,156 @@ export default function AdminPage() {
       }
     } catch (e: any) {
       toast.error(e.message || "Failed to delete note");
+    }
+  };
+
+  /* ================= NORCET 11 FUNCTIONS ================= */
+
+  const loadNorcetQuestions = async () => {
+    try {
+      const q = query(
+        collection(db, "norcet11"),
+        orderBy("questionNumber", "asc")
+      );
+
+      const snap = await getDocs(q);
+
+      setNorcetQuestions(
+        snap.docs.map((d) => ({
+          id: d.id,
+          ...d.data(),
+        }))
+      );
+    } catch (e: any) {
+      toast.error(e.message || "Failed to load NORCET 11 questions");
+    }
+  };
+
+  const resetNorcetForm = () => {
+    setEditingNorcetId(null);
+    setNorcetQuestion("");
+    setNorcetOptionA("");
+    setNorcetOptionB("");
+    setNorcetOptionC("");
+    setNorcetOptionD("");
+    setNorcetAnswer("A");
+    setNorcetExplanation("");
+    setNorcetSubject("Medical-Surgical Nursing");
+  };
+
+  const saveNorcetQuestion = async () => {
+    if (!norcetQuestion.trim()) {
+      toast.error("Enter the question");
+      return;
+    }
+
+    if (
+      !norcetOptionA.trim() ||
+      !norcetOptionB.trim() ||
+      !norcetOptionC.trim() ||
+      !norcetOptionD.trim()
+    ) {
+      toast.error("Enter all four options");
+      return;
+    }
+
+    if (!norcetExplanation.trim()) {
+      toast.error("Enter the explanation");
+      return;
+    }
+
+    setNorcetSaving(true);
+
+    try {
+      if (editingNorcetId) {
+        await updateDoc(
+          doc(db, "norcet11", editingNorcetId),
+          {
+            question: norcetQuestion.trim(),
+            options: {
+              A: norcetOptionA.trim(),
+              B: norcetOptionB.trim(),
+              C: norcetOptionC.trim(),
+              D: norcetOptionD.trim(),
+            },
+            correctAnswer: norcetAnswer,
+            explanation: norcetExplanation.trim(),
+            subject: norcetSubject,
+            updatedAt: serverTimestamp(),
+          }
+        );
+
+        toast.success("NORCET 11 question updated!");
+      } else {
+        const nextNumber =
+          norcetQuestions.length > 0
+            ? Math.max(
+                ...norcetQuestions.map(
+                  (q) => Number(q.questionNumber) || 0
+                )
+              ) + 1
+            : 1;
+
+        await addDoc(collection(db, "norcet11"), {
+          questionNumber: nextNumber,
+          question: norcetQuestion.trim(),
+          options: {
+            A: norcetOptionA.trim(),
+            B: norcetOptionB.trim(),
+            C: norcetOptionC.trim(),
+            D: norcetOptionD.trim(),
+          },
+          correctAnswer: norcetAnswer,
+          explanation: norcetExplanation.trim(),
+          subject: norcetSubject,
+          createdAt: serverTimestamp(),
+        });
+
+        toast.success(`NORCET 11 Question ${nextNumber} added!`);
+      }
+
+      resetNorcetForm();
+      await loadNorcetQuestions();
+    } catch (e: any) {
+      toast.error(e.message || "Failed to save NORCET 11 question");
+    } finally {
+      setNorcetSaving(false);
+    }
+  };
+
+  const editNorcetQuestion = (q: any) => {
+    setEditingNorcetId(q.id);
+    setNorcetQuestion(q.question || "");
+    setNorcetOptionA(q.options?.A || "");
+    setNorcetOptionB(q.options?.B || "");
+    setNorcetOptionC(q.options?.C || "");
+    setNorcetOptionD(q.options?.D || "");
+    setNorcetAnswer(q.correctAnswer || "A");
+    setNorcetExplanation(q.explanation || "");
+    setNorcetSubject(q.subject || "Medical-Surgical Nursing");
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  const removeNorcetQuestion = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this NORCET 11 question?")) {
+      return;
+    }
+
+    try {
+      await deleteDoc(doc(db, "norcet11", id));
+
+      toast.success("NORCET 11 question deleted");
+      await loadNorcetQuestions();
+
+      if (editingNorcetId === id) {
+        resetNorcetForm();
+      }
+    } catch (e: any) {
+      toast.error(e.message || "Failed to delete question");
     }
   };
 
@@ -602,6 +766,320 @@ export default function AdminPage() {
           </div>
 
         </div>
+
+        {/* ================= NORCET 11 ================= */}
+
+        <section
+          className="rounded-2xl border p-6 sm:p-8 mb-10"
+          style={{
+            borderColor: "var(--border)",
+            background: "var(--bg-soft)",
+          }}
+        >
+
+          <div className="mb-6">
+            <p
+              className="text-xs font-bold uppercase tracking-[0.18em] mb-2"
+              style={{ color: "var(--accent)" }}
+            >
+              NORCET 11
+            </p>
+
+            <h2 className="text-xl md:text-2xl font-black">
+              {editingNorcetId
+                ? "Edit NORCET 11 question"
+                : "Add NORCET 11 question"}
+            </h2>
+
+            <p
+              className="text-sm mt-2"
+              style={{ color: "var(--fg-soft)" }}
+            >
+              Add one question at a time. Questions are automatically numbered.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+
+            <textarea
+              className="w-full rounded-xl border px-4 py-3 outline-none text-sm resize-y"
+              style={{
+                borderColor: "var(--border)",
+                background: "var(--bg)",
+                color: "var(--fg)",
+              }}
+              placeholder="Question"
+              rows={4}
+              value={norcetQuestion}
+              onChange={(e) => setNorcetQuestion(e.target.value)}
+            />
+
+            <select
+              className="w-full rounded-xl border px-4 py-3 outline-none text-sm"
+              style={{
+                borderColor: "var(--border)",
+                background: "var(--bg)",
+                color: "var(--fg)",
+              }}
+              value={norcetSubject}
+              onChange={(e) => setNorcetSubject(e.target.value)}
+            >
+              <option>Fundamentals of Nursing</option>
+              <option>Medical-Surgical Nursing</option>
+              <option>Obstetric & Gynecological Nursing</option>
+              <option>Child Health Nursing</option>
+              <option>Mental Health Nursing</option>
+              <option>Community Health Nursing</option>
+              <option>Pharmacology</option>
+              <option>Anatomy & Physiology</option>
+              <option>Nutrition</option>
+              <option>Microbiology</option>
+              <option>Nursing Research</option>
+              <option>Nursing Management</option>
+              <option>Integrated / Case Scenario</option>
+            </select>
+
+            <input
+              className="w-full rounded-xl border px-4 py-3 outline-none text-sm"
+              style={{
+                borderColor: "var(--border)",
+                background: "var(--bg)",
+                color: "var(--fg)",
+              }}
+              placeholder="Option A"
+              value={norcetOptionA}
+              onChange={(e) => setNorcetOptionA(e.target.value)}
+            />
+
+            <input
+              className="w-full rounded-xl border px-4 py-3 outline-none text-sm"
+              style={{
+                borderColor: "var(--border)",
+                background: "var(--bg)",
+                color: "var(--fg)",
+              }}
+              placeholder="Option B"
+              value={norcetOptionB}
+              onChange={(e) => setNorcetOptionB(e.target.value)}
+            />
+
+            <input
+              className="w-full rounded-xl border px-4 py-3 outline-none text-sm"
+              style={{
+                borderColor: "var(--border)",
+                background: "var(--bg)",
+                color: "var(--fg)",
+              }}
+              placeholder="Option C"
+              value={norcetOptionC}
+              onChange={(e) => setNorcetOptionC(e.target.value)}
+            />
+
+            <input
+              className="w-full rounded-xl border px-4 py-3 outline-none text-sm"
+              style={{
+                borderColor: "var(--border)",
+                background: "var(--bg)",
+                color: "var(--fg)",
+              }}
+              placeholder="Option D"
+              value={norcetOptionD}
+              onChange={(e) => setNorcetOptionD(e.target.value)}
+            />
+
+            <select
+              className="w-full rounded-xl border px-4 py-3 outline-none text-sm"
+              style={{
+                borderColor: "var(--border)",
+                background: "var(--bg)",
+                color: "var(--fg)",
+              }}
+              value={norcetAnswer}
+              onChange={(e) => setNorcetAnswer(e.target.value)}
+            >
+              <option value="A">Correct Answer: A</option>
+              <option value="B">Correct Answer: B</option>
+              <option value="C">Correct Answer: C</option>
+              <option value="D">Correct Answer: D</option>
+            </select>
+
+            <textarea
+              className="w-full rounded-xl border px-4 py-3 outline-none text-sm resize-y"
+              style={{
+                borderColor: "var(--border)",
+                background: "var(--bg)",
+                color: "var(--fg)",
+              }}
+              placeholder="Explanation / Rationale"
+              rows={5}
+              value={norcetExplanation}
+              onChange={(e) => setNorcetExplanation(e.target.value)}
+            />
+
+            <div className="flex flex-col sm:flex-row gap-3">
+
+              <button
+                onClick={saveNorcetQuestion}
+                disabled={norcetSaving}
+                className="flex-1 rounded-xl py-3 font-semibold text-sm transition-opacity hover:opacity-90 disabled:opacity-50"
+                style={{
+                  background: "var(--accent)",
+                  color: "white",
+                }}
+              >
+                {norcetSaving
+                  ? "Saving..."
+                  : editingNorcetId
+                  ? "Update Question"
+                  : "Add Question"}
+              </button>
+
+              {editingNorcetId && (
+                <button
+                  onClick={resetNorcetForm}
+                  className="rounded-xl border px-5 py-3 text-sm font-semibold transition-opacity hover:opacity-70"
+                  style={{
+                    borderColor: "var(--border)",
+                    color: "var(--fg)",
+                    background: "var(--bg)",
+                  }}
+                >
+                  Cancel Edit
+                </button>
+              )}
+
+            </div>
+
+          </div>
+        </section>
+
+        {/* ================= NORCET 11 LIBRARY ================= */}
+
+        <section className="mb-12">
+
+          <div className="flex items-end justify-between gap-4 mb-5">
+
+            <div>
+              <p
+                className="text-xs font-bold uppercase tracking-[0.18em] mb-2"
+                style={{ color: "var(--accent)" }}
+              >
+                NORCET 11 Library
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-black">
+                Questions
+              </h2>
+            </div>
+
+            <span
+              className="text-sm font-semibold"
+              style={{ color: "var(--fg-soft)" }}
+            >
+              {norcetQuestions.length} total
+            </span>
+
+          </div>
+
+          {norcetQuestions.length === 0 ? (
+            <div
+              className="rounded-2xl border p-10 text-center"
+              style={{ borderColor: "var(--border)" }}
+            >
+              <p className="font-semibold">
+                No NORCET 11 questions yet.
+              </p>
+
+              <p
+                className="text-sm mt-2"
+                style={{ color: "var(--fg-soft)" }}
+              >
+                Add your first question above.
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-3">
+
+              {norcetQuestions.map((q) => (
+                <div
+                  key={q.id}
+                  className="rounded-2xl border p-4 sm:p-5"
+                  style={{
+                    borderColor: "var(--border)",
+                    background: "var(--bg-soft)",
+                  }}
+                >
+
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+
+                    <div className="min-w-0">
+
+                      <div className="flex flex-wrap gap-2 mb-2">
+
+                        <span
+                          className="text-xs font-bold px-2.5 py-1 rounded-full"
+                          style={{
+                            background: "var(--accent-bg)",
+                            color: "var(--accent)",
+                          }}
+                        >
+                          Q{q.questionNumber}
+                        </span>
+
+                        <span
+                          className="text-xs font-semibold px-2.5 py-1 rounded-full"
+                          style={{
+                            background: "var(--bg)",
+                            color: "var(--fg-soft)",
+                          }}
+                        >
+                          {q.subject}
+                        </span>
+
+                      </div>
+
+                      <h3 className="font-bold leading-6">
+                        {q.question}
+                      </h3>
+
+                    </div>
+
+                    <div className="flex gap-2 shrink-0">
+
+                      <button
+                        onClick={() => editNorcetQuestion(q)}
+                        className="rounded-xl px-4 py-2 text-sm font-semibold transition-opacity hover:opacity-80"
+                        style={{
+                          background: "var(--accent)",
+                          color: "white",
+                        }}
+                      >
+                        Edit
+                      </button>
+
+                      <button
+                        onClick={() => removeNorcetQuestion(q.id)}
+                        className="rounded-xl border px-4 py-2 text-sm font-semibold transition-opacity hover:opacity-70"
+                        style={{
+                          borderColor: "var(--border)",
+                          color: "var(--fg)",
+                          background: "var(--bg)",
+                        }}
+                      >
+                        Delete
+                      </button>
+
+                    </div>
+
+                  </div>
+
+                </div>
+              ))}
+
+            </div>
+          )}
+
+        </section>
 
         {/* ================= NOTE FORM ================= */}
 
