@@ -67,6 +67,14 @@ export default function Navbar() {
             MCQ PDFs
           </Link>
 
+          <Link
+            href="/notes"
+            className="text-sm font-semibold transition-opacity hover:opacity-70"
+            style={{ color: "var(--fg-soft)" }}
+          >
+            Notes
+          </Link>
+
           {/* THEME TOGGLE */}
           <button
             type="button"

@@ -11,6 +11,7 @@ import {
   doc,
   orderBy,
   query,
+  updateDoc,
 } from "firebase/firestore";
 import {
   signInWithEmailAndPassword,
@@ -29,6 +30,7 @@ export default function AdminPage() {
   const [email] = useState(ADMIN_EMAIL);
   const [password, setPassword] = useState("");
 
+  /* PDF STATES */
   const [title, setTitle] = useState("");
   const [driveUrl, setDriveUrl] = useState("");
   const [category, setCategory] = useState("Daily MCQ");
@@ -36,6 +38,17 @@ export default function AdminPage() {
   const [tags, setTags] = useState("");
   const [uploading, setUploading] = useState(false);
   const [pdfs, setPdfs] = useState<any[]>([]);
+
+  /* NOTE STATES */
+  const [noteTitle, setNoteTitle] = useState("");
+  const [noteCategory, setNoteCategory] = useState("Nursing Guidelines");
+  const [noteDescription, setNoteDescription] = useState("");
+  const [noteContent, setNoteContent] = useState("");
+  const [noteTags, setNoteTags] = useState("");
+  const [noteSource, setNoteSource] = useState("");
+  const [noteSaving, setNoteSaving] = useState(false);
+  const [notes, setNotes] = useState<any[]>([]);
+  const [editingNoteId, setEditingNoteId] = useState<string | null>(null);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (u) => {
@@ -57,11 +70,15 @@ export default function AdminPage() {
 
       setUser(u);
       setLoading(false);
+
       loadPdfs();
+      loadNotes();
     });
 
     return () => unsub();
   }, []);
+
+  /* ================= PDF FUNCTIONS ================= */
 
   const loadPdfs = async () => {
     try {
@@ -83,40 +100,6 @@ export default function AdminPage() {
     }
   };
 
-  const login = async () => {
-    if (!password) {
-      toast.error("Enter your password");
-      return;
-    }
-
-    try {
-      const credential = await signInWithEmailAndPassword(
-        auth,
-        ADMIN_EMAIL,
-        password
-      );
-
-      if (
-        credential.user.email?.toLowerCase() !==
-        ADMIN_EMAIL.toLowerCase()
-      ) {
-        await signOut(auth);
-        toast.error("This account is not authorized.");
-        return;
-      }
-
-      toast.success("Login successful!");
-      setPassword("");
-    } catch (e: any) {
-      toast.error("Invalid email or password");
-    }
-  };
-
-  const logout = async () => {
-    await signOut(auth);
-    toast.success("Logged out");
-  };
-
   const extractDriveId = (url: string) => {
     const patterns = [
       /\/file\/d\/([-\w]{25,})/,
@@ -132,7 +115,7 @@ export default function AdminPage() {
     return "";
   };
 
-  const upload = async () => {
+  const uploadPdf = async () => {
     if (!title.trim()) {
       toast.error("Enter PDF title");
       return;
@@ -199,13 +182,182 @@ export default function AdminPage() {
 
     try {
       await deleteDoc(doc(db, "pdfs", id));
-
       toast.success("PDF deleted");
       await loadPdfs();
     } catch (e: any) {
       toast.error(e.message || "Failed to delete PDF");
     }
   };
+
+  /* ================= NOTE FUNCTIONS ================= */
+
+  const loadNotes = async () => {
+    try {
+      const q = query(
+        collection(db, "notes"),
+        orderBy("date", "desc")
+      );
+
+      const snap = await getDocs(q);
+
+      setNotes(
+        snap.docs.map((d) => ({
+          id: d.id,
+          ...d.data(),
+        }))
+      );
+    } catch (e: any) {
+      toast.error(e.message || "Failed to load notes");
+    }
+  };
+
+  const makeSlug = (value: string) => {
+    return (
+      value
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "") +
+      "-" +
+      Date.now().toString().slice(-4)
+    );
+  };
+
+  const saveNote = async () => {
+    if (!noteTitle.trim()) {
+      toast.error("Enter note title");
+      return;
+    }
+
+    if (!noteContent.trim()) {
+      toast.error("Enter HTML note content");
+      return;
+    }
+
+    setNoteSaving(true);
+
+    try {
+      const noteData = {
+        title: noteTitle.trim(),
+        category: noteCategory.trim() || "Nursing Guidelines",
+        description: noteDescription.trim(),
+        content: noteContent,
+        tags: noteTags
+          .split(",")
+          .map((t) => t.trim())
+          .filter(Boolean),
+        source: noteSource.trim(),
+        date: new Date().toISOString(),
+      };
+
+      if (editingNoteId) {
+        await updateDoc(
+          doc(db, "notes", editingNoteId),
+          noteData
+        );
+
+        toast.success("Note updated successfully!");
+      } else {
+        await addDoc(collection(db, "notes"), {
+          ...noteData,
+          slug: makeSlug(noteTitle),
+          createdAt: serverTimestamp(),
+        });
+
+        toast.success("Note published successfully!");
+      }
+
+      resetNoteForm();
+      await loadNotes();
+    } catch (e: any) {
+      toast.error(e.message || "Failed to save note");
+    } finally {
+      setNoteSaving(false);
+    }
+  };
+
+  const editNote = (note: any) => {
+    setEditingNoteId(note.id);
+    setNoteTitle(note.title || "");
+    setNoteCategory(note.category || "Nursing Guidelines");
+    setNoteDescription(note.description || "");
+    setNoteContent(note.content || "");
+    setNoteTags(
+      Array.isArray(note.tags) ? note.tags.join(", ") : ""
+    );
+    setNoteSource(note.source || "");
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  const resetNoteForm = () => {
+    setEditingNoteId(null);
+    setNoteTitle("");
+    setNoteCategory("Nursing Guidelines");
+    setNoteDescription("");
+    setNoteContent("");
+    setNoteTags("");
+    setNoteSource("");
+  };
+
+  const removeNote = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this note?")) {
+      return;
+    }
+
+    try {
+      await deleteDoc(doc(db, "notes", id));
+
+      toast.success("Note deleted");
+      await loadNotes();
+
+      if (editingNoteId === id) {
+        resetNoteForm();
+      }
+    } catch (e: any) {
+      toast.error(e.message || "Failed to delete note");
+    }
+  };
+
+  /* ================= LOGIN ================= */
+
+  const login = async () => {
+    if (!password) {
+      toast.error("Enter your password");
+      return;
+    }
+
+    try {
+      const credential = await signInWithEmailAndPassword(
+        auth,
+        ADMIN_EMAIL,
+        password
+      );
+
+      if (
+        credential.user.email?.toLowerCase() !==
+        ADMIN_EMAIL.toLowerCase()
+      ) {
+        await signOut(auth);
+        toast.error("This account is not authorized.");
+        return;
+      }
+
+      toast.success("Login successful!");
+      setPassword("");
+    } catch {
+      toast.error("Invalid email or password");
+    }
+  };
+
+  const logout = async () => {
+    await signOut(auth);
+    toast.success("Logged out");
+  };
+
+  /* ================= LOADING ================= */
 
   if (loading) {
     return (
@@ -223,7 +375,8 @@ export default function AdminPage() {
     );
   }
 
-  /* LOGIN */
+  /* ================= LOGIN ================= */
+
   if (!user) {
     return (
       <div
@@ -251,7 +404,7 @@ export default function AdminPage() {
               className="mt-3 text-sm leading-6"
               style={{ color: "var(--fg-soft)" }}
             >
-              Sign in to manage nursing MCQ PDF resources.
+              Sign in to manage nursing MCQ PDFs and notes.
             </p>
           </div>
 
@@ -336,7 +489,8 @@ export default function AdminPage() {
     );
   }
 
-  /* ADMIN DASHBOARD */
+  /* ================= DASHBOARD ================= */
+
   return (
     <div
       className="min-h-screen"
@@ -366,7 +520,7 @@ export default function AdminPage() {
               className="text-sm mt-1"
               style={{ color: "var(--fg-soft)" }}
             >
-              Manage your nursing MCQ PDF library.
+              Manage your nursing resources.
             </p>
           </div>
 
@@ -385,7 +539,7 @@ export default function AdminPage() {
         </div>
 
         {/* STATS */}
-        <div className="grid grid-cols-2 gap-4 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-10">
 
           <div
             className="rounded-2xl border p-5"
@@ -417,6 +571,25 @@ export default function AdminPage() {
               className="text-xs font-semibold uppercase tracking-wider"
               style={{ color: "var(--fg-soft)" }}
             >
+              Total Notes
+            </p>
+
+            <p className="text-3xl font-black mt-2">
+              {notes.length}
+            </p>
+          </div>
+
+          <div
+            className="rounded-2xl border p-5 col-span-2 md:col-span-1"
+            style={{
+              borderColor: "var(--border)",
+              background: "var(--bg-soft)",
+            }}
+          >
+            <p
+              className="text-xs font-semibold uppercase tracking-wider"
+              style={{ color: "var(--fg-soft)" }}
+            >
               Admin
             </p>
 
@@ -430,7 +603,8 @@ export default function AdminPage() {
 
         </div>
 
-        {/* UPLOAD */}
+        {/* ================= NOTE FORM ================= */}
+
         <section
           className="rounded-2xl border p-6 sm:p-8 mb-10"
           style={{
@@ -438,6 +612,281 @@ export default function AdminPage() {
             background: "var(--bg-soft)",
           }}
         >
+
+          <div className="mb-6">
+            <p
+              className="text-xs font-bold uppercase tracking-[0.18em] mb-2"
+              style={{ color: "var(--accent)" }}
+            >
+              {editingNoteId ? "Edit Note" : "Add Note"}
+            </p>
+
+            <h2 className="text-xl md:text-2xl font-black">
+              {editingNoteId
+                ? "Edit nursing note"
+                : "Publish a nursing note"}
+            </h2>
+
+            <p
+              className="text-sm mt-2"
+              style={{ color: "var(--fg-soft)" }}
+            >
+              Add formatted HTML content for nursing notes and guideline
+              updates.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+
+            <input
+              className="w-full rounded-xl border px-4 py-3 outline-none text-sm"
+              style={{
+                borderColor: "var(--border)",
+                background: "var(--bg)",
+                color: "var(--fg)",
+              }}
+              placeholder="Note Title"
+              value={noteTitle}
+              onChange={(e) => setNoteTitle(e.target.value)}
+            />
+
+            <input
+              className="w-full rounded-xl border px-4 py-3 outline-none text-sm"
+              style={{
+                borderColor: "var(--border)",
+                background: "var(--bg)",
+                color: "var(--fg)",
+              }}
+              placeholder="Category (e.g. Nursing Guidelines, MSN, OBG)"
+              value={noteCategory}
+              onChange={(e) => setNoteCategory(e.target.value)}
+            />
+
+            <textarea
+              className="w-full rounded-xl border px-4 py-3 outline-none text-sm resize-none"
+              style={{
+                borderColor: "var(--border)",
+                background: "var(--bg)",
+                color: "var(--fg)",
+              }}
+              placeholder="Short description"
+              rows={3}
+              value={noteDescription}
+              onChange={(e) => setNoteDescription(e.target.value)}
+            />
+
+            <textarea
+              className="w-full rounded-xl border px-4 py-3 outline-none text-sm resize-y font-mono"
+              style={{
+                borderColor: "var(--border)",
+                background: "var(--bg)",
+                color: "var(--fg)",
+              }}
+              placeholder="<h2>Heading</h2><p>Your nursing note...</p>"
+              rows={14}
+              value={noteContent}
+              onChange={(e) => setNoteContent(e.target.value)}
+            />
+
+            <input
+              className="w-full rounded-xl border px-4 py-3 outline-none text-sm"
+              style={{
+                borderColor: "var(--border)",
+                background: "var(--bg)",
+                color: "var(--fg)",
+              }}
+              placeholder="Tags (e.g. nursing, guidelines, revision)"
+              value={noteTags}
+              onChange={(e) => setNoteTags(e.target.value)}
+            />
+
+            <input
+              className="w-full rounded-xl border px-4 py-3 outline-none text-sm"
+              style={{
+                borderColor: "var(--border)",
+                background: "var(--bg)",
+                color: "var(--fg)",
+              }}
+              placeholder="Source / Reference"
+              value={noteSource}
+              onChange={(e) => setNoteSource(e.target.value)}
+            />
+
+            <div className="flex flex-col sm:flex-row gap-3">
+
+              <button
+                onClick={saveNote}
+                disabled={noteSaving}
+                className="flex-1 rounded-xl py-3 font-semibold text-sm transition-opacity hover:opacity-90 disabled:opacity-50"
+                style={{
+                  background: "var(--accent)",
+                  color: "white",
+                }}
+              >
+                {noteSaving
+                  ? "Saving..."
+                  : editingNoteId
+                  ? "Update Note"
+                  : "Publish Note"}
+              </button>
+
+              {editingNoteId && (
+                <button
+                  onClick={resetNoteForm}
+                  className="rounded-xl border px-5 py-3 text-sm font-semibold transition-opacity hover:opacity-70"
+                  style={{
+                    borderColor: "var(--border)",
+                    color: "var(--fg)",
+                    background: "var(--bg)",
+                  }}
+                >
+                  Cancel Edit
+                </button>
+              )}
+
+            </div>
+
+          </div>
+        </section>
+
+        {/* ================= NOTES LIBRARY ================= */}
+
+        <section className="mb-12">
+
+          <div className="flex items-end justify-between gap-4 mb-5">
+
+            <div>
+              <p
+                className="text-xs font-bold uppercase tracking-[0.18em] mb-2"
+                style={{ color: "var(--accent)" }}
+              >
+                Notes Library
+              </p>
+
+              <h2 className="text-xl md:text-2xl font-black">
+                Nursing Notes
+              </h2>
+            </div>
+
+            <span
+              className="text-sm font-semibold"
+              style={{ color: "var(--fg-soft)" }}
+            >
+              {notes.length} total
+            </span>
+
+          </div>
+
+          {notes.length === 0 ? (
+            <div
+              className="rounded-2xl border p-10 text-center"
+              style={{ borderColor: "var(--border)" }}
+            >
+              <p className="font-semibold">
+                No notes yet.
+              </p>
+
+              <p
+                className="text-sm mt-2"
+                style={{ color: "var(--fg-soft)" }}
+              >
+                Publish your first nursing note above.
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-3">
+
+              {notes.map((note) => (
+                <div
+                  key={note.id}
+                  className="rounded-2xl border p-4 sm:p-5"
+                  style={{
+                    borderColor: "var(--border)",
+                    background: "var(--bg-soft)",
+                  }}
+                >
+
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+
+                    <div className="min-w-0">
+
+                      <h3 className="font-bold">
+                        {note.title}
+                      </h3>
+
+                      <div
+                        className="flex flex-wrap gap-x-3 gap-y-1 mt-1 text-xs"
+                        style={{ color: "var(--fg-soft)" }}
+                      >
+                        <span>{note.category}</span>
+
+                        {note.date && (
+                          <span>
+                            {new Date(note.date).toLocaleDateString(
+                              "en-IN"
+                            )}
+                          </span>
+                        )}
+                      </div>
+
+                      {note.description && (
+                        <p
+                          className="text-sm mt-2 line-clamp-2"
+                          style={{ color: "var(--fg-soft)" }}
+                        >
+                          {note.description}
+                        </p>
+                      )}
+
+                    </div>
+
+                    <div className="flex gap-2 shrink-0">
+
+                      <button
+                        onClick={() => editNote(note)}
+                        className="rounded-xl px-4 py-2 text-sm font-semibold transition-opacity hover:opacity-80"
+                        style={{
+                          background: "var(--accent)",
+                          color: "white",
+                        }}
+                      >
+                        Edit
+                      </button>
+
+                      <button
+                        onClick={() => removeNote(note.id)}
+                        className="rounded-xl border px-4 py-2 text-sm font-semibold transition-opacity hover:opacity-70"
+                        style={{
+                          borderColor: "var(--border)",
+                          color: "var(--fg)",
+                          background: "var(--bg)",
+                        }}
+                      >
+                        Delete
+                      </button>
+
+                    </div>
+
+                  </div>
+
+                </div>
+              ))}
+
+            </div>
+          )}
+
+        </section>
+
+        {/* ================= PDF FORM ================= */}
+
+        <section
+          className="rounded-2xl border p-6 sm:p-8 mb-10"
+          style={{
+            borderColor: "var(--border)",
+            background: "var(--bg-soft)",
+          }}
+        >
+
           <div className="mb-6">
             <p
               className="text-xs font-bold uppercase tracking-[0.18em] mb-2"
@@ -522,7 +971,7 @@ export default function AdminPage() {
             />
 
             <button
-              onClick={upload}
+              onClick={uploadPdf}
               disabled={uploading}
               className="w-full rounded-xl py-3 font-semibold text-sm transition-opacity hover:opacity-90 disabled:opacity-50"
               style={{
@@ -536,7 +985,8 @@ export default function AdminPage() {
           </div>
         </section>
 
-        {/* PDF LIBRARY */}
+        {/* ================= PDF LIBRARY ================= */}
+
         <section>
 
           <div className="flex items-end justify-between gap-4 mb-5">
