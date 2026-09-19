@@ -21,17 +21,29 @@ type Question = {
 
 const optionLetters = ["A", "B", "C", "D"] as const;
 
+const getSectionNumber = (questionNumber: number) => {
+  return Math.floor((questionNumber - 1) / 100) + 1;
+};
+
+const getSectionLabel = (sectionNumber: number) => {
+  return `C-${String(sectionNumber).padStart(2, "0")}`;
+};
+
 export default function Norcet11Page() {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
+
   const [selectedAnswers, setSelectedAnswers] = useState<
     Record<string, string>
   >({});
+
   const [submittedAnswers, setSubmittedAnswers] = useState<
     Record<string, boolean>
   >({});
+
   const [subject, setSubject] = useState("All Subjects");
+  const [selectedSection, setSelectedSection] = useState(1);
 
   useEffect(() => {
     const loadQuestions = async () => {
@@ -59,27 +71,60 @@ export default function Norcet11Page() {
     loadQuestions();
   }, []);
 
+  /*
+   * Sections are generated automatically from questionNumber.
+   *
+   * 1-100   = C-01
+   * 101-200 = C-02
+   * 201-300 = C-03
+   * etc.
+   *
+   * Only sections containing at least one question are displayed.
+   */
+  const sections = useMemo(() => {
+    const uniqueSections = Array.from(
+      new Set(
+        questions.map((q) => getSectionNumber(q.questionNumber))
+      )
+    ).sort((a, b) => a - b);
+
+    return uniqueSections;
+  }, [questions]);
+
+  const sectionQuestions = useMemo(() => {
+    return questions.filter(
+      (q) => getSectionNumber(q.questionNumber) === selectedSection
+    );
+  }, [questions, selectedSection]);
+
   const subjects = useMemo(() => {
     const uniqueSubjects = Array.from(
       new Set(
-        questions
+        sectionQuestions
           .map((q) => q.subject)
           .filter((value): value is string => Boolean(value))
       )
     );
 
     return ["All Subjects", ...uniqueSubjects];
-  }, [questions]);
+  }, [sectionQuestions]);
 
   const filteredQuestions = useMemo(() => {
-    if (subject === "All Subjects") return questions;
+    if (subject === "All Subjects") return sectionQuestions;
 
-    return questions.filter((q) => q.subject === subject);
-  }, [questions, subject]);
+    return sectionQuestions.filter((q) => q.subject === subject);
+  }, [sectionQuestions, subject]);
 
   useEffect(() => {
     setCurrentIndex(0);
-  }, [subject]);
+    setSubject("All Subjects");
+  }, [selectedSection]);
+
+  useEffect(() => {
+    if (sections.length > 0 && !sections.includes(selectedSection)) {
+      setSelectedSection(sections[0]);
+    }
+  }, [sections, selectedSection]);
 
   const currentQuestion = filteredQuestions[currentIndex];
 
@@ -103,7 +148,7 @@ export default function Norcet11Page() {
   };
 
   const selectAnswer = (letter: string) => {
-    if (!currentQuestion) return;
+    if (!currentQuestion || answerSubmitted) return;
 
     setSelectedAnswers((prev) => ({
       ...prev,
@@ -131,9 +176,9 @@ export default function Norcet11Page() {
   };
 
   const subjectCount = (name: string) => {
-    if (name === "All Subjects") return questions.length;
+    if (name === "All Subjects") return sectionQuestions.length;
 
-    return questions.filter((q) => q.subject === name).length;
+    return sectionQuestions.filter((q) => q.subject === name).length;
   };
 
   return (
@@ -187,6 +232,8 @@ export default function Norcet11Page() {
 
             <div className="flex flex-wrap gap-3 mt-7">
 
+              {/* QUESTIONS */}
+
               <div
                 className="rounded-xl border px-4 py-3"
                 style={{
@@ -202,9 +249,11 @@ export default function Norcet11Page() {
                 </p>
 
                 <p className="text-xl font-black mt-1">
-                  {questions.length}
+                  {sectionQuestions.length}
                 </p>
               </div>
+
+              {/* SUBJECTS */}
 
               <div
                 className="rounded-xl border px-4 py-3"
@@ -225,6 +274,8 @@ export default function Norcet11Page() {
                 </p>
               </div>
 
+              {/* MODE / SECTION */}
+
               <div
                 className="rounded-xl border px-4 py-3"
                 style={{
@@ -239,9 +290,33 @@ export default function Norcet11Page() {
                   Mode
                 </p>
 
-                <p className="text-sm font-black mt-2">
-                  Practice
-                </p>
+                <select
+                  value={selectedSection}
+                  onChange={(e) =>
+                    setSelectedSection(Number(e.target.value))
+                  }
+                  disabled={sections.length === 0}
+                  aria-label="Select question section"
+                  className="mt-1 h-8 min-w-[88px] rounded-lg border px-2 text-sm font-black outline-none cursor-pointer disabled:opacity-50"
+                  style={{
+                    borderColor: "var(--border)",
+                    background: "var(--bg-soft)",
+                    color: "var(--accent)",
+                  }}
+                >
+                  {sections.length === 0 ? (
+                    <option value={1}>C-01</option>
+                  ) : (
+                    sections.map((sectionNumber) => (
+                      <option
+                        key={sectionNumber}
+                        value={sectionNumber}
+                      >
+                        {getSectionLabel(sectionNumber)}
+                      </option>
+                    ))
+                  )}
+                </select>
               </div>
 
             </div>
@@ -526,7 +601,8 @@ export default function Norcet11Page() {
                         key={letter}
                         type="button"
                         onClick={() => selectAnswer(letter)}
-                        className="w-full text-left rounded-2xl border px-5 py-4 transition-all"
+                        disabled={answerSubmitted}
+                        className="w-full text-left rounded-2xl border px-5 py-4 transition-all disabled:cursor-default"
                         style={{
                           borderColor,
                           background,
