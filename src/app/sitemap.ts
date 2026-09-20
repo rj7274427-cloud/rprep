@@ -31,6 +31,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "daily",
       priority: 0.95,
     },
+
+    // NORCET 11 Practice Sections
+    {
+      url: `${BASE_URL}/norcet-11/practice/section-01`,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/norcet-11/practice/section-02`,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/norcet-11/practice/section-03`,
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/norcet-11/practice/section-04`,
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
+
+    // Information pages
     {
       url: `${BASE_URL}/about`,
       changeFrequency: "monthly",

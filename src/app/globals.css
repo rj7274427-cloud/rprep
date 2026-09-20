@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* =========================================================
+   RPREP DESIGN SYSTEM
+   ========================================================= */
+
 :root {
   --bg: #faf9f7;
   --bg-soft: #ffffff;
@@ -7,6 +11,7 @@
   --fg-soft: #57534e;
   --fg-muted: #6b625c;
   --border: #ebe9e6;
+
   --accent: #c2410c;
   --accent-hover: #9a3412;
   --accent-bg: #fff7ed;
@@ -19,57 +24,142 @@
   --fg-soft: #d6d3d1;
   --fg-muted: #78716c;
   --border: #292524;
+
   --accent: #fb923c;
   --accent-hover: #f97316;
   --accent-bg: #2a1a0f;
 }
 
-/* Base reset — do NOT reset padding/margin globally */
+/* =========================================================
+   BASE
+   ========================================================= */
+
 * {
   box-sizing: border-box;
 }
 
-html,
-body {
+html {
   max-width: 100%;
-  overflow-x: hidden;
   background: var(--bg);
   color: var(--fg);
   scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+
+  background: var(--bg);
+  color: var(--fg);
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Inter",
+    system-ui,
+    sans-serif;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-feature-settings: "cv11", "ss01";
+
+  font-feature-settings:
+    "cv11",
+    "ss01";
 }
 
-/* Buttons */
+/* Prevent accidental horizontal overflow from long content */
+img,
+svg,
+video,
+canvas,
+iframe {
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+::selection {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Keyboard-only skip-link support if added later */
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 9999;
+  padding: 0.75rem 1rem;
+  background: var(--fg);
+  color: var(--bg);
+  transform: translateY(-150%);
+  transition: transform 0.2s ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
 .btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+
   padding: 0.875rem 1.5rem;
-  border-radius: 0.75rem;
-  font-size: 0.875rem;
-  font-weight: 600;
+
+  border: 2px solid var(--fg);
+
   background: var(--accent);
-  color: #fff;
+  color: #ffffff;
+
+  font-size: 0.875rem;
+  font-weight: 800;
   text-decoration: none;
-  transition: all 0.2s ease;
-  box-shadow:
-    0 1px 2px rgba(234, 88, 12, 0.15),
-    0 4px 12px -2px rgba(234, 88, 12, 0.15);
+
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    opacity 0.2s ease;
+
+  box-shadow: 3px 3px 0 var(--fg);
 }
 
 .btn-primary:hover {
   background: var(--accent-hover);
-  transform: translateY(-1px);
-  box-shadow:
-    0 1px 2px rgba(234, 88, 12, 0.2),
-    0 8px 20px -4px rgba(234, 88, 12, 0.25);
+  transform: translate(-1px, -1px);
+}
+
+.btn-primary:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--fg);
 }
 
 .btn-secondary {
@@ -77,92 +167,126 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+
   padding: 0.875rem 1.5rem;
-  border-radius: 0.75rem;
-  font-size: 0.875rem;
-  font-weight: 600;
+
+  border: 2px solid var(--fg);
+
   background: var(--bg-soft);
   color: var(--fg);
+
+  font-size: 0.875rem;
+  font-weight: 800;
   text-decoration: none;
-  border: 1px solid var(--border);
-  transition: all 0.2s ease;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .btn-secondary:hover {
-  border-color: var(--fg-muted);
-  transform: translateY(-1px);
+  transform: translate(-1px, -1px);
+  opacity: 0.75;
 }
 
-/* Cards */
+/* =========================================================
+   CARDS
+   ========================================================= */
+
 .card {
   background: var(--bg-soft);
   border: 1px solid var(--border);
-  border-radius: 1rem;
-  transition: all 0.25s ease;
+  border-radius: 0;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .card:hover {
-  border-color: var(--accent);
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px -12px rgba(234, 88, 12, 0.2);
+  border-color: var(--fg-muted);
+  transform: translateY(-2px);
 }
 
-/* Category chip */
+/* =========================================================
+   CHIPS
+   ========================================================= */
+
 .chip {
   display: inline-flex;
   align-items: center;
+
   padding: 0.4rem 0.9rem;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  background: var(--bg-soft);
+
   border: 1px solid var(--border);
+  border-radius: 999px;
+
+  background: var(--bg-soft);
   color: var(--fg-soft);
+
+  font-size: 0.75rem;
+  font-weight: 700;
+
   white-space: nowrap;
-  transition: all 0.15s ease;
+
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease,
+    background-color 0.15s ease;
 }
 
 .chip:hover {
   border-color: var(--fg-muted);
+  color: var(--fg);
 }
 
 .chip-active {
   background: var(--accent);
-  color: #fff;
+  color: #ffffff;
   border-color: var(--accent);
 }
 
 .chip-active:hover {
+  background: var(--accent-hover);
   border-color: var(--accent-hover);
 }
 
-/* Badge */
+/* =========================================================
+   BADGES
+   ========================================================= */
+
 .badge {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+
   padding: 0.35rem 0.75rem;
-  border-radius: 999px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  background: var(--bg-soft);
+
   border: 1px solid var(--border);
+  border-radius: 999px;
+
+  background: var(--bg-soft);
   color: var(--fg-soft);
+
+  font-size: 0.7rem;
+  font-weight: 700;
 }
 
-/* Scrollbar */
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--bg);
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--border);
-  border-radius: 3px;
+  border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -178,7 +302,10 @@ body {
   scrollbar-width: none;
 }
 
-/* Line clamp */
+/* =========================================================
+   LINE CLAMP
+   ========================================================= */
+
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -186,7 +313,10 @@ body {
   overflow: hidden;
 }
 
-/* Animation */
+/* =========================================================
+   ANIMATION
+   ========================================================= */
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -203,7 +333,10 @@ body {
   animation: fadeIn 0.5s ease-out;
 }
 
-/* Section rhythm */
+/* =========================================================
+   SECTION RHYTHM
+   ========================================================= */
+
 .section {
   padding: 4rem 0;
 }
@@ -214,37 +347,36 @@ body {
   }
 }
 
-/* Mobile safety */
-@media (max-width: 639px) {
-  html,
-  body {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
+/* =========================================================
+   NURSING NOTES CONTENT
+   ========================================================= */
 
-  img,
-  svg,
-  video {
-    max-width: 100%;
-  }
-}
-
-/* Nursing Notes Content */
 .note-content {
+  width: 100%;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+
   font-size: 1rem;
   line-height: 1.8;
+  color: var(--fg-soft);
 }
 
 .note-content h1,
 .note-content h2,
 .note-content h3,
-.note-content h4 {
+.note-content h4,
+.note-content h5,
+.note-content h6 {
   color: var(--fg);
   font-weight: 800;
   line-height: 1.3;
+
   margin-top: 2rem;
   margin-bottom: 0.8rem;
+}
+
+.note-content h1 {
+  font-size: 2rem;
 }
 
 .note-content h2 {
@@ -253,6 +385,10 @@ body {
 
 .note-content h3 {
   font-size: 1.3rem;
+}
+
+.note-content h4 {
+  font-size: 1.1rem;
 }
 
 .note-content p {
@@ -270,29 +406,88 @@ body {
   margin-bottom: 0.5rem;
 }
 
-.note-content strong {
+.note-content strong,
+.note-content b {
   color: var(--fg);
-  font-weight: 700;
+  font-weight: 800;
+}
+
+.note-content em,
+.note-content i {
+  color: var(--fg-soft);
 }
 
 .note-content a {
   color: var(--accent);
   text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.note-content a:hover {
+  color: var(--accent-hover);
 }
 
 .note-content blockquote {
-  border-left: 3px solid var(--accent);
-  padding-left: 1rem;
   margin: 1.5rem 0;
+
+  border-left: 3px solid var(--accent);
+  padding: 0.25rem 0 0.25rem 1rem;
+
   color: var(--fg-soft);
 }
 
+.note-content hr {
+  margin: 2rem 0;
+  border: 0;
+  border-top: 1px solid var(--border);
+}
+
+.note-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.5rem auto;
+}
+
+.note-content pre {
+  max-width: 100%;
+  overflow-x: auto;
+
+  margin: 1.5rem 0;
+  padding: 1rem;
+
+  background: var(--fg);
+  color: var(--bg);
+
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.note-content code {
+  overflow-wrap: anywhere;
+}
+
+.note-content :not(pre) > code {
+  padding: 0.15rem 0.35rem;
+
+  background: var(--accent-bg);
+  color: var(--accent);
+
+  font-size: 0.9em;
+}
+
+/* Tables remain usable on small screens */
 .note-content table {
   width: 100%;
+  min-width: 600px;
+
   border-collapse: collapse;
+
   margin: 1.5rem 0;
-  display: block;
-  overflow-x: auto;
+}
+
+.note-content table {
+  display: table;
 }
 
 .note-content th,
@@ -300,10 +495,184 @@ body {
   border: 1px solid var(--border);
   padding: 0.7rem;
   text-align: left;
+  vertical-align: top;
 }
 
 .note-content th {
   background: var(--bg);
   color: var(--fg);
-  font-weight: 700;
+  font-weight: 800;
+}
+
+/* Wrapper-style horizontal scrolling when supported */
+.note-content .table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* =========================================================
+   MOBILE SAFETY
+   ========================================================= */
+
+@media (max-width: 767px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .note-content {
+    font-size: 0.95rem;
+    line-height: 1.75;
+  }
+
+  .note-content h1 {
+    font-size: 1.75rem;
+  }
+
+  .note-content h2 {
+    font-size: 1.4rem;
+  }
+
+  .note-content h3 {
+    font-size: 1.2rem;
+  }
+
+  .note-content pre {
+    font-size: 0.8rem;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Mobile-safe tables inside nursing notes */
+.notes-content table {
+  width: 100% !important;
+  max-width: 100% !important;
+  table-layout: fixed !important;
+  border-collapse: collapse;
+}
+
+.notes-content th,
+.notes-content td {
+  max-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: normal !important;
+}
+
+@media (max-width: 640px) {
+  .notes-content table {
+    font-size: 0.82rem;
+  }
+
+  .notes-content th,
+  .notes-content td {
+    padding: 0.65rem 0.55rem !important;
+  }
+
+  .notes-content th:first-child,
+  .notes-content td:first-child {
+    width: 42%;
+  }
+
+  .notes-content th:last-child,
+  .notes-content td:last-child {
+    width: 58%;
+  }
+}
+
+
+/* =========================================================
+   NOTE CONTENT — MOBILE TABLE FIX
+   ========================================================= */
+
+.note-content {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
+}
+
+.note-content table {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 1.5rem 0;
+  border-collapse: collapse;
+  table-layout: fixed !important;
+}
+
+.note-content th,
+.note-content td {
+  max-width: 0;
+  min-width: 0;
+  padding: 0.75rem 0.65rem;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+  white-space: normal !important;
+}
+
+@media (max-width: 640px) {
+  .note-content table {
+    display: table;
+    width: 100% !important;
+    max-width: 100% !important;
+    table-layout: fixed !important;
+    font-size: 0.82rem;
+  }
+
+  .note-content th,
+  .note-content td {
+    padding: 0.6rem 0.45rem !important;
+    font-size: 0.78rem;
+    line-height: 1.45;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+    white-space: normal !important;
+  }
+
+  .note-content th:first-child,
+  .note-content td:first-child {
+    width: 42% !important;
+  }
+
+  .note-content th:last-child,
+  .note-content td:last-child {
+    width: 58% !important;
+  }
+}
+
+/* Prevent other long note elements from creating page overflow */
+.note-content img,
+.note-content iframe,
+.note-content pre {
+  max-width: 100% !important;
+}
+
+.note-content pre {
+  overflow-x: auto;
+}
+
+.note-content code {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }

@@ -1,4 +1,5 @@
 export const dynamic = "force-dynamic";
+
 import Link from "next/link";
 import { db } from "@/lib/firebase";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
@@ -17,39 +18,6 @@ async function getAllPdfs() {
   }
 }
 
-const features = [
-  {
-    title: "Exam-Focused MCQs",
-    desc: "Practice nursing MCQs designed around the RRB Nursing Superintendent examination.",
-    icon: (
-      <>
-        <circle cx="12" cy="12" r="9" />
-        <path d="M12 7v5l3 2" />
-      </>
-    ),
-  },
-  {
-    title: "Subject-Wise Practice",
-    desc: "Revise important nursing subjects with organized MCQ PDFs and study resources.",
-    icon: (
-      <>
-        <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 0 4 22V5.5Z" />
-        <path d="M4 5.5V18a2 2 0 0 0 2 2" />
-      </>
-    ),
-  },
-  {
-    title: "Quick Revision",
-    desc: "Use concise practice material to revise important concepts before your examination.",
-    icon: (
-      <>
-        <path d="M12 3v18" />
-        <path d="M17 8c0-2.2-2.2-4-5-4S7 5.8 7 8s2.2 4 5 4 5 1.8 5 4-2.2 4-5 4-5-1.8-5-4" />
-      </>
-    ),
-  },
-];
-
 const subjects = [
   "Fundamentals of Nursing",
   "Medical-Surgical Nursing",
@@ -57,6 +25,33 @@ const subjects = [
   "Child Health Nursing",
   "Obstetric & Gynecological Nursing",
   "Mental Health Nursing",
+];
+
+const features = [
+  {
+    number: "01",
+    title: "MCQ PRACTICE",
+    desc: "Practice nursing questions designed around competitive nursing examinations.",
+    href: "/norcet-11",
+  },
+  {
+    number: "02",
+    title: "STUDY NOTES",
+    desc: "Revise high-yield nursing concepts with concise, exam-oriented notes.",
+    href: "/notes",
+  },
+  {
+    number: "03",
+    title: "NORCET 11",
+    desc: "Practice Mains-level nursing MCQs section by section.",
+    href: "/norcet-11",
+  },
+  {
+    number: "04",
+    title: "MCQ PDFs",
+    desc: "Access downloadable nursing MCQ resources for focused revision.",
+    href: "/pdfs",
+  },
 ];
 
 export default async function Home() {
@@ -69,438 +64,697 @@ export default async function Home() {
   return (
     <div
       className="min-h-screen overflow-x-hidden"
-      style={{ background: "var(--bg)" }}
+      style={{ background: "var(--bg)", color: "var(--fg)" }}
     >
       <main>
-        {/* HERO */}
-        <section className="max-w-5xl mx-auto px-5 pt-14 pb-16 md:pt-24 md:pb-24">
-          <div className="max-w-3xl fade-in">
-            <div className="badge mb-6">
-              <span
-                className="w-1.5 h-1.5 rounded-full"
-                style={{ background: "var(--accent)" }}
-              />
-              RRB Nursing Superintendent Preparation
-            </div>
 
-            <h1
-              className="text-[2.35rem] sm:text-5xl md:text-6xl font-black tracking-tight leading-[1.05] mb-6"
-              style={{ color: "var(--fg)" }}
-            >
-              Prepare for RRB Nursing Superintendent
-              <span style={{ color: "var(--accent)" }}> with confidence.</span>
-            </h1>
+        {/* =========================================================
+            HERO
+        ========================================================= */}
+        <section className="relative border-b overflow-hidden">
+          <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-10 pb-16 md:pt-16 md:pb-24">
 
-            <p
-              className="text-[15px] sm:text-base md:text-lg leading-relaxed max-w-2xl mb-8"
-              style={{ color: "var(--fg-soft)" }}
-            >
-              Practice exam-focused nursing MCQs, revise important concepts,
-              and access free PDF resources designed for RRB Nursing
-              Superintendent aspirants.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-3">
-              <a href="#pdfs" className="btn-primary">
-                Explore MCQ PDFs
-                <svg
-                  className="w-4 h-4"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </a>
-
-              <a href="#subjects" className="btn-secondary">
-                Explore Subjects
-              </a>
-            </div>
-          </div>
-        </section>
-
-        {/* STATS */}
-        <section
-          className="border-y"
-          style={{
-            borderColor: "var(--border)",
-            background: "var(--bg-soft)",
-          }}
-        >
-          <div className="max-w-5xl mx-auto px-5">
-            <div className="grid grid-cols-3">
-              {[
-                { n: pdfs.length, l: "MCQ PDFs" },
-                { n: categories.length, l: "Categories" },
-                { n: "100%", l: "Free" },
-              ].map((stat, index) => (
-                <div
-                  key={stat.l}
-                  className="py-6 md:py-8 text-center px-1"
-                  style={{
-                    borderLeft:
-                      index > 0 ? "1px solid var(--border)" : "none",
-                  }}
-                >
-                  <div
-                    className="text-xl sm:text-3xl md:text-4xl font-black mb-1 tabular-nums"
-                    style={{ color: "var(--accent)" }}
-                  >
-                    {stat.n}
-                  </div>
-
-                  <div
-                    className="text-[9px] sm:text-[10px] md:text-xs uppercase tracking-[0.12em] sm:tracking-[0.15em] font-semibold"
-                    style={{ color: "var(--fg-muted)" }}
-                  >
-                    {stat.l}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* PDF LIBRARY */}
-        <section
-          id="pdfs"
-          className="max-w-5xl mx-auto px-5 py-16 md:py-24"
-        >
-          <div className="mb-8">
-            <p
-              className="text-xs font-bold uppercase tracking-[0.15em] mb-2"
-              style={{ color: "var(--accent)" }}
-            >
-              Study Resources
-            </p>
-
-            <h2
-              className="text-2xl md:text-3xl font-black mb-2 tracking-tight"
-              style={{ color: "var(--fg)" }}
-            >
-              Nursing MCQ Library
-            </h2>
-
-            <p
-              className="text-sm md:text-base"
-              style={{ color: "var(--fg-soft)" }}
-            >
-              Practice topic-wise and subject-wise MCQs for your RRB Nursing
-              Superintendent preparation.
-            </p>
-          </div>
-
-          {categories.length > 0 && (
-            <div className="flex gap-2 overflow-x-auto pb-3 mb-6 -mx-5 px-5 scrollbar-hide">
-              <span className="chip chip-active">All</span>
-
-              {categories.map((category) => (
-                <span key={category} className="chip">
-                  {category}
-                </span>
-              ))}
-            </div>
-          )}
-
-          {pdfs.length === 0 ? (
-            <div
-              className="rounded-2xl border-2 border-dashed p-8 md:p-16 text-center"
-              style={{ borderColor: "var(--border)" }}
-            >
+            {/* Top label */}
+            <div className="mb-10 md:mb-14 flex items-center justify-between gap-4">
               <div
-                className="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center"
-                style={{ background: "var(--accent-bg)" }}
+                className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[10px] sm:text-xs font-black uppercase tracking-[0.16em]"
+                style={{
+                  borderColor: "var(--fg)",
+                  color: "var(--fg)",
+                  background: "var(--bg)",
+                }}
               >
-                <svg
-                  className="w-8 h-8"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  style={{ color: "var(--accent)" }}
-                >
-                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-                </svg>
+                <span
+                  className="w-2 h-2 rounded-full"
+                  style={{ background: "var(--accent)" }}
+                />
+                RPrep Nursing
               </div>
 
-              <h3
-                className="font-bold text-lg mb-2"
-                style={{ color: "var(--fg)" }}
+              <div
+                className="hidden sm:block text-[10px] font-bold uppercase tracking-[0.18em]"
+                style={{ color: "var(--fg-muted)" }}
               >
-                No MCQ PDFs available yet
-              </h3>
+                Nursing Exam Preparation
+              </div>
+            </div>
+
+            {/* Main editorial hero */}
+            <div className="max-w-6xl">
 
               <p
-                className="text-sm max-w-md mx-auto"
-                style={{ color: "var(--fg-soft)" }}
-              >
-                New RRB Nursing Superintendent study resources will appear
-                here as they are added.
-              </p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {pdfs.map((pdf) => (
-                <Link
-                  key={pdf.id}
-                  href={`/pdfs/${pdf.slug}`}
-                  className="card group block p-5"
-                >
-                  <span
-                    className="inline-block px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider mb-3"
-                    style={{
-                      background: "var(--accent-bg)",
-                      color: "var(--accent)",
-                    }}
-                  >
-                    {pdf.category || "Nursing"}
-                  </span>
-
-                  <h3
-                    className="font-bold mb-2 line-clamp-2 leading-snug"
-                    style={{
-                      color: "var(--fg)",
-                      fontSize: "15px",
-                    }}
-                  >
-                    {pdf.title}
-                  </h3>
-
-                  <p
-                    className="text-xs line-clamp-2 mb-5"
-                    style={{ color: "var(--fg-soft)" }}
-                  >
-                    {pdf.description || "RRB Nursing Superintendent MCQ PDF"}
-                  </p>
-
-                  <div
-                    className="flex items-center justify-between text-[11px] pt-4 border-t"
-                    style={{
-                      color: "var(--fg-muted)",
-                      borderColor: "var(--border)",
-                    }}
-                  >
-                    <span>
-                      {pdf.date
-                        ? new Date(pdf.date).toLocaleDateString("en-IN", {
-                            day: "2-digit",
-                            month: "short",
-                          })
-                        : "Study Resource"}
-                    </span>
-
-                    <span className="font-semibold flex items-center gap-1">
-                      Open PDF
-                      <svg
-                        className="w-3 h-3"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                      </svg>
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          )}
-        </section>
-
-        {/* SUBJECTS */}
-        <section
-          id="subjects"
-          className="border-y"
-          style={{
-            borderColor: "var(--border)",
-            background: "var(--bg-soft)",
-          }}
-        >
-          <div className="max-w-5xl mx-auto px-5 py-16 md:py-24">
-            <div className="mb-10 text-center">
-              <p
-                className="text-xs font-bold uppercase tracking-[0.15em] mb-2"
+                className="text-xs sm:text-sm font-black uppercase tracking-[0.18em] mb-5"
                 style={{ color: "var(--accent)" }}
               >
-                Core Preparation
+                Nursing Officer Preparation
               </p>
 
-              <h2
-                className="text-2xl md:text-3xl font-black mb-2 tracking-tight"
-                style={{ color: "var(--fg)" }}
+              <h1
+                className="font-black uppercase tracking-[-0.055em] leading-[0.82]"
+                style={{
+                  fontSize: "clamp(4.2rem, 15vw, 11rem)",
+                  color: "var(--fg)",
+                }}
               >
-                Important Nursing Subjects
-              </h2>
+                CRACK
+                <br />
+                <span style={{ color: "var(--accent)" }}>NORCET.</span>
+              </h1>
 
-              <p
-                className="text-sm md:text-base max-w-2xl mx-auto"
-                style={{ color: "var(--fg-soft)" }}
-              >
-                Build a strong foundation across the major nursing subjects
-                relevant to competitive nursing examinations.
-              </p>
-            </div>
+              <div className="mt-8 md:mt-10 grid md:grid-cols-[1fr_auto] gap-8 items-end">
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-              {subjects.map((subject, index) => (
-                <div
-                  key={subject}
-                  className="card p-4 flex items-center gap-3"
-                >
-                  <span
-                    className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold shrink-0"
+                <div className="max-w-xl">
+                  <p
+                    className="text-base sm:text-lg md:text-xl leading-relaxed font-medium"
+                    style={{ color: "var(--fg-soft)" }}
+                  >
+                    Focused preparation for nursing competitive examinations
+                    with MCQs, high-yield notes, practice sets and revision
+                    resources.
+                  </p>
+                </div>
+
+                <div className="flex flex-col sm:flex-row md:flex-col gap-4 md:items-end">
+
+                  <Link
+                    href="/norcet-11"
+                    className="group inline-flex items-center justify-center gap-3 px-6 py-4 font-black text-sm uppercase tracking-wide border-2 transition-transform hover:-translate-y-1"
                     style={{
-                      background: "var(--accent-bg)",
-                      color: "var(--accent)",
+                      background: "var(--accent)",
+                      color: "#ffffff",
+                      borderColor: "var(--fg)",
+                      boxShadow: "6px 6px 0 var(--fg)",
                     }}
                   >
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
+                    Start Practice
+                    <span className="text-lg transition-transform group-hover:translate-x-1">
+                      →
+                    </span>
+                  </Link>
 
-                  <span
-                    className="text-sm font-semibold"
+                  <Link
+                    href="/notes"
+                    className="font-black text-sm uppercase tracking-wide underline underline-offset-4 decoration-2"
                     style={{ color: "var(--fg)" }}
                   >
-                    {subject}
-                  </span>
+                    Explore Notes →
+                  </Link>
+
                 </div>
-              ))}
+              </div>
+            </div>
+
+            {/* Decorative editorial mark */}
+            <div
+              className="hidden lg:block absolute right-[-55px] top-[220px] w-44 h-44 rounded-full border-[3px] rotate-12"
+              style={{ borderColor: "var(--accent)" }}
+            >
+              <div
+                className="absolute inset-5 rounded-full border"
+                style={{ borderColor: "var(--fg)" }}
+              />
+            </div>
+
+          </div>
+        </section>
+
+
+        {/* =========================================================
+            STATS
+        ========================================================= */}
+        <section
+          className="border-b"
+          style={{
+            borderColor: "var(--fg)",
+            background: "var(--accent)",
+            color: "#fff",
+          }}
+        >
+          <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4">
+
+            {[
+              { value: "1000+", label: "Practice MCQs" },
+              { value: pdfs.length, label: "MCQ PDFs" },
+              { value: subjects.length, label: "Core Subjects" },
+              { value: "24/7", label: "Practice Access" },
+            ].map((stat, index) => (
+              <div
+                key={stat.label}
+                className="px-5 py-8 md:py-10"
+                style={{
+                  borderRight:
+                    index < 3 ? "1px solid rgba(255,255,255,0.45)" : "none",
+                  borderBottom:
+                    index < 2 ? "1px solid rgba(255,255,255,0.45)" : "none",
+                }}
+              >
+                <div
+                  className="font-black tracking-tight leading-none mb-2"
+                  style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)" }}
+                >
+                  {stat.value}
+                </div>
+
+                <div className="text-[10px] sm:text-xs font-black uppercase tracking-[0.15em] opacity-90">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+
+          </div>
+        </section>
+
+
+        {/* =========================================================
+            INTRO / MANIFESTO STYLE
+        ========================================================= */}
+        <section className="border-b">
+          <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16 md:py-28">
+
+            <div className="grid md:grid-cols-[0.7fr_1.3fr] gap-10 md:gap-20">
+
+              <div>
+                <div
+                  className="text-xs font-black uppercase tracking-[0.18em]"
+                  style={{ color: "var(--accent)" }}
+                >
+                  THE RPREP APPROACH
+                </div>
+
+                <div
+                  className="mt-5 text-5xl md:text-7xl font-black tracking-tight"
+                  style={{ color: "var(--fg)" }}
+                >
+                  STUDY
+                  <br />
+                  SMART.
+                </div>
+              </div>
+
+              <div className="max-w-2xl">
+                <p
+                  className="text-2xl md:text-4xl font-black leading-tight tracking-tight"
+                  style={{ color: "var(--fg)" }}
+                >
+                  Preparation is not about studying everything at once.
+                  It is about practicing the right things consistently.
+                </p>
+
+                <p
+                  className="mt-7 text-sm md:text-base leading-relaxed max-w-xl"
+                  style={{ color: "var(--fg-soft)" }}
+                >
+                  RPrep Nursing brings together exam-focused MCQs, nursing
+                  notes, practice resources and downloadable PDFs in one
+                  simple preparation platform.
+                </p>
+              </div>
+
             </div>
           </div>
         </section>
 
-        {/* WHY RPREP */}
+
+        {/* =========================================================
+            WHAT YOU CAN PRACTICE
+        ========================================================= */}
+        <section className="border-b">
+          <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16 md:py-28">
+
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 md:mb-16">
+
+              <div>
+                <p
+                  className="text-xs font-black uppercase tracking-[0.18em] mb-3"
+                  style={{ color: "var(--accent)" }}
+                >
+                  What You Can Practice
+                </p>
+
+                <h2
+                  className="font-black uppercase tracking-[-0.04em] leading-none"
+                  style={{
+                    fontSize: "clamp(3rem, 8vw, 6.5rem)",
+                    color: "var(--fg)",
+                  }}
+                >
+                  PREPARE.
+                </h2>
+              </div>
+
+              <p
+                className="max-w-sm text-sm leading-relaxed"
+                style={{ color: "var(--fg-soft)" }}
+              >
+                Everything you need for focused nursing exam preparation,
+                organized in one place.
+              </p>
+
+            </div>
+
+
+            <div className="grid md:grid-cols-2 gap-4">
+
+              {features.map((feature, index) => (
+                <Link
+                  key={feature.number}
+                  href={feature.href}
+                  className="group block border-2 p-6 md:p-8 transition-all duration-200 hover:-translate-y-1"
+                  style={{
+                    borderColor: "var(--fg)",
+                    background:
+                      index === 0
+                        ? "var(--accent)"
+                        : "var(--bg-soft)",
+                    color: index === 0 ? "#fff" : "var(--fg)",
+                    boxShadow:
+                      index === 0 ? "7px 7px 0 var(--fg)" : "none",
+                  }}
+                >
+
+                  <div className="flex justify-between items-start gap-5">
+
+                    <span
+                      className="font-black text-sm tracking-wider"
+                      style={{
+                        color:
+                          index === 0 ? "#fff" : "var(--accent)",
+                      }}
+                    >
+                      {feature.number}
+                    </span>
+
+                    <span
+                      className="text-2xl transition-transform group-hover:translate-x-1"
+                      style={{
+                        color:
+                          index === 0 ? "#fff" : "var(--fg)",
+                      }}
+                    >
+                      ↗
+                    </span>
+
+                  </div>
+
+                  <div className="mt-14 md:mt-20">
+
+                    <h3 className="text-2xl md:text-3xl font-black tracking-tight mb-3">
+                      {feature.title}
+                    </h3>
+
+                    <p
+                      className="text-sm md:text-base leading-relaxed max-w-md"
+                      style={{
+                        color:
+                          index === 0
+                            ? "rgba(255,255,255,0.88)"
+                            : "var(--fg-soft)",
+                      }}
+                    >
+                      {feature.desc}
+                    </p>
+
+                  </div>
+
+                </Link>
+              ))}
+
+            </div>
+          </div>
+        </section>
+
+
+        {/* =========================================================
+            PDF LIBRARY
+        ========================================================= */}
         <section
-          id="features"
+          id="pdfs"
+          className="border-b"
+          style={{ background: "var(--bg-soft)" }}
+        >
+          <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16 md:py-28">
+
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+
+              <div>
+                <p
+                  className="text-xs font-black uppercase tracking-[0.18em] mb-3"
+                  style={{ color: "var(--accent)" }}
+                >
+                  Latest Resources
+                </p>
+
+                <h2
+                  className="font-black uppercase tracking-[-0.04em] leading-none"
+                  style={{
+                    fontSize: "clamp(2.8rem, 7vw, 5.5rem)",
+                    color: "var(--fg)",
+                  }}
+                >
+                  MCQ PDFs.
+                </h2>
+              </div>
+
+              <Link
+                href="/pdfs"
+                className="font-black text-sm uppercase underline underline-offset-4 decoration-2 shrink-0"
+                style={{ color: "var(--fg)" }}
+              >
+                View All PDFs →
+              </Link>
+
+            </div>
+
+
+            {categories.length > 0 && (
+              <div className="flex gap-2 overflow-x-auto pb-4 mb-7 scrollbar-hide">
+                <span
+                  className="shrink-0 px-4 py-2 rounded-full border text-[10px] font-black uppercase tracking-wider"
+                  style={{
+                    borderColor: "var(--fg)",
+                    background: "var(--fg)",
+                    color: "var(--bg)",
+                  }}
+                >
+                  All Resources
+                </span>
+
+                {categories.map((category) => (
+                  <span
+                    key={category}
+                    className="shrink-0 px-4 py-2 rounded-full border text-[10px] font-black uppercase tracking-wider"
+                    style={{
+                      borderColor: "var(--border)",
+                      color: "var(--fg-soft)",
+                    }}
+                  >
+                    {category}
+                  </span>
+                ))}
+              </div>
+            )}
+
+
+            {pdfs.length === 0 ? (
+
+              <div
+                className="border-2 border-dashed p-10 md:p-20 text-center"
+                style={{ borderColor: "var(--border)" }}
+              >
+                <div
+                  className="text-5xl font-black mb-4"
+                  style={{ color: "var(--accent)" }}
+                >
+                  +
+                </div>
+
+                <h3 className="font-black text-xl mb-2">
+                  New resources coming soon.
+                </h3>
+
+                <p
+                  className="text-sm max-w-md mx-auto"
+                  style={{ color: "var(--fg-soft)" }}
+                >
+                  MCQ PDFs and nursing preparation resources will appear here
+                  as they are added.
+                </p>
+              </div>
+
+            ) : (
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+                {pdfs.slice(0, 6).map((pdf) => (
+                  <Link
+                    key={pdf.id}
+                    href={`/pdfs/${pdf.slug}`}
+                    className="group border-2 p-5 md:p-6 transition-all duration-200 hover:-translate-y-1"
+                    style={{
+                      borderColor: "var(--border)",
+                      background: "var(--bg)",
+                    }}
+                  >
+
+                    <div className="flex items-start justify-between gap-4 mb-10">
+
+                      <span
+                        className="px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-wider"
+                        style={{
+                          background: "var(--accent-bg)",
+                          color: "var(--accent)",
+                        }}
+                      >
+                        {pdf.category || "Nursing"}
+                      </span>
+
+                      <span
+                        className="text-xl transition-transform group-hover:translate-x-1"
+                        style={{ color: "var(--fg)" }}
+                      >
+                        ↗
+                      </span>
+
+                    </div>
+
+                    <h3
+                      className="font-black text-lg leading-tight mb-3 line-clamp-2"
+                      style={{ color: "var(--fg)" }}
+                    >
+                      {pdf.title}
+                    </h3>
+
+                    <p
+                      className="text-sm leading-relaxed line-clamp-2 mb-6"
+                      style={{ color: "var(--fg-soft)" }}
+                    >
+                      {pdf.description || "Nursing MCQ practice resource"}
+                    </p>
+
+                    <div
+                      className="pt-4 border-t flex justify-between items-center text-[10px] font-black uppercase tracking-wider"
+                      style={{
+                        borderColor: "var(--border)",
+                        color: "var(--fg-muted)",
+                      }}
+                    >
+                      <span>
+                        {pdf.date
+                          ? new Date(pdf.date).toLocaleDateString("en-IN", {
+                              day: "2-digit",
+                              month: "short",
+                            })
+                          : "Resource"}
+                      </span>
+
+                      <span>Open PDF</span>
+                    </div>
+
+                  </Link>
+                ))}
+
+              </div>
+
+            )}
+
+          </div>
+        </section>
+
+
+        {/* =========================================================
+            SUBJECTS
+        ========================================================= */}
+        <section className="border-b">
+          <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16 md:py-28">
+
+            <div className="grid md:grid-cols-[0.8fr_1.2fr] gap-12 md:gap-20">
+
+              <div>
+                <p
+                  className="text-xs font-black uppercase tracking-[0.18em] mb-4"
+                  style={{ color: "var(--accent)" }}
+                >
+                  Core Preparation
+                </p>
+
+                <h2
+                  className="font-black uppercase tracking-[-0.04em] leading-[0.9]"
+                  style={{
+                    fontSize: "clamp(3rem, 8vw, 6rem)",
+                    color: "var(--fg)",
+                  }}
+                >
+                  KNOW
+                  <br />
+                  YOUR
+                  <br />
+                  SUBJECTS.
+                </h2>
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-3 self-start">
+
+                {subjects.map((subject, index) => (
+                  <div
+                    key={subject}
+                    className="border p-4 md:p-5"
+                    style={{
+                      borderColor: "var(--border)",
+                      background: "var(--bg-soft)",
+                    }}
+                  >
+
+                    <div
+                      className="text-[10px] font-black mb-7"
+                      style={{ color: "var(--accent)" }}
+                    >
+                      {String(index + 1).padStart(2, "0")}
+                    </div>
+
+                    <div
+                      className="font-black text-sm leading-snug"
+                      style={{ color: "var(--fg)" }}
+                    >
+                      {subject}
+                    </div>
+
+                  </div>
+                ))}
+
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+
+
+        {/* =========================================================
+            NORCET FEATURE CTA
+        ========================================================= */}
+        <section
           className="border-b"
           style={{
-            borderColor: "var(--border)",
-            background: "var(--bg)",
+            background: "var(--fg)",
+            color: "var(--bg)",
           }}
         >
-          <div className="max-w-5xl mx-auto px-5 py-16 md:py-24">
-            <div className="max-w-3xl mx-auto text-center mb-12 md:mb-16">
+          <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16 md:py-24">
+
+            <div className="grid md:grid-cols-[1fr_auto] gap-10 items-end">
+
+              <div>
+                <p
+                  className="text-xs font-black uppercase tracking-[0.18em] mb-5"
+                  style={{ color: "var(--accent)" }}
+                >
+                  NORCET 11 · MAINS
+                </p>
+
+                <h2
+                  className="font-black uppercase tracking-[-0.05em] leading-[0.88]"
+                  style={{
+                    fontSize: "clamp(3.5rem, 10vw, 8rem)",
+                    color: "var(--bg)",
+                  }}
+                >
+                  READY
+                  <br />
+                  TO
+                  <br />
+                  PRACTICE?
+                </h2>
+
+                <p
+                  className="max-w-xl mt-7 text-sm md:text-base leading-relaxed"
+                  style={{ color: "var(--fg-muted)" }}
+                >
+                  Practice NORCET 11 Mains nursing questions section by
+                  section. No timer. No pressure. Just focused practice.
+                </p>
+              </div>
+
+              <Link
+                href="/norcet-11"
+                className="inline-flex items-center justify-center gap-3 px-7 py-5 border-2 font-black text-sm uppercase tracking-wide transition-transform hover:-translate-y-1"
+                style={{
+                  background: "var(--accent)",
+                  color: "#fff",
+                  borderColor: "var(--bg)",
+                  boxShadow: "7px 7px 0 var(--accent)",
+                }}
+              >
+                Open NORCET Practice
+                <span className="text-lg">→</span>
+              </Link>
+
+            </div>
+
+          </div>
+        </section>
+
+
+        {/* =========================================================
+            FINAL CTA
+        ========================================================= */}
+        <section>
+          <div className="max-w-6xl mx-auto px-5 sm:px-8 py-20 md:py-32">
+
+            <div className="max-w-4xl">
+
               <p
-                className="text-xs font-bold uppercase tracking-[0.18em] mb-3"
+                className="text-xs font-black uppercase tracking-[0.18em] mb-5"
                 style={{ color: "var(--accent)" }}
               >
-                Why RPrep Nursing?
+                Start Today
               </p>
 
               <h2
-                className="text-2xl md:text-4xl font-black tracking-tight mb-4"
-                style={{ color: "var(--fg)" }}
+                className="font-black uppercase tracking-[-0.055em] leading-[0.85]"
+                style={{
+                  fontSize: "clamp(3.5rem, 10vw, 8rem)",
+                  color: "var(--fg)",
+                }}
               >
-                Practice. Revise. Prepare.
+                YOUR
+                <br />
+                PREPARATION
+                <br />
+                STARTS
+                <span style={{ color: "var(--accent)" }}> HERE.</span>
               </h2>
 
-              <p
-                className="text-sm md:text-base leading-relaxed max-w-2xl mx-auto"
-                style={{ color: "var(--fg-soft)" }}
-              >
-                Simple study resources focused on helping nursing aspirants
-                practice consistently.
-              </p>
-            </div>
+              <div className="mt-10 flex flex-col sm:flex-row gap-5 sm:items-center">
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-10 text-center">
-              {features.map((feature) => (
-                <div
-                  key={feature.title}
-                  className="flex flex-col items-center"
+                <Link
+                  href="/norcet-11"
+                  className="inline-flex items-center justify-center gap-3 px-7 py-5 border-2 font-black text-sm uppercase tracking-wide transition-transform hover:-translate-y-1"
+                  style={{
+                    background: "var(--accent)",
+                    color: "#fff",
+                    borderColor: "var(--fg)",
+                    boxShadow: "7px 7px 0 var(--fg)",
+                  }}
                 >
-                  <div
-                    className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5"
-                    style={{ background: "var(--accent-bg)" }}
-                  >
-                    <svg
-                      className="w-7 h-7"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      style={{ color: "var(--accent)" }}
-                    >
-                      {feature.icon}
-                    </svg>
-                  </div>
+                  Start Practicing
+                  <span className="text-lg">→</span>
+                </Link>
 
-                  <h3
-                    className="font-bold mb-2.5"
-                    style={{
-                      color: "var(--fg)",
-                      fontSize: "17px",
-                    }}
-                  >
-                    {feature.title}
-                  </h3>
+                <Link
+                  href="/notes"
+                  className="font-black text-sm uppercase underline underline-offset-4 decoration-2"
+                  style={{ color: "var(--fg)" }}
+                >
+                  Explore Nursing Notes →
+                </Link>
 
-                  <p
-                    className="text-sm leading-relaxed max-w-sm"
-                    style={{ color: "var(--fg-soft)" }}
-                  >
-                    {feature.desc}
-                  </p>
-                </div>
-              ))}
+              </div>
+
             </div>
+
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="max-w-5xl mx-auto px-5 py-20 md:py-28 text-center">
-          <div className="max-w-2xl mx-auto">
-            <p
-              className="text-xs font-bold uppercase tracking-[0.15em] mb-3"
-              style={{ color: "var(--accent)" }}
-            >
-              Start Your Preparation
-            </p>
-
-            <h2
-              className="text-[1.8rem] sm:text-3xl md:text-5xl font-black tracking-tight mb-4 leading-[1.1]"
-              style={{ color: "var(--fg)" }}
-            >
-              Strengthen your nursing preparation
-              <span style={{ color: "var(--accent)" }}> today.</span>
-            </h2>
-
-            <p
-              className="text-sm md:text-base mb-8 max-w-xl mx-auto leading-relaxed"
-              style={{ color: "var(--fg-soft)" }}
-            >
-              Access free MCQ PDFs, revise important nursing concepts, and
-              keep your preparation consistent.
-            </p>
-
-            <a href="#pdfs" className="btn-primary">
-              Browse MCQ PDFs
-              <svg
-                className="w-4 h-4"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </a>
-          </div>
-        </section>
       </main>
     </div>
   );

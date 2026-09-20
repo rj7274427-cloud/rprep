@@ -31,58 +31,98 @@ export default function Navbar() {
 
   return (
     <header
-      className="sticky top-0 z-50 border-b backdrop-blur-md"
+      className="sticky top-0 z-50 border-b"
       style={{
-        borderColor: "var(--border)",
-        background: "color-mix(in srgb, var(--bg) 90%, transparent)",
+        borderColor: "var(--fg)",
+        background: "var(--bg)",
       }}
     >
-      <div className="max-w-5xl mx-auto px-4 sm:px-5 h-16 flex items-center justify-between gap-3">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 h-[72px] flex items-center justify-between gap-6">
 
-        {/* Logo */}
+        {/* LOGO */}
         <Link
           href="/"
-          className="font-black text-base sm:text-lg tracking-tight shrink-0"
-          style={{ color: "var(--fg)" }}
+          className="shrink-0 leading-none"
+          aria-label="RPrep Nursing Home"
         >
-          RPrep <span style={{ color: "var(--accent)" }}>Nursing</span>
+          <div
+            className="font-black tracking-[-0.04em] text-xl sm:text-2xl"
+            style={{ color: "var(--fg)" }}
+          >
+            RPREP<span style={{ color: "var(--accent)" }}>.</span>
+          </div>
+
+          <div
+            className="text-[8px] sm:text-[9px] font-black uppercase tracking-[0.18em] mt-1"
+            style={{ color: "var(--fg-muted)" }}
+          >
+            Nursing
+          </div>
         </Link>
 
-        {/* Navigation */}
-        <nav className="flex items-center gap-3 sm:gap-6">
+
+        {/* DESKTOP NAV */}
+        <nav className="hidden md:flex items-center gap-7">
 
           <Link
             href="/"
-            className="text-sm font-semibold whitespace-nowrap transition-opacity hover:opacity-70"
-            style={{ color: "var(--fg-soft)" }}
+            className="text-xs font-black uppercase tracking-wide transition-opacity hover:opacity-60"
+            style={{ color: "var(--fg)" }}
           >
             Home
           </Link>
 
           <Link
+            href="/pdfs"
+            className="text-xs font-black uppercase tracking-wide transition-opacity hover:opacity-60"
+            style={{ color: "var(--fg)" }}
+          >
+            MCQ PDFs
+          </Link>
+
+          <Link
             href="/notes"
-            className="text-sm font-semibold whitespace-nowrap transition-opacity hover:opacity-70"
-            style={{ color: "var(--fg-soft)" }}
+            className="text-xs font-black uppercase tracking-wide transition-opacity hover:opacity-60"
+            style={{ color: "var(--fg)" }}
           >
             Notes
           </Link>
 
           <Link
             href="/norcet-11"
-            className="text-sm font-semibold whitespace-nowrap transition-opacity hover:opacity-70"
-            style={{ color: "var(--fg-soft)" }}
+            className="text-xs font-black uppercase tracking-wide transition-opacity hover:opacity-60"
+            style={{ color: "var(--fg)" }}
           >
-            Norcet11
+            NORCET 11
           </Link>
 
-          {/* Theme Toggle */}
+        </nav>
+
+
+        {/* RIGHT SIDE */}
+        <div className="flex items-center gap-3">
+
+          <Link
+            href="/norcet-11"
+            className="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 border-2 text-[10px] font-black uppercase tracking-wide transition-transform hover:-translate-y-0.5"
+            style={{
+              borderColor: "var(--fg)",
+              background: "var(--accent)",
+              color: "#fff",
+              boxShadow: "3px 3px 0 var(--fg)",
+            }}
+          >
+            Practice
+            <span>→</span>
+          </Link>
+
           <button
             type="button"
             onClick={toggleTheme}
             aria-label="Toggle light and dark theme"
-            className="w-9 h-9 rounded-xl border flex items-center justify-center text-base shrink-0 transition-opacity hover:opacity-70"
+            className="w-10 h-10 border flex items-center justify-center text-base transition-transform hover:-translate-y-0.5"
             style={{
-              borderColor: "var(--border)",
+              borderColor: "var(--fg)",
               color: "var(--fg)",
               background: "var(--bg-soft)",
             }}
@@ -90,8 +130,53 @@ export default function Navbar() {
             {dark ? "☀" : "☾"}
           </button>
 
+        </div>
+
+      </div>
+
+
+      {/* MOBILE NAV */}
+      <div
+        className="md:hidden border-t overflow-x-auto"
+        style={{ borderColor: "var(--border)" }}
+      >
+        <nav className="max-w-6xl mx-auto px-5 py-3 flex items-center gap-5 min-w-max">
+
+          <Link
+            href="/"
+            className="text-[10px] font-black uppercase tracking-wide"
+            style={{ color: "var(--fg)" }}
+          >
+            Home
+          </Link>
+
+          <Link
+            href="/pdfs"
+            className="text-[10px] font-black uppercase tracking-wide"
+            style={{ color: "var(--fg)" }}
+          >
+            MCQ PDFs
+          </Link>
+
+          <Link
+            href="/notes"
+            className="text-[10px] font-black uppercase tracking-wide"
+            style={{ color: "var(--fg)" }}
+          >
+            Notes
+          </Link>
+
+          <Link
+            href="/norcet-11"
+            className="text-[10px] font-black uppercase tracking-wide"
+            style={{ color: "var(--accent)" }}
+          >
+            NORCET 11 →
+          </Link>
+
         </nav>
       </div>
+
     </header>
   );
 }

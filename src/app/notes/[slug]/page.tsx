@@ -45,15 +45,19 @@ export async function generateMetadata({
 
   if (!note) {
     return {
-      title: "Note Not Found",
+      title: "Note Not Found | RPrep Nursing",
     };
   }
 
   return {
-    title: note.title,
+    title: `${note.title} | RPrep Nursing`,
     description:
       note.description ||
       "Nursing notes and guideline updates from RPrep Nursing.",
+    keywords: note.tags || [],
+    alternates: {
+      canonical: `/notes/${note.slug}`,
+    },
   };
 }
 
@@ -65,159 +69,361 @@ export default async function NoteDetailPage({ params }: Props) {
     notFound();
   }
 
-  return (
-    <div
-      className="min-h-screen"
-      style={{ background: "var(--bg)" }}
-    >
-      <main>
-        {/* HEADER */}
-        <section className="max-w-5xl mx-auto px-5 pt-10 pb-12 md:pt-16 md:pb-16">
+  const publishedDate = note.date
+    ? new Date(note.date).toLocaleDateString("en-IN", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      })
+    : "Study Note";
 
-          <div className="flex flex-wrap items-center gap-2 text-xs mb-8">
+  return (
+    <main
+      className="min-h-screen overflow-x-hidden"
+      style={{
+        background: "var(--bg)",
+        color: "var(--fg)",
+      }}
+    >
+
+      {/* =====================================================
+          ARTICLE HEADER
+      ===================================================== */}
+      <section className="border-b">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-8 pb-14 md:pt-12 md:pb-20">
+
+          {/* BREADCRUMB */}
+          <div
+            className="flex flex-wrap items-center gap-2 text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-10"
+            style={{ color: "var(--fg-muted)" }}
+          >
             <Link
               href="/"
-              className="font-semibold hover:opacity-70"
-              style={{ color: "var(--accent)" }}
+              className="transition-opacity hover:opacity-60"
             >
               Home
             </Link>
 
-            <span style={{ color: "var(--fg-muted)" }}>/</span>
+            <span>/</span>
 
             <Link
               href="/notes"
-              className="font-semibold hover:opacity-70"
-              style={{ color: "var(--accent)" }}
+              className="transition-opacity hover:opacity-60"
             >
               Notes
             </Link>
 
             {note.category && (
               <>
-                <span style={{ color: "var(--fg-muted)" }}>/</span>
-                <span style={{ color: "var(--fg-soft)" }}>
+                <span>/</span>
+
+                <span
+                  className="truncate max-w-[220px]"
+                  style={{ color: "var(--accent)" }}
+                >
                   {note.category}
                 </span>
               </>
             )}
           </div>
 
-          {note.category && (
+
+          <div className="grid lg:grid-cols-[1fr_280px] gap-10 lg:gap-16 items-end">
+
+            {/* TITLE */}
+            <div>
+
+              {note.category && (
+                <div
+                  className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[10px] font-black uppercase tracking-[0.16em] mb-7"
+                  style={{
+                    borderColor: "var(--fg)",
+                    color: "var(--fg)",
+                  }}
+                >
+                  <span
+                    className="w-2 h-2 rounded-full"
+                    style={{ background: "var(--accent)" }}
+                  />
+
+                  {note.category}
+                </div>
+              )}
+
+              <h1
+                className="font-black uppercase tracking-[-0.055em] leading-[0.88] break-words max-w-full"
+                style={{
+                  fontSize: "clamp(3rem, 8vw, 7rem)",
+                  color: "var(--fg)",
+                  overflowWrap: "anywhere",
+                }}
+              >
+                {note.title}
+              </h1>
+
+              {note.description && (
+                <p
+                  className="max-w-3xl mt-7 text-base md:text-lg leading-relaxed break-words"
+                  style={{ color: "var(--fg-soft)" }}
+                >
+                  {note.description}
+                </p>
+              )}
+
+            </div>
+
+
+            {/* ARTICLE META */}
+            <div
+              className="border-2 p-5"
+              style={{
+                borderColor: "var(--fg)",
+                background: "var(--accent)",
+                color: "#fff",
+                boxShadow: "6px 6px 0 var(--fg)",
+              }}
+            >
+
+              <div className="text-[9px] font-black uppercase tracking-[0.18em] opacity-80 mb-2">
+                Study Note
+              </div>
+
+              <div className="text-4xl font-black leading-none mb-6">
+                NOTE
+              </div>
+
+              <div className="space-y-4 text-xs font-bold">
+
+                <div>
+                  <div className="opacity-65 uppercase tracking-wider text-[9px] mb-1">
+                    Updated
+                  </div>
+
+                  <div>
+                    {publishedDate}
+                  </div>
+                </div>
+
+                {note.source && (
+                  <div>
+                    <div className="opacity-65 uppercase tracking-wider text-[9px] mb-1">
+                      Source
+                    </div>
+
+                    <div className="break-words">
+                      {note.source}
+                    </div>
+                  </div>
+                )}
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+
+      {/* =====================================================
+          ARTICLE CONTENT
+      ===================================================== */}
+      <section
+        className="border-b"
+        style={{
+          borderColor: "var(--fg)",
+          background: "var(--bg-soft)",
+        }}
+      >
+        <article className="max-w-4xl mx-auto px-5 sm:px-8 py-12 md:py-20">
+
+          <div className="mb-10">
+
             <p
-              className="text-xs font-bold uppercase tracking-[0.18em] mb-3"
+              className="text-xs font-black uppercase tracking-[0.18em] mb-3"
               style={{ color: "var(--accent)" }}
             >
-              {note.category}
+              Detailed Revision
             </p>
-          )}
-
-          <h1
-            className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight max-w-4xl"
-            style={{ color: "var(--fg)" }}
-          >
-            {note.title}
-          </h1>
-
-          {note.description && (
-            <p
-              className="mt-6 text-base md:text-lg leading-relaxed max-w-3xl"
-              style={{ color: "var(--fg-soft)" }}
-            >
-              {note.description}
-            </p>
-          )}
-
-          <div
-            className="flex flex-wrap gap-4 mt-6 text-xs"
-            style={{ color: "var(--fg-muted)" }}
-          >
-            {note.date && (
-              <span>
-                Updated{" "}
-                {new Date(note.date).toLocaleDateString("en-IN")}
-              </span>
-            )}
-
-            {note.source && (
-              <span>
-                Source: {note.source}
-              </span>
-            )}
-          </div>
-        </section>
-
-        {/* CONTENT */}
-        <section
-          className="border-y"
-          style={{
-            borderColor: "var(--border)",
-            background: "var(--bg-soft)",
-          }}
-        >
-          <article className="max-w-4xl mx-auto px-5 py-10 md:py-16">
 
             <div
-              className="note-content"
-              style={{ color: "var(--fg)" }}
-              dangerouslySetInnerHTML={{
-                __html: note.content || "<p>No content available.</p>",
-              }}
+              className="w-16 h-1"
+              style={{ background: "var(--accent)" }}
             />
 
-            {Array.isArray(note.tags) && note.tags.length > 0 && (
-              <div
-                className="flex flex-wrap gap-2 mt-12 pt-8 border-t"
-                style={{ borderColor: "var(--border)" }}
+          </div>
+
+
+          {/* ACTUAL NOTE HTML */}
+          <div
+            className="note-content"
+            style={{
+              color: "var(--fg)",
+              overflowWrap: "anywhere",
+            }}
+            dangerouslySetInnerHTML={{
+              __html:
+                note.content ||
+                "<p>No content available for this note.</p>",
+            }}
+          />
+
+
+          {/* TAGS */}
+          {Array.isArray(note.tags) && note.tags.length > 0 && (
+            <div
+              className="mt-14 pt-8 border-t"
+              style={{ borderColor: "var(--border)" }}
+            >
+
+              <p
+                className="text-xs font-black uppercase tracking-[0.18em] mb-5"
+                style={{ color: "var(--accent)" }}
               >
-                {note.tags.map((tag: string) => (
+                Related Topics
+              </p>
+
+              <div className="flex flex-wrap gap-2">
+
+                {note.tags.map((tag: string, index: number) => (
                   <span
-                    key={tag}
-                    className="chip"
+                    key={`${tag}-${index}`}
+                    className="px-4 py-2 rounded-full border text-[10px] font-black uppercase tracking-wider"
                     style={{
-                      background: "var(--accent-bg)",
-                      color: "var(--accent)",
+                      borderColor: "var(--border)",
+                      color: "var(--fg-soft)",
+                      background: "var(--bg)",
                     }}
                   >
                     #{tag}
                   </span>
                 ))}
+
               </div>
-            )}
 
-          </article>
-        </section>
+            </div>
+          )}
 
-        {/* BACK */}
-        <section className="max-w-5xl mx-auto px-5 py-12">
-          <div className="flex flex-wrap gap-3">
+        </article>
+      </section>
 
-            <Link
-              href="/notes"
-              className="rounded-xl px-5 py-3 text-sm font-semibold transition-opacity hover:opacity-90"
-              style={{
-                background: "var(--accent)",
-                color: "white",
-              }}
-            >
-              ← All Notes
-            </Link>
 
-            <Link
-              href="/"
-              className="rounded-xl border px-5 py-3 text-sm font-semibold transition-opacity hover:opacity-70"
-              style={{
-                borderColor: "var(--border)",
-                color: "var(--fg)",
-                background: "var(--bg-soft)",
-              }}
-            >
-              Home
-            </Link>
+      {/* =====================================================
+          CONTINUE PREPARATION
+      ===================================================== */}
+      <section>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14 md:py-20">
+
+          <div className="grid md:grid-cols-[1fr_auto] gap-8 items-end">
+
+            <div>
+
+              <p
+                className="text-xs font-black uppercase tracking-[0.18em] mb-4"
+                style={{ color: "var(--accent)" }}
+              >
+                Continue Preparing
+              </p>
+
+              <h2
+                className="font-black uppercase tracking-[-0.05em] leading-[0.88]"
+                style={{
+                  fontSize: "clamp(2.8rem, 7vw, 6rem)",
+                  color: "var(--fg)",
+                }}
+              >
+                LEARN.
+                <br />
+                PRACTICE.
+                <br />
+                REPEAT.
+              </h2>
+
+            </div>
+
+
+            <div className="flex flex-col gap-4">
+
+              <Link
+                href="/notes"
+                className="inline-flex items-center justify-center gap-3 px-7 py-4 border-2 font-black text-xs uppercase tracking-wide transition-transform hover:-translate-y-1"
+                style={{
+                  background: "var(--accent)",
+                  color: "#fff",
+                  borderColor: "var(--fg)",
+                  boxShadow: "6px 6px 0 var(--fg)",
+                }}
+              >
+                All Nursing Notes
+                <span className="text-lg">→</span>
+              </Link>
+
+              <Link
+                href="/norcet-11"
+                className="inline-flex items-center justify-center gap-3 px-7 py-4 border-2 font-black text-xs uppercase tracking-wide"
+                style={{
+                  borderColor: "var(--fg)",
+                  color: "var(--fg)",
+                  background: "var(--bg-soft)",
+                }}
+              >
+                Practice MCQs
+                <span>→</span>
+              </Link>
+
+              <Link
+                href="/pdfs"
+                className="font-black text-xs uppercase text-center underline underline-offset-4 decoration-2"
+                style={{ color: "var(--fg)" }}
+              >
+                Explore MCQ PDFs →
+              </Link>
+
+            </div>
 
           </div>
-        </section>
-      </main>
-    </div>
+
+        </div>
+      </section>
+
+
+      {/* =====================================================
+          FINAL DARK CTA
+      ===================================================== */}
+      <section
+        className="border-t"
+        style={{
+          borderColor: "var(--fg)",
+          background: "var(--fg)",
+        }}
+      >
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14 md:py-20">
+
+          <p
+            className="text-xs font-black uppercase tracking-[0.18em] mb-4"
+            style={{ color: "var(--accent)" }}
+          >
+            RPrep Nursing
+          </p>
+
+          <h2
+            className="font-black uppercase tracking-[-0.05em] leading-[0.86]"
+            style={{
+              fontSize: "clamp(2.8rem, 7vw, 6rem)",
+              color: "var(--bg)",
+            }}
+          >
+            ONE CONCEPT.
+            <br />
+            ONE QUESTION.
+            <br />
+            KEEP GOING.
+          </h2>
+
+        </div>
+      </section>
+
+    </main>
   );
 }

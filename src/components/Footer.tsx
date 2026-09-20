@@ -1,150 +1,189 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer
-      className="border-t mt-24"
-      style={{ borderColor: "var(--border)" }}
+      className="border-t"
+      style={{
+        borderColor: "var(--fg)",
+        background: "var(--fg)",
+        color: "var(--bg)",
+      }}
     >
-      <div className="max-w-5xl mx-auto px-5 py-12 md:py-14">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8">
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+        {/* TOP */}
+        <div className="py-14 md:py-20 grid md:grid-cols-[1.4fr_1fr_1fr] gap-12 md:gap-16">
 
           {/* BRAND */}
           <div>
-            <div className="flex items-center gap-2.5 mb-4">
+
+            <Link href="/" className="inline-block">
               <div
-                className="w-8 h-8 rounded-lg flex items-center justify-center text-white"
-                style={{ background: "var(--accent)" }}
+                className="font-black tracking-[-0.05em] leading-none"
+                style={{
+                  fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
+                  color: "var(--bg)",
+                }}
               >
-                <svg
-                  className="w-4 h-4"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 0 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-                </svg>
+                RPREP<span style={{ color: "var(--accent)" }}>.</span>
               </div>
 
-              <span
-                className="font-bold text-base tracking-tight"
-                style={{ color: "var(--fg)" }}
+              <div
+                className="mt-2 text-[10px] font-black uppercase tracking-[0.2em]"
+                style={{ color: "var(--fg-muted)" }}
               >
-                RPrep Nursing
-              </span>
-            </div>
+                Nursing
+              </div>
+            </Link>
 
             <p
-              className="text-sm leading-relaxed max-w-sm"
-              style={{ color: "var(--fg-soft)" }}
+              className="max-w-sm mt-7 text-sm leading-relaxed"
+              style={{ color: "var(--fg-muted)" }}
             >
-              Free nursing MCQ PDFs and study resources for RRB Nursing
-              Superintendent aspirants.
+              Focused nursing exam preparation with MCQs, notes, practice
+              resources and revision material.
             </p>
+
           </div>
 
-          {/* QUICK LINKS */}
+
+          {/* STUDY */}
           <div>
-            <h3
-              className="font-bold text-sm mb-4"
-              style={{ color: "var(--fg)" }}
+
+            <p
+              className="text-[10px] font-black uppercase tracking-[0.18em] mb-5"
+              style={{ color: "var(--accent)" }}
             >
-              Quick Links
-            </h3>
+              Study
+            </p>
 
-            <div
-              className="flex flex-col gap-3 text-sm"
-              style={{ color: "var(--fg-soft)" }}
-            >
-              <a href="/about" className="hover:opacity-70 transition-opacity">
-                About Us
-              </a>
+            <div className="flex flex-col gap-4">
 
-              <a href="/contact" className="hover:opacity-70 transition-opacity">
-                Contact Us
-              </a>
+              <Link
+                href="/norcet-11"
+                className="text-sm font-bold transition-opacity hover:opacity-60"
+                style={{ color: "var(--bg)" }}
+              >
+                NORCET 11 Practice
+              </Link>
 
-              <a href="/disclaimer" className="hover:opacity-70 transition-opacity">
-                Disclaimer
-              </a>
+              <Link
+                href="/pdfs"
+                className="text-sm font-bold transition-opacity hover:opacity-60"
+                style={{ color: "var(--bg)" }}
+              >
+                MCQ PDFs
+              </Link>
 
-              <a href="/privacy-policy" className="hover:opacity-70 transition-opacity">
-                Privacy Policy
-              </a>
+              <Link
+                href="/notes"
+                className="text-sm font-bold transition-opacity hover:opacity-60"
+                style={{ color: "var(--bg)" }}
+              >
+                Nursing Notes
+              </Link>
 
-              <a href="/terms-and-conditions" className="hover:opacity-70 transition-opacity">
-                Terms & Conditions
-              </a>
             </div>
+
           </div>
 
-          {/* SUPPORT */}
-          <div id="support">
-            <h3
-              className="font-bold text-sm mb-4"
-              style={{ color: "var(--fg)" }}
+
+          {/* INFORMATION */}
+          <div>
+
+            <p
+              className="text-[10px] font-black uppercase tracking-[0.18em] mb-5"
+              style={{ color: "var(--accent)" }}
             >
-              Support
-            </h3>
+              Information
+            </p>
 
-            <div
-              className="flex flex-col gap-3 text-sm"
-              style={{ color: "var(--fg-soft)" }}
-            >
-              <a
-                href="mailto:support@rprep.online"
-                className="hover:opacity-70 transition-opacity break-all"
-              >
-                support@rprep.online
-              </a>
+            <div className="flex flex-col gap-4">
 
-              <a
-                href="mailto:help@rprep.online"
-                className="hover:opacity-70 transition-opacity break-all"
+              <Link
+                href="/about"
+                className="text-sm font-bold transition-opacity hover:opacity-60"
+                style={{ color: "var(--bg)" }}
               >
-                help@rprep.online
-              </a>
+                About RPrep
+              </Link>
 
-              <a
-                href="https://wa.me/919783713848"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:opacity-70 transition-opacity"
+              <Link
+                href="/contact"
+                className="text-sm font-bold transition-opacity hover:opacity-60"
+                style={{ color: "var(--bg)" }}
               >
-                WhatsApp: +91 97837 13848
-              </a>
+                Contact
+              </Link>
 
-              <a
-                href="https://www.instagram.com/nursingstudyvault?stkn=ZnFiZTVwazFkNng2"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:opacity-70 transition-opacity"
+              <Link
+                href="/privacy-policy"
+                className="text-sm font-bold transition-opacity hover:opacity-60"
+                style={{ color: "var(--bg)" }}
               >
-                Instagram: @nursingstudyvault
-              </a>
+                Privacy Policy
+              </Link>
+
+              <Link
+                href="/terms-and-conditions"
+                className="text-sm font-bold transition-opacity hover:opacity-60"
+                style={{ color: "var(--bg)" }}
+              >
+                Terms & Conditions
+              </Link>
+
+              <Link
+                href="/disclaimer"
+                className="text-sm font-bold transition-opacity hover:opacity-60"
+                style={{ color: "var(--bg)" }}
+              >
+                Disclaimer
+              </Link>
+
             </div>
+
           </div>
 
         </div>
 
-        {/* BOTTOM */}
+
+        {/* BIG FOOTER STATEMENT */}
         <div
-          className="mt-10 pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-3 text-xs"
+          className="border-t border-b py-8 md:py-10"
           style={{
-            borderColor: "var(--border)",
-            color: "var(--fg-muted)",
+            borderColor: "rgba(255,255,255,0.18)",
           }}
         >
-          <span>
-            © {new Date().getFullYear()} RPrep Nursing. All rights reserved.
-          </span>
+          <p
+            className="font-black uppercase tracking-[-0.04em] leading-none"
+            style={{
+              fontSize: "clamp(2rem, 6vw, 5rem)",
+              color: "var(--bg)",
+            }}
+          >
+            STUDY. PRACTICE. REPEAT.
+          </p>
+        </div>
 
-          <span>
+
+        {/* BOTTOM */}
+        <div className="py-6 flex flex-col sm:flex-row justify-between gap-3">
+
+          <p
+            className="text-[10px] font-bold uppercase tracking-wider"
+            style={{ color: "var(--fg-muted)" }}
+          >
+            © {new Date().getFullYear()} RPrep Nursing
+          </p>
+
+          <p
+            className="text-[10px] font-bold uppercase tracking-wider"
+            style={{ color: "var(--fg-muted)" }}
+          >
             Built for Nursing Aspirants
-          </span>
+          </p>
+
         </div>
 
       </div>
