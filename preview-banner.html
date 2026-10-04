@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Preview Banner Generator</title>
+<style>
+  *{ box-sizing: border-box; margin: 0; padding: 0; }
+  body{
+    background: #0f1218; color: #e4e6eb;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh; padding: 20px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 20px;
+  }
+  h1{ font-size: 1.2rem; color: #6ea8fe; text-align: center; }
+  p{ font-size: 0.85rem; color: #a0a6b1; text-align: center; max-width: 500px; }
+  .btn{
+    background: linear-gradient(135deg, #4a8ce0, #2563eb);
+    color: #fff; border: none;
+    padding: 14px 30px; border-radius: 10px;
+    font-size: 1rem; font-weight: 700;
+    cursor: pointer; letter-spacing: 0.02em;
+    box-shadow: 0 4px 16px rgba(74,140,224,0.4);
+    transition: all 0.2s;
+  }
+  .btn:hover{ transform: translateY(-2px); box-shadow: 0 8px 24px rgba(74,140,224,0.6); }
+  .btn:active{ transform: translateY(0); }
+  .preview-box{
+    background: #23272f; border: 1px solid #333843;
+    border-radius: 12px; padding: 12px; max-width: 100%;
+    overflow: auto;
+  }
+  .preview-box img{
+    max-width: 100%; height: auto; border-radius: 8px; display: block;
+  }
+  .status{
+    color: #7ee2a8; font-size: 0.85rem;
+    text-align: center; min-height: 20px;
+  }
+</style>
+</head>
+<body>
+
+<h1>📸 Preview Banner Generator</h1>
+<p>Ye button dabao → 1200×630 PNG image download hogi. Ye image Instagram/WhatsApp link preview me dikhegi.</p>
+
+<div class="preview-box">
+  <img id="previewImg" alt="preview" />
+</div>
+
+<button class="btn" id="downloadBtn">⬇️ Download preview.png</button>
+<div class="status" id="status"></div>
+
+<script>
+  const W = 1200, H = 630;
+
+  function generate(){
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const S = 2; // 2x for sharp
+    canvas.width = W * S; canvas.height = H * S;
+    ctx.scale(S, S);
+
+    // Colors
+    const NAVY = '#0A1020', NAVY2 = '#0F1A33';
+    const GOLD = '#E3B85B', BLUE = '#4C8DF6', BLUE_L = '#9CC0FF';
+    const TXT = '#F3F6FC', DIM = '#8FA0C2';
+    const FONT = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
+
+    // Background gradient
+    const bgGrad = ctx.createLinearGradient(0, 0, W, H);
+    bgGrad.addColorStop(0, '#0D1730');
+    bgGrad.addColorStop(0.5, NAVY);
+    bgGrad.addColorStop(1, '#080D1E');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, W, H);
+
+    // Decorative glow top-right
+    let g = ctx.createRadialGradient(W - 100, 100, 30, W - 100, 100, 600);
+    g.addColorStop(0, 'rgba(227,184,91,0.15)');
+    g.addColorStop(1, 'rgba(227,184,91,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, W, H);
+
+    // Decorative glow bottom-left
+    g = ctx.createRadialGradient(80, H - 80, 30, 80, H - 80, 500);
+    g.addColorStop(0, 'rgba(76,141,246,0.15)');
+    g.addColorStop(1, 'rgba(76,141,246,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, W, H);
+
+    // Top accent bar
+    g = ctx.createLinearGradient(0, 0, W, 0);
+    g.addColorStop(0, 'rgba(227,184,91,0)');
+    g.addColorStop(0.5, GOLD);
+    g.addColorStop(1, 'rgba(227,184,91,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, W, 4);
+
+    // Bottom accent bar
+    ctx.fillStyle = g;
+    ctx.fillRect(0, H - 4, W, 4);
+
+    // Outer border
+    ctx.strokeStyle = 'rgba(227,184,91,0.25)';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(20, 20, W - 40, H - 40);
+
+    // ---- LEFT SIDE: LOGO ----
+    const logoImg = new Image();
+    logoImg.onload = function(){
+      // Logo box (dark navy square)
+      const logoSize = 260;
+      const logoX = 90;
+      const logoY = (H - logoSize) / 2;
+
+      // Glow behind logo
+      ctx.save();
+      ctx.shadowColor = 'rgba(227,184,91,0.5)';
+      ctx.shadowBlur = 50;
+      ctx.fillStyle = NAVY;
+      roundRect(ctx, logoX, logoY, logoSize, logoSize, 40);
+      ctx.fill();
+      ctx.restore();
+
+      // Gold border
+      ctx.strokeStyle = GOLD;
+      ctx.lineWidth = 3;
+      roundRect(ctx, logoX, logoY, logoSize, logoSize, 40);
+      ctx.stroke();
+
+      // Draw logo inside
+      const pad = 40;
+      ctx.drawImage(logoImg, logoX + pad, logoY + pad, logoSize - pad*2, logoSize - pad*2);
+
+      // ---- RIGHT SIDE: TEXT ----
+      const textX = logoX + logoSize + 70;
+      const textRight = W - 90;
+      const textMaxW = textRight - textX;
+
+      // Brand name
+      ctx.fillStyle = TXT;
+      ctx.font = '800 56px ' + FONT;
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('RPREP', textX, 200);
+
+      const rprepW = ctx.measureText('RPREP').width;
+      ctx.fillStyle = GOLD;
+      ctx.fillText(' DIGITAL QBANK', textX + rprepW, 200);
+
+      // Subtitle
+      ctx.fillStyle = DIM;
+      ctx.font = '500 26px ' + FONT;
+      ctx.fillText('Government Nursing Exams', textX, 260);
+
+      // Divider line
+      ctx.fillStyle = 'rgba(227,184,91,0.5)';
+      ctx.fillRect(textX, 310, 100, 3);
+
+      // Tagline
+      ctx.fillStyle = TXT;
+      ctx.font = '700 30px ' + FONT;
+      ctx.fillText('Practice Questions & Explanations', textX, 360);
+
+      // Exam chips
+      ctx.font = '600 20px ' + FONT;
+      const chips = ['NORCET', 'RRB', 'ESIC', 'DSSSB'];
+      let cx = textX;
+      const cy = 420;
+      const chipH = 42;
+      chips.forEach(chip => {
+        const chipW = ctx.measureText(chip).width + 32;
+        // Chip bg
+        ctx.fillStyle = 'rgba(76,141,246,0.18)';
+        roundRect(ctx, cx, cy - chipH/2, chipW, chipH, 21);
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(76,141,246,0.5)';
+        ctx.lineWidth = 1.5;
+        roundRect(ctx, cx, cy - chipH/2, chipW, chipH, 21);
+        ctx.stroke();
+        // Text
+        ctx.fillStyle = BLUE_L;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(chip, cx + chipW/2, cy + 1);
+        cx += chipW + 12;
+      });
+
+      // URL at bottom
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = GOLD;
+      ctx.font = '800 32px ' + FONT;
+      ctx.fillText('🌐  www.rprep.online', textX, 500);
+
+      // ---- RENDER PREVIEW ----
+      const dataUrl = canvas.toDataURL('image/png');
+      document.getElementById('previewImg').src = dataUrl;
+
+      // ---- DOWNLOAD BUTTON ----
+      document.getElementById('downloadBtn').addEventListener('click', () => {
+        const a = document.createElement('a');
+        a.href = dataUrl;
+        a.download = 'preview.png';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        document.getElementById('status').textContent = '✅ preview.png downloaded! Ab isse rprep-temp/ me save karo.';
+      });
+    };
+    logoImg.onerror = function(){
+      document.getElementById('status').textContent = '❌ Logo load nahi hui — logo-icon.png file check karo.';
+    };
+    logoImg.src = 'logo-icon.png';
+  }
+
+  function roundRect(ctx, x, y, w, h, r){
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  generate();
+</script>
+
+</body>
+</html>
