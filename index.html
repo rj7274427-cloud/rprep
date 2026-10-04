@@ -72,26 +72,69 @@
   .theme-toggle .icon-moon{ display: block; }
   [data-theme="light"] .theme-toggle .icon-sun{ display: block; }
   [data-theme="light"] .theme-toggle .icon-moon{ display: none; }
+
+  /* ===== HERO (simple: logo top, baaki sab center) ===== */
   .hero{
-    text-align: center; padding: 26px 18px 22px;
+    text-align: center;
+    padding: 26px 18px 22px;
     background: linear-gradient(180deg, var(--header-grad-1) 0%, var(--header-grad-2) 100%);
     border: 1px solid var(--border); border-radius: 16px;
     margin-bottom: 22px; position: relative; overflow: hidden;
     transition: background 0.3s ease, border-color 0.3s ease;
   }
-  .hero::before{ content: ""; position: absolute; top: -60px; right: -60px; width: 180px; height: 180px; background: radial-gradient(circle, var(--accent-soft), transparent 70%); pointer-events: none; }
-  .brand-line{ font-size: 0.72rem; letter-spacing: 0.22em; color: var(--accent); font-weight: 600; text-transform: uppercase; margin-bottom: 10px; }
-  .brand-title{ font-size: 1.9rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; line-height: 1.2; }
+  .hero::before{
+    content: ""; position: absolute; top: -60px; right: -60px;
+    width: 180px; height: 180px;
+    background: radial-gradient(circle, var(--accent-soft), transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Logo top center */
+  .hero-logo{
+    width: 84px; height: 84px;
+    margin: 0 auto 14px;
+    display: block;
+    border-radius: 50%;
+    box-shadow: 0 8px 24px rgba(110,168,254,0.28);
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-logo:hover{ transform: scale(1.06); }
+  @media (max-width: 400px){
+    .hero-logo{ width: 72px; height: 72px; margin-bottom: 12px; }
+  }
+
+  .brand-line{ font-size: 0.72rem; letter-spacing: 0.22em; color: var(--accent); font-weight: 700; text-transform: uppercase; margin-bottom: 8px; position: relative; z-index: 1; }
+  .brand-title{ font-size: 1.9rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; line-height: 1.2; position: relative; z-index: 1; }
   .brand-title span{ color: var(--accent); }
-  .brand-sub{ color: var(--text-dim); font-size: 0.85rem; margin-top: 8px; letter-spacing: 0.05em; }
-  .exams-label{ margin-top: 18px; margin-bottom: 10px; font-size: 0.72rem; letter-spacing: 0.18em; color: var(--text-dim); text-transform: uppercase; }
-  .exams{ display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; }
+  .brand-sub{ color: var(--text-dim); font-size: 0.85rem; margin-top: 8px; letter-spacing: 0.05em; position: relative; z-index: 1; }
+
+  /* Divider */
+  .hero-divider{
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--border) 50%, transparent 100%);
+    margin: 22px 0 18px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .exams-label{ margin-bottom: 10px; font-size: 0.72rem; letter-spacing: 0.18em; color: var(--text-dim); text-transform: uppercase; position: relative; z-index: 1; }
+  .exams{ display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; position: relative; z-index: 1; }
   .chip{ background: var(--chip-bg); border: 1px solid var(--chip-border); color: var(--text-dim); font-size: 0.76rem; font-weight: 500; padding: 5px 11px; border-radius: 999px; transition: all 0.2s; }
   .chip:hover{ color: var(--accent); border-color: var(--accent-border); background: var(--accent-soft); }
-  .support{ display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; padding-top: 18px; border-top: 1px dashed var(--border); }
+
+  .support{
+    display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+    margin-top: 20px; padding-top: 18px;
+    border-top: 1px dashed var(--border);
+    position: relative;
+    z-index: 1;
+  }
   .support-link{ display: inline-flex; align-items: center; gap: 7px; background: var(--option-bg); border: 1px solid var(--border); color: var(--text-dim); text-decoration: none; font-size: 0.8rem; padding: 7px 13px; border-radius: 10px; transition: all 0.2s; }
   .support-link:hover{ color: var(--accent); border-color: var(--accent-border); background: var(--accent-soft); }
   .support-link svg{ width: 15px; height: 15px; flex-shrink: 0; }
+
   .section-title{ text-align: center; margin: 8px 0 16px; }
   .section-title h2{ font-size: 1.15rem; font-weight: 600; color: var(--text); }
   .section-title p{ font-size: 0.82rem; color: var(--text-dim); margin-top: 4px; }
@@ -137,7 +180,19 @@
   .visitor-bar{ display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--text-dim); padding-top: 12px; border-top: 1px dashed var(--border); }
   .visitor-badge{ display: inline-flex; align-items: center; gap: 6px; background: var(--option-bg); border: 1px solid var(--border); padding: 6px 14px; border-radius: 999px; color: var(--accent); font-weight: 600; font-size: 0.82rem; }
   .visitor-badge svg{ width: 14px; height: 14px; }
-  .footer{ text-align: center; color: var(--text-dim); font-size: 0.78rem; margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--footer-border); }
+  .footer{
+    text-align: center; color: var(--text-dim); font-size: 0.78rem;
+    margin-top: 24px; padding-top: 18px;
+    border-top: 1px solid var(--footer-border);
+  }
+  .footer-logo{
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    margin-bottom: 8px;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+  }
+  .footer-logo:hover{ opacity: 1; }
   .footer strong{ color: var(--accent); font-weight: 600; }
   .loader{ text-align: center; color: var(--text-dim); padding: 40px 0; font-size: 0.9rem; }
   .loader::after{ content: ""; display: inline-block; width: 14px; height: 14px; margin-left: 8px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; vertical-align: middle; }
@@ -190,9 +245,13 @@
 
 <div class="container">
   <div class="hero">
-    <div class="brand-line">Special Design for RPrep</div>
+    <img src="logo-circle.png" alt="RPrep Logo" class="hero-logo" />
+    <div class="brand-line">Special design by RPrep</div>
     <div class="brand-title">Digital <span>QBank</span></div>
     <div class="brand-sub">Government Nursing Exams</div>
+
+    <div class="hero-divider"></div>
+
     <div class="exams-label">Exams Covered</div>
     <div class="exams">
       <span class="chip">AIIMS NORCET</span>
@@ -206,6 +265,7 @@
       <span class="chip">BHU</span>
       <span class="chip">State Nursing Exams</span>
     </div>
+
     <div class="support">
       <a class="support-link" href="https://wa.me/919783713848" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2z"/></svg>
@@ -221,6 +281,7 @@
       </a>
     </div>
   </div>
+
   <div class="section-title">
     <h2>Practice Questions</h2>
     <p>Choose the correct answer — explanation will appear below</p>
@@ -250,8 +311,10 @@
       </span>
     </div>
   </div>
+
   <div class="footer">
-    © <span id="year"></span> <strong>RPrep Digital QBank</strong> · Made for Nursing Aspirants
+    <img src="logo-circle.png" alt="RPrep" class="footer-logo" />
+    <div>© <span id="year"></span> <strong>RPrep Digital QBank</strong> · Made for Nursing Aspirants</div>
   </div>
 </div>
 
@@ -274,7 +337,6 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script>
-  // ===================== THEME TOGGLE =====================
   (function(){
     const saved = localStorage.getItem('rprep_theme') || 'dark';
     document.documentElement.setAttribute('data-theme', saved);
@@ -708,7 +770,6 @@
             correct = idx >= 0 ? idx : 0;
           }
 
-          // ← Serial number: Firestore se, ya fallback (agar migration nahi hui)
           let serial = (typeof q.serialNumber === 'number') ? q.serialNumber : null;
 
           allQuestions.push({
@@ -720,13 +781,11 @@
           });
         });
 
-        // Sort by serialNumber (agar sab me hai) — warna original order
         const allHaveSerial = allQuestions.every(q => q.serialNumber !== null);
         if (allHaveSerial){
           allQuestions.sort((a,b) => a.serialNumber - b.serialNumber);
         }
 
-        // Fallback: agar serial number nahi hai, to index+1 assign karo (view only, DB me nahi)
         allQuestions.forEach((q, i) => {
           if (q.serialNumber === null) q.serialNumber = i + 1;
         });
@@ -748,7 +807,6 @@
     const params = new URLSearchParams(window.location.search);
     const q = parseInt(params.get('q'), 10);
     if (!isNaN(q) && q >= 1){
-      // Serial number se question dhundho
       const idx = allQuestions.findIndex(item => item.serialNumber === q);
       if (idx >= 0){
         currentPage = Math.floor(idx / PER_PAGE) + 1;
@@ -776,7 +834,6 @@
 
     slice.forEach((data) => {
       const serial = data.serialNumber;
-      const globalIdx = data.id; // use id as key
 
       const card = document.createElement('div');
       card.className = 'question-card';
