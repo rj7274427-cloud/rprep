@@ -6,7 +6,6 @@
 <title>RPrep Digital QBank</title>
 <style>
   :root{
-    /* DARK THEME (default) */
     --bg: #1a1d23; --card: #23272f; --border: #333843;
     --text: #e4e6eb; --text-dim: #a0a6b1;
     --accent: #6ea8fe; --accent-soft: rgba(110,168,254,0.12);
@@ -21,8 +20,6 @@
     --footer-border: #333843;
     --scroll-thumb: #3a3f4a; --scroll-thumb-hover: #4a505c;
   }
-
-  /* LIGHT THEME */
   [data-theme="light"]{
     --bg: #f4f6fa; --card: #ffffff; --border: #e3e7ee;
     --text: #1a1d23; --text-dim: #5a6373;
@@ -38,7 +35,6 @@
     --footer-border: #e3e7ee;
     --scroll-thumb: #c4cbd8; --scroll-thumb-hover: #a8b1c0;
   }
-
   *{ box-sizing: border-box; margin: 0; padding: 0; }
   body{
     background: var(--bg); color: var(--text);
@@ -47,8 +43,6 @@
     transition: background 0.3s ease, color 0.3s ease;
   }
   .container{ max-width: 760px; margin: 0 auto; }
-
-  /* THEME TOGGLE */
   .theme-toggle{
     position: fixed; top: 16px; right: 16px; z-index: 9999;
     width: 46px; height: 46px; border-radius: 50%;
@@ -58,17 +52,13 @@
     transition: all 0.25s ease;
     box-shadow: 0 4px 16px rgba(0,0,0,0.15);
   }
-  .theme-toggle:hover{
-    color: var(--accent); border-color: var(--accent-border);
-    background: var(--accent-soft); transform: scale(1.05);
-  }
+  .theme-toggle:hover{ color: var(--accent); border-color: var(--accent-border); background: var(--accent-soft); transform: scale(1.05); }
   .theme-toggle:active{ transform: scale(0.95); }
   .theme-toggle svg{ width: 22px; height: 22px; }
   .theme-toggle .icon-sun{ display: none; }
   .theme-toggle .icon-moon{ display: block; }
   [data-theme="light"] .theme-toggle .icon-sun{ display: block; }
   [data-theme="light"] .theme-toggle .icon-moon{ display: none; }
-
   .hero{
     text-align: center; padding: 26px 18px 22px;
     background: linear-gradient(180deg, var(--header-grad-1) 0%, var(--header-grad-2) 100%);
@@ -76,12 +66,7 @@
     margin-bottom: 22px; position: relative; overflow: hidden;
     transition: background 0.3s ease, border-color 0.3s ease;
   }
-  .hero::before{
-    content: ""; position: absolute; top: -60px; right: -60px;
-    width: 180px; height: 180px;
-    background: radial-gradient(circle, var(--accent-soft), transparent 70%);
-    pointer-events: none;
-  }
+  .hero::before{ content: ""; position: absolute; top: -60px; right: -60px; width: 180px; height: 180px; background: radial-gradient(circle, var(--accent-soft), transparent 70%); pointer-events: none; }
   .brand-line{ font-size: 0.72rem; letter-spacing: 0.22em; color: var(--accent); font-weight: 600; text-transform: uppercase; margin-bottom: 10px; }
   .brand-title{ font-size: 1.9rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; line-height: 1.2; }
   .brand-title span{ color: var(--accent); }
@@ -180,7 +165,6 @@
 </head>
 <body>
 
-<!-- THEME TOGGLE -->
 <button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
   <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
@@ -282,7 +266,6 @@
     const saved = localStorage.getItem('rprep_theme') || 'dark';
     document.documentElement.setAttribute('data-theme', saved);
   })();
-
   document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.getElementById('themeToggle');
     themeToggle.addEventListener('click', () => {
@@ -292,7 +275,6 @@
       localStorage.setItem('rprep_theme', next);
     });
   });
-  // =======================================================
 
   document.getElementById('year').textContent = new Date().getFullYear();
   const PER_PAGE = 5;
@@ -311,11 +293,13 @@
   firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
   const COLLECTION = "qbank";
+
   let allQuestions = [];
   let currentPage = 1;
   let totalPages = 1;
   const answeredState = {};
   const LETTERS = ['A', 'B', 'C', 'D', 'E'];
+
   const listEl = document.getElementById('list');
   const pageInfoEl = document.getElementById('pageInfo');
   const navBarEl = document.getElementById('navBar');
@@ -348,37 +332,37 @@
     clearTimeout(t._tid);
     t._tid = setTimeout(() => t.classList.remove('show'), 2200);
   }
-  function getShareUrl(qNum){ return SITE_URL + '/?q=' + qNum; }
-  function getDisplayUrl(qNum){ return 'www.rprep.online/?q=' + qNum; }
+  function getShareUrl(serial){ return SITE_URL + '/?q=' + serial; }
+  function getDisplayUrl(serial){ return 'www.rprep.online/?q=' + serial; }
 
-  function buildShareText(data, qNum){
+  function buildShareText(data, serial){
     return '🧠 RPrep Digital QBank\n' +
       '━━━━━━━━━━━━━━━━━━━━\n\n' +
-      'Q' + qNum + '. ' + data.question + '\n\n' +
+      'Q' + serial + '. ' + data.question + '\n\n' +
       data.options.map((o,i) => LETTERS[i] + '. ' + o).join('\n') +
       '\n\n🔍 Answer + Explanation dekho:\n' +
-      getShareUrl(qNum) + '\n\n' +
+      getShareUrl(serial) + '\n\n' +
       '📲 www.rprep.online';
   }
-  function buildIgCaption(data, qNum){
+  function buildIgCaption(data, serial){
     return '🧠 RPrep Digital QBank\n\n' +
-      'Q' + qNum + '. ' + data.question + '\n\n' +
+      'Q' + serial + '. ' + data.question + '\n\n' +
       data.options.map((o,i) => LETTERS[i] + '. ' + o).join('\n') +
-      '\n\n🔍 Answer + Explanation: ' + getShareUrl(qNum) + '\n\n' +
+      '\n\n🔍 Answer + Explanation: ' + getShareUrl(serial) + '\n\n' +
       '#nursing #norcet #nursingexam #rprep';
   }
 
-  function openShareModal(data, qNum, mode){
+  function openShareModal(data, serial, mode){
     shareModalTitle.textContent = mode === 'link' ? 'Share Question Link' : 'Share as Image';
-    sharePreview.innerHTML = '<strong>Question ' + qNum + '</strong>' + escapeHtml(data.question);
+    sharePreview.innerHTML = '<strong>Question ' + serial + '</strong>' + escapeHtml(data.question);
     sharePreviewFull.style.display = 'none';
     sharePreviewImg.src = '';
-    const link = getShareUrl(qNum);
+    const link = getShareUrl(serial);
     shareGrid.innerHTML = '';
 
     const waBtn = document.createElement('a');
     waBtn.className = 'share-item';
-    waBtn.href = 'https://wa.me/?text=' + encodeURIComponent(buildShareText(data, qNum));
+    waBtn.href = 'https://wa.me/?text=' + encodeURIComponent(buildShareText(data, serial));
     waBtn.target = '_blank';
     waBtn.rel = 'noopener';
     waBtn.innerHTML = '<span class="share-item-icon icon-whatsapp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2z"/></svg></span>WhatsApp';
@@ -386,7 +370,7 @@
 
     const tgBtn = document.createElement('a');
     tgBtn.className = 'share-item';
-    tgBtn.href = 'https://t.me/share/url?url=' + encodeURIComponent(link) + '&text=' + encodeURIComponent(buildShareText(data, qNum));
+    tgBtn.href = 'https://t.me/share/url?url=' + encodeURIComponent(link) + '&text=' + encodeURIComponent(buildShareText(data, serial));
     tgBtn.target = '_blank';
     tgBtn.rel = 'noopener';
     tgBtn.innerHTML = '<span class="share-item-icon icon-telegram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg></span>Telegram';
@@ -396,7 +380,7 @@
     igBtn.className = 'share-item';
     igBtn.type = 'button';
     igBtn.innerHTML = '<span class="share-item-icon icon-instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.8.25 2.23.42.56.22.96.48 1.38.9.42.42.68.82.9 1.38.17.42.37 1.05.42 2.23.07 1.25.07 1.62.07 4.85s0 3.6-.07 4.85c-.05 1.17-.25 1.8-.42 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.17-1.05.37-2.23.42-1.25.07-1.62.07-4.85.07s-3.6 0-4.85-.07c-1.17-.05-1.8-.25-2.23-.42-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.17-.42-.37-1.05-.42-2.23C2.2 15.6 2.2 15.23 2.2 12s0-3.6.07-4.85c.05-1.17.25-1.8.42-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.17 1.05-.37 2.23-.42C8.4 2.2 8.77 2.2 12 2.2zm0 3.06a4.94 4.94 0 110 9.88 4.94 4.94 0 010-9.88zm0 8.14a3.2 3.2 0 100-6.4 3.2 3.2 0 000 6.4z"/></svg></span>Instagram';
-    igBtn.addEventListener('click', () => copyToClipboard(buildIgCaption(data, qNum), 'Instagram caption copied!'));
+    igBtn.addEventListener('click', () => copyToClipboard(buildIgCaption(data, serial), 'Instagram caption copied!'));
     shareGrid.appendChild(igBtn);
 
     const copyBtn = document.createElement('button');
@@ -412,7 +396,7 @@
       nativeBtn.type = 'button';
       nativeBtn.innerHTML = '<span class="share-item-icon icon-native"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></span>More';
       nativeBtn.addEventListener('click', () => {
-        navigator.share({ title: 'RPrep Q' + qNum, text: buildShareText(data, qNum), url: link })
+        navigator.share({ title: 'RPrep Q' + serial, text: buildShareText(data, serial), url: link })
           .catch(err => { if (err.name !== 'AbortError') console.log(err); });
       });
       shareGrid.appendChild(nativeBtn);
@@ -423,19 +407,19 @@
       prevBtn2.className = 'share-item';
       prevBtn2.type = 'button';
       prevBtn2.innerHTML = '<span class="share-item-icon icon-preview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></span>Preview';
-      prevBtn2.addEventListener('click', () => generateImage(data, qNum, true));
+      prevBtn2.addEventListener('click', () => generateImage(data, serial, true));
       shareGrid.appendChild(prevBtn2);
 
       const dlBtn = document.createElement('button');
       dlBtn.className = 'share-item';
       dlBtn.type = 'button';
       dlBtn.innerHTML = '<span class="share-item-icon icon-download"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span>Download';
-      dlBtn.addEventListener('click', () => generateImage(data, qNum, false));
+      dlBtn.addEventListener('click', () => generateImage(data, serial, false));
       shareGrid.appendChild(dlBtn);
 
       const waImgBtn = document.createElement('a');
       waImgBtn.className = 'share-item';
-      waImgBtn.href = 'https://wa.me/?text=' + encodeURIComponent(buildShareText(data, qNum));
+      waImgBtn.href = 'https://wa.me/?text=' + encodeURIComponent(buildShareText(data, serial));
       waImgBtn.target = '_blank';
       waImgBtn.rel = 'noopener';
       waImgBtn.innerHTML = '<span class="share-item-icon icon-whatsapp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2z"/></svg></span>WA Caption';
@@ -447,18 +431,14 @@
 
   function closeShareModal(){ shareOverlay.classList.remove('show'); }
   shareModalClose.addEventListener('click', closeShareModal);
-  shareOverlay.addEventListener('click', (e) => {
-    if (e.target === shareOverlay) closeShareModal();
-  });
+  shareOverlay.addEventListener('click', (e) => { if (e.target === shareOverlay) closeShareModal(); });
 
   function copyToClipboard(text, successMsg){
     if (navigator.clipboard && window.isSecureContext){
       navigator.clipboard.writeText(text)
         .then(() => { showToast(successMsg || 'Copied!'); closeShareModal(); })
         .catch(() => fallbackCopy(text, successMsg));
-    } else {
-      fallbackCopy(text, successMsg);
-    }
+    } else { fallbackCopy(text, successMsg); }
   }
   function fallbackCopy(text, successMsg){
     const ta = document.createElement('textarea');
@@ -469,10 +449,10 @@
     document.body.removeChild(ta);
   }
 
-  // ===================== PREMIUM IMAGE (NO ANSWER, NO EXPLANATION) =====================
-  function generateImage(data, qNum, action){
+  // ===================== PREMIUM IMAGE =====================
+  function generateImage(data, serial, action){
     showToast('Generating image...');
-    const displayUrl = getDisplayUrl(qNum);
+    const displayUrl = getDisplayUrl(serial);
 
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
@@ -556,7 +536,7 @@
     ctx.fillStyle = DIM; ctx.font = '400 24px ' + FONT;
     ctx.fillText('Government nursing exams', PAD + 124, 110);
 
-    const qTxt = 'Q' + qNum;
+    const qTxt = 'Q' + serial;
     ctx.font = '800 36px ' + FONT;
     const bw = ctx.measureText(qTxt).width + 64;
     ctx.fillStyle = 'rgba(227,184,91,0.08)';
@@ -659,22 +639,22 @@
         showToast('Preview ready');
         return;
       }
-      const file = new File([blob], 'rprep-q' + qNum + '.png', { type: 'image/png' });
+      const file = new File([blob], 'rprep-q' + serial + '.png', { type: 'image/png' });
       if (action === 'share' && navigator.canShare && navigator.canShare({ files: [file] })){
-        navigator.share({ files: [file], title: 'RPrep Q' + qNum, text: buildShareText(data, qNum) })
+        navigator.share({ files: [file], title: 'RPrep Q' + serial, text: buildShareText(data, serial) })
           .then(function(){ closeShareModal(); })
-          .catch(function(err){ if (err.name !== 'AbortError') downloadImage(blob, qNum); });
+          .catch(function(err){ if (err.name !== 'AbortError') downloadImage(blob, serial); });
       } else {
-        downloadImage(blob, qNum);
+        downloadImage(blob, serial);
         closeShareModal();
       }
     }, 'image/png');
   }
 
-  function downloadImage(blob, qNum){
+  function downloadImage(blob, serial){
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url; a.download = 'rprep-q' + qNum + '.png';
+    a.href = url; a.download = 'rprep-q' + serial + '.png';
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
     setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
     showToast('Image downloaded!');
@@ -692,6 +672,7 @@
     return lines;
   }
 
+  // ===================== LOAD QUESTIONS =====================
   function loadQuestions(){
     db.collection(COLLECTION).get()
       .then(snapshot => {
@@ -704,6 +685,7 @@
           else if (q.options && typeof q.options === 'object')
             options = Object.keys(q.options).sort().map(k => q.options[k]);
           else if (Array.isArray(q.option)) options = q.option;
+
           let correct = 0;
           if (typeof q.correct === 'number') correct = q.correct;
           else if (typeof q.correctAnswer === 'number') correct = q.correctAnswer;
@@ -712,13 +694,30 @@
             const idx = LETTERS.indexOf(q.correct.toUpperCase());
             correct = idx >= 0 ? idx : 0;
           }
+
+          // ← Serial number: Firestore se, ya fallback (agar migration nahi hui)
+          let serial = (typeof q.serialNumber === 'number') ? q.serialNumber : null;
+
           allQuestions.push({
             id: doc.id,
             question: q.question || q.title || q.q || 'Untitled',
             options: options, correct: correct,
-            explanation: q.explanation || q.answer_text || q.solution || 'No explanation provided.'
+            explanation: q.explanation || q.answer_text || q.solution || 'No explanation provided.',
+            serialNumber: serial
           });
         });
+
+        // Sort by serialNumber (agar sab me hai) — warna original order
+        const allHaveSerial = allQuestions.every(q => q.serialNumber !== null);
+        if (allHaveSerial){
+          allQuestions.sort((a,b) => a.serialNumber - b.serialNumber);
+        }
+
+        // Fallback: agar serial number nahi hai, to index+1 assign karo (view only, DB me nahi)
+        allQuestions.forEach((q, i) => {
+          if (q.serialNumber === null) q.serialNumber = i + 1;
+        });
+
         totalPages = Math.ceil(allQuestions.length / PER_PAGE);
         currentPage = 1;
         pageInfoEl.style.display = 'block';
@@ -731,16 +730,22 @@
         listEl.innerHTML = '<div class="loader">Error: ' + escapeHtml(err.message) + '</div>';
       });
   }
+
   function handleUrlHash(){
     const params = new URLSearchParams(window.location.search);
     const q = parseInt(params.get('q'), 10);
-    if (!isNaN(q) && q >= 1 && q <= allQuestions.length){
-      currentPage = Math.ceil(q / PER_PAGE);
-      setTimeout(() => scrollToQuestion(q), 400);
+    if (!isNaN(q) && q >= 1){
+      // Serial number se question dhundho
+      const idx = allQuestions.findIndex(item => item.serialNumber === q);
+      if (idx >= 0){
+        currentPage = Math.floor(idx / PER_PAGE) + 1;
+        setTimeout(() => scrollToQuestionBySerial(q), 400);
+      }
     }
   }
-  function scrollToQuestion(qNum){
-    const card = listEl.querySelector('[data-q-index="' + (qNum - 1) + '"]');
+
+  function scrollToQuestionBySerial(serial){
+    const card = listEl.querySelector('[data-serial="' + serial + '"]');
     if (card){
       card.scrollIntoView({ behavior: 'smooth', block: 'center' });
       card.style.transition = 'box-shadow 0.4s ease';
@@ -748,28 +753,35 @@
       setTimeout(() => { card.style.boxShadow = ''; }, 2000);
     }
   }
+
   function renderPage(){
     if (!allQuestions.length) return;
     const start = (currentPage - 1) * PER_PAGE;
     const end = Math.min(start + PER_PAGE, allQuestions.length);
     const slice = allQuestions.slice(start, end);
     listEl.innerHTML = '';
-    slice.forEach((data, i) => {
-      const globalIdx = start + i;
+
+    slice.forEach((data) => {
+      const serial = data.serialNumber;
+      const globalIdx = data.id; // use id as key
+
       const card = document.createElement('div');
       card.className = 'question-card';
-      card.dataset.qIndex = globalIdx;
+      card.dataset.serial = serial;
+
       const head = document.createElement('div');
       head.className = 'q-head';
-      head.innerHTML = '<span class="q-index">' + (globalIdx + 1) + '</span>' +
+      head.innerHTML = '<span class="q-index">' + serial + '</span>' +
         '<span class="q-text">' + escapeHtml(data.question) + '</span>' +
         '<span class="share-btns">' +
           '<button class="share-btn link-share" title="Share link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button>' +
           '<button class="share-btn img-share" title="Share as image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></button>' +
         '</span>';
       card.appendChild(head);
-      head.querySelector('.link-share').addEventListener('click', (e) => { e.stopPropagation(); openShareModal(data, globalIdx + 1, 'link'); });
-      head.querySelector('.img-share').addEventListener('click', (e) => { e.stopPropagation(); openShareModal(data, globalIdx + 1, 'image'); });
+
+      head.querySelector('.link-share').addEventListener('click', (e) => { e.stopPropagation(); openShareModal(data, serial, 'link'); });
+      head.querySelector('.img-share').addEventListener('click', (e) => { e.stopPropagation(); openShareModal(data, serial, 'image'); });
+
       const optionsWrap = document.createElement('div');
       optionsWrap.className = 'options';
       data.options.forEach((optText, optIdx) => {
@@ -779,7 +791,7 @@
         btn.addEventListener('click', () => {
           if (card.classList.contains('answered')) return;
           card.classList.add('answered');
-          answeredState[globalIdx] = optIdx;
+          answeredState[data.id] = optIdx;
           optionsWrap.querySelectorAll('.option').forEach((b, k) => {
             b.disabled = true;
             if (k === data.correct){ b.classList.add('correct'); b.insertAdjacentHTML('beforeend', '<span class="tick">✓</span>'); }
@@ -789,12 +801,14 @@
         optionsWrap.appendChild(btn);
       });
       card.appendChild(optionsWrap);
+
       const expl = document.createElement('div');
       expl.className = 'explanation';
       expl.innerHTML = '<div class="explanation-label">Explanation</div><div class="explanation-text">' + escapeHtml(data.explanation) + '</div>';
       card.appendChild(expl);
-      if (answeredState[globalIdx] !== undefined){
-        const prevAns = answeredState[globalIdx];
+
+      if (answeredState[data.id] !== undefined){
+        const prevAns = answeredState[data.id];
         card.classList.add('answered');
         optionsWrap.querySelectorAll('.option').forEach((b, k) => {
           b.disabled = true;
@@ -802,32 +816,46 @@
           if (k === prevAns && k !== data.correct){ b.classList.add('wrong'); b.insertAdjacentHTML('beforeend', '<span class="tick">✕</span>'); }
         });
       }
+
       listEl.appendChild(card);
     });
+
     pageNumEl.textContent = currentPage;
     pageTotalEl.textContent = totalPages;
     rangeStartEl.textContent = start + 1;
     rangeEndEl.textContent = end;
     totalCountEl.textContent = allQuestions.length;
+
     prevBtn.disabled = currentPage === 1;
     nextBtn.disabled = currentPage === totalPages;
+
     if (!window._jumpInProgress) window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
   prevBtn.addEventListener('click', () => { if (currentPage > 1){ currentPage--; renderPage(); } });
   nextBtn.addEventListener('click', () => { if (currentPage < totalPages){ currentPage++; renderPage(); } });
+
   jumpBtn.addEventListener('click', doJump);
   jumpInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') doJump(); });
   function doJump(){
     const val = parseInt(jumpInput.value, 10);
-    if (isNaN(val) || val < 1 || val > allQuestions.length){
-      jumpInput.value = ''; jumpInput.placeholder = '1-' + allQuestions.length; return;
+    if (isNaN(val) || val < 1){ jumpInput.value = ''; return; }
+    const idx = allQuestions.findIndex(item => item.serialNumber === val);
+    if (idx < 0){
+      jumpInput.value = '';
+      jumpInput.placeholder = 'Not found';
+      return;
     }
     window._jumpInProgress = true;
-    currentPage = Math.ceil(val / PER_PAGE);
+    currentPage = Math.floor(idx / PER_PAGE) + 1;
     renderPage();
-    setTimeout(() => { scrollToQuestion(val); window._jumpInProgress = false; }, 350);
+    setTimeout(() => {
+      scrollToQuestionBySerial(val);
+      window._jumpInProgress = false;
+    }, 350);
     jumpInput.value = '';
   }
+
   function initVisitorCounter(){
     const SESSION_KEY = 'rprep_visited_session';
     const counterRef = db.collection('meta').doc('visitors');
@@ -846,6 +874,7 @@
         .catch(err => console.error('Visitor increment error:', err));
     }
   }
+
   initVisitorCounter();
   loadQuestions();
 </script>

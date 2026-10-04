@@ -13,6 +13,8 @@
     --green: #34a853; --green-soft: rgba(52,168,83,0.15);
     --red: #ea4335; --red-soft: rgba(234,67,53,0.15);
     --amber: #fbbc04; --amber-soft: rgba(251,188,4,0.15);
+    --amber-border: rgba(251,188,4,0.4);
+    --purple: #a78bfa; --purple-soft: rgba(167,139,250,0.15);
   }
   *{ box-sizing: border-box; margin: 0; padding: 0; }
   body{
@@ -22,26 +24,13 @@
   }
   .container{ max-width: 900px; margin: 0 auto; }
 
-  /* LOGIN */
-  .login-wrap{
-    min-height: 80vh; display: flex; align-items: center; justify-content: center;
-  }
-  .login-box{
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 16px; padding: 32px 26px; width: 100%; max-width: 400px;
-  }
-  .login-box h1{
-    font-size: 1.5rem; font-weight: 700; text-align: center; margin-bottom: 6px;
-  }
+  .login-wrap{ min-height: 80vh; display: flex; align-items: center; justify-content: center; }
+  .login-box{ background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 32px 26px; width: 100%; max-width: 400px; }
+  .login-box h1{ font-size: 1.5rem; font-weight: 700; text-align: center; margin-bottom: 6px; }
   .login-box h1 span{ color: var(--accent); }
-  .login-box p{
-    text-align: center; color: var(--text-dim); font-size: 0.85rem; margin-bottom: 24px;
-  }
+  .login-box p{ text-align: center; color: var(--text-dim); font-size: 0.85rem; margin-bottom: 24px; }
   .field{ margin-bottom: 14px; }
-  .field label{
-    display: block; font-size: 0.78rem; color: var(--text-dim);
-    margin-bottom: 6px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em;
-  }
+  .field label{ display: block; font-size: 0.78rem; color: var(--text-dim); margin-bottom: 6px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
   .field input, .field select, .field textarea{
     width: 100%; background: #141820; border: 1px solid var(--border);
     color: var(--text); padding: 11px 14px; border-radius: 10px;
@@ -54,13 +43,7 @@
   .field textarea{ resize: vertical; min-height: 80px; font-family: ui-monospace, monospace; font-size: 0.82rem; }
   .field input[readonly]{ opacity: 0.6; cursor: not-allowed; }
 
-  .btn{
-    background: #2a3038; border: 1px solid var(--border); color: var(--text);
-    font-family: inherit; font-size: 0.9rem; font-weight: 500;
-    padding: 11px 18px; border-radius: 10px; cursor: pointer;
-    transition: all 0.2s; display: inline-flex; align-items: center;
-    justify-content: center; gap: 7px;
-  }
+  .btn{ background: #2a3038; border: 1px solid var(--border); color: var(--text); font-family: inherit; font-size: 0.9rem; font-weight: 500; padding: 11px 18px; border-radius: 10px; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 7px; }
   .btn:hover:not(:disabled){ background: #343b45; border-color: #454d59; }
   .btn:disabled{ opacity: 0.5; cursor: not-allowed; }
   .btn.primary{ background: var(--accent-soft); border-color: var(--accent-border); color: var(--accent); }
@@ -71,149 +54,200 @@
   .btn.success{ background: var(--green-soft); border-color: rgba(52,168,83,0.4); color: #7ee2a8; }
   .btn.small{ padding: 7px 12px; font-size: 0.8rem; }
 
-  /* HEADER */
-  .admin-header{
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 14px; padding: 18px 20px; margin-bottom: 20px;
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 14px; flex-wrap: wrap;
-  }
+  .admin-header{ background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
   .admin-header .brand h2{ font-size: 1.2rem; font-weight: 700; }
   .admin-header .brand h2 span{ color: var(--accent); }
   .admin-header .brand p{ color: var(--text-dim); font-size: 0.78rem; }
-  .admin-header .user-info{
-    display: flex; align-items: center; gap: 10px;
-    background: #141820; padding: 8px 14px; border-radius: 10px;
-    border: 1px solid var(--border); font-size: 0.82rem; color: var(--text-dim);
+  .admin-header .user-info{ display: flex; align-items: center; gap: 8px; background: #141820; padding: 8px 14px; border-radius: 10px; border: 1px solid var(--border); font-size: 0.82rem; color: var(--text-dim); flex-wrap: wrap; }
+
+  /* ========== BIG MIGRATION BANNER ========== */
+  .migrate-banner{
+    background: linear-gradient(135deg, rgba(251,188,4,0.15) 0%, rgba(251,188,4,0.06) 100%);
+    border: 2px solid var(--amber-border);
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    position: relative;
+    overflow: hidden;
+  }
+  .migrate-banner::before{
+    content: "";
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 140px; height: 140px;
+    background: radial-gradient(circle, rgba(251,188,4,0.15), transparent 70%);
+    pointer-events: none;
+  }
+  .migrate-banner .migrate-info{
+    flex: 1;
+    min-width: 200px;
+    position: relative;
+    z-index: 1;
+  }
+  .migrate-banner .migrate-info h3{
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #f7d774;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .migrate-banner .migrate-info p{
+    font-size: 0.82rem;
+    color: #d4b96f;
+    line-height: 1.5;
+  }
+  .migrate-banner .migrate-action{
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+  }
+  .migrate-banner .big-migrate-btn{
+    background: linear-gradient(135deg, #fbbc04 0%, #f59e0b 100%);
+    border: none;
+    color: #1a1d23;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 800;
+    padding: 16px 32px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 0.02em;
+    box-shadow: 0 4px 16px rgba(251,188,4,0.35);
+    text-transform: uppercase;
+  }
+  .migrate-banner .big-migrate-btn:hover:not(:disabled){
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(251,188,4,0.5);
+  }
+  .migrate-banner .big-migrate-btn:active:not(:disabled){
+    transform: translateY(0);
+  }
+  .migrate-banner .big-migrate-btn:disabled{
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  .migrate-banner .big-migrate-btn svg{
+    width: 22px; height: 22px;
   }
 
-  /* TABS */
-  .tabs{
-    display: flex; gap: 6px; margin-bottom: 18px; flex-wrap: wrap;
-    background: var(--card); padding: 6px; border-radius: 12px; border: 1px solid var(--border);
+  .hidden-banner{ display: none !important; }
+
+  /* ========== WELCOME BANNER (after migration) ========== */
+  .success-banner{
+    background: linear-gradient(135deg, rgba(52,168,83,0.15) 0%, rgba(52,168,83,0.05) 100%);
+    border: 2px solid rgba(52,168,83,0.4);
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: #7ee2a8;
+    font-size: 0.9rem;
+    font-weight: 500;
   }
-  .tab{
-    flex: 1; min-width: 100px; padding: 10px 14px; text-align: center;
-    background: transparent; border: none; color: var(--text-dim);
-    font-family: inherit; font-size: 0.85rem; font-weight: 500;
-    border-radius: 8px; cursor: pointer; transition: all 0.2s;
+  .success-banner svg{
+    width: 24px; height: 24px; flex-shrink: 0;
   }
+  .hidden{ display: none !important; }
+
+  .tabs{ display: flex; gap: 6px; margin-bottom: 18px; flex-wrap: wrap; background: var(--card); padding: 6px; border-radius: 12px; border: 1px solid var(--border); }
+  .tab{ flex: 1; min-width: 100px; padding: 10px 14px; text-align: center; background: transparent; border: none; color: var(--text-dim); font-family: inherit; font-size: 0.85rem; font-weight: 500; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
   .tab.active{ background: var(--accent-soft); color: var(--accent); }
   .tab:hover:not(.active){ color: var(--text); background: #1f242d; }
 
-  /* PANELS */
-  .panel{
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 14px; padding: 22px; margin-bottom: 16px;
-  }
+  .panel{ background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 22px; margin-bottom: 16px; }
   .panel h3{ font-size: 1rem; font-weight: 600; margin-bottom: 14px; }
   .panel-sub{ color: var(--text-dim); font-size: 0.82rem; margin-bottom: 16px; }
 
   .grid-2{ display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .grid-4{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  @media (min-width: 600px){ .grid-4{ grid-template-columns: repeat(4,1fr); } }
   @media (max-width: 500px){ .grid-2{ grid-template-columns: 1fr; } }
 
-  .option-input{
-    position: relative;
-  }
-  .option-input .letter{
-    position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
-    width: 24px; height: 24px; background: var(--accent-soft); color: var(--accent);
-    border-radius: 6px; display: flex; align-items: center; justify-content: center;
-    font-size: 0.78rem; font-weight: 700;
-  }
+  .option-input{ position: relative; }
+  .option-input .letter{ position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 24px; height: 24px; background: var(--accent-soft); color: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.78rem; font-weight: 700; }
   .option-input input{ padding-left: 44px; }
 
-  .correct-selector{
-    display: flex; gap: 6px;
-  }
-  .correct-selector button{
-    flex: 1; padding: 10px; background: #141820; border: 1px solid var(--border);
-    color: var(--text-dim); border-radius: 8px; cursor: pointer;
-    font-family: inherit; font-size: 0.85rem; font-weight: 600;
-    transition: all 0.2s;
-  }
-  .correct-selector button.active{
-    background: var(--green-soft); color: #7ee2a8; border-color: rgba(52,168,83,0.5);
-  }
+  .correct-selector{ display: flex; gap: 6px; }
+  .correct-selector button{ flex: 1; padding: 10px; background: #141820; border: 1px solid var(--border); color: var(--text-dim); border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 0.85rem; font-weight: 600; transition: all 0.2s; }
+  .correct-selector button.active{ background: var(--green-soft); color: #7ee2a8; border-color: rgba(52,168,83,0.5); }
 
-  .list-item{
-    background: var(--card-2); border: 1px solid var(--border);
-    border-radius: 10px; padding: 12px 14px; margin-bottom: 8px;
-    display: flex; gap: 12px; align-items: flex-start; justify-content: space-between;
-  }
+  .list-item{ background: var(--card-2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; margin-bottom: 8px; display: flex; gap: 12px; align-items: flex-start; justify-content: space-between; }
   .list-item .content{ flex: 1; min-width: 0; }
-  .list-item .q-title{
-    font-weight: 500; font-size: 0.92rem; margin-bottom: 4px;
-    overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
-    -webkit-line-clamp: 2; -webkit-box-orient: vertical;
-  }
-  .list-item .q-meta{
-    font-size: 0.75rem; color: var(--text-dim);
-    display: flex; gap: 8px; flex-wrap: wrap;
-  }
-  .list-item .q-meta span{
-    background: #141820; padding: 2px 8px; border-radius: 6px;
-  }
-  .list-item .actions{
-    display: flex; gap: 6px; flex-shrink: 0;
-  }
+  .list-item .q-title{ font-weight: 500; font-size: 0.92rem; margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .list-item .q-meta{ font-size: 0.75rem; color: var(--text-dim); display: flex; gap: 8px; flex-wrap: wrap; }
+  .list-item .q-meta span{ background: #141820; padding: 2px 8px; border-radius: 6px; }
+  .list-item .actions{ display: flex; gap: 6px; flex-shrink: 0; }
 
-  .loader{
-    text-align: center; color: var(--text-dim);
-    padding: 30px 0; font-size: 0.9rem;
-  }
-  .loader::after{
-    content: ""; display: inline-block; width: 14px; height: 14px;
-    margin-left: 8px; border: 2px solid var(--border);
-    border-top-color: var(--accent); border-radius: 50%;
-    animation: spin 0.8s linear infinite; vertical-align: middle;
-  }
+  .loader{ text-align: center; color: var(--text-dim); padding: 30px 0; font-size: 0.9rem; }
+  .loader::after{ content: ""; display: inline-block; width: 14px; height: 14px; margin-left: 8px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; vertical-align: middle; }
   @keyframes spin{ to{ transform: rotate(360deg); } }
 
-  .toast{
-    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px);
-    background: var(--card); color: var(--text); border: 1px solid var(--accent-border);
-    padding: 12px 20px; border-radius: 12px; font-size: 0.88rem;
-    z-index: 9999; opacity: 0; transition: all 0.3s;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    max-width: 90vw; text-align: center;
-  }
+  .toast{ position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--card); color: var(--text); border: 1px solid var(--accent-border); padding: 12px 20px; border-radius: 12px; font-size: 0.88rem; z-index: 9999; opacity: 0; transition: all 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.5); max-width: 90vw; text-align: center; }
   .toast.show{ opacity: 1; transform: translateX(-50%) translateY(0); }
   .toast.error{ border-color: rgba(234,67,53,0.5); color: #ff9a92; }
   .toast.success{ border-color: rgba(52,168,83,0.5); color: #7ee2a8; }
 
-  .count-badge{
-    background: var(--accent-soft); color: var(--accent);
-    padding: 3px 9px; border-radius: 999px; font-size: 0.75rem;
-    font-weight: 600; margin-left: 8px;
-  }
+  .count-badge{ background: var(--accent-soft); color: var(--accent); padding: 3px 9px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; margin-left: 8px; }
 
-  .json-preview{
-    background: #0a0d12; border: 1px solid var(--border);
-    border-radius: 10px; padding: 12px; font-family: ui-monospace, monospace;
-    font-size: 0.78rem; color: #a0a6b1; max-height: 200px;
-    overflow: auto; white-space: pre-wrap; word-break: break-all;
-  }
+  .json-preview{ background: #0a0d12; border: 1px solid var(--border); border-radius: 10px; padding: 12px; font-family: ui-monospace, monospace; font-size: 0.78rem; color: #a0a6b1; max-height: 200px; overflow: auto; white-space: pre-wrap; word-break: break-all; }
 
-  .hint{
-    background: rgba(251,188,4,0.08); border-left: 3px solid var(--amber);
-    padding: 10px 14px; border-radius: 8px; font-size: 0.82rem;
-    color: #e0c78a; margin-bottom: 14px;
-  }
+  .hint{ background: rgba(251,188,4,0.08); border-left: 3px solid var(--amber); padding: 10px 14px; border-radius: 8px; font-size: 0.82rem; color: #e0c78a; margin-bottom: 14px; }
 
-  .search-bar{
-    display: flex; gap: 8px; margin-bottom: 14px;
-  }
-  .search-bar input{
-    flex: 1; background: #141820; border: 1px solid var(--border);
-    color: var(--text); padding: 10px 14px; border-radius: 10px;
-    font-family: inherit; font-size: 0.88rem; outline: none;
-  }
+  .search-bar{ display: flex; gap: 8px; margin-bottom: 14px; }
+  .search-bar input{ flex: 1; background: #141820; border: 1px solid var(--border); color: var(--text); padding: 10px 14px; border-radius: 10px; font-family: inherit; font-size: 0.88rem; outline: none; }
   .search-bar input:focus{ border-color: var(--accent-border); }
 
-  .hidden{ display: none !important; }
+  .serial-badge{ display: inline-flex; align-items: center; gap: 4px; background: rgba(110,168,254,0.18); color: var(--accent); font-weight: 700; padding: 3px 10px; border-radius: 6px; font-size: 0.75rem; }
+
+  /* ========== MIGRATION MODAL ========== */
+  .modal-overlay{
+    position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9998;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s;
+  }
+  .modal-overlay.show{ opacity: 1; pointer-events: auto; }
+  .modal{
+    background: var(--card); border: 2px solid var(--amber-border);
+    border-radius: 20px; padding: 30px 26px; max-width: 480px; width: 100%;
+    transform: translateY(20px); transition: transform 0.25s;
+    box-shadow: 0 20px 60px rgba(251,188,4,0.2);
+  }
+  .modal-overlay.show .modal{ transform: translateY(0); }
+  .modal-icon{
+    width: 60px; height: 60px; border-radius: 50%;
+    background: var(--amber-soft);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px;
+    font-size: 1.8rem;
+  }
+  .modal h3{ font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; color: #f7d774; text-align: center; }
+  .modal p{ color: var(--text-dim); font-size: 0.92rem; margin-bottom: 22px; line-height: 1.6; text-align: center; }
+  .modal-actions{ display: flex; gap: 10px; flex-direction: column; }
+  .modal-actions .btn{ padding: 15px 20px; font-size: 0.95rem; }
+  .modal-actions .confirm-migrate-btn{
+    background: linear-gradient(135deg, #fbbc04 0%, #f59e0b 100%);
+    border: none;
+    color: #1a1d23;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    box-shadow: 0 4px 16px rgba(251,188,4,0.35);
+  }
+  .modal-actions .confirm-migrate-btn:hover:not(:disabled){
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(251,188,4,0.5);
+  }
 </style>
 </head>
 <body>
@@ -247,7 +281,7 @@
     <div class="admin-header">
       <div class="brand">
         <h2>RPrep <span>Admin Panel</span></h2>
-        <p>QBank Management</p>
+        <p>QBank Management · Permanent Serial Numbers</p>
       </div>
       <div class="user-info">
         <span id="userEmail">—</span>
@@ -255,7 +289,31 @@
       </div>
     </div>
 
-    <!-- TABS -->
+    <!-- ========== BIG MIGRATION BANNER (SHOWS ONLY IF NEEDED) ========== -->
+    <div class="migrate-banner hidden-banner" id="migrateBanner">
+      <div class="migrate-info">
+        <h3>⚙️ Migration Required</h3>
+        <p>Kuch questions ke paas permanent serial number nahi hai. <strong>Migrate</strong> button dabao — sabko ek stable number mil jayega. Ye number kabhi change nahi hoga, chahe kitne bhi questions add ho jayein.</p>
+      </div>
+      <div class="migrate-action">
+        <button class="big-migrate-btn" id="bigMigrateBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+          </svg>
+          ⚙️ Migrate Now
+        </button>
+      </div>
+    </div>
+
+    <!-- ========== SUCCESS BANNER (shows after migration) ========== -->
+    <div class="success-banner hidden" id="successBanner">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+        <polyline points="22 4 12 14.01 9 11.01"/>
+      </svg>
+      <span>All questions have permanent serial numbers ✅</span>
+    </div>
+
     <div class="tabs">
       <button class="tab active" data-tab="list">📋 Questions</button>
       <button class="tab" data-tab="single">✏️ Add One</button>
@@ -267,6 +325,7 @@
     <!-- ===== LIST TAB ===== -->
     <div class="panel" id="panel-list">
       <h3>All Questions <span class="count-badge" id="qCount">0</span></h3>
+      <p class="panel-sub">Questions sorted by permanent serial number. Ye number <strong>kabhi change nahi hota</strong>.</p>
       <div class="search-bar">
         <input type="text" id="searchInput" placeholder="Search questions..." />
         <button class="btn small" id="refreshBtn">↻</button>
@@ -279,9 +338,14 @@
     <!-- ===== SINGLE ADD TAB ===== -->
     <div class="panel hidden" id="panel-single">
       <h3 id="singlePanelTitle">Add New Question</h3>
-      <p class="panel-sub">Ek-ek karke questions add karo. Edit mode me same form reuse hoga.</p>
+      <p class="panel-sub" id="singlePanelSub">Naya question automatically next serial number par add hoga.</p>
 
       <input type="hidden" id="editDocId" value="" />
+
+      <div class="field">
+        <label>Serial Number</label>
+        <input type="text" id="singleSerial" readonly value="Auto (next available)" />
+      </div>
 
       <div class="field">
         <label>Question *</label>
@@ -322,7 +386,7 @@
     <!-- ===== JSON TAB ===== -->
     <div class="panel hidden" id="panel-json">
       <h3>Bulk Upload via JSON</h3>
-      <p class="panel-sub">Ek array of objects daalo. Sabko ek saath add kar dega.</p>
+      <p class="panel-sub">Ek array of objects daalo. Sabko auto serial number milenge.</p>
 
       <div class="hint">
         <strong>Format:</strong> <code>[{ "question": "...", "options": ["A","B","C","D"], "correct": 0, "explanation": "..." }, ...]</code>
@@ -356,8 +420,7 @@
         <code>C) Hyperlink</code><br>
         <code>D) None</code><br>
         <code>Answer: A</code><br>
-        <code>Explanation: HTML stands for...</code><br>
-        (Repeat for each question)
+        <code>Explanation: HTML stands for...</code>
       </div>
 
       <div class="field">
@@ -383,9 +446,7 @@
       <p class="panel-sub">Kisi bhi format se paste karo — parser smart hai.</p>
 
       <div class="hint">
-        <strong>Accepted Formats:</strong><br>
-        1. <code>Q1. Question?</code> then <code>A) option</code> ... <code>Answer: A</code> <code>Explanation: ...</code><br>
-        2. HTML tags also fine — <code>&lt;p&gt;</code>, <code>&lt;strong&gt;</code>, etc automatically strip ho jayenge
+        <strong>Accepted:</strong> <code>Q1. Question?</code> then <code>A) option</code> ... <code>Answer: A</code> <code>Explanation: ...</code>
       </div>
 
       <div class="field">
@@ -414,18 +475,33 @@ Explanation: HTML stands for..."></textarea>
   </div>
 </div>
 
+<!-- MIGRATION MODAL -->
+<div class="modal-overlay" id="migrationModal">
+  <div class="modal">
+    <div class="modal-icon">⚙️</div>
+    <h3>Serial Number Migration</h3>
+    <p id="migrationText">
+      Ye purane questions ko permanent serial numbers assign karega.<br><br>
+      <strong style="color:#f7d774;">Ye ek baar kaam hai.</strong><br>
+      Fir naya question hamesha next number par add hoga (jaise 12 ke baad 13, na ki 1).
+    </p>
+    <div class="modal-actions">
+      <button class="btn confirm-migrate-btn" id="migrationConfirm">
+        ⚙️ Start Migration
+      </button>
+      <button class="btn" id="migrationCancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
-<!-- pdf.js for PDF parsing -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
 <script>
-  // ========= FIREBASE CONFIG =========
   const firebaseConfig = {
     apiKey: "AIzaSyANC-KBp6zIVnEW1evY5CNkjW43k8ZGgHc",
     authDomain: "rpreppdf.firebaseapp.com",
@@ -444,12 +520,10 @@ Explanation: HTML stands for..."></textarea>
   const ADMIN_EMAIL = 'pbhupeshk2022@gmail.com';
   const LETTERS = ['A','B','C','D','E','F','G','H'];
 
-  // pdf.js worker
   if (window.pdfjsLib){
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
   }
 
-  // ========= UTILS =========
   function toast(msg, type){
     const t = document.getElementById('toast');
     t.textContent = msg;
@@ -464,7 +538,7 @@ Explanation: HTML stands for..."></textarea>
       .replace(/"/g,'&quot;').replace(/'/g,'&#039;');
   }
 
-  // ========= AUTH =========
+  // ===== AUTH =====
   $('loginForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const pwd = $('loginPassword').value;
@@ -505,7 +579,115 @@ Explanation: HTML stands for..."></textarea>
     }
   });
 
-  // ========= TABS =========
+  // ===== MIGRATION CHECK & BANNER =====
+  async function checkMigrationNeeded(){
+    try {
+      const snap = await db.collection(COLLECTION).get();
+      let needsMigration = false;
+      let total = 0;
+      let migrated = 0;
+      snap.forEach(d => {
+        total++;
+        const s = d.data().serialNumber;
+        if (typeof s === 'number') migrated++;
+        else needsMigration = true;
+      });
+
+      if (total === 0){
+        // No questions at all — hide everything
+        $('migrateBanner').classList.add('hidden-banner');
+        $('successBanner').classList.add('hidden');
+        return;
+      }
+
+      if (needsMigration){
+        $('migrateBanner').classList.remove('hidden-banner');
+        $('successBanner').classList.add('hidden');
+      } else {
+        $('migrateBanner').classList.add('hidden-banner');
+        $('successBanner').classList.remove('hidden');
+        // Auto-hide success banner after 5 sec
+        setTimeout(() => {
+          $('successBanner').classList.add('hidden');
+        }, 5000);
+      }
+    } catch(e){
+      console.error(e);
+    }
+  }
+
+  // ===== MIGRATION MODAL =====
+  $('bigMigrateBtn').addEventListener('click', () => {
+    $('migrationModal').classList.add('show');
+  });
+  $('migrationCancel').addEventListener('click', () => {
+    $('migrationModal').classList.remove('show');
+  });
+  $('migrationModal').addEventListener('click', (e) => {
+    if (e.target === $('migrationModal')) $('migrationModal').classList.remove('show');
+  });
+
+  $('migrationConfirm').addEventListener('click', async () => {
+    $('migrationConfirm').disabled = true;
+    $('migrationConfirm').textContent = 'Migrating...';
+    try {
+      const snap = await db.collection(COLLECTION).get();
+      const docs = [];
+      snap.forEach(d => docs.push({ id: d.id, ...d.data() }));
+
+      docs.sort((a, b) => {
+        const sa = typeof a.serialNumber === 'number' ? a.serialNumber : -1;
+        const sb = typeof b.serialNumber === 'number' ? b.serialNumber : -1;
+        if (sa !== sb) return sa - sb;
+        return a.id.localeCompare(b.id);
+      });
+
+      let maxSerial = 0;
+      docs.forEach(d => {
+        if (typeof d.serialNumber === 'number' && d.serialNumber > maxSerial){
+          maxSerial = d.serialNumber;
+        }
+      });
+
+      let next = maxSerial + 1;
+      let count = 0;
+      const batch = db.batch();
+
+      for (const d of docs){
+        if (typeof d.serialNumber !== 'number'){
+          batch.update(db.collection(COLLECTION).doc(d.id), { serialNumber: next });
+          next++;
+          count++;
+        }
+      }
+
+      if (count > 0){
+        await batch.commit();
+        toast(`${count} questions migrated successfully!`, 'success');
+        $('migrationConfirm').textContent = '✅ Done!';
+        setTimeout(() => {
+          $('migrationModal').classList.remove('show');
+          $('migrationConfirm').disabled = false;
+          $('migrationConfirm').textContent = '⚙️ Start Migration';
+          loadQuestionsList();
+          checkMigrationNeeded();
+        }, 1200);
+      } else {
+        toast('No migration needed. All good!', 'success');
+        $('migrationModal').classList.remove('show');
+        $('migrationConfirm').disabled = false;
+        $('migrationConfirm').textContent = '⚙️ Start Migration';
+      }
+
+    } catch (e){
+      console.error(e);
+      toast('Migration failed: ' + e.message, 'error');
+      $('migrationConfirm').disabled = false;
+      $('migrationConfirm').textContent = '⚙️ Start Migration';
+    }
+  });
+
+  // ===== TABS =====
   document.querySelectorAll('.tab').forEach(tab => {
     tab.addEventListener('click', () => {
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -518,15 +700,24 @@ Explanation: HTML stands for..."></textarea>
     });
   });
 
-  // ========= LIST =========
+  // ===== LOAD =====
   let allDocs = [];
+
   async function loadQuestionsList(){
     $('questionsList').innerHTML = '<div class="loader">Loading</div>';
     try {
       const snap = await db.collection(COLLECTION).get();
       allDocs = [];
       snap.forEach(d => allDocs.push({ id: d.id, ...d.data() }));
+
+      allDocs.sort((a, b) => {
+        const sa = typeof a.serialNumber === 'number' ? a.serialNumber : 999999;
+        const sb = typeof b.serialNumber === 'number' ? b.serialNumber : 999999;
+        return sa - sb;
+      });
+
       renderQuestionsList();
+      checkMigrationNeeded();
     } catch (e){
       console.error(e);
       $('questionsList').innerHTML = '<div class="loader">Error: ' + escapeHtml(e.message) + '</div>';
@@ -544,12 +735,12 @@ Explanation: HTML stands for..."></textarea>
       return;
     }
 
-    const html = filtered.map((d, i) => {
-      const idx = allDocs.indexOf(d) + 1;
+    const html = filtered.map((d) => {
+      const serial = (typeof d.serialNumber === 'number') ? d.serialNumber : '?';
       const correctLetter = LETTERS[d.correct] || '?';
       return '<div class="list-item">' +
         '<div class="content">' +
-          '<div class="q-title"><strong style="color:var(--accent)">Q' + idx + '.</strong> ' + escapeHtml(d.question || 'Untitled') + '</div>' +
+          '<div class="q-title"><span class="serial-badge">#' + serial + '</span> ' + escapeHtml(d.question || 'Untitled') + '</div>' +
           '<div class="q-meta">' +
             '<span>✓ Ans: ' + correctLetter + '</span>' +
             '<span>' + ((d.options || []).length) + ' options</span>' +
@@ -565,11 +756,9 @@ Explanation: HTML stands for..."></textarea>
 
     $('questionsList').innerHTML = html;
 
-    // Edit buttons
     document.querySelectorAll('[data-edit]').forEach(b => {
       b.addEventListener('click', () => startEdit(b.dataset.edit));
     });
-    // Delete buttons
     document.querySelectorAll('[data-del]').forEach(b => {
       b.addEventListener('click', () => deleteQuestion(b.dataset.del));
     });
@@ -578,7 +767,18 @@ Explanation: HTML stands for..."></textarea>
   $('searchInput').addEventListener('input', renderQuestionsList);
   $('refreshBtn').addEventListener('click', loadQuestionsList);
 
-  // ========= SINGLE ADD / EDIT =========
+  // ===== NEXT SERIAL =====
+  async function getNextSerialNumber(){
+    const snap = await db.collection(COLLECTION).get();
+    let maxSerial = 0;
+    snap.forEach(d => {
+      const s = d.data().serialNumber;
+      if (typeof s === 'number' && s > maxSerial) maxSerial = s;
+    });
+    return maxSerial + 1;
+  }
+
+  // ===== SINGLE ADD / EDIT =====
   let selectedCorrect = 0;
 
   function updateCorrectUI(){
@@ -609,20 +809,26 @@ Explanation: HTML stands for..."></textarea>
     if (opts.some(o => !o)){ toast('All 4 options required', 'error'); return; }
     if (!explanation){ toast('Explanation required', 'error'); return; }
 
-    const data = { question, options: opts, correct: selectedCorrect, explanation };
-
     try {
       $('saveSingleBtn').disabled = true;
+
       if (editId){
-        await db.collection(COLLECTION).doc(editId).update(data);
-        toast('Question updated', 'success');
+        await db.collection(COLLECTION).doc(editId).update({
+          question, options: opts, correct: selectedCorrect, explanation
+        });
+        toast('Question updated (serial unchanged)', 'success');
         cancelEdit();
       } else {
-        await db.collection(COLLECTION).add(data);
-        toast('Question added', 'success');
+        const serial = await getNextSerialNumber();
+        await db.collection(COLLECTION).add({
+          question, options: opts, correct: selectedCorrect, explanation,
+          serialNumber: serial,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        toast('Question added as #' + serial, 'success');
         clearSingleForm();
       }
-      loadQuestionsList();
+      await loadQuestionsList();
     } catch (e){
       console.error(e);
       toast('Error: ' + e.message, 'error');
@@ -640,8 +846,10 @@ Explanation: HTML stands for..."></textarea>
   function cancelEdit(){
     $('editDocId').value = '';
     $('singlePanelTitle').textContent = 'Add New Question';
+    $('singlePanelSub').textContent = 'Naya question automatically next serial number par add hoga.';
     $('saveSingleBtn').innerHTML = '💾 Save Question';
     $('cancelEditBtn').style.display = 'none';
+    $('singleSerial').value = 'Auto (next available)';
     clearSingleForm();
   }
   $('cancelEditBtn').addEventListener('click', cancelEdit);
@@ -658,11 +866,15 @@ Explanation: HTML stands for..."></textarea>
     $('singleExplanation').value = d.explanation || '';
     selectedCorrect = typeof d.correct === 'number' ? d.correct : 0;
     updateCorrectUI();
-    $('singlePanelTitle').textContent = 'Edit Question';
+
+    const serial = (typeof d.serialNumber === 'number') ? d.serialNumber : '?';
+    $('singleSerial').value = '#' + serial + ' (locked)';
+
+    $('singlePanelTitle').textContent = 'Edit Question #' + serial;
+    $('singlePanelSub').textContent = 'Serial number lock hai — kabhi change nahi hoga.';
     $('saveSingleBtn').innerHTML = '💾 Update Question';
     $('cancelEditBtn').style.display = 'inline-flex';
 
-    // Switch to single tab
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     document.querySelector('[data-tab="single"]').classList.add('active');
     ['list','single','json','pdf','html'].forEach(n => {
@@ -672,33 +884,18 @@ Explanation: HTML stands for..."></textarea>
   }
 
   async function deleteQuestion(id){
-    if (!confirm('Ye question delete karna hai?')) return;
+    if (!confirm('Ye question delete karna hai? Baaki serial numbers safe rahenge.')) return;
     try {
       await db.collection(COLLECTION).doc(id).delete();
-      toast('Deleted', 'success');
-      loadQuestionsList();
+      toast('Deleted (baaki serials safe)', 'success');
+      await loadQuestionsList();
     } catch (e){
       console.error(e);
       toast('Delete failed: ' + e.message, 'error');
     }
   }
 
-  // ========= JSON UPLOAD =========
-  $('uploadJsonBtn').addEventListener('click', async () => {
-    const raw = $('jsonInput').value.trim();
-    if (!raw){ toast('Paste JSON first', 'error'); return; }
-    let arr;
-    try {
-      const parsed = JSON.parse(raw);
-      arr = Array.isArray(parsed) ? parsed : [parsed];
-    } catch(e){
-      toast('Invalid JSON: ' + e.message, 'error');
-      return;
-    }
-    await bulkSave(arr);
-    $('jsonInput').value = '';
-  });
-
+  // ===== BULK SAVE =====
   async function bulkSave(arr){
     const valid = [];
     for (const item of arr){
@@ -714,46 +911,54 @@ Explanation: HTML stands for..."></textarea>
 
     toast('Saving ' + valid.length + ' questions...');
     try {
-      // Firestore batching (max 500 per batch)
+      let startSerial = await getNextSerialNumber();
+
       for (let i = 0; i < valid.length; i += 400){
         const batch = db.batch();
         const chunk = valid.slice(i, i + 400);
-        for (const q of chunk){
+        for (let j = 0; j < chunk.length; j++){
+          const q = chunk[j];
           const ref = db.collection(COLLECTION).doc();
-          batch.set(ref, q);
+          batch.set(ref, {
+            ...q,
+            serialNumber: startSerial + i + j,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
         }
         await batch.commit();
       }
       toast(valid.length + ' questions added!', 'success');
-      loadQuestionsList();
+      await loadQuestionsList();
     } catch (e){
       console.error(e);
       toast('Save failed: ' + e.message, 'error');
     }
   }
 
-  // ========= PARSER (used by PDF, HTML, text) =========
-  function parseQuestions(rawText){
-    // Normalize
-    let text = rawText
-      .replace(/\r\n/g, '\n')
-      .replace(/\u00A0/g, ' ')
-      .replace(/[ \t]+/g, ' ')
-      .trim();
+  // ===== JSON =====
+  $('uploadJsonBtn').addEventListener('click', async () => {
+    const raw = $('jsonInput').value.trim();
+    if (!raw){ toast('Paste JSON first', 'error'); return; }
+    let arr;
+    try {
+      const parsed = JSON.parse(raw);
+      arr = Array.isArray(parsed) ? parsed : [parsed];
+    } catch(e){
+      toast('Invalid JSON: ' + e.message, 'error');
+      return;
+    }
+    await bulkSave(arr);
+    $('jsonInput').value = '';
+  });
 
-    // Strip HTML tags if any
-    text = text.replace(/<br\s*\/?>/gi, '\n')
-               .replace(/<\/(p|div|li|h[1-6])>/gi, '\n')
-               .replace(/<[^>]+>/g, '')
-               .replace(/&nbsp;/g, ' ')
-               .replace(/&amp;/g, '&')
-               .replace(/&lt;/g, '<')
-               .replace(/&gt;/g, '>')
-               .replace(/&quot;/g, '"')
-               .replace(/&#39;/g, "'");
+  // ===== PARSER =====
+  function parseQuestions(rawText){
+    let text = rawText.replace(/\r\n/g, '\n').replace(/\u00A0/g, ' ').replace(/[ \t]+/g, ' ').trim();
+    text = text.replace(/<br\s*\/?>/gi, '\n').replace(/<\/(p|div|li|h[1-6])>/gi, '\n')
+      .replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
 
     const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-
     const questions = [];
     let current = null;
 
@@ -766,77 +971,43 @@ Explanation: HTML stands for..."></textarea>
       if (!current) return;
       if (current.question && current.options.length >= 2){
         questions.push({
-          question: current.question,
-          options: current.options,
-          correct: current.correct,
-          explanation: current.explanation || 'No explanation provided.'
+          question: current.question, options: current.options,
+          correct: current.correct, explanation: current.explanation || 'No explanation provided.'
         });
       }
       current = null;
     }
 
     for (let i = 0; i < lines.length; i++){
-      const line = lines[i];
-      let m;
-
-      // New question line
-      if ((m = line.match(qStart))){
-        pushCurrent();
-        current = { question: m[2].trim(), options: [], correct: 0, explanation: '' };
-        continue;
-      }
-
-      // Answer line
-      if (current && (m = line.match(ansLine))){
-        const letter = m[1].toUpperCase();
-        const idx = LETTERS.indexOf(letter);
-        if (idx >= 0) current.correct = idx;
-        continue;
-      }
-
-      // Explanation line (and possibly continuation lines below)
+      const line = lines[i]; let m;
+      if ((m = line.match(qStart))){ pushCurrent(); current = { question: m[2].trim(), options: [], correct: 0, explanation: '' }; continue; }
+      if (current && (m = line.match(ansLine))){ const idx = LETTERS.indexOf(m[1].toUpperCase()); if (idx >= 0) current.correct = idx; continue; }
       if (current && (m = line.match(explLine))){
         current.explanation = m[1].trim();
-        // Continuation: next lines until next Q or option or answer
         for (let j = i + 1; j < lines.length; j++){
           if (lines[j].match(qStart) || lines[j].match(optLine) || lines[j].match(ansLine) || lines[j].match(explLine)) break;
-          current.explanation += ' ' + lines[j];
-          i = j;
+          current.explanation += ' ' + lines[j]; i = j;
         }
         continue;
       }
-
-      // Option line
-      if (current && (m = line.match(optLine))){
-        current.options.push(m[2].trim());
-        continue;
-      }
-
-      // Continuation of current question
+      if (current && (m = line.match(optLine))){ current.options.push(m[2].trim()); continue; }
       if (current){
-        if (current.options.length === 0){
-          current.question += ' ' + line;
-        } else if (current.options.length > 0 && !current.explanation){
-          // Append to last option
-          current.options[current.options.length - 1] += ' ' + line;
-        } else if (current.explanation){
-          current.explanation += ' ' + line;
-        }
+        if (current.options.length === 0) current.question += ' ' + line;
+        else if (current.options.length > 0 && !current.explanation) current.options[current.options.length - 1] += ' ' + line;
+        else if (current.explanation) current.explanation += ' ' + line;
       }
     }
     pushCurrent();
     return questions;
   }
 
-  // ========= PDF =========
+  // ===== PDF =====
   $('uploadPdfBtn').addEventListener('click', async () => {
     const file = $('pdfFile').files[0];
     if (!file){ toast('Choose a PDF', 'error'); return; }
     if (!window.pdfjsLib){ toast('PDF lib not loaded', 'error'); return; }
-
     $('uploadPdfBtn').disabled = true;
     $('uploadPdfBtn').textContent = 'Parsing...';
-
     try {
       const buf = await file.arrayBuffer();
       const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
@@ -844,22 +1015,16 @@ Explanation: HTML stands for..."></textarea>
       for (let p = 1; p <= pdf.numPages; p++){
         const page = await pdf.getPage(p);
         const content = await page.getTextContent();
-        let lastY = null;
-        let pageText = '';
+        let lastY = null, pageText = '';
         content.items.forEach(item => {
           const y = item.transform[5];
-          if (lastY !== null && Math.abs(y - lastY) > 2){
-            pageText += '\n';
-          }
-          pageText += item.str + ' ';
-          lastY = y;
+          if (lastY !== null && Math.abs(y - lastY) > 2) pageText += '\n';
+          pageText += item.str + ' '; lastY = y;
         });
         fullText += pageText + '\n';
       }
-
       const parsed = parseQuestions(fullText);
       if (!parsed.length){ toast('No questions parsed', 'error'); return; }
-
       $('pdfPreview').textContent = JSON.stringify(parsed, null, 2);
       $('pdfCount').textContent = parsed.length;
       $('pdfPreviewWrap').style.display = 'block';
@@ -888,12 +1053,12 @@ Explanation: HTML stands for..."></textarea>
     $('pdfFile').value = '';
   });
 
-  // ========= HTML/TEXT =========
+  // ===== HTML =====
   $('parseHtmlBtn').addEventListener('click', () => {
     const raw = $('htmlInput').value.trim();
     if (!raw){ toast('Paste content first', 'error'); return; }
     const parsed = parseQuestions(raw);
-    if (!parsed.length){ toast('No questions parsed. Format check karo.', 'error'); return; }
+    if (!parsed.length){ toast('No questions parsed', 'error'); return; }
     $('htmlPreview').textContent = JSON.stringify(parsed, null, 2);
     $('htmlCount').textContent = parsed.length;
     $('htmlPreviewWrap').style.display = 'block';
