@@ -2,10 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
 <title>RPrep Digital QBank</title>
 <link rel="icon" type="image/png" href="/logo-circle.png" />
-<link rel="apple-touch-icon" href="/logo-circle.png" />
+<link rel="manifest" href="/manifest.json" />
+<meta name="theme-color" content="#1a1d23" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="RPrep QBank" />
+<link rel="apple-touch-icon" href="/logo-192.png" />
 <meta property="og:title" content="RPrep Digital QBank" />
 <meta property="og:description" content="Government Nursing Exam Practice — NORCET, RRB, ESIC, DSSSB. Daily new questions!" />
 <meta property="og:image" content="https://www.rprep.online/preview.png" />
@@ -201,172 +206,274 @@
     gap: 8px;
   }
   .quick-links-title svg{ width: 18px; height: 18px; color: var(--accent); }
-  .quick-links-sub{
-    font-size: 0.78rem;
-    color: var(--text-dim);
-    margin-bottom: 16px;
-  }
-  .quick-links-grid{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
-  }
-  .ql-chip{
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--option-bg);
-    border: 1px solid var(--border);
-    color: var(--text-dim);
-    text-decoration: none;
-    font-size: 0.82rem;
-    font-weight: 600;
-    padding: 8px 15px;
-    border-radius: 999px;
-    transition: all 0.2s;
-    cursor: pointer;
-  }
-  .ql-chip:hover{
-    color: var(--accent);
-    border-color: var(--accent-border);
-    background: var(--accent-soft);
-    transform: translateY(-2px);
-  }
-  .ql-chip.active{
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #ffffff;
-    box-shadow: 0 4px 12px rgba(110,168,254,0.4);
-  }
-  .ql-chip.active:hover{
-    color: #ffffff;
-    transform: translateY(-2px);
-  }
-  .ql-chip .ql-badge{
-    background: rgba(110,168,254,0.2);
-    color: var(--accent);
-    font-size: 0.65rem;
-    font-weight: 700;
-    padding: 2px 6px;
-    border-radius: 999px;
-  }
-  .ql-chip.active .ql-badge{
-    background: rgba(255,255,255,0.25);
-    color: #ffffff;
-  }
-  .coming-soon{
-    text-align: center;
-    padding: 50px 22px 40px;
-    background: linear-gradient(180deg, var(--header-grad-1) 0%, var(--header-grad-2) 100%);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    margin-bottom: 22px;
-    position: relative;
-    overflow: hidden;
-  }
-  .coming-soon::before{
-    content: "";
-    position: absolute;
-    top: -80px; right: -80px;
-    width: 220px; height: 220px;
-    background: radial-gradient(circle, var(--accent-soft), transparent 70%);
-    pointer-events: none;
-  }
-  .coming-soon-icon{
-    font-size: 4rem;
-    line-height: 1;
-    margin-bottom: 18px;
-    display: inline-block;
-    animation: bounce 2.5s ease-in-out infinite;
-    position: relative;
-    z-index: 1;
-  }
-  @keyframes bounce{
-    0%, 100%{ transform: translateY(0); }
-    50%{ transform: translateY(-12px); }
-  }
-  .coming-soon-title{
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--text);
-    letter-spacing: -0.02em;
-    margin-bottom: 10px;
-    position: relative;
-    z-index: 1;
-  }
+  .quick-links-sub{ font-size: 0.78rem; color: var(--text-dim); margin-bottom: 16px; }
+  .quick-links-grid{ display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .ql-chip{ display: inline-flex; align-items: center; gap: 6px; background: var(--option-bg); border: 1px solid var(--border); color: var(--text-dim); text-decoration: none; font-size: 0.82rem; font-weight: 600; padding: 8px 15px; border-radius: 999px; transition: all 0.2s; cursor: pointer; }
+  .ql-chip:hover{ color: var(--accent); border-color: var(--accent-border); background: var(--accent-soft); transform: translateY(-2px); }
+  .ql-chip.active{ background: var(--accent); border-color: var(--accent); color: #ffffff; box-shadow: 0 4px 12px rgba(110,168,254,0.4); }
+  .ql-chip.active:hover{ color: #ffffff; transform: translateY(-2px); }
+  .ql-chip .ql-badge{ background: rgba(110,168,254,0.2); color: var(--accent); font-size: 0.65rem; font-weight: 700; padding: 2px 6px; border-radius: 999px; }
+  .ql-chip.active .ql-badge{ background: rgba(255,255,255,0.25); color: #ffffff; }
+  .coming-soon{ text-align: center; padding: 50px 22px 40px; background: linear-gradient(180deg, var(--header-grad-1) 0%, var(--header-grad-2) 100%); border: 1px solid var(--border); border-radius: 18px; margin-bottom: 22px; position: relative; overflow: hidden; }
+  .coming-soon::before{ content: ""; position: absolute; top: -80px; right: -80px; width: 220px; height: 220px; background: radial-gradient(circle, var(--accent-soft), transparent 70%); pointer-events: none; }
+  .coming-soon-icon{ font-size: 4rem; line-height: 1; margin-bottom: 18px; display: inline-block; animation: bounce 2.5s ease-in-out infinite; position: relative; z-index: 1; }
+  @keyframes bounce{ 0%, 100%{ transform: translateY(0); } 50%{ transform: translateY(-12px); } }
+  .coming-soon-title{ font-size: 2rem; font-weight: 800; color: var(--text); letter-spacing: -0.02em; margin-bottom: 10px; position: relative; z-index: 1; }
   .coming-soon-title span{ color: var(--accent); }
-  .coming-soon-exam{
-    display: inline-block;
-    background: var(--accent-soft);
-    border: 1px solid var(--accent-border);
-    color: var(--accent);
-    font-size: 0.85rem;
-    font-weight: 700;
-    padding: 6px 16px;
-    border-radius: 999px;
-    margin-bottom: 16px;
-    letter-spacing: 0.05em;
-    position: relative;
-    z-index: 1;
-  }
-  .coming-soon-text{
-    color: var(--text-dim);
-    font-size: 0.95rem;
-    max-width: 480px;
-    margin: 0 auto 28px;
-    line-height: 1.7;
-    position: relative;
-    z-index: 1;
-  }
+  .coming-soon-exam{ display: inline-block; background: var(--accent-soft); border: 1px solid var(--accent-border); color: var(--accent); font-size: 0.85rem; font-weight: 700; padding: 6px 16px; border-radius: 999px; margin-bottom: 16px; letter-spacing: 0.05em; position: relative; z-index: 1; }
+  .coming-soon-text{ color: var(--text-dim); font-size: 0.95rem; max-width: 480px; margin: 0 auto 28px; line-height: 1.7; position: relative; z-index: 1; }
   .coming-soon-text strong{ color: var(--text); }
-  .coming-soon-actions{
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    flex-wrap: wrap;
-    position: relative;
-    z-index: 1;
-  }
-  .coming-soon-btn{
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 22px;
-    border-radius: 12px;
-    font-size: 0.88rem;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.2s;
-    border: 1px solid transparent;
-    font-family: inherit;
-  }
-  .coming-soon-btn.primary{
-    background: linear-gradient(135deg, #25d366, #128c7e);
-    color: #ffffff;
-    box-shadow: 0 4px 16px rgba(37,211,102,0.35);
-  }
-  .coming-soon-btn.primary:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(37,211,102,0.5);
-  }
-  .coming-soon-btn.secondary{
-    background: var(--option-bg);
-    border-color: var(--border);
-    color: var(--text-dim);
-  }
-  .coming-soon-btn.secondary:hover{
-    background: var(--accent-soft);
-    border-color: var(--accent-border);
-    color: var(--accent);
-    transform: translateY(-2px);
-  }
+  .coming-soon-actions{ display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+  .coming-soon-btn{ display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 12px; font-size: 0.88rem; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.2s; border: 1px solid transparent; font-family: inherit; }
+  .coming-soon-btn.primary{ background: linear-gradient(135deg, #25d366, #128c7e); color: #ffffff; box-shadow: 0 4px 16px rgba(37,211,102,0.35); }
+  .coming-soon-btn.primary:hover{ transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,0.5); }
+  .coming-soon-btn.secondary{ background: var(--option-bg); border-color: var(--border); color: var(--text-dim); }
+  .coming-soon-btn.secondary:hover{ background: var(--accent-soft); border-color: var(--accent-border); color: var(--accent); transform: translateY(-2px); }
   .coming-soon-btn svg{ width: 18px; height: 18px; }
   .footer{ text-align: center; color: var(--text-dim); font-size: 0.78rem; margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--footer-border); }
   .footer-logo{ width: 36px; height: 36px; border-radius: 50%; margin-bottom: 8px; opacity: 0.85; transition: opacity 0.2s; }
   .footer-logo:hover{ opacity: 1; }
   .footer strong{ color: var(--accent); font-weight: 600; }
+
+  /* ===================== PWA INSTALL POPUP ===================== */
+  .pwa-popup-overlay{
+    position: fixed; inset: 0; background: rgba(0,0,0,0.75);
+    z-index: 10005; opacity: 0; pointer-events: none;
+    transition: opacity 0.35s ease;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(6px);
+  }
+  .pwa-popup-overlay.show{ opacity: 1; pointer-events: auto; }
+
+  .pwa-popup{
+    background: linear-gradient(160deg, #232833 0%, #1a1d23 100%);
+    border: 2px solid var(--accent-border);
+    border-radius: 24px;
+    width: 100%; max-width: 420px;
+    transform: translateY(40px) scale(0.92);
+    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 60px rgba(110,168,254,0.25);
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+  }
+  .pwa-popup-overlay.show .pwa-popup{
+    transform: translateY(0) scale(1);
+  }
+
+  .pwa-popup::before{
+    content: "";
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(110,168,254,0.25), transparent 70%);
+    pointer-events: none;
+  }
+
+  .pwa-popup-close{
+    position: absolute;
+    top: 14px; right: 14px;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #a0a6b1;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    line-height: 1;
+    padding: 0;
+    z-index: 5;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .pwa-popup-close:hover{
+    background: rgba(234,67,53,0.15);
+    border-color: rgba(234,67,53,0.4);
+    color: #ff9a92;
+    transform: rotate(90deg);
+  }
+
+  .pwa-popup-logo-wrap{
+    padding: 32px 20px 0;
+    position: relative;
+    z-index: 2;
+  }
+  .pwa-popup-logo{
+    width: 92px; height: 92px;
+    border-radius: 50%;
+    box-shadow: 0 12px 32px rgba(110,168,254,0.4), 0 0 0 6px rgba(110,168,254,0.12);
+    animation: pwaLogoFloat 3s ease-in-out infinite;
+  }
+  @keyframes pwaLogoFloat{
+    0%, 100%{ transform: translateY(0); }
+    50%{ transform: translateY(-6px); }
+  }
+
+  .pwa-popup-body{
+    padding: 22px 26px 28px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .pwa-popup-badge{
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(52,168,83,0.15);
+    border: 1px solid rgba(52,168,83,0.4);
+    color: #7ee2a8;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+
+  .pwa-popup h2{
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #e4e6eb;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+  .pwa-popup h2 span{ color: var(--accent); }
+
+  .pwa-popup-sub{
+    font-size: 0.85rem;
+    color: #a0a6b1;
+    margin-bottom: 18px;
+  }
+
+  .pwa-popup-features{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 22px;
+    text-align: left;
+  }
+  .pwa-feature{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    font-size: 0.84rem;
+    color: #e4e6eb;
+  }
+  .pwa-feature-icon{
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    background: rgba(110,168,254,0.15);
+    color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 1rem;
+  }
+  .pwa-feature strong{ color: #e4e6eb; font-weight: 600; }
+
+  .pwa-popup-actions{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .pwa-install-btn{
+    background: linear-gradient(135deg, #6ea8fe, #4a8ce0);
+    border: none;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 15px 24px;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 6px 20px rgba(110,168,254,0.45);
+    width: 100%;
+  }
+  .pwa-install-btn:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(110,168,254,0.6);
+  }
+  .pwa-install-btn:active{ transform: translateY(0); }
+  .pwa-install-btn:disabled{ opacity: 0.6; cursor: not-allowed; }
+  .pwa-install-btn svg{ width: 20px; height: 20px; }
+
+  .pwa-later-btn{
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #a0a6b1;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 12px 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+  }
+  .pwa-later-btn:hover{
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.2);
+    color: #e4e6eb;
+  }
+
+  /* iOS instructions */
+  .pwa-ios-steps{
+    background: rgba(110,168,254,0.08);
+    border: 1px solid rgba(110,168,254,0.25);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    text-align: left;
+  }
+  .pwa-ios-steps h4{
+    font-size: 0.82rem;
+    color: var(--accent);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+  }
+  .pwa-ios-step{
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.82rem;
+    color: #a0a6b1;
+    margin-bottom: 8px;
+    line-height: 1.5;
+  }
+  .pwa-ios-step:last-child{ margin-bottom: 0; }
+  .pwa-ios-step-num{
+    background: rgba(110,168,254,0.2);
+    color: var(--accent);
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 420px){
+    .pwa-popup-logo{ width: 78px; height: 78px; }
+    .pwa-popup h2{ font-size: 1.3rem; }
+    .pwa-popup-body{ padding: 20px 22px 24px; }
+    .pwa-feature{ font-size: 0.8rem; padding: 9px 12px; }
+  }
+
   ::-webkit-scrollbar{ width: 8px; }
   ::-webkit-scrollbar-track{ background: var(--bg); }
   ::-webkit-scrollbar-thumb{ background: var(--scroll-thumb); border-radius: 4px; }
@@ -399,6 +506,67 @@
     <div class="share-grid" id="shareGrid"></div>
     <div class="share-preview-full" id="sharePreviewFull" style="display:none;">
       <img id="sharePreviewImg" alt="Question preview" />
+    </div>
+  </div>
+</div>
+
+<!-- ============== PWA INSTALL POPUP ============== -->
+<div class="pwa-popup-overlay" id="pwaOverlay">
+  <div class="pwa-popup" id="pwaPopup">
+    <button class="pwa-popup-close" id="pwaCloseBtn" aria-label="Close">×</button>
+
+    <div class="pwa-popup-logo-wrap">
+      <img src="logo-192.png" alt="RPrep Logo" class="pwa-popup-logo" />
+    </div>
+
+    <div class="pwa-popup-body">
+      <div class="pwa-popup-badge">✨ Free App</div>
+      <h2>Install <span>RPrep App</span></h2>
+      <p class="pwa-popup-sub">Home screen pe add karo, offline bhi chale</p>
+
+      <div class="pwa-popup-features">
+        <div class="pwa-feature">
+          <div class="pwa-feature-icon">📱</div>
+          <div>Home screen pe <strong>app icon</strong></div>
+        </div>
+        <div class="pwa-feature">
+          <div class="pwa-feature-icon">⚡</div>
+          <div><strong>Fast loading</strong> — no browser</div>
+        </div>
+        <div class="pwa-feature">
+          <div class="pwa-feature-icon">📚</div>
+          <div><strong>Offline</strong> me questions padho</div>
+        </div>
+      </div>
+
+      <!-- iOS instructions (JS will show/hide) -->
+      <div class="pwa-ios-steps" id="pwaIosSteps" style="display:none;">
+        <h4>iOS Safari me install karein:</h4>
+        <div class="pwa-ios-step">
+          <span class="pwa-ios-step-num">1</span>
+          <span>Neeche <strong>Share</strong> button (⬆️) dabao</span>
+        </div>
+        <div class="pwa-ios-step">
+          <span class="pwa-ios-step-num">2</span>
+          <span><strong>"Add to Home Screen"</strong> select karo</span>
+        </div>
+        <div class="pwa-ios-step">
+          <span class="pwa-ios-step-num">3</span>
+          <span>Top-right <strong>"Add"</strong> dabao</span>
+        </div>
+      </div>
+
+      <div class="pwa-popup-actions">
+        <button class="pwa-install-btn" id="pwaInstallBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span id="pwaInstallBtnText">Install App</span>
+        </button>
+        <button class="pwa-later-btn" id="pwaLaterBtn">Not Now</button>
+      </div>
     </div>
   </div>
 </div>
@@ -491,14 +659,8 @@
     clearTimeout(t._tid);
     t._tid = setTimeout(() => t.classList.remove('show'), 2200);
   }
-  // ★ GLOBAL SERIAL NUMBER ab SUBDOMAIN pe depend nahi karega
-  //   Sab jagah wahi number — chahe www, aiims, rrb, kuch bhi
-  function getShareUrl(serial){
-    return SITE_URL + '/?q=' + serial;
-  }
-  function getDisplayUrl(serial){
-    return 'www.rprep.online/?q=' + serial;
-  }
+  function getShareUrl(serial){ return SITE_URL + '/?q=' + serial; }
+  function getDisplayUrl(serial){ return 'www.rprep.online/?q=' + serial; }
 
   // ===================== THEME =====================
   (function(){
@@ -516,6 +678,100 @@
       });
     }
   });
+
+  // ===================== PWA INSTALL POPUP =====================
+  (function(){
+    const PWA_KEY = 'rprep_pwa_prompt_shown';
+    const INTERVAL_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
+    const DELAY_MS = 15 * 1000; // 15 sec
+    let deferredPrompt = null;
+    let pwaShown = false;
+
+    const overlay = document.getElementById('pwaOverlay');
+    const popup = document.getElementById('pwaPopup');
+    const closeBtn = document.getElementById('pwaCloseBtn');
+    const installBtn = document.getElementById('pwaInstallBtn');
+    const installBtnText = document.getElementById('pwaInstallBtnText');
+    const laterBtn = document.getElementById('pwaLaterBtn');
+    const iosSteps = document.getElementById('pwaIosSteps');
+
+    function isInstalled(){
+      return window.matchMedia('(display-mode: standalone)').matches ||
+             window.navigator.standalone === true ||
+             document.referrer.includes('android-app://');
+    }
+
+    function isIOS(){
+      return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    }
+
+    function showPopup(){
+      if (pwaShown) return;
+      if (isInstalled()) return;
+      const lastShown = parseInt(localStorage.getItem(PWA_KEY) || '0', 10);
+      if (Date.now() - lastShown < INTERVAL_MS) return;
+      pwaShown = true;
+
+      // iOS → show steps
+      if (isIOS()){
+        iosSteps.style.display = 'block';
+        installBtnText.textContent = 'Got It';
+      }
+
+      overlay.classList.add('show');
+    }
+
+    function hidePopup(markShown){
+      overlay.classList.remove('show');
+      if (markShown){
+        localStorage.setItem(PWA_KEY, Date.now().toString());
+      }
+    }
+
+    // Capture native install prompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      // If popup already shown and user clicked install, use it
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (isIOS()){
+        // Just close on iOS (instructions shown)
+        hidePopup(true);
+        return;
+      }
+      if (!deferredPrompt){
+        // No native prompt available — show fallback instructions
+        hidePopup(true);
+        showToast('Chrome menu (⋮) → "Install app" dabao');
+        return;
+      }
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log('[PWA] User choice:', outcome);
+      deferredPrompt = null;
+      hidePopup(true);
+    });
+
+    closeBtn.addEventListener('click', () => hidePopup(true));
+    laterBtn.addEventListener('click', () => hidePopup(true));
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) hidePopup(true);
+    });
+
+    // Hide if already installed
+    if (isInstalled()) return;
+
+    // Auto-show after delay
+    setTimeout(showPopup, DELAY_MS);
+
+    // Listen for app install
+    window.addEventListener('appinstalled', () => {
+      console.log('[PWA] App installed');
+      hidePopup(true);
+    });
+  })();
 
   // ===================== QUICK LINKS =====================
   function buildQuickLinks(activeExamKey){
@@ -748,7 +1004,6 @@
       allQuestions = [];
       snapshot.forEach(doc => {
         const q = doc.data();
-
         if (!isQBankAll && currentExam){
           if (q.exam !== currentExam) return;
         }
@@ -790,14 +1045,10 @@
         return;
       }
 
-      // ★ GLOBAL SERIAL: ab SUBDOMAIN ke hisaab se reassign NAHI karega
-      //   Sab questions ka Firestore ka serialNumber hi use hoga
       const allHaveSerial = allQuestions.every(q => q.serialNumber !== null);
       if (allHaveSerial){
         allQuestions.sort((a,b) => a.serialNumber - b.serialNumber);
       } else {
-        // Fallback: agar serial nahi hai to temporary sequential
-        // (but ideally admin panel me regenerate global serials chala lo)
         allQuestions.sort((a,b) => a.id.localeCompare(b.id));
         allQuestions.forEach((q, i) => {
           if (q.serialNumber === null) q.serialNumber = i + 1;
@@ -823,7 +1074,6 @@
     const params = new URLSearchParams(window.location.search);
     const q = parseInt(params.get('q'), 10);
     if (!isNaN(q) && q >= 1){
-      // ★ GLOBAL: serial number se dhundho — chahe kisi bhi exam ka ho
       const idx = allQuestions.findIndex(item => item.serialNumber === q);
       if (idx >= 0){
         currentPage = Math.floor(idx / PER_PAGE) + 1;
@@ -1270,6 +1520,15 @@
 
   // ===================== INIT =====================
   loadQuestions();
+
+  // ===================== SERVICE WORKER =====================
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then((reg) => console.log('[PWA] SW registered:', reg.scope))
+        .catch((err) => console.warn('[PWA] SW failed:', err));
+    });
+  }
 
 </script>
 </body>

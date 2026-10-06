@@ -4,6 +4,12 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>RPrep Admin Panel</title>
+<link rel="manifest" href="/manifest.json" />
+<meta name="theme-color" content="#0f1218" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="RPrep Admin" />
+<link rel="apple-touch-icon" href="/logo-192.png" />
 <style>
   :root{
     --bg: #0f1218; --card: #1a1e26; --card-2: #232830;
@@ -16,6 +22,8 @@
     --amber-border: rgba(251,188,4,0.4);
     --purple: #a78bfa; --purple-soft: rgba(167,139,250,0.15);
     --purple-border: rgba(167,139,250,0.4);
+    --orange: #fb923c; --orange-soft: rgba(251,146,60,0.15);
+    --orange-border: rgba(251,146,60,0.4);
   }
   *{ box-sizing: border-box; margin: 0; padding: 0; }
   body{
@@ -57,6 +65,8 @@
   .btn.warning{ background: var(--amber-soft); border-color: rgba(251,188,4,0.4); color: #f7d774; }
   .btn.purple{ background: var(--purple-soft); border-color: var(--purple-border); color: #c4b5fd; }
   .btn.purple:hover:not(:disabled){ background: rgba(167,139,250,0.25); }
+  .btn.orange{ background: var(--orange-soft); border-color: var(--orange-border); color: #fdba74; }
+  .btn.orange:hover:not(:disabled){ background: rgba(251,146,60,0.25); }
   .btn.small{ padding: 7px 12px; font-size: 0.8rem; }
   .admin-header{ background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
   .admin-header .brand h2{ font-size: 1.2rem; font-weight: 700; }
@@ -114,6 +124,7 @@
   .modal-actions{ display: flex; gap: 10px; flex-direction: column; }
   .modal-actions .btn{ padding: 15px 20px; font-size: 0.95rem; }
   .modal-actions .confirm-migrate-btn{ background: linear-gradient(135deg, #fbbc04 0%, #f59e0b 100%); border: none; color: #1a1d23; font-weight: 800; text-transform: uppercase; letter-spacing: 0.03em; box-shadow: 0 4px 16px rgba(251,188,4,0.35); }
+  .modal-actions .confirm-danger-btn{ background: linear-gradient(135deg, #ea4335 0%, #b91c1c 100%); border: none; color: #ffffff; font-weight: 800; text-transform: uppercase; letter-spacing: 0.03em; box-shadow: 0 4px 16px rgba(234,67,53,0.35); }
   .exam-chips-row{ display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; padding: 10px 12px; background: #141820; border: 1px solid var(--border); border-radius: 10px; }
   .exam-chip-count{ font-size: 0.72rem; color: var(--text-dim); padding: 4px 9px; background: var(--card-2); border-radius: 6px; }
   .exam-chip-count.active{ background: var(--accent-soft); color: var(--accent); font-weight: 600; }
@@ -137,54 +148,125 @@
   .status-url{ font-size: 0.72rem; color: var(--text-dim); background: #141820; padding: 4px 10px; border-radius: 6px; font-family: ui-monospace, monospace; }
   .status-url.ready{ color: var(--accent); }
   .status-save-row{ display: flex; gap: 10px; justify-content: flex-end; margin-top: 16px; padding-top: 16px; border-top: 1px dashed var(--border); }
+  .global-serial-panel{ background: linear-gradient(135deg, rgba(167,139,250,0.10), rgba(167,139,250,0.04)); border: 2px solid var(--purple-border); border-radius: 14px; padding: 20px 22px; margin-bottom: 16px; }
+  .global-serial-panel h3{ color: #c4b5fd; display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .global-serial-panel p{ color: var(--text-dim); font-size: 0.85rem; margin-bottom: 16px; line-height: 1.6; }
+  .global-serial-info{ display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+  .gs-stat{ background: rgba(167,139,250,0.12); border: 1px solid var(--purple-border); border-radius: 10px; padding: 10px 14px; flex: 1; min-width: 120px; }
+  .gs-stat-label{ font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 3px; }
+  .gs-stat-value{ font-size: 1.3rem; font-weight: 800; color: #c4b5fd; }
 
-  /* ========== GLOBAL SERIAL PANEL ========== */
-  .global-serial-panel{
-    background: linear-gradient(135deg, rgba(167,139,250,0.10), rgba(167,139,250,0.04));
-    border: 2px solid var(--purple-border);
+  .dup-warning-inline{ background: linear-gradient(135deg, rgba(251,146,60,0.15), rgba(251,146,60,0.05)); border: 2px solid var(--orange-border); border-radius: 12px; padding: 14px 16px; margin-top: 12px; margin-bottom: 12px; display: none; }
+  .dup-warning-inline.show{ display: block; }
+  .dup-warning-inline h4{ color: #fdba74; font-size: 0.9rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .dup-warning-inline .dup-match{ background: rgba(0,0,0,0.3); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+  .dup-warning-inline .dup-match:last-child{ margin-bottom: 0; }
+  .dup-match-text{ flex: 1; min-width: 200px; font-size: 0.85rem; color: var(--text); line-height: 1.5; }
+  .dup-match-badge{ font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; flex-shrink: 0; }
+  .dup-match-badge.exact{ background: rgba(234,67,53,0.25); color: #ff9a92; }
+  .dup-match-badge.high{ background: rgba(251,146,60,0.25); color: #fdba74; }
+  .dup-match-badge.medium{ background: rgba(251,188,4,0.25); color: #f7d774; }
+  .dup-group{ background: var(--card-2); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; }
+  .dup-group-header{ display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+  .dup-group-title{ font-size: 0.92rem; font-weight: 700; color: var(--text); }
+  .dup-group-score{ font-size: 0.75rem; font-weight: 700; padding: 4px 12px; border-radius: 999px; }
+  .dup-group-score.high{ background: rgba(234,67,53,0.2); color: #ff9a92; }
+  .dup-group-score.medium{ background: rgba(251,188,4,0.2); color: #f7d774; }
+  .dup-q-row{ background: #141820; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; display: flex; gap: 10px; align-items: flex-start; }
+  .dup-q-row:last-child{ margin-bottom: 0; }
+  .dup-q-content{ flex: 1; min-width: 0; font-size: 0.85rem; line-height: 1.5; }
+  .dup-q-meta{ font-size: 0.7rem; color: var(--text-dim); margin-top: 4px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .dup-q-meta span{ background: var(--card-2); padding: 2px 7px; border-radius: 5px; }
+  .dup-q-actions{ display: flex; gap: 6px; flex-shrink: 0; }
+  .dup-stats-row{ display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .dup-stat{ background: var(--card-2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; flex: 1; min-width: 110px; text-align: center; }
+  .dup-stat-value{ font-size: 1.6rem; font-weight: 800; color: var(--accent); margin-bottom: 2px; }
+  .dup-stat-label{ font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; }
+  .threshold-row{ display: flex; gap: 12px; align-items: center; flex-wrap: wrap; background: #141820; border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; margin-bottom: 16px; }
+  .threshold-row label{ font-size: 0.82rem; color: var(--text-dim); font-weight: 500; }
+  .threshold-row input[type="range"]{ flex: 1; min-width: 150px; accent-color: var(--accent); }
+  .threshold-row .threshold-value{ font-size: 0.9rem; font-weight: 700; color: var(--accent); min-width: 50px; text-align: center; }
+
+  /* ========== AUTO-REMOVE PANEL ========== */
+  .auto-remove-panel{
+    background: linear-gradient(135deg, rgba(234,67,53,0.10), rgba(234,67,53,0.03));
+    border: 2px solid rgba(234,67,53,0.4);
     border-radius: 14px;
     padding: 20px 22px;
     margin-bottom: 16px;
   }
-  .global-serial-panel h3{
-    color: #c4b5fd;
+  .auto-remove-panel h3{
+    color: #ff9a92;
     display: flex;
     align-items: center;
     gap: 8px;
     margin-bottom: 8px;
   }
-  .global-serial-panel p{
+  .auto-remove-panel p{
     color: var(--text-dim);
     font-size: 0.85rem;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
     line-height: 1.6;
   }
-  .global-serial-info{
+  .auto-remove-options{
     display: flex;
-    flex-wrap: wrap;
     gap: 10px;
-    margin-bottom: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
   }
-  .gs-stat{
-    background: rgba(167,139,250,0.12);
-    border: 1px solid var(--purple-border);
-    border-radius: 10px;
+  .auto-remove-options label{
+    display: flex;
+    align-items: center;
+    gap: 6px;
     padding: 10px 14px;
-    flex: 1;
-    min-width: 120px;
+    background: #141820;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    user-select: none;
   }
-  .gs-stat-label{
-    font-size: 0.68rem;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 3px;
+  .auto-remove-options label:hover{
+    border-color: rgba(234,67,53,0.4);
+    background: rgba(234,67,53,0.05);
   }
-  .gs-stat-value{
-    font-size: 1.3rem;
-    font-weight: 800;
-    color: #c4b5fd;
+  .auto-remove-options input[type="radio"]{
+    accent-color: #ea4335;
+    width: 16px; height: 16px;
   }
+  .auto-remove-options label.active{
+    border-color: #ea4335;
+    background: rgba(234,67,53,0.12);
+    color: #ff9a92;
+    font-weight: 600;
+  }
+  .auto-remove-actions{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  /* ========== LIVE LOG ========== */
+  .auto-log{
+    background: #0a0d12;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-family: ui-monospace, monospace;
+    font-size: 0.78rem;
+    color: #a0a6b1;
+    max-height: 240px;
+    overflow-y: auto;
+    margin-top: 14px;
+    line-height: 1.7;
+    display: none;
+  }
+  .auto-log.show{ display: block; }
+  .auto-log .log-line{ padding: 2px 0; }
+  .auto-log .log-line.success{ color: #7ee2a8; }
+  .auto-log .log-line.error{ color: #ff9a92; }
+  .auto-log .log-line.info{ color: #6ea8fe; }
 </style>
 </head>
 <body>
@@ -221,6 +303,7 @@
       <div class="user-info">
         <span id="userEmail">—</span>
         <button class="btn small purple" id="globalSerialBtn">🔢 Global Serials</button>
+        <button class="btn small orange" id="dupCheckerBtn">🔍 Duplicates</button>
         <button class="btn small danger" id="logoutBtn">Logout</button>
       </div>
     </div>
@@ -233,12 +316,13 @@
       <button class="tab" data-tab="html">🌐 HTML</button>
       <button class="tab" data-tab="status">🎚️ Exam Status</button>
       <button class="tab" data-tab="serial">🔢 Global Serial</button>
+      <button class="tab" data-tab="duplicates">🔍 Duplicates</button>
     </div>
 
     <!-- LIST TAB -->
     <div class="panel" id="panel-list">
       <h3>All Questions <span class="count-badge" id="qCount">0</span></h3>
-      <p class="panel-sub">Sorted by global serial number. Ye number <strong>kabhi change nahi hota</strong>.</p>
+      <p class="panel-sub">Sorted by global serial number.</p>
       <div class="filter-row">
         <select id="examFilter"><option value="">All Exams</option></select>
         <input type="text" id="searchInput" placeholder="Search questions..." />
@@ -268,6 +352,11 @@
       <div class="field">
         <label>Question *</label>
         <textarea id="singleQuestion" rows="3" placeholder="Type your question here..."></textarea>
+      </div>
+
+      <div class="dup-warning-inline" id="dupWarningInline">
+        <h4>⚠️ Similar questions already exist:</h4>
+        <div id="dupWarningList"></div>
       </div>
 
       <div class="field">
@@ -317,7 +406,7 @@
         <label>JSON Data</label>
         <textarea id="jsonInput" rows="10" placeholder='[{"exam":"AIIMS","question":"...","options":["A","B","C","D"],"correct":0,"explanation":"..."}]'></textarea>
       </div>
-      <button class="btn primary" id="uploadJsonBtn">📥 Import JSON</button>
+      <button class="btn primary" id="uploadJsonBtn">📥 Check & Import JSON</button>
     </div>
 
     <!-- PDF TAB -->
@@ -335,7 +424,7 @@
         <label>Select PDF File</label>
         <input type="file" id="pdfFile" accept="application/pdf,.pdf" />
       </div>
-      <button class="btn primary" id="uploadPdfBtn">📤 Parse & Preview</button>
+      <button class="btn primary" id="uploadPdfBtn">📤 Parse & Check</button>
       <div id="pdfPreviewWrap" style="margin-top:16px; display:none;">
         <label style="font-size:0.78rem; color:var(--text-dim); text-transform:uppercase; margin-bottom:8px; display:block;">Preview (<span id="pdfCount">0</span>)</label>
         <div class="json-preview" id="pdfPreview"></div>
@@ -367,7 +456,7 @@ D) None
 Answer: A
 Explanation: HTML stands for..."></textarea>
       </div>
-      <button class="btn primary" id="parseHtmlBtn">🔍 Parse & Preview</button>
+      <button class="btn primary" id="parseHtmlBtn">🔍 Parse & Check</button>
       <div id="htmlPreviewWrap" style="margin-top:16px; display:none;">
         <label style="font-size:0.78rem; color:var(--text-dim); text-transform:uppercase; margin-bottom:8px; display:block;">Preview (<span id="htmlCount">0</span>)</label>
         <div class="json-preview" id="htmlPreview"></div>
@@ -381,12 +470,7 @@ Explanation: HTML stands for..."></textarea>
     <!-- EXAM STATUS TAB -->
     <div class="panel hidden" id="panel-status">
       <h3>🎚️ Exam Status — Coming Soon Toggle</h3>
-      <p class="panel-sub">
-        Har exam ke liye <strong>Coming Soon</strong> ON/OFF kar sakte ho.
-        <br>
-        <span style="color:#7ee2a8;">Live</span> = normal QBank ·
-        <span style="color:#f7d774;">Coming Soon</span> = students ko coming soon page dikhega
-      </p>
+      <p class="panel-sub">Har exam ke liye Coming Soon ON/OFF karo.</p>
       <div class="status-list" id="statusList"><div class="loader">Loading</div></div>
       <div class="status-save-row">
         <button class="btn" id="statusReloadBtn">↻ Reload</button>
@@ -397,30 +481,11 @@ Explanation: HTML stands for..."></textarea>
     <!-- GLOBAL SERIAL TAB -->
     <div class="panel hidden" id="panel-serial">
       <h3>🔢 Global Serial Numbers</h3>
-      <p class="panel-sub">
-        Sab questions ko <strong>1, 2, 3, ..., N</strong> global serial numbers assign karta hai — exam ke hisaab se.
-        <br>
-        Isse har question ka <strong>unique number</strong> hoga — chahe kisi bhi subdomain pe dikhe.
-      </p>
+      <p class="panel-sub">Sab questions ko 1, 2, 3, ..., N global serial numbers assign karta hai — exam ke hisaab se.</p>
 
       <div class="global-serial-panel">
         <h3>⚠️ Ye kaam kya karta hai?</h3>
-        <p>
-          <strong>Example:</strong><br>
-          • AIIMS ke 5 questions → Global serials <strong>1, 2, 3, 4, 5</strong><br>
-          • RRB ke 3 questions → Global serials <strong>6, 7, 8</strong><br>
-          • ESIC ke 4 questions → Global serials <strong>9, 10, 11, 12</strong><br>
-          • <strong>Total 12 questions → serial 1 to 12</strong>
-        </p>
-        <p>
-          Subdomain pe filter hone pe bhi:
-          <br>
-          • <code>aiims.rprep.online</code> pe: <strong>1, 2, 3, 4, 5</strong> (AIIMS ke)
-          <br>
-          • <code>rrb.rprep.online</code> pe: <strong>6, 7, 8</strong> (RRB ke)
-          <br>
-          • <code>www.rprep.online</code> pe: <strong>1 se 12</strong> (sab)
-        </p>
+        <p>Sab questions ko exam-wise group karke sequential global serial numbers milte hain.</p>
       </div>
 
       <div class="global-serial-info" id="globalSerialInfo">
@@ -439,14 +504,78 @@ Explanation: HTML stands for..."></textarea>
       </div>
 
       <div class="hint">
-        <strong>⚠️ Warning:</strong> Ye operation sab questions ke serial numbers <strong>rewrite</strong> karega.
-        Purane URLs jo shared kiye gaye hain wo <strong>change ho sakte hain</strong>. Soch samajhkar chalao.
+        <strong>⚠️ Warning:</strong> Ye sab questions ke serial numbers <strong>rewrite</strong> karega.
       </div>
 
       <div style="display:flex; gap:10px; flex-wrap:wrap;">
         <button class="btn" id="serialCheckBtn">🔍 Check Current Status</button>
         <button class="btn purple" id="serialRegenerateBtn">🔢 Regenerate Global Serials</button>
       </div>
+    </div>
+
+    <!-- DUPLICATES TAB -->
+    <div class="panel hidden" id="panel-duplicates">
+      <h3>🔍 Duplicate Question Scanner</h3>
+      <p class="panel-sub">Existing questions me duplicates ya similar questions dhundho. Fuzzy matching use hoti hai.</p>
+
+      <!-- AUTO REMOVE PANEL -->
+      <div class="auto-remove-panel">
+        <h3>⚡ Auto-Remove Duplicates</h3>
+        <p>
+          Ye feature <strong>exact duplicates</strong> ko automatically remove karta hai.
+          Har group me se <strong>sirf ek question rakhta hai</strong>, baaki delete kar deta hai.
+        </p>
+
+        <div class="auto-remove-options">
+          <label class="active" data-mode="100">
+            <input type="radio" name="autoMode" value="100" checked />
+            100% Exact Match Only
+          </label>
+          <label data-mode="95">
+            <input type="radio" name="autoMode" value="95" />
+            95%+ (Near-exact)
+          </label>
+          <label data-mode="85">
+            <input type="radio" name="autoMode" value="85" />
+            85%+ (Aggressive)
+          </label>
+        </div>
+
+        <div class="auto-remove-actions">
+          <button class="btn danger" id="autoPreviewBtn">👁️ Preview Removals</button>
+          <button class="btn danger" id="autoRemoveBtn" disabled>🗑️ Remove All Duplicates</button>
+        </div>
+
+        <div class="auto-log" id="autoLog"></div>
+      </div>
+
+      <div class="threshold-row">
+        <label>Manual Scan Threshold:</label>
+        <input type="range" id="dupThreshold" min="50" max="100" value="85" step="5" />
+        <span class="threshold-value" id="dupThresholdValue">85%</span>
+      </div>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px;">
+        <button class="btn orange" id="dupScanBtn">🔍 Scan QBank for Duplicates</button>
+        <button class="btn" id="dupReloadBtn">↻ Reload Data</button>
+      </div>
+
+      <div class="dup-stats-row" id="dupStatsRow" style="display:none;">
+        <div class="dup-stat">
+          <div class="dup-stat-value" id="dupStatGroups">0</div>
+          <div class="dup-stat-label">Duplicate Groups</div>
+        </div>
+        <div class="dup-stat">
+          <div class="dup-stat-value" id="dupStatQuestions">0</div>
+          <div class="dup-stat-label">Total Questions</div>
+        </div>
+        <div class="dup-stat">
+          <div class="dup-stat-value" id="dupStatAffected">0</div>
+          <div class="dup-stat-label">Affected Questions</div>
+        </div>
+      </div>
+
+      <div id="dupResults"></div>
     </div>
 
   </div>
@@ -458,16 +587,30 @@ Explanation: HTML stands for..."></textarea>
     <div class="modal-icon">🔢</div>
     <h3>Regenerate Global Serials?</h3>
     <p>
-      Ye <strong>sab questions</strong> ke serial numbers <strong>1 se N</strong> tak reassign karega,
-      exam ke hisaab se group karke.
+      Ye <strong>sab questions</strong> ke serial numbers <strong>1 se N</strong> tak reassign karega, exam ke hisaab se group karke.
       <br><br>
       <strong style="color:#f7d774;">Purane shared links change ho sakte hain.</strong>
-      <br><br>
-      Confirm karo?
     </p>
     <div class="modal-actions">
       <button class="btn confirm-migrate-btn" id="regenerateConfirm">🔢 Haan, Regenerate Karo</button>
       <button class="btn" id="regenerateCancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- AUTO REMOVE CONFIRMATION MODAL -->
+<div class="modal-overlay" id="autoRemoveModal">
+  <div class="modal" style="border-color: rgba(234,67,53,0.5);">
+    <div class="modal-icon" style="background: rgba(234,67,53,0.2);">🗑️</div>
+    <h3 style="color: #ff9a92;">Auto-Remove Duplicates?</h3>
+    <p id="autoRemoveModalText">
+      Ye <strong>X questions</strong> delete karega, har duplicate group me se sirf ek rakhega.
+      <br><br>
+      <strong style="color:#ff9a92;">Ye action permanent hai — undo nahi ho sakta!</strong>
+    </p>
+    <div class="modal-actions">
+      <button class="btn confirm-danger-btn" id="autoRemoveConfirm">🗑️ Haan, Delete Karo</button>
+      <button class="btn" id="autoRemoveCancel">Cancel</button>
     </div>
   </div>
 </div>
@@ -498,14 +641,100 @@ Explanation: HTML stands for..."></textarea>
   const STATUS_COLLECTION = 'examStatus';
   const ADMIN_EMAIL = 'pbhupeshk2022@gmail.com';
   const LETTERS = ['A','B','C','D','E','F','G','H'];
-
   const EXAMS = ['AIIMS','RRB','ESIC','DSSSB','PGIMER','JIPMER','SGPGIMS','NIMHANS','BHU','State','General'];
-
   const SUBDOMAIN_MAP = {
     'AIIMS': 'aiims', 'RRB': 'rrb', 'ESIC': 'esic', 'DSSSB': 'dsssb',
     'PGIMER': 'pgimer', 'JIPMER': 'jipmer', 'SGPGIMS': 'sgpgims',
     'NIMHANS': 'nimhans', 'BHU': 'bhu', 'State': 'state', 'General': 'general'
   };
+
+  // ============================================
+  // FUZZY STRING SIMILARITY
+  // ============================================
+  function normalize(s){
+    return String(s || '')
+      .toLowerCase()
+      .replace(/[^\w\s]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+  function levenshtein(a, b){
+    if (a === b) return 0;
+    if (!a.length) return b.length;
+    if (!b.length) return a.length;
+    const m = a.length, n = b.length;
+    const prev = new Array(n + 1);
+    const curr = new Array(n + 1);
+    for (let j = 0; j <= n; j++) prev[j] = j;
+    for (let i = 1; i <= m; i++){
+      curr[0] = i;
+      for (let j = 1; j <= n; j++){
+        const cost = a[i-1] === b[j-1] ? 0 : 1;
+        curr[j] = Math.min(prev[j] + 1, curr[j-1] + 1, prev[j-1] + cost);
+      }
+      for (let j = 0; j <= n; j++) prev[j] = curr[j];
+    }
+    return prev[n];
+  }
+  function levenshteinSim(a, b){
+    const la = a.length, lb = b.length;
+    if (!la && !lb) return 100;
+    if (!la || !lb) return 0;
+    const dist = levenshtein(a, b);
+    return Math.round((1 - dist / Math.max(la, lb)) * 100);
+  }
+  function tokenSim(a, b){
+    const ta = new Set(a.split(' ').filter(Boolean));
+    const tb = new Set(b.split(' ').filter(Boolean));
+    if (!ta.size && !tb.size) return 100;
+    if (!ta.size || !tb.size) return 0;
+    let inter = 0;
+    ta.forEach(t => { if (tb.has(t)) inter++; });
+    const union = ta.size + tb.size - inter;
+    return Math.round((inter / union) * 100);
+  }
+  function similarity(a, b){
+    const na = normalize(a);
+    const nb = normalize(b);
+    const lev = levenshteinSim(na, nb);
+    const tok = tokenSim(na, nb);
+    return Math.round(lev * 0.6 + tok * 0.4);
+  }
+  function findMatches(questionText, docs, threshold, excludeId){
+    const results = [];
+    docs.forEach(d => {
+      if (excludeId && d.id === excludeId) return;
+      const score = similarity(questionText, d.question || '');
+      if (score >= threshold){
+        results.push({ doc: d, score });
+      }
+    });
+    results.sort((a, b) => b.score - a.score);
+    return results;
+  }
+
+  // ============================================
+  // UNION-FIND for grouping
+  // ============================================
+  function groupByPairs(n, pairs){
+    const parent = new Array(n).fill(0).map((_, k) => k);
+    function find(x){ while (parent[x] !== x){ parent[x] = parent[parent[x]]; x = parent[x]; } return x; }
+    function union(a, b){ parent[find(a)] = find(b); }
+    pairs.forEach(p => union(p.i, p.j));
+    const groupsMap = {};
+    pairs.forEach(p => {
+      const root = find(p.i);
+      if (!groupsMap[root]) groupsMap[root] = new Set();
+      groupsMap[root].add(p.i);
+      groupsMap[root].add(p.j);
+    });
+    return Object.values(groupsMap).map(set => {
+      const indices = Array.from(set);
+      const groupPairs = pairs.filter(p => indices.includes(p.i) && indices.includes(p.j));
+      const maxScore = Math.max.apply(null, groupPairs.map(p => p.score));
+      return { indices, maxScore };
+    }).sort((a, b) => b.maxScore - a.maxScore);
+  }
 
   function populateExamDropdowns(){
     const dropdownIds = ['singleExam', 'jsonDefaultExam', 'pdfExam', 'htmlExam'];
@@ -517,8 +746,7 @@ Explanation: HTML stands for..."></textarea>
       sel.innerHTML = firstOptHtml;
       EXAMS.forEach(ex => {
         const opt = document.createElement('option');
-        opt.value = ex;
-        opt.textContent = ex;
+        opt.value = ex; opt.textContent = ex;
         sel.appendChild(opt);
       });
     });
@@ -527,8 +755,7 @@ Explanation: HTML stands for..."></textarea>
       filterSel.innerHTML = '<option value="">All Exams</option>';
       EXAMS.forEach(ex => {
         const opt = document.createElement('option');
-        opt.value = ex;
-        opt.textContent = ex;
+        opt.value = ex; opt.textContent = ex;
         filterSel.appendChild(opt);
       });
     }
@@ -581,14 +808,17 @@ Explanation: HTML stands for..."></textarea>
     auth.signOut().then(() => toast('Logged out', 'success'));
   });
 
-  $('globalSerialBtn').addEventListener('click', () => {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.querySelector('[data-tab="serial"]').classList.add('active');
-    ['list','single','json','pdf','html','status','serial'].forEach(n => {
-      $('panel-' + n).classList.toggle('hidden', n !== 'serial');
+  $('globalSerialBtn').addEventListener('click', () => { switchTab('serial'); checkSerialStatus(); });
+  $('dupCheckerBtn').addEventListener('click', () => { switchTab('duplicates'); });
+
+  function switchTab(name){
+    document.querySelectorAll('.tab').forEach(t => {
+      t.classList.toggle('active', t.dataset.tab === name);
     });
-    checkSerialStatus();
-  });
+    ['list','single','json','pdf','html','status','serial','duplicates'].forEach(n => {
+      $('panel-' + n).classList.toggle('hidden', n !== name);
+    });
+  }
 
   auth.onAuthStateChanged((user) => {
     if (user && user.email === ADMIN_EMAIL){
@@ -603,15 +833,10 @@ Explanation: HTML stands for..."></textarea>
     }
   });
 
-  // ===== TABS =====
   document.querySelectorAll('.tab').forEach(tab => {
     tab.addEventListener('click', () => {
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
       const name = tab.dataset.tab;
-      ['list','single','json','pdf','html','status','serial'].forEach(n => {
-        $('panel-' + n).classList.toggle('hidden', n !== name);
-      });
+      switchTab(name);
       if (name === 'list') loadQuestionsList();
       if (name === 'status') loadExamStatus();
       if (name === 'serial') checkSerialStatus();
@@ -619,7 +844,304 @@ Explanation: HTML stands for..."></textarea>
   });
 
   // ==================================================
-  // ============ GLOBAL SERIAL NUMBERS ============
+  // LIVE DUPLICATE CHECK
+  // ==================================================
+  let dupCheckTimeout = null;
+  $('singleQuestion').addEventListener('input', () => {
+    clearTimeout(dupCheckTimeout);
+    dupCheckTimeout = setTimeout(liveDupCheck, 600);
+  });
+
+  function liveDupCheck(){
+    const text = $('singleQuestion').value.trim();
+    const editId = $('editDocId').value.trim();
+    const warning = $('dupWarningInline');
+    const list = $('dupWarningList');
+
+    if (text.length < 10){ warning.classList.remove('show'); return; }
+    const matches = findMatches(text, allDocs, 75, editId || null);
+    if (!matches.length){ warning.classList.remove('show'); return; }
+
+    warning.classList.add('show');
+    list.innerHTML = matches.slice(0, 5).map(m => {
+      const cls = m.score >= 95 ? 'exact' : m.score >= 85 ? 'high' : 'medium';
+      const label = m.score >= 95 ? '🚨 Exact' : m.score >= 85 ? '⚠️ Likely' : '🟡 Similar';
+      return '<div class="dup-match">' +
+        '<div class="dup-match-text"><strong>#' + (m.doc.serialNumber || '?') + '</strong> · ' + escapeHtml(m.doc.exam || 'No Exam') + '<br>' + escapeHtml((m.doc.question || '').slice(0, 120)) + '</div>' +
+        '<span class="dup-match-badge ' + cls + '">' + m.score + '% · ' + label + '</span>' +
+      '</div>';
+    }).join('');
+  }
+
+  // ==================================================
+  // AUTO-REMOVE DUPLICATES
+  // ==================================================
+  let autoPreviewData = null; // { docs, groups, toDelete, mode }
+
+  // Radio label highlight
+  document.querySelectorAll('.auto-remove-options label').forEach(label => {
+    label.addEventListener('click', () => {
+      document.querySelectorAll('.auto-remove-options label').forEach(l => l.classList.remove('active'));
+      label.classList.add('active');
+      // reset preview
+      autoPreviewData = null;
+      $('autoRemoveBtn').disabled = true;
+      $('autoLog').classList.remove('show');
+    });
+  });
+
+  function getAutoMode(){
+    const checked = document.querySelector('input[name="autoMode"]:checked');
+    return parseInt(checked.value, 10);
+  }
+
+  function autoLog(msg, type){
+    const log = $('autoLog');
+    log.classList.add('show');
+    const line = document.createElement('div');
+    line.className = 'log-line ' + (type || '');
+    line.textContent = msg;
+    log.appendChild(line);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  function clearAutoLog(){
+    $('autoLog').innerHTML = '';
+    $('autoLog').classList.remove('show');
+  }
+
+  $('autoPreviewBtn').addEventListener('click', async () => {
+    clearAutoLog();
+    autoPreviewData = null;
+    $('autoRemoveBtn').disabled = true;
+
+    if (!allDocs.length){
+      autoLog('Pehle questions load karo...', 'info');
+      await loadQuestionsList();
+    }
+
+    const threshold = getAutoMode();
+    autoLog('🔍 Scanning ' + allDocs.length + ' questions with threshold ' + threshold + '%...', 'info');
+    $('autoPreviewBtn').disabled = true;
+    $('autoPreviewBtn').textContent = '⏳ Scanning...';
+
+    // Small delay for UI
+    await new Promise(r => setTimeout(r, 300));
+
+    const n = allDocs.length;
+    const pairs = [];
+    for (let i = 0; i < n; i++){
+      for (let j = i + 1; j < n; j++){
+        const s = similarity(allDocs[i].question || '', allDocs[j].question || '');
+        if (s >= threshold) pairs.push({ i, j, score: s });
+      }
+    }
+
+    if (!pairs.length){
+      autoLog('🎉 Koi duplicate nahi mila is threshold pe!', 'success');
+      $('autoPreviewBtn').disabled = false;
+      $('autoPreviewBtn').textContent = '👁️ Preview Removals';
+      return;
+    }
+
+    const groups = groupByPairs(n, pairs);
+    const toDelete = [];
+
+    groups.forEach(g => {
+      // Sort by serialNumber (rakhne ke liye sabse purana, chhota serial)
+      const sorted = g.indices.slice().sort((a, b) => {
+        const sa = typeof allDocs[a].serialNumber === 'number' ? allDocs[a].serialNumber : 999999;
+        const sb = typeof allDocs[b].serialNumber === 'number' ? allDocs[b].serialNumber : 999999;
+        return sa - sb;
+      });
+      const keep = sorted[0];
+      const del = sorted.slice(1);
+      del.forEach(di => toDelete.push({ index: di, group: g, keep: keep }));
+    });
+
+    autoPreviewData = { docs: allDocs.slice(), groups, toDelete, mode: threshold };
+
+    autoLog('📊 Found ' + groups.length + ' duplicate groups', 'info');
+    autoLog('🗑️ Will delete ' + toDelete.length + ' questions', 'error');
+    autoLog('✅ Will keep ' + groups.length + ' questions (one per group)', 'success');
+    autoLog('', 'info');
+
+    // Show preview details in log
+    groups.forEach((g, gi) => {
+      const sorted = g.indices.slice().sort((a, b) => {
+        const sa = typeof allDocs[a].serialNumber === 'number' ? allDocs[a].serialNumber : 999999;
+        const sb = typeof allDocs[b].serialNumber === 'number' ? allDocs[b].serialNumber : 999999;
+        return sa - sb;
+      });
+      const keepIdx = sorted[0];
+      const delIdxs = sorted.slice(1);
+      autoLog('── Group ' + (gi + 1) + ' (' + g.maxScore + '% max) ──', 'info');
+      autoLog('  ✅ KEEP   #' + allDocs[keepIdx].serialNumber + ' · ' + (allDocs[keepIdx].question || '').slice(0, 70), 'success');
+      delIdxs.forEach(di => {
+        autoLog('  🗑️ DELETE #' + allDocs[di].serialNumber + ' · ' + (allDocs[di].question || '').slice(0, 70), 'error');
+      });
+    });
+
+    $('autoRemoveBtn').disabled = false;
+    $('autoPreviewBtn').disabled = false;
+    $('autoPreviewBtn').textContent = '👁️ Preview Removals';
+    toast('Preview ready — scroll down', 'success');
+  });
+
+  $('autoRemoveBtn').addEventListener('click', () => {
+    if (!autoPreviewData || !autoPreviewData.toDelete.length){
+      toast('Pehle preview karo', 'error');
+      return;
+    }
+    const n = autoPreviewData.toDelete.length;
+    $('autoRemoveModalText').innerHTML = 'Ye <strong>' + n + ' questions</strong> delete karega, har duplicate group me se sirf ek rakhega.<br><br><strong style="color:#ff9a92;">Ye action permanent hai — undo nahi ho sakta!</strong>';
+    $('autoRemoveModal').classList.add('show');
+  });
+
+  $('autoRemoveCancel').addEventListener('click', () => $('autoRemoveModal').classList.remove('show'));
+  $('autoRemoveModal').addEventListener('click', (e) => {
+    if (e.target === $('autoRemoveModal')) $('autoRemoveModal').classList.remove('show');
+  });
+
+  $('autoRemoveConfirm').addEventListener('click', async () => {
+    if (!autoPreviewData) return;
+    $('autoRemoveConfirm').disabled = true;
+    $('autoRemoveConfirm').textContent = 'Deleting...';
+
+    const toDelete = autoPreviewData.toDelete;
+    autoLog('', 'info');
+    autoLog('🗑️ Starting deletion of ' + toDelete.length + ' questions...', 'error');
+
+    let deleted = 0;
+    let failed = 0;
+    const batchSize = 400;
+
+    try {
+      for (let i = 0; i < toDelete.length; i += batchSize){
+        const batch = db.batch();
+        const chunk = toDelete.slice(i, i + batchSize);
+        for (const item of chunk){
+          const docId = autoPreviewData.docs[item.index].id;
+          batch.delete(db.collection(COLLECTION).doc(docId));
+        }
+        await batch.commit();
+        deleted += chunk.length;
+        autoLog('  Progress: ' + deleted + '/' + toDelete.length + ' deleted', 'success');
+      }
+
+      autoLog('', 'info');
+      autoLog('🎉 Done! ' + deleted + ' duplicate questions deleted', 'success');
+      toast(deleted + ' duplicates removed!', 'success');
+
+      // Reset
+      autoPreviewData = null;
+      $('autoRemoveBtn').disabled = true;
+      $('autoRemoveModal').classList.remove('show');
+      $('autoRemoveConfirm').disabled = false;
+      $('autoRemoveConfirm').textContent = '🗑️ Haan, Delete Karo';
+
+      // Reload
+      await loadQuestionsList();
+    } catch(e){
+      console.error(e);
+      autoLog('❌ Error: ' + e.message, 'error');
+      toast('Delete failed: ' + e.message, 'error');
+      $('autoRemoveConfirm').disabled = false;
+      $('autoRemoveConfirm').textContent = '🗑️ Haan, Delete Karo';
+    }
+  });
+
+  // ==================================================
+  // MANUAL DUPLICATE SCANNER
+  // ==================================================
+  $('dupThreshold').addEventListener('input', (e) => {
+    $('dupThresholdValue').textContent = e.target.value + '%';
+  });
+
+  $('dupReloadBtn').addEventListener('click', () => {
+    loadQuestionsList().then(() => toast('Data reloaded', 'success'));
+  });
+
+  $('dupScanBtn').addEventListener('click', async () => {
+    $('dupResults').innerHTML = '<div class="loader">Scanning all questions</div>';
+    $('dupStatsRow').style.display = 'none';
+
+    if (!allDocs.length) await loadQuestionsList();
+    const threshold = parseInt($('dupThreshold').value, 10);
+    const n = allDocs.length;
+
+    if (n < 2){
+      $('dupResults').innerHTML = '<div class="loader">Not enough questions</div>';
+      return;
+    }
+
+    const pairs = [];
+    for (let i = 0; i < n; i++){
+      for (let j = i + 1; j < n; j++){
+        const s = similarity(allDocs[i].question || '', allDocs[j].question || '');
+        if (s >= threshold) pairs.push({ i, j, score: s });
+      }
+    }
+
+    if (!pairs.length){
+      $('dupResults').innerHTML = '<div class="loader">🎉 Koi duplicate nahi mila!</div>';
+      $('dupStatsRow').style.display = 'flex';
+      $('dupStatGroups').textContent = 0;
+      $('dupStatQuestions').textContent = n;
+      $('dupStatAffected').textContent = 0;
+      return;
+    }
+
+    const groups = groupByPairs(n, pairs);
+    const affectedSet = new Set();
+    groups.forEach(g => g.indices.forEach(i => affectedSet.add(i)));
+
+    $('dupStatsRow').style.display = 'flex';
+    $('dupStatGroups').textContent = groups.length;
+    $('dupStatQuestions').textContent = n;
+    $('dupStatAffected').textContent = affectedSet.size;
+
+    const html = groups.map((g, gi) => {
+      const cls = g.maxScore >= 95 ? 'high' : 'medium';
+      const rows = g.indices.map(idx => {
+        const d = allDocs[idx];
+        const serial = (typeof d.serialNumber === 'number') ? d.serialNumber : '?';
+        const exam = d.exam || 'No Exam';
+        return '<div class="dup-q-row">' +
+          '<div class="dup-q-content">' +
+            '<strong>#' + serial + '</strong> · ' + escapeHtml(exam) + '<br>' +
+            escapeHtml(d.question || '') +
+            '<div class="dup-q-meta"><span>ID: ' + d.id.slice(0, 8) + '…</span>' + (d.options ? '<span>' + d.options.length + ' options</span>' : '') + '</div>' +
+          '</div>' +
+          '<div class="dup-q-actions"><button class="btn small danger" data-dupdelete="' + d.id + '">🗑️</button></div>' +
+        '</div>';
+      }).join('');
+
+      return '<div class="dup-group">' +
+        '<div class="dup-group-header">' +
+          '<div class="dup-group-title">Group #' + (gi + 1) + ' · ' + g.indices.length + ' questions</div>' +
+          '<div class="dup-group-score ' + cls + '">Max: ' + g.maxScore + '%</div>' +
+        '</div>' + rows +
+      '</div>';
+    }).join('');
+
+    $('dupResults').innerHTML = html;
+
+    document.querySelectorAll('[data-dupdelete]').forEach(b => {
+      b.addEventListener('click', async () => {
+        if (!confirm('Ye question delete karna hai?')) return;
+        try {
+          await db.collection(COLLECTION).doc(b.dataset.dupdelete).delete();
+          toast('Deleted', 'success');
+          await loadQuestionsList();
+          $('dupScanBtn').click();
+        } catch(e){ toast('Delete failed: ' + e.message, 'error'); }
+      });
+    });
+  });
+
+  // ==================================================
+  // GLOBAL SERIAL NUMBERS
   // ==================================================
   async function checkSerialStatus(){
     try {
@@ -634,43 +1156,26 @@ Explanation: HTML stands for..."></textarea>
       });
       const unique = new Set(serials).size;
       const dupes = serials.length - unique;
-
       $('gsTotal').textContent = total;
       $('gsUnique').textContent = unique;
       $('gsDupes').textContent = dupes + (noSerialCount > 0 ? ' (+' + noSerialCount + ' no-serial)' : '');
-      if (dupes > 0 || noSerialCount > 0){
-        $('gsDupes').style.color = '#ff9a92';
-      } else {
-        $('gsDupes').style.color = '#7ee2a8';
-      }
+      $('gsDupes').style.color = (dupes > 0 || noSerialCount > 0) ? '#ff9a92' : '#7ee2a8';
       return { total, unique, dupes, noSerialCount };
-    } catch(e){
-      console.error(e);
-      toast('Check failed: ' + e.message, 'error');
-    }
+    } catch(e){ console.error(e); toast('Check failed: ' + e.message, 'error'); }
   }
 
   $('serialCheckBtn').addEventListener('click', async () => {
     toast('Checking...');
     const r = await checkSerialStatus();
     if (r){
-      if (r.dupes === 0 && r.noSerialCount === 0){
-        toast('All serials are unique! ✅', 'success');
-      } else {
-        toast('Duplicates found: ' + r.dupes + ' — Regenerate karo', 'error');
-      }
+      if (r.dupes === 0 && r.noSerialCount === 0) toast('All serials unique! ✅', 'success');
+      else toast('Duplicates found — Regenerate karo', 'error');
     }
   });
 
-  $('serialRegenerateBtn').addEventListener('click', () => {
-    $('regenerateModal').classList.add('show');
-  });
-  $('regenerateCancel').addEventListener('click', () => {
-    $('regenerateModal').classList.remove('show');
-  });
-  $('regenerateModal').addEventListener('click', (e) => {
-    if (e.target === $('regenerateModal')) $('regenerateModal').classList.remove('show');
-  });
+  $('serialRegenerateBtn').addEventListener('click', () => $('regenerateModal').classList.add('show'));
+  $('regenerateCancel').addEventListener('click', () => $('regenerateModal').classList.remove('show'));
+  $('regenerateModal').addEventListener('click', (e) => { if (e.target === $('regenerateModal')) $('regenerateModal').classList.remove('show'); });
 
   $('regenerateConfirm').addEventListener('click', async () => {
     $('regenerateConfirm').disabled = true;
@@ -679,23 +1184,18 @@ Explanation: HTML stands for..."></textarea>
       const snap = await db.collection(COLLECTION).get();
       const docs = [];
       snap.forEach(d => docs.push({ id: d.id, ...d.data() }));
-
-      // Sort: exam order first (as per EXAMS list), then by current serial (or createdAt/id)
       docs.sort((a, b) => {
         const ea = EXAMS.indexOf(a.exam || 'zzz');
         const eb = EXAMS.indexOf(b.exam || 'zzz');
         const eaIdx = ea >= 0 ? ea : 999;
         const ebIdx = eb >= 0 ? eb : 999;
         if (eaIdx !== ebIdx) return eaIdx - ebIdx;
-
-        // Same exam: sort by existing serial, else by id
         const sa = typeof a.serialNumber === 'number' ? a.serialNumber : 999999;
         const sb = typeof b.serialNumber === 'number' ? b.serialNumber : 999999;
         if (sa !== sb) return sa - sb;
         return a.id.localeCompare(b.id);
       });
 
-      // Assign global serial 1, 2, 3, ... N
       let serial = 1;
       const batchSize = 400;
       let updatedCount = 0;
@@ -704,18 +1204,14 @@ Explanation: HTML stands for..."></textarea>
         const batch = db.batch();
         const chunk = docs.slice(i, i + batchSize);
         for (const d of chunk){
-          batch.update(db.collection(COLLECTION).doc(d.id), {
-            serialNumber: serial
-          });
-          serial++;
-          updatedCount++;
+          batch.update(db.collection(COLLECTION).doc(d.id), { serialNumber: serial });
+          serial++; updatedCount++;
         }
         await batch.commit();
       }
 
       toast(updatedCount + ' questions ko global serials mile! ✅', 'success');
       $('regenerateConfirm').textContent = '✅ Done!';
-
       setTimeout(async () => {
         $('regenerateModal').classList.remove('show');
         $('regenerateConfirm').disabled = false;
@@ -723,7 +1219,6 @@ Explanation: HTML stands for..."></textarea>
         await loadQuestionsList();
         await checkSerialStatus();
       }, 1500);
-
     } catch(e){
       console.error(e);
       toast('Regenerate failed: ' + e.message, 'error');
@@ -733,7 +1228,7 @@ Explanation: HTML stands for..."></textarea>
   });
 
   // ==================================================
-  // ============ EXAM STATUS ============
+  // EXAM STATUS
   // ==================================================
   let examStatusCache = {};
   let statusDirty = false;
@@ -746,11 +1241,7 @@ Explanation: HTML stands for..."></textarea>
       const snap = await db.collection(STATUS_COLLECTION).get();
       examStatusCache = {};
       EXAMS.forEach(ex => examStatusCache[ex] = false);
-      snap.forEach(d => {
-        if (EXAMS.includes(d.id)){
-          examStatusCache[d.id] = d.data().comingSoon === true;
-        }
-      });
+      snap.forEach(d => { if (EXAMS.includes(d.id)) examStatusCache[d.id] = d.data().comingSoon === true; });
       renderExamStatus();
     } catch (e){
       console.error(e);
@@ -767,19 +1258,12 @@ Explanation: HTML stands for..."></textarea>
       const labelClass = isComing ? 'status-label coming' : 'status-label live';
       const labelText = isComing ? '🚧 Coming Soon' : '✅ Live';
       const toggleClass = isComing ? 'toggle-switch off-warning' : 'toggle-switch on';
-      return '<div class="' + rowClass + '" data-exam="' + ex + '">' +
-        '<div class="status-info">' +
-          '<div class="status-name">' + escapeHtml(ex) + '</div>' +
-          '<div class="status-url ' + (isComing ? '' : 'ready') + '">' + url + '</div>' +
-        '</div>' +
-        '<div class="status-controls">' +
-          '<span class="' + labelClass + '">' + labelText + '</span>' +
-          '<div class="' + toggleClass + '" data-exam="' + ex + '"></div>' +
-        '</div>' +
+      return '<div class="' + rowClass + '">' +
+        '<div class="status-info"><div class="status-name">' + escapeHtml(ex) + '</div><div class="status-url ' + (isComing ? '' : 'ready') + '">' + url + '</div></div>' +
+        '<div class="status-controls"><span class="' + labelClass + '">' + labelText + '</span><div class="' + toggleClass + '" data-exam="' + ex + '"></div></div>' +
       '</div>';
     }).join('');
     $('statusList').innerHTML = rows;
-
     document.querySelectorAll('.toggle-switch').forEach(t => {
       t.addEventListener('click', () => {
         const ex = t.dataset.exam;
@@ -792,7 +1276,7 @@ Explanation: HTML stands for..."></textarea>
   }
 
   $('statusReloadBtn').addEventListener('click', () => {
-    if (statusDirty && !confirm('Save nahi kiya. Reload karein?')) return;
+    if (statusDirty && !confirm('Save nahi kiya. Reload?')) return;
     loadExamStatus();
   });
 
@@ -804,11 +1288,8 @@ Explanation: HTML stands for..."></textarea>
       EXAMS.forEach(ex => {
         const isComing = examStatusCache[ex] === true;
         const ref = db.collection(STATUS_COLLECTION).doc(ex);
-        if (isComing){
-          batch.set(ref, { comingSoon: true, updatedAt: firebase.firestore.FieldValue.serverTimestamp() });
-        } else {
-          batch.delete(ref);
-        }
+        if (isComing) batch.set(ref, { comingSoon: true, updatedAt: firebase.firestore.FieldValue.serverTimestamp() });
+        else batch.delete(ref);
       });
       await batch.commit();
       toast('Exam status saved!', 'success');
@@ -818,7 +1299,6 @@ Explanation: HTML stands for..."></textarea>
         $('statusSaveBtn').disabled = true;
       }, 500);
     } catch (e){
-      console.error(e);
       toast('Save failed: ' + e.message, 'error');
       $('statusSaveBtn').textContent = '💾 Save All Changes';
       $('statusSaveBtn').disabled = false;
@@ -857,16 +1337,11 @@ Explanation: HTML stands for..."></textarea>
     });
     const row = $('examChipsRow');
     const currentFilter = $('examFilter').value;
-    let html = '';
-    html += '<span class="exam-chip-count ' + (currentFilter === '' ? 'active' : '') + '">All (' + allDocs.length + ')</span>';
+    let html = '<span class="exam-chip-count ' + (currentFilter === '' ? 'active' : '') + '">All (' + allDocs.length + ')</span>';
     EXAMS.forEach(ex => {
-      if (counts[ex] > 0){
-        html += '<span class="exam-chip-count ' + (currentFilter === ex ? 'active' : '') + '">' + ex + ' (' + counts[ex] + ')</span>';
-      }
+      if (counts[ex] > 0) html += '<span class="exam-chip-count ' + (currentFilter === ex ? 'active' : '') + '">' + ex + ' (' + counts[ex] + ')</span>';
     });
-    if (counts['(No Exam)'] > 0){
-      html += '<span class="exam-chip-count" style="background:rgba(251,188,4,0.15); color:#f7d774;">⚠️ No Exam (' + counts['(No Exam)'] + ')</span>';
-    }
+    if (counts['(No Exam)'] > 0) html += '<span class="exam-chip-count" style="background:rgba(251,188,4,0.15); color:#f7d774;">⚠️ No Exam (' + counts['(No Exam)'] + ')</span>';
     row.innerHTML = html;
   }
 
@@ -878,29 +1353,15 @@ Explanation: HTML stands for..."></textarea>
     if (searchQ) filtered = filtered.filter(d => (d.question || '').toLowerCase().includes(searchQ));
     $('qCount').textContent = allDocs.length;
     renderExamChips();
-    if (!filtered.length){
-      $('questionsList').innerHTML = '<div class="loader">No questions found</div>';
-      return;
-    }
+    if (!filtered.length){ $('questionsList').innerHTML = '<div class="loader">No questions found</div>'; return; }
     const html = filtered.map((d) => {
       const serial = (typeof d.serialNumber === 'number') ? d.serialNumber : '?';
       const correctLetter = LETTERS[d.correct] || '?';
-      const examBadge = d.exam
-        ? '<span class="exam-badge">' + escapeHtml(d.exam) + '</span>'
-        : '<span class="exam-badge none">⚠️ No Exam</span>';
+      const examBadge = d.exam ? '<span class="exam-badge">' + escapeHtml(d.exam) + '</span>' : '<span class="exam-badge none">⚠️ No Exam</span>';
       return '<div class="list-item">' +
-        '<div class="content">' +
-          '<div class="q-title"><span class="serial-badge">#' + serial + '</span> ' + examBadge + ' ' + escapeHtml(d.question || 'Untitled') + '</div>' +
-          '<div class="q-meta">' +
-            '<span>✓ Ans: ' + correctLetter + '</span>' +
-            '<span>' + ((d.options || []).length) + ' options</span>' +
-            '<span style="opacity:0.6">' + d.id + '</span>' +
-          '</div>' +
-        '</div>' +
-        '<div class="actions">' +
-          '<button class="btn small" data-edit="' + d.id + '">✏️</button>' +
-          '<button class="btn small danger" data-del="' + d.id + '">🗑️</button>' +
-        '</div>' +
+        '<div class="content"><div class="q-title"><span class="serial-badge">#' + serial + '</span> ' + examBadge + ' ' + escapeHtml(d.question || 'Untitled') + '</div>' +
+        '<div class="q-meta"><span>✓ Ans: ' + correctLetter + '</span><span>' + ((d.options || []).length) + ' options</span></div></div>' +
+        '<div class="actions"><button class="btn small" data-edit="' + d.id + '">✏️</button><button class="btn small danger" data-del="' + d.id + '">🗑️</button></div>' +
       '</div>';
     }).join('');
     $('questionsList').innerHTML = html;
@@ -930,10 +1391,7 @@ Explanation: HTML stands for..."></textarea>
     });
   }
   document.querySelectorAll('#correctSelector button').forEach(b => {
-    b.addEventListener('click', () => {
-      selectedCorrect = parseInt(b.dataset.val);
-      updateCorrectUI();
-    });
+    b.addEventListener('click', () => { selectedCorrect = parseInt(b.dataset.val); updateCorrectUI(); });
   });
   updateCorrectUI();
 
@@ -949,12 +1407,18 @@ Explanation: HTML stands for..."></textarea>
     if (opts.some(o => !o)){ toast('All 4 options required', 'error'); return; }
     if (!explanation){ toast('Explanation required', 'error'); return; }
 
+    if (!editId){
+      const matches = findMatches(question, allDocs, 95, null);
+      if (matches.length){
+        const first = matches[0];
+        if (!confirm('⚠️ Similar question already exists:\n\n#' + first.doc.serialNumber + ' ' + (first.doc.question || '').slice(0, 100) + '\n\nSimilarity: ' + first.score + '%\n\nFir bhi add karein?')) return;
+      }
+    }
+
     try {
       $('saveSingleBtn').disabled = true;
       if (editId){
-        await db.collection(COLLECTION).doc(editId).update({
-          exam, question, options: opts, correct: selectedCorrect, explanation
-        });
+        await db.collection(COLLECTION).doc(editId).update({ exam, question, options: opts, correct: selectedCorrect, explanation });
         toast('Question updated', 'success');
         cancelEdit();
       } else {
@@ -969,7 +1433,6 @@ Explanation: HTML stands for..."></textarea>
       }
       await loadQuestionsList();
     } catch (e){
-      console.error(e);
       toast('Error: ' + e.message, 'error');
     } finally {
       $('saveSingleBtn').disabled = false;
@@ -981,6 +1444,7 @@ Explanation: HTML stands for..."></textarea>
     $('optA').value = ''; $('optB').value = ''; $('optC').value = ''; $('optD').value = '';
     $('singleExplanation').value = '';
     selectedCorrect = 0; updateCorrectUI();
+    $('dupWarningInline').classList.remove('show');
   }
   function cancelEdit(){
     $('editDocId').value = '';
@@ -1012,11 +1476,7 @@ Explanation: HTML stands for..."></textarea>
     $('singlePanelSub').textContent = 'Exam change kar sakte ho — global serial number lock hai.';
     $('saveSingleBtn').innerHTML = '💾 Update Question';
     $('cancelEditBtn').style.display = 'inline-flex';
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.querySelector('[data-tab="single"]').classList.add('active');
-    ['list','single','json','pdf','html','status','serial'].forEach(n => {
-      $('panel-' + n).classList.toggle('hidden', n !== 'single');
-    });
+    switchTab('single');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -1026,10 +1486,7 @@ Explanation: HTML stands for..."></textarea>
       await db.collection(COLLECTION).doc(id).delete();
       toast('Deleted', 'success');
       await loadQuestionsList();
-    } catch (e){
-      console.error(e);
-      toast('Delete failed: ' + e.message, 'error');
-    }
+    } catch (e){ toast('Delete failed: ' + e.message, 'error'); }
   }
 
   // ===== BULK SAVE =====
@@ -1048,9 +1505,24 @@ Explanation: HTML stands for..."></textarea>
       });
     }
     if (!valid.length){ toast('No valid questions (exam required)', 'error'); return; }
+
+    let dupCount = 0;
+    const dupExamples = [];
+    valid.forEach(v => {
+      const m = findMatches(v.question, allDocs, 90, null);
+      if (m.length){
+        dupCount++;
+        if (dupExamples.length < 3) dupExamples.push('• ' + v.question.slice(0, 80));
+      }
+    });
+
+    if (dupCount > 0){
+      const msg = '⚠️ ' + dupCount + '/' + valid.length + ' questions ke similar already existing hain:\n\n' + dupExamples.join('\n') + '\n\nFir bhi save karein?';
+      if (!confirm(msg)) return;
+    }
+
     toast('Saving ' + valid.length + ' questions...');
     try {
-      // GLOBAL SERIAL: ek hi serial sequence across all exams
       let startSerial = await getNextSerialNumber();
       for (let i = 0; i < valid.length; i += 400){
         const batch = db.batch();
@@ -1068,10 +1540,7 @@ Explanation: HTML stands for..."></textarea>
       }
       toast(valid.length + ' questions added!', 'success');
       await loadQuestionsList();
-    } catch (e){
-      console.error(e);
-      toast('Save failed: ' + e.message, 'error');
-    }
+    } catch (e){ toast('Save failed: ' + e.message, 'error'); }
   }
 
   $('uploadJsonBtn').addEventListener('click', async () => {
@@ -1082,10 +1551,7 @@ Explanation: HTML stands for..."></textarea>
     try {
       const parsed = JSON.parse(raw);
       arr = Array.isArray(parsed) ? parsed : [parsed];
-    } catch(e){
-      toast('Invalid JSON: ' + e.message, 'error');
-      return;
-    }
+    } catch(e){ toast('Invalid JSON: ' + e.message, 'error'); return; }
     await bulkSave(arr, defaultExam);
     $('jsonInput').value = '';
   });
@@ -1105,10 +1571,7 @@ Explanation: HTML stands for..."></textarea>
     function pushCurrent(){
       if (!current) return;
       if (current.question && current.options.length >= 2){
-        questions.push({
-          question: current.question, options: current.options,
-          correct: current.correct, explanation: current.explanation || 'No explanation provided.'
-        });
+        questions.push({ question: current.question, options: current.options, correct: current.correct, explanation: current.explanation || 'No explanation provided.' });
       }
       current = null;
     }
@@ -1166,13 +1629,8 @@ Explanation: HTML stands for..."></textarea>
       $('pdfPreviewWrap').style.display = 'block';
       $('pdfPreviewWrap')._parsed = parsed;
       toast(parsed.length + ' questions parsed for ' + exam, 'success');
-    } catch (e){
-      console.error(e);
-      toast('PDF error: ' + e.message, 'error');
-    } finally {
-      $('uploadPdfBtn').disabled = false;
-      $('uploadPdfBtn').textContent = '📤 Parse & Preview';
-    }
+    } catch (e){ toast('PDF error: ' + e.message, 'error'); }
+    finally { $('uploadPdfBtn').disabled = false; $('uploadPdfBtn').textContent = '📤 Parse & Check'; }
   });
 
   $('pdfSaveBtn').addEventListener('click', async () => {
@@ -1218,6 +1676,15 @@ Explanation: HTML stands for..."></textarea>
     $('htmlInput').value = '';
   });
 
+</script>
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("/service-worker.js")
+        .then((reg) => console.log("[PWA] SW registered:", reg.scope))
+        .catch((err) => console.warn("[PWA] SW failed:", err));
+    });
+  }
 </script>
 </body>
 </html>
