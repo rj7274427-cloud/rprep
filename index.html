@@ -413,7 +413,6 @@
   const PER_PAGE = 5;
   const SITE_URL = 'https://www.rprep.online';
 
-  // Subdomain → Exam mapping
   const SUBDOMAIN_MAP = {
     'aiims':   'AIIMS',
     'rrb':     'RRB',
@@ -442,7 +441,6 @@
     { key: 'general', label: 'General' }
   ];
 
-  // Detect subdomain
   const hostname = window.location.hostname;
   const urlParamsForSub = new URLSearchParams(window.location.search);
   const testSub = urlParamsForSub.get('sub');
@@ -694,32 +692,67 @@
   const COLLECTION = "qbank";
   const STATUS_COLLECTION = "examStatus";
 
+  // ===================== VISITOR COUNTER (FIXED) =====================
+  function initVisitorCounter(){
+    const SESSION_KEY = 'rprep_visited_session';
+    const counterRef = db.collection('meta').doc('visitors');
+
+    // Step 1: Increment FIRST (agar naye session hai)
+    if (!sessionStorage.getItem(SESSION_KEY)){
+      counterRef.get().then(doc => {
+        if (!doc.exists){
+          return counterRef.set({ count: 1 });
+        } else {
+          const current = doc.data().count;
+          if (typeof current !== 'number'){
+            // Fix broken data
+            return counterRef.set({ count: 1 });
+          }
+          return counterRef.update({ count: firebase.firestore.FieldValue.increment(1) });
+        }
+      }).then(() => {
+        sessionStorage.setItem(SESSION_KEY, '1');
+      }).catch(err => {
+        console.warn('Visitor increment error:', err.message);
+      });
+    }
+
+    // Step 2: Listen for live updates
+    counterRef.onSnapshot(doc => {
+      const el = document.getElementById('visitorCount');
+      if (!el) return;
+      if (doc.exists){
+        const data = doc.data();
+        const count = typeof data.count === 'number' ? data.count : 0;
+        el.textContent = count;
+      } else {
+        el.textContent = '—';
+      }
+    }, err => {
+      console.warn('Visitor listen error:', err.message);
+      const el = document.getElementById('visitorCount');
+      if (el) el.textContent = '—';
+    });
+  }
+
   async function loadQuestions(){
     try {
-      // 1. Check exam status (Coming Soon?)
-      let comingSoon = false;
+      // Check Coming Soon status
       if (!isQBankAll && currentExam){
         try {
           const statusDoc = await db.collection(STATUS_COLLECTION).doc(currentExam).get();
           if (statusDoc.exists && statusDoc.data().comingSoon === true){
-            comingSoon = true;
+            renderComingSoon();
+            return;
           }
         } catch(e){ console.warn('Status check failed', e); }
-
-        // Agar Coming Soon ON hai → direct Coming Soon page
-        if (comingSoon){
-          renderComingSoon();
-          return;
-        }
       }
 
-      // 2. Load questions
       const snapshot = await db.collection(COLLECTION).get();
       allQuestions = [];
       snapshot.forEach(doc => {
         const q = doc.data();
 
-        // Filter by exam
         if (!isQBankAll && currentExam){
           if (q.exam !== currentExam) return;
         }
@@ -751,19 +784,16 @@
         });
       });
 
-      // Agar subdomain specific hai lekin 0 questions → Coming Soon
       if (!isQBankAll && currentExam && allQuestions.length === 0){
         renderComingSoon();
         return;
       }
 
-      // Agar all mode aur 0 questions → Coming Soon
       if (isQBankAll && allQuestions.length === 0){
         renderComingSoon();
         return;
       }
 
-      // Sort
       const allHaveSerial = allQuestions.every(q => q.serialNumber !== null);
       if (allHaveSerial){
         allQuestions.sort((a,b) => a.serialNumber - b.serialNumber);
@@ -772,7 +802,6 @@
         if (q.serialNumber === null) q.serialNumber = i + 1;
       });
 
-      // Render main UI
       renderMainUI();
       totalPages = Math.ceil(allQuestions.length / PER_PAGE);
       currentPage = 1;
@@ -780,6 +809,9 @@
       navBarEl.style.display = 'flex';
       handleUrlHash();
       renderPage();
+
+      // IMPORTANT: Visitor counter ab initialize karo jab DOM ready ho
+      initVisitorCounter();
     } catch (err){
       console.error(err);
       containerEl.innerHTML = '<div class="loader">Error: ' + escapeHtml(err.message) + '</div>';
@@ -1234,26 +1266,7 @@
     return lines;
   }
 
-  // ===================== VISITOR COUNTER =====================
-  function initVisitorCounter(){
-    const SESSION_KEY = 'rprep_visited_session';
-    const counterRef = db.collection('meta').doc('visitors');
-    counterRef.onSnapshot(doc => {
-      const count = doc.exists ? (doc.data().count || 0) : 0;
-      const el = document.getElementById('visitorCount');
-      if (el) el.textContent = count;
-    }, err => {});
-    if (!sessionStorage.getItem(SESSION_KEY)){
-      counterRef.get().then(doc => {
-        if (!doc.exists) return counterRef.set({ count: 1 });
-        else return counterRef.update({ count: firebase.firestore.FieldValue.increment(1) });
-      }).then(() => sessionStorage.setItem(SESSION_KEY, '1'))
-        .catch(err => {});
-    }
-  }
-
   // ===================== INIT =====================
-  initVisitorCounter();
   loadQuestions();
 
 </script>
