@@ -491,13 +491,13 @@
     clearTimeout(t._tid);
     t._tid = setTimeout(() => t.classList.remove('show'), 2200);
   }
+  // ★ GLOBAL SERIAL NUMBER ab SUBDOMAIN pe depend nahi karega
+  //   Sab jagah wahi number — chahe www, aiims, rrb, kuch bhi
   function getShareUrl(serial){
-    if (isQBankAll) return SITE_URL + '/?q=' + serial;
-    return 'https://' + currentSub + '.rprep.online/?q=' + serial;
+    return SITE_URL + '/?q=' + serial;
   }
   function getDisplayUrl(serial){
-    if (isQBankAll) return 'www.rprep.online/?q=' + serial;
-    return currentSub + '.rprep.online/?q=' + serial;
+    return 'www.rprep.online/?q=' + serial;
   }
 
   // ===================== THEME =====================
@@ -692,12 +692,11 @@
   const COLLECTION = "qbank";
   const STATUS_COLLECTION = "examStatus";
 
-  // ===================== VISITOR COUNTER (FIXED) =====================
+  // ===================== VISITOR COUNTER =====================
   function initVisitorCounter(){
     const SESSION_KEY = 'rprep_visited_session';
     const counterRef = db.collection('meta').doc('visitors');
 
-    // Step 1: Increment FIRST (agar naye session hai)
     if (!sessionStorage.getItem(SESSION_KEY)){
       counterRef.get().then(doc => {
         if (!doc.exists){
@@ -705,7 +704,6 @@
         } else {
           const current = doc.data().count;
           if (typeof current !== 'number'){
-            // Fix broken data
             return counterRef.set({ count: 1 });
           }
           return counterRef.update({ count: firebase.firestore.FieldValue.increment(1) });
@@ -717,7 +715,6 @@
       });
     }
 
-    // Step 2: Listen for live updates
     counterRef.onSnapshot(doc => {
       const el = document.getElementById('visitorCount');
       if (!el) return;
@@ -737,7 +734,6 @@
 
   async function loadQuestions(){
     try {
-      // Check Coming Soon status
       if (!isQBankAll && currentExam){
         try {
           const statusDoc = await db.collection(STATUS_COLLECTION).doc(currentExam).get();
@@ -794,13 +790,19 @@
         return;
       }
 
+      // ★ GLOBAL SERIAL: ab SUBDOMAIN ke hisaab se reassign NAHI karega
+      //   Sab questions ka Firestore ka serialNumber hi use hoga
       const allHaveSerial = allQuestions.every(q => q.serialNumber !== null);
       if (allHaveSerial){
         allQuestions.sort((a,b) => a.serialNumber - b.serialNumber);
+      } else {
+        // Fallback: agar serial nahi hai to temporary sequential
+        // (but ideally admin panel me regenerate global serials chala lo)
+        allQuestions.sort((a,b) => a.id.localeCompare(b.id));
+        allQuestions.forEach((q, i) => {
+          if (q.serialNumber === null) q.serialNumber = i + 1;
+        });
       }
-      allQuestions.forEach((q, i) => {
-        if (q.serialNumber === null) q.serialNumber = i + 1;
-      });
 
       renderMainUI();
       totalPages = Math.ceil(allQuestions.length / PER_PAGE);
@@ -810,7 +812,6 @@
       handleUrlHash();
       renderPage();
 
-      // IMPORTANT: Visitor counter ab initialize karo jab DOM ready ho
       initVisitorCounter();
     } catch (err){
       console.error(err);
@@ -822,6 +823,7 @@
     const params = new URLSearchParams(window.location.search);
     const q = parseInt(params.get('q'), 10);
     if (!isNaN(q) && q >= 1){
+      // ★ GLOBAL: serial number se dhundho — chahe kisi bhi exam ka ho
       const idx = allQuestions.findIndex(item => item.serialNumber === q);
       if (idx >= 0){
         currentPage = Math.floor(idx / PER_PAGE) + 1;

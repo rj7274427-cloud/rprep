@@ -15,6 +15,7 @@
     --amber: #fbbc04; --amber-soft: rgba(251,188,4,0.15);
     --amber-border: rgba(251,188,4,0.4);
     --purple: #a78bfa; --purple-soft: rgba(167,139,250,0.15);
+    --purple-border: rgba(167,139,250,0.4);
   }
   *{ box-sizing: border-box; margin: 0; padding: 0; }
   body{
@@ -54,6 +55,8 @@
   .btn.danger:hover:not(:disabled){ background: rgba(234,67,53,0.25); }
   .btn.success{ background: var(--green-soft); border-color: rgba(52,168,83,0.4); color: #7ee2a8; }
   .btn.warning{ background: var(--amber-soft); border-color: rgba(251,188,4,0.4); color: #f7d774; }
+  .btn.purple{ background: var(--purple-soft); border-color: var(--purple-border); color: #c4b5fd; }
+  .btn.purple:hover:not(:disabled){ background: rgba(167,139,250,0.25); }
   .btn.small{ padding: 7px 12px; font-size: 0.8rem; }
   .admin-header{ background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
   .admin-header .brand h2{ font-size: 1.2rem; font-weight: 700; }
@@ -114,95 +117,73 @@
   .exam-chips-row{ display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; padding: 10px 12px; background: #141820; border: 1px solid var(--border); border-radius: 10px; }
   .exam-chip-count{ font-size: 0.72rem; color: var(--text-dim); padding: 4px 9px; background: var(--card-2); border-radius: 6px; }
   .exam-chip-count.active{ background: var(--accent-soft); color: var(--accent); font-weight: 600; }
-
-  /* ========== EXAM STATUS TOGGLE ========== */
   .status-list{ display: flex; flex-direction: column; gap: 10px; }
-  .status-row{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 16px;
-    background: var(--card-2);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    gap: 12px;
-    flex-wrap: wrap;
-    transition: all 0.2s;
-  }
+  .status-row{ display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: var(--card-2); border: 1px solid var(--border); border-radius: 12px; gap: 12px; flex-wrap: wrap; transition: all 0.2s; }
   .status-row.live{ border-color: rgba(52,168,83,0.3); }
   .status-row.coming{ border-color: rgba(251,188,4,0.3); background: rgba(251,188,4,0.04); }
   .status-info{ flex: 1; min-width: 150px; }
   .status-name{ font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 3px; }
   .status-desc{ font-size: 0.72rem; color: var(--text-dim); }
   .status-controls{ display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-  .status-label{
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 5px 12px;
-    border-radius: 999px;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    transition: all 0.2s;
-  }
+  .status-label{ font-size: 0.75rem; font-weight: 700; padding: 5px 12px; border-radius: 999px; letter-spacing: 0.05em; text-transform: uppercase; transition: all 0.2s; }
   .status-label.live{ background: var(--green-soft); color: #7ee2a8; }
   .status-label.coming{ background: var(--amber-soft); color: #f7d774; }
-
-  .toggle-switch{
-    position: relative;
-    width: 60px; height: 32px;
-    background: #141820;
-    border: 2px solid var(--border);
-    border-radius: 999px;
-    cursor: pointer;
-    transition: all 0.3s;
-    flex-shrink: 0;
-  }
-  .toggle-switch::after{
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 4px;
-    transform: translateY(-50%);
-    width: 22px; height: 22px;
-    border-radius: 50%;
-    background: var(--text-dim);
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-  }
-  .toggle-switch.on{
-    background: linear-gradient(135deg, #34a853, #2d8b47);
-    border-color: #34a853;
-  }
-  .toggle-switch.on::after{
-    left: calc(100% - 26px);
-    background: #ffffff;
-  }
-  .toggle-switch.off-warning{
-    background: linear-gradient(135deg, #fbbc04, #f59e0b);
-    border-color: #fbbc04;
-  }
-  .toggle-switch.off-warning::after{
-    left: calc(100% - 26px);
-    background: #ffffff;
-  }
-  .status-url{
-    font-size: 0.72rem;
-    color: var(--text-dim);
-    background: #141820;
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-family: ui-monospace, monospace;
-  }
+  .toggle-switch{ position: relative; width: 60px; height: 32px; background: #141820; border: 2px solid var(--border); border-radius: 999px; cursor: pointer; transition: all 0.3s; flex-shrink: 0; }
+  .toggle-switch::after{ content: ""; position: absolute; top: 50%; left: 4px; transform: translateY(-50%); width: 22px; height: 22px; border-radius: 50%; background: var(--text-dim); transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
+  .toggle-switch.on{ background: linear-gradient(135deg, #34a853, #2d8b47); border-color: #34a853; }
+  .toggle-switch.on::after{ left: calc(100% - 26px); background: #ffffff; }
+  .toggle-switch.off-warning{ background: linear-gradient(135deg, #fbbc04, #f59e0b); border-color: #fbbc04; }
+  .toggle-switch.off-warning::after{ left: calc(100% - 26px); background: #ffffff; }
+  .status-url{ font-size: 0.72rem; color: var(--text-dim); background: #141820; padding: 4px 10px; border-radius: 6px; font-family: ui-monospace, monospace; }
   .status-url.ready{ color: var(--accent); }
+  .status-save-row{ display: flex; gap: 10px; justify-content: flex-end; margin-top: 16px; padding-top: 16px; border-top: 1px dashed var(--border); }
 
-  /* Save button row */
-  .status-save-row{
+  /* ========== GLOBAL SERIAL PANEL ========== */
+  .global-serial-panel{
+    background: linear-gradient(135deg, rgba(167,139,250,0.10), rgba(167,139,250,0.04));
+    border: 2px solid var(--purple-border);
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin-bottom: 16px;
+  }
+  .global-serial-panel h3{
+    color: #c4b5fd;
     display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .global-serial-panel p{
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+  .global-serial-info{
+    display: flex;
+    flex-wrap: wrap;
     gap: 10px;
-    justify-content: flex-end;
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px dashed var(--border);
+    margin-bottom: 16px;
+  }
+  .gs-stat{
+    background: rgba(167,139,250,0.12);
+    border: 1px solid var(--purple-border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    flex: 1;
+    min-width: 120px;
+  }
+  .gs-stat-label{
+    font-size: 0.68rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 3px;
+  }
+  .gs-stat-value{
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #c4b5fd;
   }
 </style>
 </head>
@@ -235,11 +216,11 @@
     <div class="admin-header">
       <div class="brand">
         <h2>RPrep <span>Admin Panel</span></h2>
-        <p>QBank Management · Exam-wise Questions</p>
+        <p>QBank Management · Global Serial Numbers</p>
       </div>
       <div class="user-info">
         <span id="userEmail">—</span>
-        <button class="btn small warning" id="migrateBtn">⚙️ Migrate</button>
+        <button class="btn small purple" id="globalSerialBtn">🔢 Global Serials</button>
         <button class="btn small danger" id="logoutBtn">Logout</button>
       </div>
     </div>
@@ -251,12 +232,13 @@
       <button class="tab" data-tab="pdf">📄 PDF</button>
       <button class="tab" data-tab="html">🌐 HTML</button>
       <button class="tab" data-tab="status">🎚️ Exam Status</button>
+      <button class="tab" data-tab="serial">🔢 Global Serial</button>
     </div>
 
     <!-- LIST TAB -->
     <div class="panel" id="panel-list">
       <h3>All Questions <span class="count-badge" id="qCount">0</span></h3>
-      <p class="panel-sub">Sorted by exam + serial number.</p>
+      <p class="panel-sub">Sorted by global serial number. Ye number <strong>kabhi change nahi hota</strong>.</p>
       <div class="filter-row">
         <select id="examFilter"><option value="">All Exams</option></select>
         <input type="text" id="searchInput" placeholder="Search questions..." />
@@ -269,7 +251,7 @@
     <!-- SINGLE ADD TAB -->
     <div class="panel hidden" id="panel-single">
       <h3 id="singlePanelTitle">Add New Question</h3>
-      <p class="panel-sub" id="singlePanelSub">Naya question automatically next serial number par add hoga.</p>
+      <p class="panel-sub" id="singlePanelSub">Naya question automatically next global serial number par add hoga.</p>
 
       <input type="hidden" id="editDocId" value="" />
 
@@ -279,8 +261,8 @@
       </div>
 
       <div class="field">
-        <label>Serial Number</label>
-        <input type="text" id="singleSerial" readonly value="Auto (next available)" />
+        <label>Global Serial Number</label>
+        <input type="text" id="singleSerial" readonly value="Auto (next global)" />
       </div>
 
       <div class="field">
@@ -396,42 +378,96 @@ Explanation: HTML stands for..."></textarea>
       </div>
     </div>
 
-    <!-- EXAM STATUS TAB (NEW) -->
+    <!-- EXAM STATUS TAB -->
     <div class="panel hidden" id="panel-status">
       <h3>🎚️ Exam Status — Coming Soon Toggle</h3>
       <p class="panel-sub">
-        Har exam ke liye <strong>Coming Soon</strong> ON/OFF kar sakte ho. 
+        Har exam ke liye <strong>Coming Soon</strong> ON/OFF kar sakte ho.
         <br>
-        <span style="color:#7ee2a8;">Live</span> = normal QBank · 
+        <span style="color:#7ee2a8;">Live</span> = normal QBank ·
         <span style="color:#f7d774;">Coming Soon</span> = students ko coming soon page dikhega
       </p>
-
-      <div class="status-list" id="statusList">
-        <div class="loader">Loading</div>
-      </div>
-
+      <div class="status-list" id="statusList"><div class="loader">Loading</div></div>
       <div class="status-save-row">
         <button class="btn" id="statusReloadBtn">↻ Reload</button>
         <button class="btn primary" id="statusSaveBtn" disabled>💾 Save All Changes</button>
       </div>
     </div>
 
+    <!-- GLOBAL SERIAL TAB -->
+    <div class="panel hidden" id="panel-serial">
+      <h3>🔢 Global Serial Numbers</h3>
+      <p class="panel-sub">
+        Sab questions ko <strong>1, 2, 3, ..., N</strong> global serial numbers assign karta hai — exam ke hisaab se.
+        <br>
+        Isse har question ka <strong>unique number</strong> hoga — chahe kisi bhi subdomain pe dikhe.
+      </p>
+
+      <div class="global-serial-panel">
+        <h3>⚠️ Ye kaam kya karta hai?</h3>
+        <p>
+          <strong>Example:</strong><br>
+          • AIIMS ke 5 questions → Global serials <strong>1, 2, 3, 4, 5</strong><br>
+          • RRB ke 3 questions → Global serials <strong>6, 7, 8</strong><br>
+          • ESIC ke 4 questions → Global serials <strong>9, 10, 11, 12</strong><br>
+          • <strong>Total 12 questions → serial 1 to 12</strong>
+        </p>
+        <p>
+          Subdomain pe filter hone pe bhi:
+          <br>
+          • <code>aiims.rprep.online</code> pe: <strong>1, 2, 3, 4, 5</strong> (AIIMS ke)
+          <br>
+          • <code>rrb.rprep.online</code> pe: <strong>6, 7, 8</strong> (RRB ke)
+          <br>
+          • <code>www.rprep.online</code> pe: <strong>1 se 12</strong> (sab)
+        </p>
+      </div>
+
+      <div class="global-serial-info" id="globalSerialInfo">
+        <div class="gs-stat">
+          <div class="gs-stat-label">Total Questions</div>
+          <div class="gs-stat-value" id="gsTotal">—</div>
+        </div>
+        <div class="gs-stat">
+          <div class="gs-stat-label">Unique Serials</div>
+          <div class="gs-stat-value" id="gsUnique">—</div>
+        </div>
+        <div class="gs-stat">
+          <div class="gs-stat-label">Duplicates</div>
+          <div class="gs-stat-value" id="gsDupes">—</div>
+        </div>
+      </div>
+
+      <div class="hint">
+        <strong>⚠️ Warning:</strong> Ye operation sab questions ke serial numbers <strong>rewrite</strong> karega.
+        Purane URLs jo shared kiye gaye hain wo <strong>change ho sakte hain</strong>. Soch samajhkar chalao.
+      </div>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn" id="serialCheckBtn">🔍 Check Current Status</button>
+        <button class="btn purple" id="serialRegenerateBtn">🔢 Regenerate Global Serials</button>
+      </div>
+    </div>
+
   </div>
 </div>
 
-<!-- MIGRATION MODAL -->
-<div class="modal-overlay" id="migrationModal">
+<!-- REGENERATE CONFIRMATION MODAL -->
+<div class="modal-overlay" id="regenerateModal">
   <div class="modal">
-    <div class="modal-icon">⚙️</div>
-    <h3>Serial Number Migration</h3>
-    <p>Purane questions ko permanent serial numbers assign karega. Default exam bhi assign kar sakte ho.</p>
-    <div class="field">
-      <label>Default Exam</label>
-      <select id="migrationDefaultExam"><option value="">-- Skip --</option></select>
-    </div>
+    <div class="modal-icon">🔢</div>
+    <h3>Regenerate Global Serials?</h3>
+    <p>
+      Ye <strong>sab questions</strong> ke serial numbers <strong>1 se N</strong> tak reassign karega,
+      exam ke hisaab se group karke.
+      <br><br>
+      <strong style="color:#f7d774;">Purane shared links change ho sakte hain.</strong>
+      <br><br>
+      Confirm karo?
+    </p>
     <div class="modal-actions">
-      <button class="btn confirm-migrate-btn" id="migrationConfirm">⚙️ Start Migration</button>
-      <button class="btn" id="migrationCancel">Cancel</button>
+      <button class="btn confirm-migrate-btn" id="regenerateConfirm">🔢 Haan, Regenerate Karo</button>
+      <button class="btn" id="regenerateCancel">Cancel</button>
     </div>
   </div>
 </div>
@@ -465,7 +501,6 @@ Explanation: HTML stands for..."></textarea>
 
   const EXAMS = ['AIIMS','RRB','ESIC','DSSSB','PGIMER','JIPMER','SGPGIMS','NIMHANS','BHU','State','General'];
 
-  // Subdomain map for URLs
   const SUBDOMAIN_MAP = {
     'AIIMS': 'aiims', 'RRB': 'rrb', 'ESIC': 'esic', 'DSSSB': 'dsssb',
     'PGIMER': 'pgimer', 'JIPMER': 'jipmer', 'SGPGIMS': 'sgpgims',
@@ -473,7 +508,7 @@ Explanation: HTML stands for..."></textarea>
   };
 
   function populateExamDropdowns(){
-    const dropdownIds = ['singleExam', 'jsonDefaultExam', 'pdfExam', 'htmlExam', 'migrationDefaultExam'];
+    const dropdownIds = ['singleExam', 'jsonDefaultExam', 'pdfExam', 'htmlExam'];
     dropdownIds.forEach(id => {
       const sel = document.getElementById(id);
       if (!sel) return;
@@ -546,6 +581,15 @@ Explanation: HTML stands for..."></textarea>
     auth.signOut().then(() => toast('Logged out', 'success'));
   });
 
+  $('globalSerialBtn').addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelector('[data-tab="serial"]').classList.add('active');
+    ['list','single','json','pdf','html','status','serial'].forEach(n => {
+      $('panel-' + n).classList.toggle('hidden', n !== 'serial');
+    });
+    checkSerialStatus();
+  });
+
   auth.onAuthStateChanged((user) => {
     if (user && user.email === ADMIN_EMAIL){
       $('loginWrap').classList.add('hidden');
@@ -554,8 +598,8 @@ Explanation: HTML stands for..."></textarea>
       populateExamDropdowns();
       loadQuestionsList();
     } else {
-      $('loginWrap').classList.add('hidden');
-      $('adminWrap').classList.remove('hidden');
+      $('loginWrap').classList.remove('hidden');
+      $('adminWrap').classList.add('hidden');
     }
   });
 
@@ -565,18 +609,133 @@ Explanation: HTML stands for..."></textarea>
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       const name = tab.dataset.tab;
-      ['list','single','json','pdf','html','status'].forEach(n => {
+      ['list','single','json','pdf','html','status','serial'].forEach(n => {
         $('panel-' + n).classList.toggle('hidden', n !== name);
       });
       if (name === 'list') loadQuestionsList();
       if (name === 'status') loadExamStatus();
+      if (name === 'serial') checkSerialStatus();
     });
   });
 
   // ==================================================
-  // ============ EXAM STATUS TOGGLE ============
+  // ============ GLOBAL SERIAL NUMBERS ============
   // ==================================================
-  let examStatusCache = {}; // { AIIMS: true/false, ... }
+  async function checkSerialStatus(){
+    try {
+      const snap = await db.collection(COLLECTION).get();
+      const total = snap.size;
+      const serials = [];
+      let noSerialCount = 0;
+      snap.forEach(d => {
+        const s = d.data().serialNumber;
+        if (typeof s === 'number') serials.push(s);
+        else noSerialCount++;
+      });
+      const unique = new Set(serials).size;
+      const dupes = serials.length - unique;
+
+      $('gsTotal').textContent = total;
+      $('gsUnique').textContent = unique;
+      $('gsDupes').textContent = dupes + (noSerialCount > 0 ? ' (+' + noSerialCount + ' no-serial)' : '');
+      if (dupes > 0 || noSerialCount > 0){
+        $('gsDupes').style.color = '#ff9a92';
+      } else {
+        $('gsDupes').style.color = '#7ee2a8';
+      }
+      return { total, unique, dupes, noSerialCount };
+    } catch(e){
+      console.error(e);
+      toast('Check failed: ' + e.message, 'error');
+    }
+  }
+
+  $('serialCheckBtn').addEventListener('click', async () => {
+    toast('Checking...');
+    const r = await checkSerialStatus();
+    if (r){
+      if (r.dupes === 0 && r.noSerialCount === 0){
+        toast('All serials are unique! ✅', 'success');
+      } else {
+        toast('Duplicates found: ' + r.dupes + ' — Regenerate karo', 'error');
+      }
+    }
+  });
+
+  $('serialRegenerateBtn').addEventListener('click', () => {
+    $('regenerateModal').classList.add('show');
+  });
+  $('regenerateCancel').addEventListener('click', () => {
+    $('regenerateModal').classList.remove('show');
+  });
+  $('regenerateModal').addEventListener('click', (e) => {
+    if (e.target === $('regenerateModal')) $('regenerateModal').classList.remove('show');
+  });
+
+  $('regenerateConfirm').addEventListener('click', async () => {
+    $('regenerateConfirm').disabled = true;
+    $('regenerateConfirm').textContent = 'Regenerating...';
+    try {
+      const snap = await db.collection(COLLECTION).get();
+      const docs = [];
+      snap.forEach(d => docs.push({ id: d.id, ...d.data() }));
+
+      // Sort: exam order first (as per EXAMS list), then by current serial (or createdAt/id)
+      docs.sort((a, b) => {
+        const ea = EXAMS.indexOf(a.exam || 'zzz');
+        const eb = EXAMS.indexOf(b.exam || 'zzz');
+        const eaIdx = ea >= 0 ? ea : 999;
+        const ebIdx = eb >= 0 ? eb : 999;
+        if (eaIdx !== ebIdx) return eaIdx - ebIdx;
+
+        // Same exam: sort by existing serial, else by id
+        const sa = typeof a.serialNumber === 'number' ? a.serialNumber : 999999;
+        const sb = typeof b.serialNumber === 'number' ? b.serialNumber : 999999;
+        if (sa !== sb) return sa - sb;
+        return a.id.localeCompare(b.id);
+      });
+
+      // Assign global serial 1, 2, 3, ... N
+      let serial = 1;
+      const batchSize = 400;
+      let updatedCount = 0;
+
+      for (let i = 0; i < docs.length; i += batchSize){
+        const batch = db.batch();
+        const chunk = docs.slice(i, i + batchSize);
+        for (const d of chunk){
+          batch.update(db.collection(COLLECTION).doc(d.id), {
+            serialNumber: serial
+          });
+          serial++;
+          updatedCount++;
+        }
+        await batch.commit();
+      }
+
+      toast(updatedCount + ' questions ko global serials mile! ✅', 'success');
+      $('regenerateConfirm').textContent = '✅ Done!';
+
+      setTimeout(async () => {
+        $('regenerateModal').classList.remove('show');
+        $('regenerateConfirm').disabled = false;
+        $('regenerateConfirm').textContent = '🔢 Haan, Regenerate Karo';
+        await loadQuestionsList();
+        await checkSerialStatus();
+      }, 1500);
+
+    } catch(e){
+      console.error(e);
+      toast('Regenerate failed: ' + e.message, 'error');
+      $('regenerateConfirm').disabled = false;
+      $('regenerateConfirm').textContent = '🔢 Haan, Regenerate Karo';
+    }
+  });
+
+  // ==================================================
+  // ============ EXAM STATUS ============
+  // ==================================================
+  let examStatusCache = {};
   let statusDirty = false;
 
   async function loadExamStatus(){
@@ -586,7 +745,6 @@ Explanation: HTML stands for..."></textarea>
     try {
       const snap = await db.collection(STATUS_COLLECTION).get();
       examStatusCache = {};
-      // Default: false (Live)
       EXAMS.forEach(ex => examStatusCache[ex] = false);
       snap.forEach(d => {
         if (EXAMS.includes(d.id)){
@@ -616,7 +774,7 @@ Explanation: HTML stands for..."></textarea>
         '</div>' +
         '<div class="status-controls">' +
           '<span class="' + labelClass + '">' + labelText + '</span>' +
-          '<div class="' + toggleClass + '" data-exam="' + ex + '" role="switch" aria-checked="' + (!isComing) + '"></div>' +
+          '<div class="' + toggleClass + '" data-exam="' + ex + '"></div>' +
         '</div>' +
       '</div>';
     }).join('');
@@ -629,13 +787,12 @@ Explanation: HTML stands for..."></textarea>
         statusDirty = true;
         $('statusSaveBtn').disabled = false;
         renderExamStatus();
-        // Re-attach events after render
       });
     });
   }
 
   $('statusReloadBtn').addEventListener('click', () => {
-    if (statusDirty && !confirm('Save nahi kiya. Reload karein? (Changes lost honge)')) return;
+    if (statusDirty && !confirm('Save nahi kiya. Reload karein?')) return;
     loadExamStatus();
   });
 
@@ -650,7 +807,6 @@ Explanation: HTML stands for..."></textarea>
         if (isComing){
           batch.set(ref, { comingSoon: true, updatedAt: firebase.firestore.FieldValue.serverTimestamp() });
         } else {
-          // Delete doc if live (keeps db clean)
           batch.delete(ref);
         }
       });
@@ -669,69 +825,6 @@ Explanation: HTML stands for..."></textarea>
     }
   });
 
-  // ===== MIGRATION =====
-  $('migrateBtn').addEventListener('click', () => $('migrationModal').classList.add('show'));
-  $('migrationCancel').addEventListener('click', () => $('migrationModal').classList.remove('show'));
-  $('migrationModal').addEventListener('click', (e) => { if (e.target === $('migrationModal')) $('migrationModal').classList.remove('show'); });
-
-  $('migrationConfirm').addEventListener('click', async () => {
-    const defaultExam = $('migrationDefaultExam').value;
-    $('migrationConfirm').disabled = true;
-    $('migrationConfirm').textContent = 'Migrating...';
-    try {
-      const snap = await db.collection(COLLECTION).get();
-      const docs = [];
-      snap.forEach(d => docs.push({ id: d.id, ...d.data() }));
-      docs.sort((a, b) => {
-        const sa = typeof a.serialNumber === 'number' ? a.serialNumber : -1;
-        const sb = typeof b.serialNumber === 'number' ? b.serialNumber : -1;
-        if (sa !== sb) return sa - sb;
-        return a.id.localeCompare(b.id);
-      });
-      let maxSerial = 0;
-      docs.forEach(d => {
-        if (typeof d.serialNumber === 'number' && d.serialNumber > maxSerial) maxSerial = d.serialNumber;
-      });
-      let next = maxSerial + 1;
-      let serialCount = 0;
-      let examCount = 0;
-      const batch = db.batch();
-      for (const d of docs){
-        const updates = {};
-        if (typeof d.serialNumber !== 'number'){
-          updates.serialNumber = next; next++; serialCount++;
-        }
-        if (defaultExam && !d.exam){
-          updates.exam = defaultExam; examCount++;
-        }
-        if (Object.keys(updates).length > 0){
-          batch.update(db.collection(COLLECTION).doc(d.id), updates);
-        }
-      }
-      if (serialCount > 0 || examCount > 0){
-        await batch.commit();
-        toast(`${serialCount} serial + ${examCount} exam migrated!`, 'success');
-        $('migrationConfirm').textContent = '✅ Done!';
-        setTimeout(() => {
-          $('migrationModal').classList.remove('show');
-          $('migrationConfirm').disabled = false;
-          $('migrationConfirm').textContent = '⚙️ Start Migration';
-          loadQuestionsList();
-        }, 1200);
-      } else {
-        toast('No migration needed', 'success');
-        $('migrationModal').classList.remove('show');
-        $('migrationConfirm').disabled = false;
-        $('migrationConfirm').textContent = '⚙️ Start Migration';
-      }
-    } catch (e){
-      console.error(e);
-      toast('Migration failed: ' + e.message, 'error');
-      $('migrationConfirm').disabled = false;
-      $('migrationConfirm').textContent = '⚙️ Start Migration';
-    }
-  });
-
   // ===== LOAD LIST =====
   let allDocs = [];
 
@@ -742,9 +835,6 @@ Explanation: HTML stands for..."></textarea>
       allDocs = [];
       snap.forEach(d => allDocs.push({ id: d.id, ...d.data() }));
       allDocs.sort((a, b) => {
-        const ea = (a.exam || 'zzz');
-        const eb = (b.exam || 'zzz');
-        if (ea !== eb) return ea.localeCompare(eb);
         const sa = typeof a.serialNumber === 'number' ? a.serialNumber : 999999;
         const sb = typeof b.serialNumber === 'number' ? b.serialNumber : 999999;
         return sa - sb;
@@ -822,15 +912,12 @@ Explanation: HTML stands for..."></textarea>
   $('examFilter').addEventListener('change', renderQuestionsList);
   $('refreshBtn').addEventListener('click', loadQuestionsList);
 
-  async function getNextSerialNumber(exam){
+  async function getNextSerialNumber(){
     const snap = await db.collection(COLLECTION).get();
     let maxSerial = 0;
     snap.forEach(d => {
-      const data = d.data();
-      if (exam && data.exam !== exam) return;
-      if (typeof data.serialNumber === 'number' && data.serialNumber > maxSerial){
-        maxSerial = data.serialNumber;
-      }
+      const s = d.data().serialNumber;
+      if (typeof s === 'number' && s > maxSerial) maxSerial = s;
     });
     return maxSerial + 1;
   }
@@ -871,13 +958,13 @@ Explanation: HTML stands for..."></textarea>
         toast('Question updated', 'success');
         cancelEdit();
       } else {
-        const serial = await getNextSerialNumber(exam);
+        const serial = await getNextSerialNumber();
         await db.collection(COLLECTION).add({
           exam, question, options: opts, correct: selectedCorrect, explanation,
           serialNumber: serial,
           createdAt: firebase.firestore.FieldValue.serverTimestamp()
         });
-        toast('Added as ' + exam + ' #' + serial, 'success');
+        toast('Added as ' + exam + ' global #' + serial, 'success');
         clearSingleForm();
       }
       await loadQuestionsList();
@@ -898,10 +985,10 @@ Explanation: HTML stands for..."></textarea>
   function cancelEdit(){
     $('editDocId').value = '';
     $('singlePanelTitle').textContent = 'Add New Question';
-    $('singlePanelSub').textContent = 'Naya question automatically next serial number par add hoga.';
+    $('singlePanelSub').textContent = 'Naya question automatically next global serial number par add hoga.';
     $('saveSingleBtn').innerHTML = '💾 Save Question';
     $('cancelEditBtn').style.display = 'none';
-    $('singleSerial').value = 'Auto (next available)';
+    $('singleSerial').value = 'Auto (next global)';
     clearSingleForm();
   }
   $('cancelEditBtn').addEventListener('click', cancelEdit);
@@ -920,14 +1007,14 @@ Explanation: HTML stands for..."></textarea>
     selectedCorrect = typeof d.correct === 'number' ? d.correct : 0;
     updateCorrectUI();
     const serial = (typeof d.serialNumber === 'number') ? d.serialNumber : '?';
-    $('singleSerial').value = '#' + serial + ' (locked)';
+    $('singleSerial').value = 'Global #' + serial + ' (locked)';
     $('singlePanelTitle').textContent = 'Edit Question #' + serial;
-    $('singlePanelSub').textContent = 'Exam change kar sakte ho — serial number lock hai.';
+    $('singlePanelSub').textContent = 'Exam change kar sakte ho — global serial number lock hai.';
     $('saveSingleBtn').innerHTML = '💾 Update Question';
     $('cancelEditBtn').style.display = 'inline-flex';
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     document.querySelector('[data-tab="single"]').classList.add('active');
-    ['list','single','json','pdf','html','status'].forEach(n => {
+    ['list','single','json','pdf','html','status','serial'].forEach(n => {
       $('panel-' + n).classList.toggle('hidden', n !== 'single');
     });
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -963,32 +1050,23 @@ Explanation: HTML stands for..."></textarea>
     if (!valid.length){ toast('No valid questions (exam required)', 'error'); return; }
     toast('Saving ' + valid.length + ' questions...');
     try {
-      const byExam = {};
-      valid.forEach(q => {
-        if (!byExam[q.exam]) byExam[q.exam] = [];
-        byExam[q.exam].push(q);
-      });
-      let totalSaved = 0;
-      for (const exam in byExam){
-        const items = byExam[exam];
-        let startSerial = await getNextSerialNumber(exam);
-        for (let i = 0; i < items.length; i += 400){
-          const batch = db.batch();
-          const chunk = items.slice(i, i + 400);
-          for (let j = 0; j < chunk.length; j++){
-            const q = chunk[j];
-            const ref = db.collection(COLLECTION).doc();
-            batch.set(ref, {
-              ...q,
-              serialNumber: startSerial + i + j,
-              createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            });
-          }
-          await batch.commit();
-          totalSaved += chunk.length;
+      // GLOBAL SERIAL: ek hi serial sequence across all exams
+      let startSerial = await getNextSerialNumber();
+      for (let i = 0; i < valid.length; i += 400){
+        const batch = db.batch();
+        const chunk = valid.slice(i, i + 400);
+        for (let j = 0; j < chunk.length; j++){
+          const q = chunk[j];
+          const ref = db.collection(COLLECTION).doc();
+          batch.set(ref, {
+            ...q,
+            serialNumber: startSerial + i + j,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
         }
+        await batch.commit();
       }
-      toast(totalSaved + ' questions added!', 'success');
+      toast(valid.length + ' questions added!', 'success');
       await loadQuestionsList();
     } catch (e){
       console.error(e);
