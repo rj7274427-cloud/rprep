@@ -72,7 +72,6 @@
   .theme-toggle .icon-moon{ display: block; }
   [data-theme="light"] .theme-toggle .icon-sun{ display: block; }
   [data-theme="light"] .theme-toggle .icon-moon{ display: none; }
-
   .hero{
     text-align: center; padding: 26px 18px 22px;
     background: linear-gradient(180deg, var(--header-grad-1) 0%, var(--header-grad-2) 100%);
@@ -97,6 +96,7 @@
   .brand-title{ font-size: 1.9rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; line-height: 1.2; position: relative; z-index: 1; }
   .brand-title span{ color: var(--accent); }
   .brand-sub{ color: var(--text-dim); font-size: 0.85rem; margin-top: 8px; letter-spacing: 0.05em; position: relative; z-index: 1; }
+  .brand-sub strong{ color: var(--accent); font-weight: 700; }
   .hero-divider{ height: 1px; background: linear-gradient(90deg, transparent 0%, var(--border) 50%, transparent 100%); margin: 22px 0 18px; position: relative; z-index: 1; }
   .exams-label{ margin-bottom: 10px; font-size: 0.72rem; letter-spacing: 0.18em; color: var(--text-dim); text-transform: uppercase; position: relative; z-index: 1; }
   .exams{ display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; position: relative; z-index: 1; }
@@ -151,10 +151,6 @@
   .visitor-bar{ display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--text-dim); padding-top: 12px; border-top: 1px dashed var(--border); }
   .visitor-badge{ display: inline-flex; align-items: center; gap: 6px; background: var(--option-bg); border: 1px solid var(--border); padding: 6px 14px; border-radius: 999px; color: var(--accent); font-weight: 600; font-size: 0.82rem; }
   .visitor-badge svg{ width: 14px; height: 14px; }
-  .footer{ text-align: center; color: var(--text-dim); font-size: 0.78rem; margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--footer-border); }
-  .footer-logo{ width: 36px; height: 36px; border-radius: 50%; margin-bottom: 8px; opacity: 0.85; transition: opacity 0.2s; }
-  .footer-logo:hover{ opacity: 1; }
-  .footer strong{ color: var(--accent); font-weight: 600; }
   .loader{ text-align: center; color: var(--text-dim); padding: 40px 0; font-size: 0.9rem; }
   .loader::after{ content: ""; display: inline-block; width: 14px; height: 14px; margin-left: 8px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; vertical-align: middle; }
   @keyframes spin{ to{ transform: rotate(360deg); } }
@@ -186,189 +182,195 @@
   .icon-preview{ background: rgba(255,193,7,0.15); color: #ffc107; }
   .share-preview-full{ padding: 0 20px 20px; }
   .share-preview-full img{ width: 100%; border-radius: 12px; border: 1px solid var(--border); }
-  ::-webkit-scrollbar{ width: 8px; }
-  ::-webkit-scrollbar-track{ background: var(--bg); }
-  ::-webkit-scrollbar-thumb{ background: var(--scroll-thumb); border-radius: 4px; }
-  ::-webkit-scrollbar-thumb:hover{ background: var(--scroll-thumb-hover); }
-
-  /* ========== FEEDBACK POPUP ========== */
-  .feedback-popup-overlay{
-    position: fixed; inset: 0; background: rgba(0,0,0,0.7);
-    z-index: 10001; opacity: 0; pointer-events: none;
-    transition: opacity 0.4s ease;
-    display: flex; align-items: center; justify-content: center;
-    padding: 20px;
-    backdrop-filter: blur(4px);
-  }
-  .feedback-popup-overlay.show{ opacity: 1; pointer-events: auto; }
-
-  .feedback-popup{
+  .quick-links{
     background: var(--card);
-    border: 1px solid var(--accent-border);
-    border-radius: 20px;
-    width: 100%; max-width: 440px;
-    transform: translateY(30px) scale(0.95);
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(110,168,254,0.15);
-    overflow: hidden;
-    position: relative;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 20px;
+    margin-top: 32px;
+    text-align: center;
+    transition: all 0.3s ease;
   }
-  .feedback-popup-overlay.show .feedback-popup{
-    transform: translateY(0) scale(1);
-  }
-
-  .feedback-header{
-    background: linear-gradient(135deg, rgba(110,168,254,0.20), rgba(110,168,254,0.08));
-    padding: 20px 22px 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border-bottom: 1px solid var(--border);
-    position: relative;
-  }
-  .feedback-logo{
-    width: 48px; height: 48px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(110,168,254,0.3);
-  }
-  .feedback-header-text{
-    flex: 1;
-    min-width: 0;
-  }
-  .feedback-header-text h3{
-    font-size: 1.05rem;
+  .quick-links-title{
+    font-size: 0.95rem;
     font-weight: 700;
     color: var(--text);
-    margin-bottom: 2px;
+    margin-bottom: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
   }
-  .feedback-header-text p{
-    font-size: 0.75rem;
+  .quick-links-title svg{ width: 18px; height: 18px; color: var(--accent); }
+  .quick-links-sub{
+    font-size: 0.78rem;
     color: var(--text-dim);
-    letter-spacing: 0.03em;
+    margin-bottom: 16px;
   }
-  .feedback-lang-switch{
+  .quick-links-grid{
     display: flex;
-    gap: 4px;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  .ql-chip{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     background: var(--option-bg);
     border: 1px solid var(--border);
-    border-radius: 999px;
-    padding: 3px;
-    flex-shrink: 0;
-  }
-  .feedback-lang-btn{
-    background: transparent;
-    border: none;
     color: var(--text-dim);
-    font-family: inherit;
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 5px 11px;
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 8px 15px;
     border-radius: 999px;
-    cursor: pointer;
     transition: all 0.2s;
-    letter-spacing: 0.03em;
+    cursor: pointer;
   }
-  .feedback-lang-btn.active{
+  .ql-chip:hover{
+    color: var(--accent);
+    border-color: var(--accent-border);
+    background: var(--accent-soft);
+    transform: translateY(-2px);
+  }
+  .ql-chip.active{
     background: var(--accent);
+    border-color: var(--accent);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(110,168,254,0.4);
+  }
+  .ql-chip.active:hover{
+    color: #ffffff;
+    transform: translateY(-2px);
+  }
+  .ql-chip .ql-badge{
+    background: rgba(110,168,254,0.2);
+    color: var(--accent);
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 999px;
+  }
+  .ql-chip.active .ql-badge{
+    background: rgba(255,255,255,0.25);
     color: #ffffff;
   }
-  .feedback-lang-btn:not(.active):hover{
-    color: var(--text);
-    background: var(--option-hover);
+  .coming-soon{
+    text-align: center;
+    padding: 50px 22px 40px;
+    background: linear-gradient(180deg, var(--header-grad-1) 0%, var(--header-grad-2) 100%);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    margin-bottom: 22px;
+    position: relative;
+    overflow: hidden;
   }
-
-  .feedback-body{
-    padding: 20px 22px 22px;
+  .coming-soon::before{
+    content: "";
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, var(--accent-soft), transparent 70%);
+    pointer-events: none;
   }
-  .feedback-icon{
-    font-size: 2rem;
-    margin-bottom: 10px;
-    display: block;
-  }
-  .feedback-text{
-    color: var(--text);
-    font-size: 0.92rem;
-    line-height: 1.65;
+  .coming-soon-icon{
+    font-size: 4rem;
+    line-height: 1;
     margin-bottom: 18px;
+    display: inline-block;
+    animation: bounce 2.5s ease-in-out infinite;
+    position: relative;
+    z-index: 1;
   }
-  .feedback-text .highlight{
+  @keyframes bounce{
+    0%, 100%{ transform: translateY(0); }
+    50%{ transform: translateY(-12px); }
+  }
+  .coming-soon-title{
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+  }
+  .coming-soon-title span{ color: var(--accent); }
+  .coming-soon-exam{
+    display: inline-block;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-border);
     color: var(--accent);
-    font-weight: 600;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+    letter-spacing: 0.05em;
+    position: relative;
+    z-index: 1;
   }
-  .feedback-text .success-line{
-    color: var(--correct-border);
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
+  .coming-soon-text{
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    max-width: 480px;
+    margin: 0 auto 28px;
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
   }
-
-  .feedback-actions{
+  .coming-soon-text strong{ color: var(--text); }
+  .coming-soon-actions{
     display: flex;
     gap: 10px;
-    margin-bottom: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
   }
-  .feedback-btn{
-    flex: 1;
-    padding: 13px 18px;
-    border-radius: 12px;
-    font-family: inherit;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
+  .coming-soon-btn{
     display: inline-flex;
     align-items: center;
-    justify-content: center;
     gap: 8px;
-    border: none;
+    padding: 12px 22px;
+    border-radius: 12px;
+    font-size: 0.88rem;
+    font-weight: 600;
     text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+    font-family: inherit;
   }
-  .feedback-btn-whatsapp{
+  .coming-soon-btn.primary{
     background: linear-gradient(135deg, #25d366, #128c7e);
     color: #ffffff;
     box-shadow: 0 4px 16px rgba(37,211,102,0.35);
   }
-  .feedback-btn-whatsapp:hover{
+  .coming-soon-btn.primary:hover{
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(37,211,102,0.5);
   }
-  .feedback-btn-whatsapp:active{
-    transform: translateY(0);
-  }
-  .feedback-btn-whatsapp svg{
-    width: 20px; height: 20px;
-  }
-  .feedback-btn-later{
+  .coming-soon-btn.secondary{
     background: var(--option-bg);
-    border: 1px solid var(--border);
+    border-color: var(--border);
     color: var(--text-dim);
-    flex: 0 0 auto;
-    padding: 13px 22px;
   }
-  .feedback-btn-later:hover{
-    background: var(--option-hover);
-    color: var(--text);
+  .coming-soon-btn.secondary:hover{
+    background: var(--accent-soft);
+    border-color: var(--accent-border);
+    color: var(--accent);
+    transform: translateY(-2px);
   }
-
-  .feedback-footer-note{
-    text-align: center;
-    color: var(--text-dim);
-    font-size: 0.72rem;
-    opacity: 0.7;
-  }
-
-  @media (max-width: 420px){
-    .feedback-header{ padding: 16px 18px 14px; }
-    .feedback-body{ padding: 18px 18px 20px; }
-    .feedback-logo{ width: 42px; height: 42px; }
-    .feedback-header-text h3{ font-size: 0.98rem; }
-    .feedback-header-text p{ font-size: 0.7rem; }
-    .feedback-lang-btn{ padding: 4px 9px; font-size: 0.68rem; }
-    .feedback-text{ font-size: 0.88rem; }
-    .feedback-btn{ font-size: 0.85rem; padding: 12px 14px; }
-  }
+  .coming-soon-btn svg{ width: 18px; height: 18px; }
+  .footer{ text-align: center; color: var(--text-dim); font-size: 0.78rem; margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--footer-border); }
+  .footer-logo{ width: 36px; height: 36px; border-radius: 50%; margin-bottom: 8px; opacity: 0.85; transition: opacity 0.2s; }
+  .footer-logo:hover{ opacity: 1; }
+  .footer strong{ color: var(--accent); font-weight: 600; }
+  ::-webkit-scrollbar{ width: 8px; }
+  ::-webkit-scrollbar-track{ background: var(--bg); }
+  ::-webkit-scrollbar-thumb{ background: var(--scroll-thumb); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover{ background: var(--scroll-thumb-hover); }
 </style>
 </head>
 <body>
@@ -383,75 +385,8 @@
   </svg>
 </button>
 
-<div class="container">
-  <div class="hero">
-    <img src="logo-circle.png" alt="RPrep Logo" class="hero-logo" />
-    <div class="brand-line">Special design by RPrep</div>
-    <div class="brand-title">Digital <span>QBank</span></div>
-    <div class="brand-sub">Government Nursing Exams</div>
-    <div class="hero-divider"></div>
-    <div class="exams-label">Exams Covered</div>
-    <div class="exams">
-      <span class="chip">AIIMS NORCET</span>
-      <span class="chip">RRB Nursing Superintendent</span>
-      <span class="chip">ESIC Nursing Officer</span>
-      <span class="chip">DSSSB Nursing Officer</span>
-      <span class="chip">PGIMER</span>
-      <span class="chip">JIPMER</span>
-      <span class="chip">SGPGIMS</span>
-      <span class="chip">NIMHANS</span>
-      <span class="chip">BHU</span>
-      <span class="chip">State Nursing Exams</span>
-    </div>
-    <div class="support">
-      <a class="support-link" href="https://wa.me/919783713848" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2z"/></svg>
-        WhatsApp
-      </a>
-      <a class="support-link" href="https://www.instagram.com/nursingstudyvault" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.8.25 2.23.42.56.22.96.48 1.38.9.42.42.68.82.9 1.38.17.42.37 1.05.42 2.23.07 1.25.07 1.62.07 4.85s0 3.6-.07 4.85c-.05 1.17-.25 1.8-.42 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.17-1.05.37-2.23.42-1.25.07-1.62.07-4.85.07s-3.6 0-4.85-.07c-1.17-.05-1.8-.25-2.23-.42-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.17-.42-.37-1.05-.42-2.23C2.2 15.6 2.2 15.23 2.2 12s0-3.6.07-4.85c.05-1.17.25-1.8.42-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.17 1.05-.37 2.23-.42C8.4 2.2 8.77 2.2 12 2.2zm0 3.06a4.94 4.94 0 110 9.88 4.94 4.94 0 010-9.88zm0 8.14a3.2 3.2 0 100-6.4 3.2 3.2 0 000 6.4z"/></svg>
-        Instagram
-      </a>
-      <a class="support-link" href="mailto:support@rprep.online">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
-        Email Support
-      </a>
-    </div>
-  </div>
-
-  <div class="section-title">
-    <h2>Practice Questions</h2>
-    <p>Choose the correct answer — explanation will appear below</p>
-  </div>
-  <div class="page-info" id="pageInfo" style="display:none;">
-    Showing <strong id="rangeStart">1</strong>–<strong id="rangeEnd">5</strong> of <strong id="totalCount">0</strong> questions
-    · Page <strong id="pageNum">1</strong>/<strong id="pageTotal">1</strong>
-  </div>
-  <div id="list"><div class="loader">Loading questions</div></div>
-  <div class="nav" id="navBar" style="display:none;">
-    <button class="btn" id="prevBtn">← Previous</button>
-    <button class="btn primary" id="nextBtn">Next →</button>
-  </div>
-  <div class="bottom-bar">
-    <div class="jump-bar">
-      <label for="jumpInput">Jump to question:</label>
-      <input id="jumpInput" type="number" min="1" placeholder="#" />
-      <button class="btn primary" id="jumpBtn">Go</button>
-    </div>
-    <div class="visitor-bar">
-      <span class="visitor-badge">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-          <circle cx="12" cy="12" r="3"/>
-        </svg>
-        Visitors: <span id="visitorCount">—</span>
-      </span>
-    </div>
-  </div>
-  <div class="footer">
-    <img src="logo-circle.png" alt="RPrep" class="footer-logo" />
-    <div>© <span id="year"></span> <strong>RPrep Digital QBank</strong> · Made for Nursing Aspirants</div>
-  </div>
+<div class="container" id="mainContainer">
+  <div class="loader">Loading...</div>
 </div>
 
 <div class="share-modal-overlay" id="shareModalOverlay">
@@ -468,217 +403,74 @@
   </div>
 </div>
 
-<!-- FEEDBACK POPUP -->
-<div class="feedback-popup-overlay" id="feedbackPopupOverlay">
-  <div class="feedback-popup" id="feedbackPopup">
-    <div class="feedback-header">
-      <img src="logo-circle.png" alt="RPrep" class="feedback-logo" />
-      <div class="feedback-header-text">
-        <h3 id="fbTitle">Hi there! 👋</h3>
-        <p id="fbSubtitle">RPrep Digital QBank</p>
-      </div>
-      <div class="feedback-lang-switch">
-        <button class="feedback-lang-btn" data-lang="en" type="button">EN</button>
-        <button class="feedback-lang-btn" data-lang="hi" type="button">HI</button>
-      </div>
-    </div>
-    <div class="feedback-body">
-      <span class="feedback-icon" id="fbIcon">📢</span>
-      <div class="feedback-text" id="fbMessage"></div>
-      <div class="feedback-actions">
-        <a class="feedback-btn feedback-btn-whatsapp" id="fbWhatsappBtn" href="#" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2z"/></svg>
-          <span id="fbWhatsappText">WhatsApp Us</span>
-        </a>
-        <button class="feedback-btn feedback-btn-later" id="fbLaterBtn" type="button">
-          <span id="fbLaterText">Later</span>
-        </button>
-      </div>
-      <div class="feedback-footer-note" id="fbFooterNote"></div>
-    </div>
-  </div>
-</div>
-
 <div class="toast" id="toast"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script>
-  // ===================== THEME =====================
-  (function(){
-    const saved = localStorage.getItem('rprep_theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', saved);
-  })();
-  document.addEventListener('DOMContentLoaded', () => {
-    const themeToggle = document.getElementById('themeToggle');
-    themeToggle.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme') || 'dark';
-      const next = current === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('rprep_theme', next);
-    });
-  });
-
-  // ===================== FEEDBACK POPUP =====================
-  (function(){
-    const POPUP_KEY = 'rprep_feedback_last_shown';
-    const INTERVAL_MS = 5 * 24 * 60 * 60 * 1000; // 5 days
-    const DELAY_MS = 60 * 1000; // 1 minute
-
-    const lastShown = parseInt(localStorage.getItem(POPUP_KEY) || '0', 10);
-    const now = Date.now();
-
-    // Agar recent dikha chuka hai to skip
-    if (now - lastShown < INTERVAL_MS) return;
-
-    // 1 minute baad popup
-    setTimeout(() => {
-      showFeedbackPopup();
-    }, DELAY_MS);
-
-    function showFeedbackPopup(){
-      const overlay = document.getElementById('feedbackPopupOverlay');
-      if (!overlay) return;
-
-      // Language preference
-      let lang = localStorage.getItem('rprep_feedback_lang') || detectLang();
-      applyLang(lang);
-
-      // Language switch buttons
-      document.querySelectorAll('.feedback-lang-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const l = btn.dataset.lang;
-          localStorage.setItem('rprep_feedback_lang', l);
-          applyLang(l);
-        });
-      });
-
-      // WhatsApp button
-      const waBtn = document.getElementById('fbWhatsappBtn');
-      waBtn.href = 'https://wa.me/919783713848?text=' + encodeURIComponent(
-        lang === 'hi'
-          ? 'Namaste! RPrep QBank me ek question galat laga. Question number: '
-          : 'Hi! I found an incorrect question on RPrep QBank. Question number: '
-      );
-
-      // Later button
-      document.getElementById('fbLaterBtn').addEventListener('click', () => {
-        closePopup();
-        localStorage.setItem(POPUP_KEY, Date.now().toString());
-      });
-
-      // Close on overlay click
-      overlay.addEventListener('click', (e) => {
-        if (e.target === overlay){
-          closePopup();
-          localStorage.setItem(POPUP_KEY, Date.now().toString());
-        }
-      });
-
-      // WhatsApp click bhi mark karo
-      waBtn.addEventListener('click', () => {
-        localStorage.setItem(POPUP_KEY, Date.now().toString());
-        setTimeout(closePopup, 300);
-      });
-
-      // Show
-      overlay.classList.add('show');
-    }
-
-    function closePopup(){
-      const overlay = document.getElementById('feedbackPopupOverlay');
-      if (overlay) overlay.classList.remove('show');
-    }
-
-    function detectLang(){
-      const nav = (navigator.language || 'en').toLowerCase();
-      if (nav.startsWith('hi')) return 'hi';
-      return 'en';
-    }
-
-    const TEXTS = {
-      en: {
-        title: 'Hi there! 👋',
-        subtitle: 'RPrep Digital QBank',
-        icon: '📢',
-        message: 'Thank you for using <span class="highlight">RPrep Digital QBank</span>! 🎉<br><br>If you find any <span class="highlight">question or answer incorrect</span>, please <span class="highlight">WhatsApp us</span> — we\'ll fix it as soon as possible.<br><br><span class="success-line">✨ QBank is 100% FREE</span> — practice daily!',
-        whatsapp: 'WhatsApp Us',
-        later: 'Later',
-        footer: 'Your feedback helps us improve ❤️'
-      },
-      hi: {
-        title: 'नमस्ते! 👋',
-        subtitle: 'RPrep Digital QBank',
-        icon: '📢',
-        message: '<span class="highlight">RPrep Digital QBank</span> use karne ke liye dhanyawad! 🎉<br><br>Agar koi <span class="highlight">question ya answer galat lage</span> to hame <span class="highlight">WhatsApp karein</span> — hum jaldi se jaldi theek kar denge.<br><br><span class="success-line">✨ QBank 100% FREE hai</span> — roz practice karein!',
-        whatsapp: 'WhatsApp Karein',
-        later: 'Baad Me',
-        footer: 'Aapka feedback hume behtar banata hai ❤️'
-      }
-    };
-
-    function applyLang(lang){
-      const t = TEXTS[lang] || TEXTS.en;
-      document.getElementById('fbTitle').textContent = t.title;
-      document.getElementById('fbSubtitle').textContent = t.subtitle;
-      document.getElementById('fbIcon').textContent = t.icon;
-      document.getElementById('fbMessage').innerHTML = t.message;
-      document.getElementById('fbWhatsappText').textContent = t.whatsapp;
-      document.getElementById('fbLaterText').textContent = t.later;
-      document.getElementById('fbFooterNote').textContent = t.footer;
-
-      // Update active lang button
-      document.querySelectorAll('.feedback-lang-btn').forEach(b => {
-        b.classList.toggle('active', b.dataset.lang === lang);
-      });
-
-      // Update WhatsApp link
-      const waBtn = document.getElementById('fbWhatsappBtn');
-      const msg = lang === 'hi'
-        ? 'Namaste! RPrep QBank me ek question galat laga. Question number: '
-        : 'Hi! I found an incorrect question on RPrep QBank. Question number: ';
-      waBtn.href = 'https://wa.me/919783713848?text=' + encodeURIComponent(msg);
-    }
-  })();
-
-  // ===================== APP LOGIC =====================
-  document.getElementById('year').textContent = new Date().getFullYear();
+  // ===================== CONFIG =====================
   const PER_PAGE = 5;
   const SITE_URL = 'https://www.rprep.online';
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyANC-KBp6zIVnEW1evY5CNkjW43k8ZGgHc",
-    authDomain: "rpreppdf.firebaseapp.com",
-    databaseURL: "https://rpreppdf-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "rpreppdf",
-    storageBucket: "rpreppdf.firebasestorage.app",
-    messagingSenderId: "854573204384",
-    appId: "1:854573204384:web:228d7a318078789e1fdac5",
-    measurementId: "G-CHSCJZD9QJ"
+  // Subdomain → Exam mapping
+  const SUBDOMAIN_MAP = {
+    'aiims':   'AIIMS',
+    'rrb':     'RRB',
+    'esic':    'ESIC',
+    'dsssb':   'DSSSB',
+    'pgimer':  'PGIMER',
+    'jipmer':  'JIPMER',
+    'sgpgims': 'SGPGIMS',
+    'nimhans': 'NIMHANS',
+    'bhu':     'BHU',
+    'state':   'State',
+    'general': 'General'
   };
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-  const COLLECTION = "qbank";
 
+  const ALL_EXAMS = [
+    { key: 'aiims',   label: 'AIIMS' },
+    { key: 'rrb',     label: 'RRB' },
+    { key: 'esic',    label: 'ESIC' },
+    { key: 'dsssb',   label: 'DSSSB' },
+    { key: 'pgimer',  label: 'PGIMER' },
+    { key: 'jipmer',  label: 'JIPMER' },
+    { key: 'sgpgims', label: 'SGPGIMS' },
+    { key: 'nimhans', label: 'NIMHANS' },
+    { key: 'bhu',     label: 'BHU' },
+    { key: 'state',   label: 'State' },
+    { key: 'general', label: 'General' }
+  ];
+
+  // Detect subdomain
+  const hostname = window.location.hostname;
+  const urlParamsForSub = new URLSearchParams(window.location.search);
+  const testSub = urlParamsForSub.get('sub');
+  let currentSub = '';
+  if (testSub !== null){
+    currentSub = testSub.toLowerCase();
+  } else {
+    const parts = hostname.split('.');
+    if (parts[0] === 'localhost' || parts[0] === '127' || /^\d+$/.test(parts[0])){
+      currentSub = '';
+    } else if (parts.length >= 3){
+      currentSub = parts[0];
+    } else if (parts.length === 2 && parts[0] !== 'www'){
+      currentSub = parts[0];
+    }
+  }
+
+  const currentExam = SUBDOMAIN_MAP.hasOwnProperty(currentSub) ? SUBDOMAIN_MAP[currentSub] : null;
+  const isQBankAll = (currentSub === '' || currentSub === 'www' || currentSub === 'qbank');
+
+  // ===================== STATE =====================
   let allQuestions = [];
   let currentPage = 1;
   let totalPages = 1;
   const answeredState = {};
   const LETTERS = ['A', 'B', 'C', 'D', 'E'];
 
-  const listEl = document.getElementById('list');
-  const pageInfoEl = document.getElementById('pageInfo');
-  const navBarEl = document.getElementById('navBar');
-  const pageNumEl = document.getElementById('pageNum');
-  const pageTotalEl = document.getElementById('pageTotal');
-  const rangeStartEl = document.getElementById('rangeStart');
-  const rangeEndEl = document.getElementById('rangeEnd');
-  const totalCountEl = document.getElementById('totalCount');
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  const jumpInput = document.getElementById('jumpInput');
-  const jumpBtn = document.getElementById('jumpBtn');
+  const containerEl = document.getElementById('mainContainer');
   const shareOverlay = document.getElementById('shareModalOverlay');
   const shareModalTitle = document.getElementById('shareModalTitle');
   const shareModalClose = document.getElementById('shareModalClose');
@@ -686,6 +478,8 @@
   const shareGrid = document.getElementById('shareGrid');
   const sharePreviewFull = document.getElementById('sharePreviewFull');
   const sharePreviewImg = document.getElementById('sharePreviewImg');
+
+  let listEl, pageInfoEl, navBarEl, pageNumEl, pageTotalEl, rangeStartEl, rangeEndEl, totalCountEl, prevBtn, nextBtn, jumpInput, jumpBtn;
 
   function escapeHtml(str){
     return String(str == null ? '' : str)
@@ -699,9 +493,417 @@
     clearTimeout(t._tid);
     t._tid = setTimeout(() => t.classList.remove('show'), 2200);
   }
-  function getShareUrl(serial){ return SITE_URL + '/?q=' + serial; }
-  function getDisplayUrl(serial){ return 'www.rprep.online/?q=' + serial; }
+  function getShareUrl(serial){
+    if (isQBankAll) return SITE_URL + '/?q=' + serial;
+    return 'https://' + currentSub + '.rprep.online/?q=' + serial;
+  }
+  function getDisplayUrl(serial){
+    if (isQBankAll) return 'www.rprep.online/?q=' + serial;
+    return currentSub + '.rprep.online/?q=' + serial;
+  }
 
+  // ===================== THEME =====================
+  (function(){
+    const saved = localStorage.getItem('rprep_theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', saved);
+  })();
+  document.addEventListener('DOMContentLoaded', () => {
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle){
+      themeToggle.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('rprep_theme', next);
+      });
+    }
+  });
+
+  // ===================== QUICK LINKS =====================
+  function buildQuickLinks(activeExamKey){
+    const chips = ALL_EXAMS.map(ex => {
+      const isActive = ex.key === activeExamKey;
+      const url = 'https://' + ex.key + '.rprep.online';
+      return '<a class="ql-chip ' + (isActive ? 'active' : '') + '" href="' + url + '">' +
+        ex.label +
+        (isActive ? '<span class="ql-badge">✓ You\'re here</span>' : '') +
+      '</a>';
+    }).join('');
+    return '<div class="quick-links">' +
+      '<div class="quick-links-title">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>' +
+        'Explore More Exams' +
+      '</div>' +
+      '<div class="quick-links-sub">Har exam ka apna practice section</div>' +
+      '<div class="quick-links-grid">' + chips + '</div>' +
+    '</div>';
+  }
+
+  // ===================== COMING SOON =====================
+  function renderComingSoon(){
+    const examLabel = currentExam || 'This Exam';
+    const header = '<div class="hero">' +
+      '<img src="logo-circle.png" alt="RPrep Logo" class="hero-logo" />' +
+      '<div class="brand-line">Special design by RPrep</div>' +
+      '<div class="brand-title">Digital <span>QBank</span></div>' +
+      '<div class="brand-sub">Government Nursing Exams</div>' +
+    '</div>';
+
+    const waText = encodeURIComponent('Hi! ' + examLabel + ' questions kab aa rahe hain? Please update karein.');
+    const comingSoon = '<div class="coming-soon">' +
+      '<div class="coming-soon-icon">🚀</div>' +
+      '<div class="coming-soon-title">Coming <span>Soon</span></div>' +
+      '<div class="coming-soon-exam">' + escapeHtml(examLabel) + '</div>' +
+      '<div class="coming-soon-text">' +
+        '<strong>' + escapeHtml(examLabel) + '</strong> ke questions <strong>jald hi</strong> aa rahe hain!<br>' +
+        'Tab tak doosre exams practice karein neeche se.' +
+      '</div>' +
+      '<div class="coming-soon-actions">' +
+        '<a class="coming-soon-btn primary" href="https://wa.me/919783713848?text=' + waText + '" target="_blank" rel="noopener">' +
+          '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2z"/></svg>' +
+          'Updates ke liye WhatsApp' +
+        '</a>' +
+        '<a class="coming-soon-btn secondary" href="https://qbank.rprep.online">' +
+          '📚 All Questions Dekhein' +
+        '</a>' +
+      '</div>' +
+    '</div>';
+
+    const footer = '<div class="footer">' +
+      '<img src="logo-circle.png" alt="RPrep" class="footer-logo" />' +
+      '<div>© ' + new Date().getFullYear() + ' <strong>RPrep Digital QBank</strong> · Made for Nursing Aspirants</div>' +
+    '</div>';
+
+    containerEl.innerHTML = header + comingSoon + buildQuickLinks(currentSub) + footer;
+  }
+
+  // ===================== MAIN UI =====================
+  function renderMainUI(){
+    const brandSub = currentExam
+      ? '<strong>' + escapeHtml(currentExam) + '</strong> questions'
+      : 'Government Nursing Exams';
+
+    const header = '<div class="hero">' +
+      '<img src="logo-circle.png" alt="RPrep Logo" class="hero-logo" />' +
+      '<div class="brand-line">Special design by RPrep</div>' +
+      '<div class="brand-title">Digital <span>QBank</span></div>' +
+      '<div class="brand-sub">' + brandSub + '</div>' +
+      '<div class="hero-divider"></div>' +
+      '<div class="exams-label">Exams Covered</div>' +
+      '<div class="exams">' +
+        '<span class="chip">AIIMS NORCET</span>' +
+        '<span class="chip">RRB Nursing Superintendent</span>' +
+        '<span class="chip">ESIC Nursing Officer</span>' +
+        '<span class="chip">DSSSB Nursing Officer</span>' +
+        '<span class="chip">PGIMER</span>' +
+        '<span class="chip">JIPMER</span>' +
+        '<span class="chip">SGPGIMS</span>' +
+        '<span class="chip">NIMHANS</span>' +
+        '<span class="chip">BHU</span>' +
+        '<span class="chip">State Nursing Exams</span>' +
+      '</div>' +
+      '<div class="support">' +
+        '<a class="support-link" href="https://wa.me/919783713848" target="_blank" rel="noopener">' +
+          '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2z"/></svg>' +
+          'WhatsApp' +
+        '</a>' +
+        '<a class="support-link" href="https://www.instagram.com/nursingstudyvault" target="_blank" rel="noopener">' +
+          '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.8.25 2.23.42.56.22.96.48 1.38.9.42.42.68.82.9 1.38.17.42.37 1.05.42 2.23.07 1.25.07 1.62.07 4.85s0 3.6-.07 4.85c-.05 1.17-.25 1.8-.42 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.17-1.05.37-2.23.42-1.25.07-1.62.07-4.85.07s-3.6 0-4.85-.07c-1.17-.05-1.8-.25-2.23-.42-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.17-.42-.37-1.05-.42-2.23C2.2 15.6 2.2 15.23 2.2 12s0-3.6.07-4.85c.05-1.17.25-1.8.42-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.17 1.05-.37 2.23-.42C8.4 2.2 8.77 2.2 12 2.2zm0 3.06a4.94 4.94 0 110 9.88 4.94 4.94 0 010-9.88zm0 8.14a3.2 3.2 0 100-6.4 3.2 3.2 0 000 6.4z"/></svg>' +
+          'Instagram' +
+        '</a>' +
+        '<a class="support-link" href="mailto:support@rprep.online">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>' +
+          'Email Support' +
+        '</a>' +
+      '</div>' +
+    '</div>';
+
+    const sectionTitle = '<div class="section-title">' +
+      '<h2>' + (currentExam ? escapeHtml(currentExam) + ' Questions' : 'Practice Questions') + '</h2>' +
+      '<p>' + (currentExam ? escapeHtml(currentExam) + ' practice questions' : 'Choose the correct answer — explanation will appear below') + '</p>' +
+    '</div>';
+
+    const pageInfo = '<div class="page-info" id="pageInfo" style="display:none;">' +
+      'Showing <strong id="rangeStart">1</strong>–<strong id="rangeEnd">5</strong> of <strong id="totalCount">0</strong> questions' +
+      ' · Page <strong id="pageNum">1</strong>/<strong id="pageTotal">1</strong>' +
+    '</div>';
+
+    const list = '<div id="list"><div class="loader">Loading questions</div></div>';
+
+    const nav = '<div class="nav" id="navBar" style="display:none;">' +
+      '<button class="btn" id="prevBtn">← Previous</button>' +
+      '<button class="btn primary" id="nextBtn">Next →</button>' +
+    '</div>';
+
+    const bottomBar = '<div class="bottom-bar">' +
+      '<div class="jump-bar">' +
+        '<label for="jumpInput">Jump to question:</label>' +
+        '<input id="jumpInput" type="number" min="1" placeholder="#" />' +
+        '<button class="btn primary" id="jumpBtn">Go</button>' +
+      '</div>' +
+      '<div class="visitor-bar">' +
+        '<span class="visitor-badge">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+            '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>' +
+            '<circle cx="12" cy="12" r="3"/>' +
+          '</svg>' +
+          'Visitors: <span id="visitorCount">—</span>' +
+        '</span>' +
+      '</div>' +
+    '</div>';
+
+    const footer = '<div class="footer">' +
+      '<img src="logo-circle.png" alt="RPrep" class="footer-logo" />' +
+      '<div>© ' + new Date().getFullYear() + ' <strong>RPrep Digital QBank</strong> · Made for Nursing Aspirants</div>' +
+    '</div>';
+
+    containerEl.innerHTML = header + sectionTitle + pageInfo + list + nav + bottomBar + buildQuickLinks(currentSub) + footer;
+
+    listEl = document.getElementById('list');
+    pageInfoEl = document.getElementById('pageInfo');
+    navBarEl = document.getElementById('navBar');
+    pageNumEl = document.getElementById('pageNum');
+    pageTotalEl = document.getElementById('pageTotal');
+    rangeStartEl = document.getElementById('rangeStart');
+    rangeEndEl = document.getElementById('rangeEnd');
+    totalCountEl = document.getElementById('totalCount');
+    prevBtn = document.getElementById('prevBtn');
+    nextBtn = document.getElementById('nextBtn');
+    jumpInput = document.getElementById('jumpInput');
+    jumpBtn = document.getElementById('jumpBtn');
+
+    prevBtn.addEventListener('click', () => { if (currentPage > 1){ currentPage--; renderPage(); } });
+    nextBtn.addEventListener('click', () => { if (currentPage < totalPages){ currentPage++; renderPage(); } });
+    jumpBtn.addEventListener('click', doJump);
+    jumpInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') doJump(); });
+  }
+
+  // ===================== FIREBASE =====================
+  const firebaseConfig = {
+    apiKey: "AIzaSyANC-KBp6zIVnEW1evY5CNkjW43k8ZGgHc",
+    authDomain: "rpreppdf.firebaseapp.com",
+    databaseURL: "https://rpreppdf-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "rpreppdf",
+    storageBucket: "rpreppdf.firebasestorage.app",
+    messagingSenderId: "854573204384",
+    appId: "1:854573204384:web:228d7a318078789e1fdac5",
+    measurementId: "G-CHSCJZD9QJ"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+  const COLLECTION = "qbank";
+  const STATUS_COLLECTION = "examStatus";
+
+  async function loadQuestions(){
+    try {
+      // 1. Check exam status (Coming Soon?)
+      let comingSoon = false;
+      if (!isQBankAll && currentExam){
+        try {
+          const statusDoc = await db.collection(STATUS_COLLECTION).doc(currentExam).get();
+          if (statusDoc.exists && statusDoc.data().comingSoon === true){
+            comingSoon = true;
+          }
+        } catch(e){ console.warn('Status check failed', e); }
+
+        // Agar Coming Soon ON hai → direct Coming Soon page
+        if (comingSoon){
+          renderComingSoon();
+          return;
+        }
+      }
+
+      // 2. Load questions
+      const snapshot = await db.collection(COLLECTION).get();
+      allQuestions = [];
+      snapshot.forEach(doc => {
+        const q = doc.data();
+
+        // Filter by exam
+        if (!isQBankAll && currentExam){
+          if (q.exam !== currentExam) return;
+        }
+
+        let options = [];
+        if (Array.isArray(q.options)) options = q.options;
+        else if (q.options && typeof q.options === 'object')
+          options = Object.keys(q.options).sort().map(k => q.options[k]);
+        else if (Array.isArray(q.option)) options = q.option;
+
+        let correct = 0;
+        if (typeof q.correct === 'number') correct = q.correct;
+        else if (typeof q.correctAnswer === 'number') correct = q.correctAnswer;
+        else if (typeof q.answer === 'number') correct = q.answer;
+        else if (typeof q.correct === 'string'){
+          const idx = LETTERS.indexOf(q.correct.toUpperCase());
+          correct = idx >= 0 ? idx : 0;
+        }
+
+        let serial = (typeof q.serialNumber === 'number') ? q.serialNumber : null;
+
+        allQuestions.push({
+          id: doc.id,
+          question: q.question || q.title || q.q || 'Untitled',
+          options: options, correct: correct,
+          explanation: q.explanation || q.answer_text || q.solution || 'No explanation provided.',
+          serialNumber: serial,
+          exam: q.exam || null
+        });
+      });
+
+      // Agar subdomain specific hai lekin 0 questions → Coming Soon
+      if (!isQBankAll && currentExam && allQuestions.length === 0){
+        renderComingSoon();
+        return;
+      }
+
+      // Agar all mode aur 0 questions → Coming Soon
+      if (isQBankAll && allQuestions.length === 0){
+        renderComingSoon();
+        return;
+      }
+
+      // Sort
+      const allHaveSerial = allQuestions.every(q => q.serialNumber !== null);
+      if (allHaveSerial){
+        allQuestions.sort((a,b) => a.serialNumber - b.serialNumber);
+      }
+      allQuestions.forEach((q, i) => {
+        if (q.serialNumber === null) q.serialNumber = i + 1;
+      });
+
+      // Render main UI
+      renderMainUI();
+      totalPages = Math.ceil(allQuestions.length / PER_PAGE);
+      currentPage = 1;
+      pageInfoEl.style.display = 'block';
+      navBarEl.style.display = 'flex';
+      handleUrlHash();
+      renderPage();
+    } catch (err){
+      console.error(err);
+      containerEl.innerHTML = '<div class="loader">Error: ' + escapeHtml(err.message) + '</div>';
+    }
+  }
+
+  function handleUrlHash(){
+    const params = new URLSearchParams(window.location.search);
+    const q = parseInt(params.get('q'), 10);
+    if (!isNaN(q) && q >= 1){
+      const idx = allQuestions.findIndex(item => item.serialNumber === q);
+      if (idx >= 0){
+        currentPage = Math.floor(idx / PER_PAGE) + 1;
+        setTimeout(() => scrollToQuestionBySerial(q), 400);
+      }
+    }
+  }
+
+  function scrollToQuestionBySerial(serial){
+    const card = listEl.querySelector('[data-serial="' + serial + '"]');
+    if (card){
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      card.style.transition = 'box-shadow 0.4s ease';
+      card.style.boxShadow = '0 0 0 2px var(--accent)';
+      setTimeout(() => { card.style.boxShadow = ''; }, 2000);
+    }
+  }
+
+  function renderPage(){
+    if (!allQuestions.length) return;
+    const start = (currentPage - 1) * PER_PAGE;
+    const end = Math.min(start + PER_PAGE, allQuestions.length);
+    const slice = allQuestions.slice(start, end);
+    listEl.innerHTML = '';
+
+    slice.forEach((data) => {
+      const serial = data.serialNumber;
+      const card = document.createElement('div');
+      card.className = 'question-card';
+      card.dataset.serial = serial;
+
+      const head = document.createElement('div');
+      head.className = 'q-head';
+      head.innerHTML = '<span class="q-index">' + serial + '</span>' +
+        '<span class="q-text">' + escapeHtml(data.question) + '</span>' +
+        '<span class="share-btns">' +
+          '<button class="share-btn link-share" title="Share link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button>' +
+          '<button class="share-btn img-share" title="Share as image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></button>' +
+        '</span>';
+      card.appendChild(head);
+
+      head.querySelector('.link-share').addEventListener('click', (e) => { e.stopPropagation(); openShareModal(data, serial, 'link'); });
+      head.querySelector('.img-share').addEventListener('click', (e) => { e.stopPropagation(); openShareModal(data, serial, 'image'); });
+
+      const optionsWrap = document.createElement('div');
+      optionsWrap.className = 'options';
+      data.options.forEach((optText, optIdx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option';
+        btn.innerHTML = '<span class="opt-letter">' + (LETTERS[optIdx] || '?') + '</span><span>' + escapeHtml(optText) + '</span>';
+        btn.addEventListener('click', () => {
+          if (card.classList.contains('answered')) return;
+          card.classList.add('answered');
+          answeredState[data.id] = optIdx;
+          optionsWrap.querySelectorAll('.option').forEach((b, k) => {
+            b.disabled = true;
+            if (k === data.correct){ b.classList.add('correct'); b.insertAdjacentHTML('beforeend', '<span class="tick">✓</span>'); }
+            if (k === optIdx && k !== data.correct){ b.classList.add('wrong'); b.insertAdjacentHTML('beforeend', '<span class="tick">✕</span>'); }
+          });
+        });
+        optionsWrap.appendChild(btn);
+      });
+      card.appendChild(optionsWrap);
+
+      const expl = document.createElement('div');
+      expl.className = 'explanation';
+      expl.innerHTML = '<div class="explanation-label">Explanation</div><div class="explanation-text">' + escapeHtml(data.explanation) + '</div>';
+      card.appendChild(expl);
+
+      if (answeredState[data.id] !== undefined){
+        const prevAns = answeredState[data.id];
+        card.classList.add('answered');
+        optionsWrap.querySelectorAll('.option').forEach((b, k) => {
+          b.disabled = true;
+          if (k === data.correct){ b.classList.add('correct'); b.insertAdjacentHTML('beforeend', '<span class="tick">✓</span>'); }
+          if (k === prevAns && k !== data.correct){ b.classList.add('wrong'); b.insertAdjacentHTML('beforeend', '<span class="tick">✕</span>'); }
+        });
+      }
+
+      listEl.appendChild(card);
+    });
+
+    pageNumEl.textContent = currentPage;
+    pageTotalEl.textContent = totalPages;
+    rangeStartEl.textContent = start + 1;
+    rangeEndEl.textContent = end;
+    totalCountEl.textContent = allQuestions.length;
+
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
+
+    if (!window._jumpInProgress) window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function doJump(){
+    const val = parseInt(jumpInput.value, 10);
+    if (isNaN(val) || val < 1){ jumpInput.value = ''; return; }
+    const idx = allQuestions.findIndex(item => item.serialNumber === val);
+    if (idx < 0){
+      jumpInput.value = '';
+      jumpInput.placeholder = 'Not found';
+      return;
+    }
+    window._jumpInProgress = true;
+    currentPage = Math.floor(idx / PER_PAGE) + 1;
+    renderPage();
+    setTimeout(() => {
+      scrollToQuestionBySerial(val);
+      window._jumpInProgress = false;
+    }, 350);
+    jumpInput.value = '';
+  }
+
+  // ===================== SHARE =====================
   function buildShareText(data, serial){
     return '🧠 RPrep Digital QBank\n' +
       '━━━━━━━━━━━━━━━━━━━━\n\n' +
@@ -821,7 +1023,6 @@
     showToast('Generating image...');
     loadLogo().then(function(logo){ renderCard(data, serial, action, logo); });
   }
-
   const LOGO_SRC = 'logo-circle.png';
   let _logoP = null;
   function loadLogo(){
@@ -835,47 +1036,34 @@
     }
     return _logoP;
   }
-
   function renderCard(data, serial, action, logo){
     const displayUrl = getDisplayUrl(serial);
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     const W = 1080, PAD = 64, S = 2;
     const FONT = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
-
     const GOLD = '#6ea8fe', NAVY = '#1a1d23', NAVY2 = '#1e222a', CARD = '#1f232a';
     const LINE = '#333843', BLUE_L = '#9cc3ff', TXT = '#e4e6eb', TXT2 = '#e4e6eb', DIM = '#a0a6b1';
     const Q_FONT = '700 54px ' + FONT;
     const OPT_FONT = '500 40px ' + FONT;
-
     function rr(x, y, w, h, r){
-      ctx.beginPath();
-      ctx.moveTo(x + r, y);
-      ctx.arcTo(x + w, y, x + w, y + h, r);
-      ctx.arcTo(x + w, y + h, x, y + h, r);
-      ctx.arcTo(x, y + h, x, y, r);
-      ctx.arcTo(x, y, x + w, y, r);
-      ctx.closePath();
+      ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r);
+      ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r);
+      ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
     }
     function spacing(px){ if ('letterSpacing' in ctx) ctx.letterSpacing = px + 'px'; }
     function fit(txt, weight, size, maxW){
-      let f = size;
-      ctx.font = weight + ' ' + f + 'px ' + FONT;
+      let f = size; ctx.font = weight + ' ' + f + 'px ' + FONT;
       while (ctx.measureText(txt).width > maxW && f > 18){ f--; ctx.font = weight + ' ' + f + 'px ' + FONT; }
     }
-
     function drawLogo(cx, cy, size, ringW){
       const r = size / 2;
-      ctx.save();
-      ctx.shadowColor = 'rgba(110,168,254,0.35)'; ctx.shadowBlur = 26;
-      ctx.fillStyle = '#ffffff';
-      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fill();
+      ctx.save(); ctx.shadowColor = 'rgba(110,168,254,0.35)'; ctx.shadowBlur = 26;
+      ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fill();
       ctx.restore();
       if (logo){
-        ctx.save();
-        ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.clip();
-        ctx.drawImage(logo, cx - r, cy - r, size, size);
-        ctx.restore();
+        ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.clip();
+        ctx.drawImage(logo, cx - r, cy - r, size, size); ctx.restore();
       } else {
         ctx.fillStyle = '#0C2646'; ctx.font = '800 ' + Math.round(size * 0.5) + 'px ' + FONT;
         ctx.textAlign = 'center'; ctx.fillText('R', cx, cy + 2);
@@ -883,7 +1071,6 @@
       ctx.strokeStyle = GOLD; ctx.lineWidth = ringW;
       ctx.beginPath(); ctx.arc(cx, cy, r + ringW * 2 + 3, 0, Math.PI * 2); ctx.stroke();
     }
-
     const cardW = W - PAD * 2;
     const optTextX = 128, optMaxW = cardW - optTextX - 32;
     const qLines = wrapText(ctx, data.question, W - PAD * 2, Q_FONT);
@@ -891,15 +1078,9 @@
     const headerH = 200;
     const optHs = optLines.map(l => Math.max(l.length * 54 + 56, 112));
     const ctaH = 316;
-
-    const H = headerH + 64 + 44 + qLines.length * 76 + 44
-            + optHs.reduce((s, h) => s + h + 22, 0) + 18
-            + ctaH + 44 + 116 + 44;
-
+    const H = headerH + 64 + 44 + qLines.length * 76 + 44 + optHs.reduce((s, h) => s + h + 22, 0) + 18 + ctaH + 44 + 116 + 44;
     canvas.width = W * S; canvas.height = H * S;
-    ctx.scale(S, S);
-    ctx.textBaseline = 'middle';
-
+    ctx.scale(S, S); ctx.textBaseline = 'middle';
     ctx.fillStyle = NAVY; ctx.fillRect(0, 0, W, H);
     let g = ctx.createRadialGradient(W - 80, headerH + 120, 20, W - 80, headerH + 120, 560);
     g.addColorStop(0, 'rgba(110,168,254,0.10)'); g.addColorStop(1, 'rgba(110,168,254,0)');
@@ -907,17 +1088,14 @@
     g = ctx.createRadialGradient(40, H - 240, 20, 40, H - 240, 520);
     g.addColorStop(0, 'rgba(76,141,246,0.12)'); g.addColorStop(1, 'rgba(76,141,246,0)');
     ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-
     g = ctx.createLinearGradient(0, 0, W, headerH);
     g.addColorStop(0, '#232833'); g.addColorStop(1, NAVY2);
     ctx.fillStyle = g; ctx.fillRect(0, 0, W, headerH);
     g = ctx.createLinearGradient(0, 0, W, 0);
     g.addColorStop(0, 'rgba(110,168,254,0)'); g.addColorStop(0.5, GOLD); g.addColorStop(1, 'rgba(110,168,254,0)');
     ctx.fillStyle = g; ctx.fillRect(0, headerH - 3, W, 3);
-
     const lcx = PAD + 74, lcy = headerH / 2 - 1;
     drawLogo(lcx, lcy, 124, 3);
-
     const tx = lcx + 62 + 34;
     ctx.textAlign = 'left';
     spacing(5); ctx.fillStyle = GOLD; ctx.font = '700 19px ' + FONT;
@@ -927,8 +1105,7 @@
     ctx.fillStyle = GOLD;
     ctx.fillText('QBank', tx + ctx.measureText('Digital ').width, lcy - 6);
     ctx.fillStyle = DIM; ctx.font = '400 25px ' + FONT;
-    ctx.fillText('Government Nursing Exams', tx, lcy + 40);
-
+    ctx.fillText(data.exam ? data.exam + ' · Government Nursing Exams' : 'Government Nursing Exams', tx, lcy + 40);
     const qTxt = 'Q' + serial;
     ctx.font = '800 38px ' + FONT;
     const bw = ctx.measureText(qTxt).width + 64;
@@ -936,7 +1113,6 @@
     ctx.fillStyle = NAVY; ctx.textAlign = 'center';
     ctx.fillText(qTxt, W - PAD - bw / 2, lcy + 1);
     ctx.textAlign = 'left';
-
     let y = headerH + 64;
     ctx.fillStyle = GOLD; ctx.fillRect(PAD, y - 2, 56, 4);
     ctx.font = '700 24px ' + FONT; spacing(5);
@@ -946,12 +1122,10 @@
     ctx.fillStyle = TXT; ctx.font = Q_FONT;
     qLines.forEach((line, i) => ctx.fillText(line, PAD, y + i * 76 + 38));
     y += qLines.length * 76 + 44;
-
     optLines.forEach((lines, i) => {
       const h = optHs[i];
       ctx.fillStyle = CARD; rr(PAD, y, cardW, h, 28); ctx.fill();
       ctx.strokeStyle = LINE; ctx.lineWidth = 2; rr(PAD, y, cardW, h, 28); ctx.stroke();
-
       const cx = PAD + 66, cy = y + h / 2;
       const bg = ctx.createLinearGradient(cx - 34, cy - 34, cx + 34, cy + 34);
       bg.addColorStop(0, '#9cc3ff'); bg.addColorStop(1, '#4a8ce0');
@@ -959,26 +1133,20 @@
       ctx.beginPath(); ctx.arc(cx, cy, 34, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = NAVY; ctx.font = '800 32px ' + FONT; ctx.textAlign = 'center';
       ctx.fillText(LETTERS[i], cx, cy + 1);
-
-      ctx.textAlign = 'left';
-      ctx.fillStyle = TXT2; ctx.font = OPT_FONT;
+      ctx.textAlign = 'left'; ctx.fillStyle = TXT2; ctx.font = OPT_FONT;
       const startY = cy - ((lines.length - 1) * 54) / 2;
       lines.forEach((line, k) => ctx.fillText(line, PAD + optTextX, startY + k * 54 + 1));
       y += h + 22;
     });
     y += 18;
-
     g = ctx.createLinearGradient(PAD, y, W - PAD, y + ctaH);
     g.addColorStop(0, '#232833'); g.addColorStop(1, NAVY2);
-    ctx.save();
-    ctx.shadowColor = 'rgba(110,168,254,0.22)'; ctx.shadowBlur = 34;
+    ctx.save(); ctx.shadowColor = 'rgba(110,168,254,0.22)'; ctx.shadowBlur = 34;
     ctx.fillStyle = g; rr(PAD, y, cardW, ctaH, 34); ctx.fill();
     ctx.restore();
     ctx.strokeStyle = GOLD; ctx.lineWidth = 3; rr(PAD, y, cardW, ctaH, 34); ctx.stroke();
-
     const leftW = cardW - 40 - 236 - 24 - 40;
     ctx.textAlign = 'left';
-
     const ty = y + 92, ix = PAD + 58;
     ctx.strokeStyle = GOLD; ctx.lineWidth = 5; ctx.lineCap = 'round';
     ctx.beginPath(); ctx.arc(ix - 4, ty - 4, 13, 0, Math.PI * 2); ctx.stroke();
@@ -986,11 +1154,9 @@
     ctx.fillStyle = GOLD;
     fit('Answer + Explanation dekho', '800', 42, leftW - 50);
     ctx.fillText('Answer + Explanation dekho', PAD + 90, ty);
-
     ctx.fillStyle = DIM;
     fit('QR code scan karke Answer dekhe', '400', 28, leftW);
     ctx.fillText('QR code scan karke Answer dekhe', PAD + 40, y + 150);
-
     const ux = PAD + 40, uy = y + 184, uh = 76;
     ctx.fillStyle = NAVY; rr(ux, uy, leftW, uh, 22); ctx.fill();
     ctx.strokeStyle = LINE; ctx.lineWidth = 2; rr(ux, uy, leftW, uh, 22); ctx.stroke();
@@ -1002,14 +1168,11 @@
     ctx.fillStyle = BLUE_L;
     fit(displayUrl, '700', 34, leftW - 90);
     ctx.fillText(displayUrl, ux + 78, gy + 1);
-
     const qrBox = 236;
     const qx = PAD + cardW - 40 - qrBox, qy = y + (ctaH - qrBox) / 2;
     ctx.fillStyle = '#ffffff'; rr(qx, qy, qrBox, qrBox, 28); ctx.fill();
     try {
-      const qr = qrcode(0, 'M');
-      qr.addData(getShareUrl(serial));
-      qr.make();
+      const qr = qrcode(0, 'M'); qr.addData(getShareUrl(serial)); qr.make();
       const n = qr.getModuleCount();
       const cell = Math.floor((qrBox - 40) / n);
       const off = (qrBox - cell * n) / 2;
@@ -1019,23 +1182,15 @@
           if (qr.isDark(r, c)) ctx.fillRect(qx + off + c * cell, qy + off + r * cell, cell, cell);
         }
       }
-    } catch (e) {
-      ctx.fillStyle = '#0b1220'; ctx.font = '700 24px ' + FONT; ctx.textAlign = 'center';
-      ctx.fillText('rprep.online/?q=' + serial, qx + qrBox / 2, qy + qrBox / 2);
-      ctx.textAlign = 'left';
-    }
-
+    } catch (e) {}
     y += ctaH + 44;
-
     drawLogo(W / 2, y + 34, 64, 2);
     ctx.fillStyle = '#7d8696'; ctx.font = '500 24px ' + FONT; ctx.textAlign = 'center';
     spacing(4);
     ctx.fillText('NORCET  ·  RRB  ·  ESIC  ·  DSSSB', W / 2, y + 116);
     spacing(0);
-
     ctx.strokeStyle = LINE; ctx.lineWidth = 3;
     ctx.strokeRect(1.5, 1.5, W - 3, H - 3);
-
     canvas.toBlob(function(blob){
       if (!blob){ showToast('Image failed'); return; }
       if (action === true){
@@ -1058,7 +1213,6 @@
       }
     }, 'image/png');
   }
-
   function downloadImage(blob, serial){
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -1080,206 +1234,28 @@
     return lines;
   }
 
-  // ===================== LOAD QUESTIONS =====================
-  function loadQuestions(){
-    db.collection(COLLECTION).get()
-      .then(snapshot => {
-        if (snapshot.empty){ listEl.innerHTML = '<div class="loader">Koi question nahi mila.</div>'; return; }
-        allQuestions = [];
-        snapshot.forEach(doc => {
-          const q = doc.data();
-          let options = [];
-          if (Array.isArray(q.options)) options = q.options;
-          else if (q.options && typeof q.options === 'object')
-            options = Object.keys(q.options).sort().map(k => q.options[k]);
-          else if (Array.isArray(q.option)) options = q.option;
-
-          let correct = 0;
-          if (typeof q.correct === 'number') correct = q.correct;
-          else if (typeof q.correctAnswer === 'number') correct = q.correctAnswer;
-          else if (typeof q.answer === 'number') correct = q.answer;
-          else if (typeof q.correct === 'string'){
-            const idx = LETTERS.indexOf(q.correct.toUpperCase());
-            correct = idx >= 0 ? idx : 0;
-          }
-
-          let serial = (typeof q.serialNumber === 'number') ? q.serialNumber : null;
-
-          allQuestions.push({
-            id: doc.id,
-            question: q.question || q.title || q.q || 'Untitled',
-            options: options, correct: correct,
-            explanation: q.explanation || q.answer_text || q.solution || 'No explanation provided.',
-            serialNumber: serial
-          });
-        });
-
-        const allHaveSerial = allQuestions.every(q => q.serialNumber !== null);
-        if (allHaveSerial){
-          allQuestions.sort((a,b) => a.serialNumber - b.serialNumber);
-        }
-
-        allQuestions.forEach((q, i) => {
-          if (q.serialNumber === null) q.serialNumber = i + 1;
-        });
-
-        totalPages = Math.ceil(allQuestions.length / PER_PAGE);
-        currentPage = 1;
-        pageInfoEl.style.display = 'block';
-        navBarEl.style.display = 'flex';
-        handleUrlHash();
-        renderPage();
-      })
-      .catch(err => {
-        console.error(err);
-        listEl.innerHTML = '<div class="loader">Error: ' + escapeHtml(err.message) + '</div>';
-      });
-  }
-
-  function handleUrlHash(){
-    const params = new URLSearchParams(window.location.search);
-    const q = parseInt(params.get('q'), 10);
-    if (!isNaN(q) && q >= 1){
-      const idx = allQuestions.findIndex(item => item.serialNumber === q);
-      if (idx >= 0){
-        currentPage = Math.floor(idx / PER_PAGE) + 1;
-        setTimeout(() => scrollToQuestionBySerial(q), 400);
-      }
-    }
-  }
-
-  function scrollToQuestionBySerial(serial){
-    const card = listEl.querySelector('[data-serial="' + serial + '"]');
-    if (card){
-      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      card.style.transition = 'box-shadow 0.4s ease';
-      card.style.boxShadow = '0 0 0 2px var(--accent)';
-      setTimeout(() => { card.style.boxShadow = ''; }, 2000);
-    }
-  }
-
-  function renderPage(){
-    if (!allQuestions.length) return;
-    const start = (currentPage - 1) * PER_PAGE;
-    const end = Math.min(start + PER_PAGE, allQuestions.length);
-    const slice = allQuestions.slice(start, end);
-    listEl.innerHTML = '';
-
-    slice.forEach((data) => {
-      const serial = data.serialNumber;
-
-      const card = document.createElement('div');
-      card.className = 'question-card';
-      card.dataset.serial = serial;
-
-      const head = document.createElement('div');
-      head.className = 'q-head';
-      head.innerHTML = '<span class="q-index">' + serial + '</span>' +
-        '<span class="q-text">' + escapeHtml(data.question) + '</span>' +
-        '<span class="share-btns">' +
-          '<button class="share-btn link-share" title="Share link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button>' +
-          '<button class="share-btn img-share" title="Share as image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></button>' +
-        '</span>';
-      card.appendChild(head);
-
-      head.querySelector('.link-share').addEventListener('click', (e) => { e.stopPropagation(); openShareModal(data, serial, 'link'); });
-      head.querySelector('.img-share').addEventListener('click', (e) => { e.stopPropagation(); openShareModal(data, serial, 'image'); });
-
-      const optionsWrap = document.createElement('div');
-      optionsWrap.className = 'options';
-      data.options.forEach((optText, optIdx) => {
-        const btn = document.createElement('button');
-        btn.className = 'option';
-        btn.innerHTML = '<span class="opt-letter">' + (LETTERS[optIdx] || '?') + '</span><span>' + escapeHtml(optText) + '</span>';
-        btn.addEventListener('click', () => {
-          if (card.classList.contains('answered')) return;
-          card.classList.add('answered');
-          answeredState[data.id] = optIdx;
-          optionsWrap.querySelectorAll('.option').forEach((b, k) => {
-            b.disabled = true;
-            if (k === data.correct){ b.classList.add('correct'); b.insertAdjacentHTML('beforeend', '<span class="tick">✓</span>'); }
-            if (k === optIdx && k !== data.correct){ b.classList.add('wrong'); b.insertAdjacentHTML('beforeend', '<span class="tick">✕</span>'); }
-          });
-        });
-        optionsWrap.appendChild(btn);
-      });
-      card.appendChild(optionsWrap);
-
-      const expl = document.createElement('div');
-      expl.className = 'explanation';
-      expl.innerHTML = '<div class="explanation-label">Explanation</div><div class="explanation-text">' + escapeHtml(data.explanation) + '</div>';
-      card.appendChild(expl);
-
-      if (answeredState[data.id] !== undefined){
-        const prevAns = answeredState[data.id];
-        card.classList.add('answered');
-        optionsWrap.querySelectorAll('.option').forEach((b, k) => {
-          b.disabled = true;
-          if (k === data.correct){ b.classList.add('correct'); b.insertAdjacentHTML('beforeend', '<span class="tick">✓</span>'); }
-          if (k === prevAns && k !== data.correct){ b.classList.add('wrong'); b.insertAdjacentHTML('beforeend', '<span class="tick">✕</span>'); }
-        });
-      }
-
-      listEl.appendChild(card);
-    });
-
-    pageNumEl.textContent = currentPage;
-    pageTotalEl.textContent = totalPages;
-    rangeStartEl.textContent = start + 1;
-    rangeEndEl.textContent = end;
-    totalCountEl.textContent = allQuestions.length;
-
-    prevBtn.disabled = currentPage === 1;
-    nextBtn.disabled = currentPage === totalPages;
-
-    if (!window._jumpInProgress) window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  prevBtn.addEventListener('click', () => { if (currentPage > 1){ currentPage--; renderPage(); } });
-  nextBtn.addEventListener('click', () => { if (currentPage < totalPages){ currentPage++; renderPage(); } });
-
-  jumpBtn.addEventListener('click', doJump);
-  jumpInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') doJump(); });
-  function doJump(){
-    const val = parseInt(jumpInput.value, 10);
-    if (isNaN(val) || val < 1){ jumpInput.value = ''; return; }
-    const idx = allQuestions.findIndex(item => item.serialNumber === val);
-    if (idx < 0){
-      jumpInput.value = '';
-      jumpInput.placeholder = 'Not found';
-      return;
-    }
-    window._jumpInProgress = true;
-    currentPage = Math.floor(idx / PER_PAGE) + 1;
-    renderPage();
-    setTimeout(() => {
-      scrollToQuestionBySerial(val);
-      window._jumpInProgress = false;
-    }, 350);
-    jumpInput.value = '';
-  }
-
+  // ===================== VISITOR COUNTER =====================
   function initVisitorCounter(){
     const SESSION_KEY = 'rprep_visited_session';
     const counterRef = db.collection('meta').doc('visitors');
     counterRef.onSnapshot(doc => {
       const count = doc.exists ? (doc.data().count || 0) : 0;
-      document.getElementById('visitorCount').textContent = count;
-    }, err => {
-      console.error('Visitor counter listen error:', err);
-      document.getElementById('visitorCount').textContent = '—';
-    });
+      const el = document.getElementById('visitorCount');
+      if (el) el.textContent = count;
+    }, err => {});
     if (!sessionStorage.getItem(SESSION_KEY)){
       counterRef.get().then(doc => {
         if (!doc.exists) return counterRef.set({ count: 1 });
         else return counterRef.update({ count: firebase.firestore.FieldValue.increment(1) });
       }).then(() => sessionStorage.setItem(SESSION_KEY, '1'))
-        .catch(err => console.error('Visitor increment error:', err));
+        .catch(err => {});
     }
   }
 
+  // ===================== INIT =====================
   initVisitorCounter();
   loadQuestions();
+
 </script>
 </body>
 </html>

@@ -23,7 +23,6 @@
     line-height: 1.5; min-height: 100vh; padding: 20px 16px;
   }
   .container{ max-width: 900px; margin: 0 auto; }
-
   .login-wrap{ min-height: 80vh; display: flex; align-items: center; justify-content: center; }
   .login-box{ background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 32px 26px; width: 100%; max-width: 400px; }
   .login-box h1{ font-size: 1.5rem; font-weight: 700; text-align: center; margin-bottom: 6px; }
@@ -36,13 +35,15 @@
     color: var(--text); padding: 11px 14px; border-radius: 10px;
     font-family: inherit; font-size: 0.92rem; outline: none; transition: all 0.2s;
   }
+  .field select{ cursor: pointer; }
   .field input:focus, .field select:focus, .field textarea:focus{
     border-color: var(--accent-border); background: #171c25;
     box-shadow: 0 0 0 3px rgba(110,168,254,0.1);
   }
   .field textarea{ resize: vertical; min-height: 80px; font-family: ui-monospace, monospace; font-size: 0.82rem; }
   .field input[readonly]{ opacity: 0.6; cursor: not-allowed; }
-
+  .field.exam-highlight label{ color: var(--accent); }
+  .field.exam-highlight select{ border-color: var(--accent-border); background: var(--accent-soft); }
   .btn{ background: #2a3038; border: 1px solid var(--border); color: var(--text); font-family: inherit; font-size: 0.9rem; font-weight: 500; padding: 11px 18px; border-radius: 10px; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 7px; }
   .btn:hover:not(:disabled){ background: #343b45; border-color: #454d59; }
   .btn:disabled{ opacity: 0.5; cursor: not-allowed; }
@@ -52,201 +53,156 @@
   .btn.danger{ background: var(--red-soft); border-color: rgba(234,67,53,0.4); color: #ff9a92; }
   .btn.danger:hover:not(:disabled){ background: rgba(234,67,53,0.25); }
   .btn.success{ background: var(--green-soft); border-color: rgba(52,168,83,0.4); color: #7ee2a8; }
+  .btn.warning{ background: var(--amber-soft); border-color: rgba(251,188,4,0.4); color: #f7d774; }
   .btn.small{ padding: 7px 12px; font-size: 0.8rem; }
-
   .admin-header{ background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
   .admin-header .brand h2{ font-size: 1.2rem; font-weight: 700; }
   .admin-header .brand h2 span{ color: var(--accent); }
   .admin-header .brand p{ color: var(--text-dim); font-size: 0.78rem; }
   .admin-header .user-info{ display: flex; align-items: center; gap: 8px; background: #141820; padding: 8px 14px; border-radius: 10px; border: 1px solid var(--border); font-size: 0.82rem; color: var(--text-dim); flex-wrap: wrap; }
-
-  /* ========== BIG MIGRATION BANNER ========== */
-  .migrate-banner{
-    background: linear-gradient(135deg, rgba(251,188,4,0.15) 0%, rgba(251,188,4,0.06) 100%);
-    border: 2px solid var(--amber-border);
-    border-radius: 14px;
-    padding: 20px 22px;
-    margin-bottom: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    flex-wrap: wrap;
-    position: relative;
-    overflow: hidden;
-  }
-  .migrate-banner::before{
-    content: "";
-    position: absolute;
-    top: -30px; right: -30px;
-    width: 140px; height: 140px;
-    background: radial-gradient(circle, rgba(251,188,4,0.15), transparent 70%);
-    pointer-events: none;
-  }
-  .migrate-banner .migrate-info{
-    flex: 1;
-    min-width: 200px;
-    position: relative;
-    z-index: 1;
-  }
-  .migrate-banner .migrate-info h3{
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: #f7d774;
-    margin-bottom: 4px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .migrate-banner .migrate-info p{
-    font-size: 0.82rem;
-    color: #d4b96f;
-    line-height: 1.5;
-  }
-  .migrate-banner .migrate-action{
-    position: relative;
-    z-index: 1;
-    flex-shrink: 0;
-  }
-  .migrate-banner .big-migrate-btn{
-    background: linear-gradient(135deg, #fbbc04 0%, #f59e0b 100%);
-    border: none;
-    color: #1a1d23;
-    font-family: inherit;
-    font-size: 1rem;
-    font-weight: 800;
-    padding: 16px 32px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    letter-spacing: 0.02em;
-    box-shadow: 0 4px 16px rgba(251,188,4,0.35);
-    text-transform: uppercase;
-  }
-  .migrate-banner .big-migrate-btn:hover:not(:disabled){
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(251,188,4,0.5);
-  }
-  .migrate-banner .big-migrate-btn:active:not(:disabled){
-    transform: translateY(0);
-  }
-  .migrate-banner .big-migrate-btn:disabled{
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-  .migrate-banner .big-migrate-btn svg{
-    width: 22px; height: 22px;
-  }
-
-  .hidden-banner{ display: none !important; }
-
-  /* ========== WELCOME BANNER (after migration) ========== */
-  .success-banner{
-    background: linear-gradient(135deg, rgba(52,168,83,0.15) 0%, rgba(52,168,83,0.05) 100%);
-    border: 2px solid rgba(52,168,83,0.4);
-    border-radius: 14px;
-    padding: 16px 20px;
-    margin-bottom: 18px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    color: #7ee2a8;
-    font-size: 0.9rem;
-    font-weight: 500;
-  }
-  .success-banner svg{
-    width: 24px; height: 24px; flex-shrink: 0;
-  }
-  .hidden{ display: none !important; }
-
   .tabs{ display: flex; gap: 6px; margin-bottom: 18px; flex-wrap: wrap; background: var(--card); padding: 6px; border-radius: 12px; border: 1px solid var(--border); }
   .tab{ flex: 1; min-width: 100px; padding: 10px 14px; text-align: center; background: transparent; border: none; color: var(--text-dim); font-family: inherit; font-size: 0.85rem; font-weight: 500; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
   .tab.active{ background: var(--accent-soft); color: var(--accent); }
   .tab:hover:not(.active){ color: var(--text); background: #1f242d; }
-
   .panel{ background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 22px; margin-bottom: 16px; }
   .panel h3{ font-size: 1rem; font-weight: 600; margin-bottom: 14px; }
   .panel-sub{ color: var(--text-dim); font-size: 0.82rem; margin-bottom: 16px; }
-
   .grid-2{ display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   @media (max-width: 500px){ .grid-2{ grid-template-columns: 1fr; } }
-
   .option-input{ position: relative; }
   .option-input .letter{ position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 24px; height: 24px; background: var(--accent-soft); color: var(--accent); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.78rem; font-weight: 700; }
   .option-input input{ padding-left: 44px; }
-
   .correct-selector{ display: flex; gap: 6px; }
   .correct-selector button{ flex: 1; padding: 10px; background: #141820; border: 1px solid var(--border); color: var(--text-dim); border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 0.85rem; font-weight: 600; transition: all 0.2s; }
   .correct-selector button.active{ background: var(--green-soft); color: #7ee2a8; border-color: rgba(52,168,83,0.5); }
-
   .list-item{ background: var(--card-2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; margin-bottom: 8px; display: flex; gap: 12px; align-items: flex-start; justify-content: space-between; }
   .list-item .content{ flex: 1; min-width: 0; }
   .list-item .q-title{ font-weight: 500; font-size: 0.92rem; margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
   .list-item .q-meta{ font-size: 0.75rem; color: var(--text-dim); display: flex; gap: 8px; flex-wrap: wrap; }
   .list-item .q-meta span{ background: #141820; padding: 2px 8px; border-radius: 6px; }
   .list-item .actions{ display: flex; gap: 6px; flex-shrink: 0; }
-
   .loader{ text-align: center; color: var(--text-dim); padding: 30px 0; font-size: 0.9rem; }
   .loader::after{ content: ""; display: inline-block; width: 14px; height: 14px; margin-left: 8px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; vertical-align: middle; }
   @keyframes spin{ to{ transform: rotate(360deg); } }
-
   .toast{ position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--card); color: var(--text); border: 1px solid var(--accent-border); padding: 12px 20px; border-radius: 12px; font-size: 0.88rem; z-index: 9999; opacity: 0; transition: all 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.5); max-width: 90vw; text-align: center; }
   .toast.show{ opacity: 1; transform: translateX(-50%) translateY(0); }
   .toast.error{ border-color: rgba(234,67,53,0.5); color: #ff9a92; }
   .toast.success{ border-color: rgba(52,168,83,0.5); color: #7ee2a8; }
-
   .count-badge{ background: var(--accent-soft); color: var(--accent); padding: 3px 9px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; margin-left: 8px; }
-
   .json-preview{ background: #0a0d12; border: 1px solid var(--border); border-radius: 10px; padding: 12px; font-family: ui-monospace, monospace; font-size: 0.78rem; color: #a0a6b1; max-height: 200px; overflow: auto; white-space: pre-wrap; word-break: break-all; }
-
   .hint{ background: rgba(251,188,4,0.08); border-left: 3px solid var(--amber); padding: 10px 14px; border-radius: 8px; font-size: 0.82rem; color: #e0c78a; margin-bottom: 14px; }
-
   .search-bar{ display: flex; gap: 8px; margin-bottom: 14px; }
   .search-bar input{ flex: 1; background: #141820; border: 1px solid var(--border); color: var(--text); padding: 10px 14px; border-radius: 10px; font-family: inherit; font-size: 0.88rem; outline: none; }
   .search-bar input:focus{ border-color: var(--accent-border); }
-
+  .search-bar select{ background: #141820; border: 1px solid var(--border); color: var(--text); padding: 10px 14px; border-radius: 10px; font-family: inherit; font-size: 0.85rem; outline: none; cursor: pointer; }
   .serial-badge{ display: inline-flex; align-items: center; gap: 4px; background: rgba(110,168,254,0.18); color: var(--accent); font-weight: 700; padding: 3px 10px; border-radius: 6px; font-size: 0.75rem; }
-
-  /* ========== MIGRATION MODAL ========== */
-  .modal-overlay{
-    position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9998;
-    display: flex; align-items: center; justify-content: center;
-    padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s;
-  }
+  .exam-badge{ display: inline-flex; align-items: center; gap: 4px; background: rgba(52,168,83,0.15); color: #7ee2a8; font-weight: 600; padding: 3px 10px; border-radius: 6px; font-size: 0.72rem; }
+  .exam-badge.none{ background: rgba(251,188,4,0.15); color: #f7d774; }
+  .filter-row{ display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; align-items: center; }
+  .filter-row select{ flex: 1; min-width: 150px; background: #141820; border: 1px solid var(--border); color: var(--text); padding: 10px 14px; border-radius: 10px; font-family: inherit; font-size: 0.85rem; outline: none; cursor: pointer; }
+  .hidden{ display: none !important; }
+  .modal-overlay{ position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9998; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
   .modal-overlay.show{ opacity: 1; pointer-events: auto; }
-  .modal{
-    background: var(--card); border: 2px solid var(--amber-border);
-    border-radius: 20px; padding: 30px 26px; max-width: 480px; width: 100%;
-    transform: translateY(20px); transition: transform 0.25s;
-    box-shadow: 0 20px 60px rgba(251,188,4,0.2);
-  }
+  .modal{ background: var(--card); border: 2px solid var(--amber-border); border-radius: 20px; padding: 30px 26px; max-width: 480px; width: 100%; transform: translateY(20px); transition: transform 0.25s; box-shadow: 0 20px 60px rgba(251,188,4,0.2); }
   .modal-overlay.show .modal{ transform: translateY(0); }
-  .modal-icon{
-    width: 60px; height: 60px; border-radius: 50%;
-    background: var(--amber-soft);
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 16px;
-    font-size: 1.8rem;
-  }
+  .modal-icon{ width: 60px; height: 60px; border-radius: 50%; background: var(--amber-soft); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 1.8rem; }
   .modal h3{ font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; color: #f7d774; text-align: center; }
   .modal p{ color: var(--text-dim); font-size: 0.92rem; margin-bottom: 22px; line-height: 1.6; text-align: center; }
   .modal-actions{ display: flex; gap: 10px; flex-direction: column; }
   .modal-actions .btn{ padding: 15px 20px; font-size: 0.95rem; }
-  .modal-actions .confirm-migrate-btn{
-    background: linear-gradient(135deg, #fbbc04 0%, #f59e0b 100%);
-    border: none;
-    color: #1a1d23;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    box-shadow: 0 4px 16px rgba(251,188,4,0.35);
+  .modal-actions .confirm-migrate-btn{ background: linear-gradient(135deg, #fbbc04 0%, #f59e0b 100%); border: none; color: #1a1d23; font-weight: 800; text-transform: uppercase; letter-spacing: 0.03em; box-shadow: 0 4px 16px rgba(251,188,4,0.35); }
+  .exam-chips-row{ display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; padding: 10px 12px; background: #141820; border: 1px solid var(--border); border-radius: 10px; }
+  .exam-chip-count{ font-size: 0.72rem; color: var(--text-dim); padding: 4px 9px; background: var(--card-2); border-radius: 6px; }
+  .exam-chip-count.active{ background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+
+  /* ========== EXAM STATUS TOGGLE ========== */
+  .status-list{ display: flex; flex-direction: column; gap: 10px; }
+  .status-row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    background: var(--card-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    gap: 12px;
+    flex-wrap: wrap;
+    transition: all 0.2s;
   }
-  .modal-actions .confirm-migrate-btn:hover:not(:disabled){
-    transform: translateY(-1px);
-    box-shadow: 0 8px 24px rgba(251,188,4,0.5);
+  .status-row.live{ border-color: rgba(52,168,83,0.3); }
+  .status-row.coming{ border-color: rgba(251,188,4,0.3); background: rgba(251,188,4,0.04); }
+  .status-info{ flex: 1; min-width: 150px; }
+  .status-name{ font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  .status-desc{ font-size: 0.72rem; color: var(--text-dim); }
+  .status-controls{ display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .status-label{
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 999px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .status-label.live{ background: var(--green-soft); color: #7ee2a8; }
+  .status-label.coming{ background: var(--amber-soft); color: #f7d774; }
+
+  .toggle-switch{
+    position: relative;
+    width: 60px; height: 32px;
+    background: #141820;
+    border: 2px solid var(--border);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.3s;
+    flex-shrink: 0;
+  }
+  .toggle-switch::after{
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 4px;
+    transform: translateY(-50%);
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--text-dim);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  }
+  .toggle-switch.on{
+    background: linear-gradient(135deg, #34a853, #2d8b47);
+    border-color: #34a853;
+  }
+  .toggle-switch.on::after{
+    left: calc(100% - 26px);
+    background: #ffffff;
+  }
+  .toggle-switch.off-warning{
+    background: linear-gradient(135deg, #fbbc04, #f59e0b);
+    border-color: #fbbc04;
+  }
+  .toggle-switch.off-warning::after{
+    left: calc(100% - 26px);
+    background: #ffffff;
+  }
+  .status-url{
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    background: #141820;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-family: ui-monospace, monospace;
+  }
+  .status-url.ready{ color: var(--accent); }
+
+  /* Save button row */
+  .status-save-row{
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--border);
   }
 </style>
 </head>
@@ -268,9 +224,7 @@
           <label>Password</label>
           <input type="password" id="loginPassword" placeholder="Enter password" required autocomplete="current-password" />
         </div>
-        <button type="submit" class="btn primary full" id="loginBtn">
-          Sign In
-        </button>
+        <button type="submit" class="btn primary full" id="loginBtn">Sign In</button>
       </form>
     </div>
   </div>
@@ -281,37 +235,13 @@
     <div class="admin-header">
       <div class="brand">
         <h2>RPrep <span>Admin Panel</span></h2>
-        <p>QBank Management · Permanent Serial Numbers</p>
+        <p>QBank Management · Exam-wise Questions</p>
       </div>
       <div class="user-info">
         <span id="userEmail">—</span>
+        <button class="btn small warning" id="migrateBtn">⚙️ Migrate</button>
         <button class="btn small danger" id="logoutBtn">Logout</button>
       </div>
-    </div>
-
-    <!-- ========== BIG MIGRATION BANNER (SHOWS ONLY IF NEEDED) ========== -->
-    <div class="migrate-banner hidden-banner" id="migrateBanner">
-      <div class="migrate-info">
-        <h3>⚙️ Migration Required</h3>
-        <p>Kuch questions ke paas permanent serial number nahi hai. <strong>Migrate</strong> button dabao — sabko ek stable number mil jayega. Ye number kabhi change nahi hoga, chahe kitne bhi questions add ho jayein.</p>
-      </div>
-      <div class="migrate-action">
-        <button class="big-migrate-btn" id="bigMigrateBtn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
-          </svg>
-          ⚙️ Migrate Now
-        </button>
-      </div>
-    </div>
-
-    <!-- ========== SUCCESS BANNER (shows after migration) ========== -->
-    <div class="success-banner hidden" id="successBanner">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-        <polyline points="22 4 12 14.01 9 11.01"/>
-      </svg>
-      <span>All questions have permanent serial numbers ✅</span>
     </div>
 
     <div class="tabs">
@@ -320,27 +250,33 @@
       <button class="tab" data-tab="json">📦 JSON</button>
       <button class="tab" data-tab="pdf">📄 PDF</button>
       <button class="tab" data-tab="html">🌐 HTML</button>
+      <button class="tab" data-tab="status">🎚️ Exam Status</button>
     </div>
 
-    <!-- ===== LIST TAB ===== -->
+    <!-- LIST TAB -->
     <div class="panel" id="panel-list">
       <h3>All Questions <span class="count-badge" id="qCount">0</span></h3>
-      <p class="panel-sub">Questions sorted by permanent serial number. Ye number <strong>kabhi change nahi hota</strong>.</p>
-      <div class="search-bar">
+      <p class="panel-sub">Sorted by exam + serial number.</p>
+      <div class="filter-row">
+        <select id="examFilter"><option value="">All Exams</option></select>
         <input type="text" id="searchInput" placeholder="Search questions..." />
         <button class="btn small" id="refreshBtn">↻</button>
       </div>
-      <div id="questionsList">
-        <div class="loader">Loading</div>
-      </div>
+      <div class="exam-chips-row" id="examChipsRow"></div>
+      <div id="questionsList"><div class="loader">Loading</div></div>
     </div>
 
-    <!-- ===== SINGLE ADD TAB ===== -->
+    <!-- SINGLE ADD TAB -->
     <div class="panel hidden" id="panel-single">
       <h3 id="singlePanelTitle">Add New Question</h3>
       <p class="panel-sub" id="singlePanelSub">Naya question automatically next serial number par add hoga.</p>
 
       <input type="hidden" id="editDocId" value="" />
+
+      <div class="field exam-highlight">
+        <label>🎯 Select Exam *</label>
+        <select id="singleExam" required><option value="">-- Choose Exam --</option></select>
+      </div>
 
       <div class="field">
         <label>Serial Number</label>
@@ -383,72 +319,62 @@
       </div>
     </div>
 
-    <!-- ===== JSON TAB ===== -->
+    <!-- JSON TAB -->
     <div class="panel hidden" id="panel-json">
       <h3>Bulk Upload via JSON</h3>
-      <p class="panel-sub">Ek array of objects daalo. Sabko auto serial number milenge.</p>
-
+      <p class="panel-sub">Har item me <strong>exam</strong> field zaroori hai.</p>
       <div class="hint">
-        <strong>Format:</strong> <code>[{ "question": "...", "options": ["A","B","C","D"], "correct": 0, "explanation": "..." }, ...]</code>
+        <strong>Format:</strong><br>
+        <code>[{ "exam": "AIIMS", "question": "...", "options": ["A","B","C","D"], "correct": 0, "explanation": "..." }, ...]</code>
       </div>
-
+      <div class="field exam-highlight">
+        <label>🎯 Default Exam (agar JSON me exam nahi diya)</label>
+        <select id="jsonDefaultExam"><option value="">-- Choose Exam --</option></select>
+      </div>
       <div class="field">
         <label>JSON Data</label>
-        <textarea id="jsonInput" rows="10" placeholder='[
-  {
-    "question": "What is HTML?",
-    "options": ["HyperText Markup", "Home Tool", "Hyperlink", "None"],
-    "correct": 0,
-    "explanation": "HTML stands for HyperText Markup Language."
-  }
-]'></textarea>
+        <textarea id="jsonInput" rows="10" placeholder='[{"exam":"AIIMS","question":"...","options":["A","B","C","D"],"correct":0,"explanation":"..."}]'></textarea>
       </div>
-
       <button class="btn primary" id="uploadJsonBtn">📥 Import JSON</button>
     </div>
 
-    <!-- ===== PDF TAB ===== -->
+    <!-- PDF TAB -->
     <div class="panel hidden" id="panel-pdf">
       <h3>Upload from PDF</h3>
-      <p class="panel-sub">PDF file me text format me questions + options + explanation hone chahiye.</p>
-
+      <p class="panel-sub">PDF file me questions + options + explanation hone chahiye.</p>
       <div class="hint">
-        <strong>PDF Format:</strong><br>
-        <code>Q1. What is HTML?</code><br>
-        <code>A) HyperText Markup</code><br>
-        <code>B) Home Tool</code><br>
-        <code>C) Hyperlink</code><br>
-        <code>D) None</code><br>
-        <code>Answer: A</code><br>
-        <code>Explanation: HTML stands for...</code>
+        <strong>Format:</strong> <code>Q1. Question?</code> → <code>A) option</code> → <code>Answer: A</code> → <code>Explanation: ...</code>
       </div>
-
+      <div class="field exam-highlight">
+        <label>🎯 Select Exam *</label>
+        <select id="pdfExam"><option value="">-- Choose Exam --</option></select>
+      </div>
       <div class="field">
         <label>Select PDF File</label>
         <input type="file" id="pdfFile" accept="application/pdf,.pdf" />
       </div>
-
       <button class="btn primary" id="uploadPdfBtn">📤 Parse & Preview</button>
-
       <div id="pdfPreviewWrap" style="margin-top:16px; display:none;">
-        <label style="font-size:0.78rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px; display:block;">Parsed Preview (<span id="pdfCount">0</span> questions)</label>
+        <label style="font-size:0.78rem; color:var(--text-dim); text-transform:uppercase; margin-bottom:8px; display:block;">Preview (<span id="pdfCount">0</span>)</label>
         <div class="json-preview" id="pdfPreview"></div>
         <div style="margin-top:12px; display:flex; gap:10px;">
-          <button class="btn success" id="pdfSaveBtn">💾 Save All to Firestore</button>
+          <button class="btn success" id="pdfSaveBtn">💾 Save All</button>
           <button class="btn" id="pdfClearBtn">Clear</button>
         </div>
       </div>
     </div>
 
-    <!-- ===== HTML TAB ===== -->
+    <!-- HTML TAB -->
     <div class="panel hidden" id="panel-html">
       <h3>Paste HTML / Plain Text</h3>
-      <p class="panel-sub">Kisi bhi format se paste karo — parser smart hai.</p>
-
+      <p class="panel-sub">Kisi bhi format se paste karo.</p>
       <div class="hint">
-        <strong>Accepted:</strong> <code>Q1. Question?</code> then <code>A) option</code> ... <code>Answer: A</code> <code>Explanation: ...</code>
+        <strong>Accepted:</strong> <code>Q1. Question?</code> → <code>A) option</code> → <code>Answer: A</code> → <code>Explanation: ...</code>
       </div>
-
+      <div class="field exam-highlight">
+        <label>🎯 Select Exam *</label>
+        <select id="htmlExam"><option value="">-- Choose Exam --</option></select>
+      </div>
       <div class="field">
         <label>Paste Content</label>
         <textarea id="htmlInput" rows="12" placeholder="Q1. What is HTML?
@@ -459,16 +385,34 @@ D) None
 Answer: A
 Explanation: HTML stands for..."></textarea>
       </div>
-
       <button class="btn primary" id="parseHtmlBtn">🔍 Parse & Preview</button>
-
       <div id="htmlPreviewWrap" style="margin-top:16px; display:none;">
-        <label style="font-size:0.78rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px; display:block;">Preview (<span id="htmlCount">0</span> questions)</label>
+        <label style="font-size:0.78rem; color:var(--text-dim); text-transform:uppercase; margin-bottom:8px; display:block;">Preview (<span id="htmlCount">0</span>)</label>
         <div class="json-preview" id="htmlPreview"></div>
         <div style="margin-top:12px; display:flex; gap:10px;">
-          <button class="btn success" id="htmlSaveBtn">💾 Save All to Firestore</button>
+          <button class="btn success" id="htmlSaveBtn">💾 Save All</button>
           <button class="btn" id="htmlClearBtn">Clear</button>
         </div>
+      </div>
+    </div>
+
+    <!-- EXAM STATUS TAB (NEW) -->
+    <div class="panel hidden" id="panel-status">
+      <h3>🎚️ Exam Status — Coming Soon Toggle</h3>
+      <p class="panel-sub">
+        Har exam ke liye <strong>Coming Soon</strong> ON/OFF kar sakte ho. 
+        <br>
+        <span style="color:#7ee2a8;">Live</span> = normal QBank · 
+        <span style="color:#f7d774;">Coming Soon</span> = students ko coming soon page dikhega
+      </p>
+
+      <div class="status-list" id="statusList">
+        <div class="loader">Loading</div>
+      </div>
+
+      <div class="status-save-row">
+        <button class="btn" id="statusReloadBtn">↻ Reload</button>
+        <button class="btn primary" id="statusSaveBtn" disabled>💾 Save All Changes</button>
       </div>
     </div>
 
@@ -480,15 +424,13 @@ Explanation: HTML stands for..."></textarea>
   <div class="modal">
     <div class="modal-icon">⚙️</div>
     <h3>Serial Number Migration</h3>
-    <p id="migrationText">
-      Ye purane questions ko permanent serial numbers assign karega.<br><br>
-      <strong style="color:#f7d774;">Ye ek baar kaam hai.</strong><br>
-      Fir naya question hamesha next number par add hoga (jaise 12 ke baad 13, na ki 1).
-    </p>
+    <p>Purane questions ko permanent serial numbers assign karega. Default exam bhi assign kar sakte ho.</p>
+    <div class="field">
+      <label>Default Exam</label>
+      <select id="migrationDefaultExam"><option value="">-- Skip --</option></select>
+    </div>
     <div class="modal-actions">
-      <button class="btn confirm-migrate-btn" id="migrationConfirm">
-        ⚙️ Start Migration
-      </button>
+      <button class="btn confirm-migrate-btn" id="migrationConfirm">⚙️ Start Migration</button>
       <button class="btn" id="migrationCancel">Cancel</button>
     </div>
   </div>
@@ -517,8 +459,45 @@ Explanation: HTML stands for..."></textarea>
   const db = firebase.firestore();
 
   const COLLECTION = 'qbank';
+  const STATUS_COLLECTION = 'examStatus';
   const ADMIN_EMAIL = 'pbhupeshk2022@gmail.com';
   const LETTERS = ['A','B','C','D','E','F','G','H'];
+
+  const EXAMS = ['AIIMS','RRB','ESIC','DSSSB','PGIMER','JIPMER','SGPGIMS','NIMHANS','BHU','State','General'];
+
+  // Subdomain map for URLs
+  const SUBDOMAIN_MAP = {
+    'AIIMS': 'aiims', 'RRB': 'rrb', 'ESIC': 'esic', 'DSSSB': 'dsssb',
+    'PGIMER': 'pgimer', 'JIPMER': 'jipmer', 'SGPGIMS': 'sgpgims',
+    'NIMHANS': 'nimhans', 'BHU': 'bhu', 'State': 'state', 'General': 'general'
+  };
+
+  function populateExamDropdowns(){
+    const dropdownIds = ['singleExam', 'jsonDefaultExam', 'pdfExam', 'htmlExam', 'migrationDefaultExam'];
+    dropdownIds.forEach(id => {
+      const sel = document.getElementById(id);
+      if (!sel) return;
+      const firstOpt = sel.querySelector('option');
+      const firstOptHtml = firstOpt ? firstOpt.outerHTML : '<option value="">-- Choose Exam --</option>';
+      sel.innerHTML = firstOptHtml;
+      EXAMS.forEach(ex => {
+        const opt = document.createElement('option');
+        opt.value = ex;
+        opt.textContent = ex;
+        sel.appendChild(opt);
+      });
+    });
+    const filterSel = document.getElementById('examFilter');
+    if (filterSel){
+      filterSel.innerHTML = '<option value="">All Exams</option>';
+      EXAMS.forEach(ex => {
+        const opt = document.createElement('option');
+        opt.value = ex;
+        opt.textContent = ex;
+        filterSel.appendChild(opt);
+      });
+    }
+  }
 
   if (window.pdfjsLib){
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -553,8 +532,8 @@ Explanation: HTML stands for..."></textarea>
       console.error(err);
       let msg = 'Login failed';
       if (err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') msg = 'Wrong password';
-      else if (err.code === 'auth/user-not-found') msg = 'Admin user not created in Firebase Console';
-      else if (err.code === 'auth/too-many-requests') msg = 'Too many attempts. Try later.';
+      else if (err.code === 'auth/user-not-found') msg = 'Admin user not created';
+      else if (err.code === 'auth/too-many-requests') msg = 'Too many attempts';
       else msg = err.message;
       toast(msg, 'error');
     } finally {
@@ -572,118 +551,11 @@ Explanation: HTML stands for..."></textarea>
       $('loginWrap').classList.add('hidden');
       $('adminWrap').classList.remove('hidden');
       $('userEmail').textContent = user.email;
+      populateExamDropdowns();
       loadQuestionsList();
     } else {
-      $('loginWrap').classList.remove('hidden');
-      $('adminWrap').classList.add('hidden');
-    }
-  });
-
-  // ===== MIGRATION CHECK & BANNER =====
-  async function checkMigrationNeeded(){
-    try {
-      const snap = await db.collection(COLLECTION).get();
-      let needsMigration = false;
-      let total = 0;
-      let migrated = 0;
-      snap.forEach(d => {
-        total++;
-        const s = d.data().serialNumber;
-        if (typeof s === 'number') migrated++;
-        else needsMigration = true;
-      });
-
-      if (total === 0){
-        // No questions at all — hide everything
-        $('migrateBanner').classList.add('hidden-banner');
-        $('successBanner').classList.add('hidden');
-        return;
-      }
-
-      if (needsMigration){
-        $('migrateBanner').classList.remove('hidden-banner');
-        $('successBanner').classList.add('hidden');
-      } else {
-        $('migrateBanner').classList.add('hidden-banner');
-        $('successBanner').classList.remove('hidden');
-        // Auto-hide success banner after 5 sec
-        setTimeout(() => {
-          $('successBanner').classList.add('hidden');
-        }, 5000);
-      }
-    } catch(e){
-      console.error(e);
-    }
-  }
-
-  // ===== MIGRATION MODAL =====
-  $('bigMigrateBtn').addEventListener('click', () => {
-    $('migrationModal').classList.add('show');
-  });
-  $('migrationCancel').addEventListener('click', () => {
-    $('migrationModal').classList.remove('show');
-  });
-  $('migrationModal').addEventListener('click', (e) => {
-    if (e.target === $('migrationModal')) $('migrationModal').classList.remove('show');
-  });
-
-  $('migrationConfirm').addEventListener('click', async () => {
-    $('migrationConfirm').disabled = true;
-    $('migrationConfirm').textContent = 'Migrating...';
-    try {
-      const snap = await db.collection(COLLECTION).get();
-      const docs = [];
-      snap.forEach(d => docs.push({ id: d.id, ...d.data() }));
-
-      docs.sort((a, b) => {
-        const sa = typeof a.serialNumber === 'number' ? a.serialNumber : -1;
-        const sb = typeof b.serialNumber === 'number' ? b.serialNumber : -1;
-        if (sa !== sb) return sa - sb;
-        return a.id.localeCompare(b.id);
-      });
-
-      let maxSerial = 0;
-      docs.forEach(d => {
-        if (typeof d.serialNumber === 'number' && d.serialNumber > maxSerial){
-          maxSerial = d.serialNumber;
-        }
-      });
-
-      let next = maxSerial + 1;
-      let count = 0;
-      const batch = db.batch();
-
-      for (const d of docs){
-        if (typeof d.serialNumber !== 'number'){
-          batch.update(db.collection(COLLECTION).doc(d.id), { serialNumber: next });
-          next++;
-          count++;
-        }
-      }
-
-      if (count > 0){
-        await batch.commit();
-        toast(`${count} questions migrated successfully!`, 'success');
-        $('migrationConfirm').textContent = '✅ Done!';
-        setTimeout(() => {
-          $('migrationModal').classList.remove('show');
-          $('migrationConfirm').disabled = false;
-          $('migrationConfirm').textContent = '⚙️ Start Migration';
-          loadQuestionsList();
-          checkMigrationNeeded();
-        }, 1200);
-      } else {
-        toast('No migration needed. All good!', 'success');
-        $('migrationModal').classList.remove('show');
-        $('migrationConfirm').disabled = false;
-        $('migrationConfirm').textContent = '⚙️ Start Migration';
-      }
-
-    } catch (e){
-      console.error(e);
-      toast('Migration failed: ' + e.message, 'error');
-      $('migrationConfirm').disabled = false;
-      $('migrationConfirm').textContent = '⚙️ Start Migration';
+      $('loginWrap').classList.add('hidden');
+      $('adminWrap').classList.remove('hidden');
     }
   });
 
@@ -693,14 +565,174 @@ Explanation: HTML stands for..."></textarea>
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
       const name = tab.dataset.tab;
-      ['list','single','json','pdf','html'].forEach(n => {
+      ['list','single','json','pdf','html','status'].forEach(n => {
         $('panel-' + n).classList.toggle('hidden', n !== name);
       });
       if (name === 'list') loadQuestionsList();
+      if (name === 'status') loadExamStatus();
     });
   });
 
-  // ===== LOAD =====
+  // ==================================================
+  // ============ EXAM STATUS TOGGLE ============
+  // ==================================================
+  let examStatusCache = {}; // { AIIMS: true/false, ... }
+  let statusDirty = false;
+
+  async function loadExamStatus(){
+    $('statusList').innerHTML = '<div class="loader">Loading</div>';
+    statusDirty = false;
+    $('statusSaveBtn').disabled = true;
+    try {
+      const snap = await db.collection(STATUS_COLLECTION).get();
+      examStatusCache = {};
+      // Default: false (Live)
+      EXAMS.forEach(ex => examStatusCache[ex] = false);
+      snap.forEach(d => {
+        if (EXAMS.includes(d.id)){
+          examStatusCache[d.id] = d.data().comingSoon === true;
+        }
+      });
+      renderExamStatus();
+    } catch (e){
+      console.error(e);
+      $('statusList').innerHTML = '<div class="loader">Error: ' + escapeHtml(e.message) + '</div>';
+    }
+  }
+
+  function renderExamStatus(){
+    const rows = EXAMS.map(ex => {
+      const isComing = examStatusCache[ex] === true;
+      const sub = SUBDOMAIN_MAP[ex] || ex.toLowerCase();
+      const url = sub + '.rprep.online';
+      const rowClass = isComing ? 'status-row coming' : 'status-row live';
+      const labelClass = isComing ? 'status-label coming' : 'status-label live';
+      const labelText = isComing ? '🚧 Coming Soon' : '✅ Live';
+      const toggleClass = isComing ? 'toggle-switch off-warning' : 'toggle-switch on';
+      return '<div class="' + rowClass + '" data-exam="' + ex + '">' +
+        '<div class="status-info">' +
+          '<div class="status-name">' + escapeHtml(ex) + '</div>' +
+          '<div class="status-url ' + (isComing ? '' : 'ready') + '">' + url + '</div>' +
+        '</div>' +
+        '<div class="status-controls">' +
+          '<span class="' + labelClass + '">' + labelText + '</span>' +
+          '<div class="' + toggleClass + '" data-exam="' + ex + '" role="switch" aria-checked="' + (!isComing) + '"></div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+    $('statusList').innerHTML = rows;
+
+    document.querySelectorAll('.toggle-switch').forEach(t => {
+      t.addEventListener('click', () => {
+        const ex = t.dataset.exam;
+        examStatusCache[ex] = !examStatusCache[ex];
+        statusDirty = true;
+        $('statusSaveBtn').disabled = false;
+        renderExamStatus();
+        // Re-attach events after render
+      });
+    });
+  }
+
+  $('statusReloadBtn').addEventListener('click', () => {
+    if (statusDirty && !confirm('Save nahi kiya. Reload karein? (Changes lost honge)')) return;
+    loadExamStatus();
+  });
+
+  $('statusSaveBtn').addEventListener('click', async () => {
+    $('statusSaveBtn').disabled = true;
+    $('statusSaveBtn').textContent = '💾 Saving...';
+    try {
+      const batch = db.batch();
+      EXAMS.forEach(ex => {
+        const isComing = examStatusCache[ex] === true;
+        const ref = db.collection(STATUS_COLLECTION).doc(ex);
+        if (isComing){
+          batch.set(ref, { comingSoon: true, updatedAt: firebase.firestore.FieldValue.serverTimestamp() });
+        } else {
+          // Delete doc if live (keeps db clean)
+          batch.delete(ref);
+        }
+      });
+      await batch.commit();
+      toast('Exam status saved!', 'success');
+      statusDirty = false;
+      setTimeout(() => {
+        $('statusSaveBtn').textContent = '💾 Save All Changes';
+        $('statusSaveBtn').disabled = true;
+      }, 500);
+    } catch (e){
+      console.error(e);
+      toast('Save failed: ' + e.message, 'error');
+      $('statusSaveBtn').textContent = '💾 Save All Changes';
+      $('statusSaveBtn').disabled = false;
+    }
+  });
+
+  // ===== MIGRATION =====
+  $('migrateBtn').addEventListener('click', () => $('migrationModal').classList.add('show'));
+  $('migrationCancel').addEventListener('click', () => $('migrationModal').classList.remove('show'));
+  $('migrationModal').addEventListener('click', (e) => { if (e.target === $('migrationModal')) $('migrationModal').classList.remove('show'); });
+
+  $('migrationConfirm').addEventListener('click', async () => {
+    const defaultExam = $('migrationDefaultExam').value;
+    $('migrationConfirm').disabled = true;
+    $('migrationConfirm').textContent = 'Migrating...';
+    try {
+      const snap = await db.collection(COLLECTION).get();
+      const docs = [];
+      snap.forEach(d => docs.push({ id: d.id, ...d.data() }));
+      docs.sort((a, b) => {
+        const sa = typeof a.serialNumber === 'number' ? a.serialNumber : -1;
+        const sb = typeof b.serialNumber === 'number' ? b.serialNumber : -1;
+        if (sa !== sb) return sa - sb;
+        return a.id.localeCompare(b.id);
+      });
+      let maxSerial = 0;
+      docs.forEach(d => {
+        if (typeof d.serialNumber === 'number' && d.serialNumber > maxSerial) maxSerial = d.serialNumber;
+      });
+      let next = maxSerial + 1;
+      let serialCount = 0;
+      let examCount = 0;
+      const batch = db.batch();
+      for (const d of docs){
+        const updates = {};
+        if (typeof d.serialNumber !== 'number'){
+          updates.serialNumber = next; next++; serialCount++;
+        }
+        if (defaultExam && !d.exam){
+          updates.exam = defaultExam; examCount++;
+        }
+        if (Object.keys(updates).length > 0){
+          batch.update(db.collection(COLLECTION).doc(d.id), updates);
+        }
+      }
+      if (serialCount > 0 || examCount > 0){
+        await batch.commit();
+        toast(`${serialCount} serial + ${examCount} exam migrated!`, 'success');
+        $('migrationConfirm').textContent = '✅ Done!';
+        setTimeout(() => {
+          $('migrationModal').classList.remove('show');
+          $('migrationConfirm').disabled = false;
+          $('migrationConfirm').textContent = '⚙️ Start Migration';
+          loadQuestionsList();
+        }, 1200);
+      } else {
+        toast('No migration needed', 'success');
+        $('migrationModal').classList.remove('show');
+        $('migrationConfirm').disabled = false;
+        $('migrationConfirm').textContent = '⚙️ Start Migration';
+      }
+    } catch (e){
+      console.error(e);
+      toast('Migration failed: ' + e.message, 'error');
+      $('migrationConfirm').disabled = false;
+      $('migrationConfirm').textContent = '⚙️ Start Migration';
+    }
+  });
+
+  // ===== LOAD LIST =====
   let allDocs = [];
 
   async function loadQuestionsList(){
@@ -709,38 +741,66 @@ Explanation: HTML stands for..."></textarea>
       const snap = await db.collection(COLLECTION).get();
       allDocs = [];
       snap.forEach(d => allDocs.push({ id: d.id, ...d.data() }));
-
       allDocs.sort((a, b) => {
+        const ea = (a.exam || 'zzz');
+        const eb = (b.exam || 'zzz');
+        if (ea !== eb) return ea.localeCompare(eb);
         const sa = typeof a.serialNumber === 'number' ? a.serialNumber : 999999;
         const sb = typeof b.serialNumber === 'number' ? b.serialNumber : 999999;
         return sa - sb;
       });
-
+      renderExamChips();
       renderQuestionsList();
-      checkMigrationNeeded();
     } catch (e){
       console.error(e);
       $('questionsList').innerHTML = '<div class="loader">Error: ' + escapeHtml(e.message) + '</div>';
     }
   }
 
+  function renderExamChips(){
+    const counts = {};
+    EXAMS.forEach(ex => counts[ex] = 0);
+    counts['(No Exam)'] = 0;
+    allDocs.forEach(d => {
+      if (d.exam && EXAMS.includes(d.exam)) counts[d.exam]++;
+      else counts['(No Exam)']++;
+    });
+    const row = $('examChipsRow');
+    const currentFilter = $('examFilter').value;
+    let html = '';
+    html += '<span class="exam-chip-count ' + (currentFilter === '' ? 'active' : '') + '">All (' + allDocs.length + ')</span>';
+    EXAMS.forEach(ex => {
+      if (counts[ex] > 0){
+        html += '<span class="exam-chip-count ' + (currentFilter === ex ? 'active' : '') + '">' + ex + ' (' + counts[ex] + ')</span>';
+      }
+    });
+    if (counts['(No Exam)'] > 0){
+      html += '<span class="exam-chip-count" style="background:rgba(251,188,4,0.15); color:#f7d774;">⚠️ No Exam (' + counts['(No Exam)'] + ')</span>';
+    }
+    row.innerHTML = html;
+  }
+
   function renderQuestionsList(){
-    const q = ($('searchInput').value || '').toLowerCase().trim();
-    const filtered = q ? allDocs.filter(d => (d.question || '').toLowerCase().includes(q)) : allDocs;
-
+    const searchQ = ($('searchInput').value || '').toLowerCase().trim();
+    const examFilter = $('examFilter').value;
+    let filtered = allDocs;
+    if (examFilter) filtered = filtered.filter(d => d.exam === examFilter);
+    if (searchQ) filtered = filtered.filter(d => (d.question || '').toLowerCase().includes(searchQ));
     $('qCount').textContent = allDocs.length;
-
+    renderExamChips();
     if (!filtered.length){
       $('questionsList').innerHTML = '<div class="loader">No questions found</div>';
       return;
     }
-
     const html = filtered.map((d) => {
       const serial = (typeof d.serialNumber === 'number') ? d.serialNumber : '?';
       const correctLetter = LETTERS[d.correct] || '?';
+      const examBadge = d.exam
+        ? '<span class="exam-badge">' + escapeHtml(d.exam) + '</span>'
+        : '<span class="exam-badge none">⚠️ No Exam</span>';
       return '<div class="list-item">' +
         '<div class="content">' +
-          '<div class="q-title"><span class="serial-badge">#' + serial + '</span> ' + escapeHtml(d.question || 'Untitled') + '</div>' +
+          '<div class="q-title"><span class="serial-badge">#' + serial + '</span> ' + examBadge + ' ' + escapeHtml(d.question || 'Untitled') + '</div>' +
           '<div class="q-meta">' +
             '<span>✓ Ans: ' + correctLetter + '</span>' +
             '<span>' + ((d.options || []).length) + ' options</span>' +
@@ -753,34 +813,30 @@ Explanation: HTML stands for..."></textarea>
         '</div>' +
       '</div>';
     }).join('');
-
     $('questionsList').innerHTML = html;
-
-    document.querySelectorAll('[data-edit]').forEach(b => {
-      b.addEventListener('click', () => startEdit(b.dataset.edit));
-    });
-    document.querySelectorAll('[data-del]').forEach(b => {
-      b.addEventListener('click', () => deleteQuestion(b.dataset.del));
-    });
+    document.querySelectorAll('[data-edit]').forEach(b => b.addEventListener('click', () => startEdit(b.dataset.edit)));
+    document.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', () => deleteQuestion(b.dataset.del)));
   }
 
   $('searchInput').addEventListener('input', renderQuestionsList);
+  $('examFilter').addEventListener('change', renderQuestionsList);
   $('refreshBtn').addEventListener('click', loadQuestionsList);
 
-  // ===== NEXT SERIAL =====
-  async function getNextSerialNumber(){
+  async function getNextSerialNumber(exam){
     const snap = await db.collection(COLLECTION).get();
     let maxSerial = 0;
     snap.forEach(d => {
-      const s = d.data().serialNumber;
-      if (typeof s === 'number' && s > maxSerial) maxSerial = s;
+      const data = d.data();
+      if (exam && data.exam !== exam) return;
+      if (typeof data.serialNumber === 'number' && data.serialNumber > maxSerial){
+        maxSerial = data.serialNumber;
+      }
     });
     return maxSerial + 1;
   }
 
   // ===== SINGLE ADD / EDIT =====
   let selectedCorrect = 0;
-
   function updateCorrectUI(){
     document.querySelectorAll('#correctSelector button').forEach(b => {
       b.classList.toggle('active', parseInt(b.dataset.val) === selectedCorrect);
@@ -795,37 +851,33 @@ Explanation: HTML stands for..."></textarea>
   updateCorrectUI();
 
   $('saveSingleBtn').addEventListener('click', async () => {
+    const exam = $('singleExam').value;
     const question = $('singleQuestion').value.trim();
-    const opts = [
-      $('optA').value.trim(),
-      $('optB').value.trim(),
-      $('optC').value.trim(),
-      $('optD').value.trim()
-    ];
+    const opts = [$('optA').value.trim(), $('optB').value.trim(), $('optC').value.trim(), $('optD').value.trim()];
     const explanation = $('singleExplanation').value.trim();
     const editId = $('editDocId').value.trim();
 
+    if (!exam){ toast('Exam select karo', 'error'); return; }
     if (!question){ toast('Question required', 'error'); return; }
     if (opts.some(o => !o)){ toast('All 4 options required', 'error'); return; }
     if (!explanation){ toast('Explanation required', 'error'); return; }
 
     try {
       $('saveSingleBtn').disabled = true;
-
       if (editId){
         await db.collection(COLLECTION).doc(editId).update({
-          question, options: opts, correct: selectedCorrect, explanation
+          exam, question, options: opts, correct: selectedCorrect, explanation
         });
-        toast('Question updated (serial unchanged)', 'success');
+        toast('Question updated', 'success');
         cancelEdit();
       } else {
-        const serial = await getNextSerialNumber();
+        const serial = await getNextSerialNumber(exam);
         await db.collection(COLLECTION).add({
-          question, options: opts, correct: selectedCorrect, explanation,
+          exam, question, options: opts, correct: selectedCorrect, explanation,
           serialNumber: serial,
           createdAt: firebase.firestore.FieldValue.serverTimestamp()
         });
-        toast('Question added as #' + serial, 'success');
+        toast('Added as ' + exam + ' #' + serial, 'success');
         clearSingleForm();
       }
       await loadQuestionsList();
@@ -858,6 +910,7 @@ Explanation: HTML stands for..."></textarea>
     const d = allDocs.find(x => x.id === id);
     if (!d){ toast('Not found', 'error'); return; }
     $('editDocId').value = id;
+    $('singleExam').value = d.exam || '';
     $('singleQuestion').value = d.question || '';
     $('optA').value = (d.options && d.options[0]) || '';
     $('optB').value = (d.options && d.options[1]) || '';
@@ -866,28 +919,25 @@ Explanation: HTML stands for..."></textarea>
     $('singleExplanation').value = d.explanation || '';
     selectedCorrect = typeof d.correct === 'number' ? d.correct : 0;
     updateCorrectUI();
-
     const serial = (typeof d.serialNumber === 'number') ? d.serialNumber : '?';
     $('singleSerial').value = '#' + serial + ' (locked)';
-
     $('singlePanelTitle').textContent = 'Edit Question #' + serial;
-    $('singlePanelSub').textContent = 'Serial number lock hai — kabhi change nahi hoga.';
+    $('singlePanelSub').textContent = 'Exam change kar sakte ho — serial number lock hai.';
     $('saveSingleBtn').innerHTML = '💾 Update Question';
     $('cancelEditBtn').style.display = 'inline-flex';
-
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     document.querySelector('[data-tab="single"]').classList.add('active');
-    ['list','single','json','pdf','html'].forEach(n => {
+    ['list','single','json','pdf','html','status'].forEach(n => {
       $('panel-' + n).classList.toggle('hidden', n !== 'single');
     });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   async function deleteQuestion(id){
-    if (!confirm('Ye question delete karna hai? Baaki serial numbers safe rahenge.')) return;
+    if (!confirm('Ye question delete karna hai?')) return;
     try {
       await db.collection(COLLECTION).doc(id).delete();
-      toast('Deleted (baaki serials safe)', 'success');
+      toast('Deleted', 'success');
       await loadQuestionsList();
     } catch (e){
       console.error(e);
@@ -896,38 +946,49 @@ Explanation: HTML stands for..."></textarea>
   }
 
   // ===== BULK SAVE =====
-  async function bulkSave(arr){
+  async function bulkSave(arr, defaultExam){
     const valid = [];
     for (const item of arr){
       if (!item.question || !Array.isArray(item.options) || item.options.length < 2) continue;
+      const exam = item.exam || defaultExam || '';
+      if (!exam) continue;
       valid.push({
+        exam,
         question: String(item.question),
         options: item.options.map(String),
         correct: typeof item.correct === 'number' ? item.correct : 0,
         explanation: String(item.explanation || item.answer_text || 'No explanation.')
       });
     }
-    if (!valid.length){ toast('No valid questions', 'error'); return; }
-
+    if (!valid.length){ toast('No valid questions (exam required)', 'error'); return; }
     toast('Saving ' + valid.length + ' questions...');
     try {
-      let startSerial = await getNextSerialNumber();
-
-      for (let i = 0; i < valid.length; i += 400){
-        const batch = db.batch();
-        const chunk = valid.slice(i, i + 400);
-        for (let j = 0; j < chunk.length; j++){
-          const q = chunk[j];
-          const ref = db.collection(COLLECTION).doc();
-          batch.set(ref, {
-            ...q,
-            serialNumber: startSerial + i + j,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-          });
+      const byExam = {};
+      valid.forEach(q => {
+        if (!byExam[q.exam]) byExam[q.exam] = [];
+        byExam[q.exam].push(q);
+      });
+      let totalSaved = 0;
+      for (const exam in byExam){
+        const items = byExam[exam];
+        let startSerial = await getNextSerialNumber(exam);
+        for (let i = 0; i < items.length; i += 400){
+          const batch = db.batch();
+          const chunk = items.slice(i, i + 400);
+          for (let j = 0; j < chunk.length; j++){
+            const q = chunk[j];
+            const ref = db.collection(COLLECTION).doc();
+            batch.set(ref, {
+              ...q,
+              serialNumber: startSerial + i + j,
+              createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+          }
+          await batch.commit();
+          totalSaved += chunk.length;
         }
-        await batch.commit();
       }
-      toast(valid.length + ' questions added!', 'success');
+      toast(totalSaved + ' questions added!', 'success');
       await loadQuestionsList();
     } catch (e){
       console.error(e);
@@ -935,10 +996,10 @@ Explanation: HTML stands for..."></textarea>
     }
   }
 
-  // ===== JSON =====
   $('uploadJsonBtn').addEventListener('click', async () => {
     const raw = $('jsonInput').value.trim();
     if (!raw){ toast('Paste JSON first', 'error'); return; }
+    const defaultExam = $('jsonDefaultExam').value;
     let arr;
     try {
       const parsed = JSON.parse(raw);
@@ -947,26 +1008,22 @@ Explanation: HTML stands for..."></textarea>
       toast('Invalid JSON: ' + e.message, 'error');
       return;
     }
-    await bulkSave(arr);
+    await bulkSave(arr, defaultExam);
     $('jsonInput').value = '';
   });
 
-  // ===== PARSER =====
   function parseQuestions(rawText){
     let text = rawText.replace(/\r\n/g, '\n').replace(/\u00A0/g, ' ').replace(/[ \t]+/g, ' ').trim();
     text = text.replace(/<br\s*\/?>/gi, '\n').replace(/<\/(p|div|li|h[1-6])>/gi, '\n')
       .replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&')
       .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
-
     const lines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
     const questions = [];
     let current = null;
-
     const qStart = /^(?:Q(?:uestion)?\s*[\.\):\-]?\s*(\d+)[\.\):\-]?\s*)(.+)/i;
     const optLine = /^([A-H])[\.\):\-]\s*(.+)$/i;
     const ansLine = /^(?:Answer|Ans|Correct(?:\s*Answer)?)\s*[:\-]?\s*([A-H])/i;
     const explLine = /^(?:Explanation|Exp|Reason)\s*[:\-]?\s*(.*)$/i;
-
     function pushCurrent(){
       if (!current) return;
       if (current.question && current.options.length >= 2){
@@ -977,7 +1034,6 @@ Explanation: HTML stands for..."></textarea>
       }
       current = null;
     }
-
     for (let i = 0; i < lines.length; i++){
       const line = lines[i]; let m;
       if ((m = line.match(qStart))){ pushCurrent(); current = { question: m[2].trim(), options: [], correct: 0, explanation: '' }; continue; }
@@ -1001,8 +1057,9 @@ Explanation: HTML stands for..."></textarea>
     return questions;
   }
 
-  // ===== PDF =====
   $('uploadPdfBtn').addEventListener('click', async () => {
+    const exam = $('pdfExam').value;
+    if (!exam){ toast('Exam select karo', 'error'); return; }
     const file = $('pdfFile').files[0];
     if (!file){ toast('Choose a PDF', 'error'); return; }
     if (!window.pdfjsLib){ toast('PDF lib not loaded', 'error'); return; }
@@ -1025,11 +1082,12 @@ Explanation: HTML stands for..."></textarea>
       }
       const parsed = parseQuestions(fullText);
       if (!parsed.length){ toast('No questions parsed', 'error'); return; }
+      parsed.forEach(q => q.exam = exam);
       $('pdfPreview').textContent = JSON.stringify(parsed, null, 2);
       $('pdfCount').textContent = parsed.length;
       $('pdfPreviewWrap').style.display = 'block';
       $('pdfPreviewWrap')._parsed = parsed;
-      toast(parsed.length + ' questions parsed', 'success');
+      toast(parsed.length + ' questions parsed for ' + exam, 'success');
     } catch (e){
       console.error(e);
       toast('PDF error: ' + e.message, 'error');
@@ -1042,7 +1100,7 @@ Explanation: HTML stands for..."></textarea>
   $('pdfSaveBtn').addEventListener('click', async () => {
     const arr = $('pdfPreviewWrap')._parsed;
     if (!arr || !arr.length){ toast('Nothing to save', 'error'); return; }
-    await bulkSave(arr);
+    await bulkSave(arr, null);
     $('pdfPreviewWrap').style.display = 'none';
     $('pdfPreviewWrap')._parsed = null;
     $('pdfFile').value = '';
@@ -1053,23 +1111,25 @@ Explanation: HTML stands for..."></textarea>
     $('pdfFile').value = '';
   });
 
-  // ===== HTML =====
   $('parseHtmlBtn').addEventListener('click', () => {
+    const exam = $('htmlExam').value;
+    if (!exam){ toast('Exam select karo', 'error'); return; }
     const raw = $('htmlInput').value.trim();
     if (!raw){ toast('Paste content first', 'error'); return; }
     const parsed = parseQuestions(raw);
     if (!parsed.length){ toast('No questions parsed', 'error'); return; }
+    parsed.forEach(q => q.exam = exam);
     $('htmlPreview').textContent = JSON.stringify(parsed, null, 2);
     $('htmlCount').textContent = parsed.length;
     $('htmlPreviewWrap').style.display = 'block';
     $('htmlPreviewWrap')._parsed = parsed;
-    toast(parsed.length + ' questions parsed', 'success');
+    toast(parsed.length + ' questions parsed for ' + exam, 'success');
   });
 
   $('htmlSaveBtn').addEventListener('click', async () => {
     const arr = $('htmlPreviewWrap')._parsed;
     if (!arr || !arr.length){ toast('Nothing to save', 'error'); return; }
-    await bulkSave(arr);
+    await bulkSave(arr, null);
     $('htmlPreviewWrap').style.display = 'none';
     $('htmlPreviewWrap')._parsed = null;
     $('htmlInput').value = '';
