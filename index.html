@@ -6,494 +6,706 @@
 <title>RPrep Digital QBank</title>
 <link rel="icon" type="image/png" href="/logo-circle.png" />
 <link rel="manifest" href="/manifest.json" />
-<meta name="theme-color" content="#1a1d23" />
+<meta name="theme-color" content="#faf4e6" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="RPrep QBank" />
 <link rel="apple-touch-icon" href="/logo-192.png" />
 <meta property="og:title" content="RPrep Digital QBank" />
-<meta property="og:description" content="Government Nursing Exam Practice — NORCET, RRB, ESIC, DSSSB. Daily new questions!" />
+<meta property="og:description" content="Nursing Officer Preparation — NORCET, RRB, ESIC, DSSSB" />
 <meta property="og:image" content="https://www.rprep.online/preview.png" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
 <meta property="og:url" content="https://www.rprep.online" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="RPrep Digital QBank" />
-<meta name="twitter:description" content="Government Nursing Exam Practice — NORCET, RRB, ESIC, DSSSB." />
-<meta name="twitter:image" content="https://www.rprep.online/preview.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #1a1d23; --card: #23272f; --border: #333843;
-    --text: #e4e6eb; --text-dim: #a0a6b1;
-    --accent: #6ea8fe; --accent-soft: rgba(110,168,254,0.12);
-    --accent-border: rgba(110,168,254,0.35);
-    --correct-bg: rgba(52,168,83,0.15); --correct-border: #34a853; --correct-text: #7ee2a8;
-    --wrong-bg: rgba(234,67,53,0.15); --wrong-border: #ea4335; --wrong-text: #ff9a92;
-    --chip-bg: #262b33; --chip-border: #3a4150;
-    --option-bg: #1f232a; --option-hover: #262b33; --option-border: #454b57;
-    --opt-letter-bg: #2c323c; --opt-letter-text: #a0a6b1;
-    --header-grad-1: #232833; --header-grad-2: #1e222a;
-    --expl-bg: #1c2027;
-    --footer-border: #333843;
-    --scroll-thumb: #3a3f4a; --scroll-thumb-hover: #4a505c;
+    --bg: #faf4e6;
+    --bg-texture: #f2e9d4;
+    --page: #fffdf7;
+    --card: #ffffff;
+    --border: #e8dcc3;
+    --border-dark: #d4c5a4;
+    --text: #2b2620;
+    --text-dim: #6b5f4f;
+    --text-faint: #9e917c;
+    --accent: #a67c00;
+    --accent-light: #d4a24c;
+    --accent-soft: rgba(166,124,0,0.09);
+    --accent-border: rgba(166,124,0,0.28);
+    --ribbon: #b8860b;
+    --highlight: #fffbe0;
+    --correct-bg: #e6f0e0;
+    --correct-border: #7d9d6d;
+    --correct-text: #2e4a26;
+    --wrong-bg: #f5e0dd;
+    --wrong-border: #b87363;
+    --wrong-text: #6b2a1f;
+    --serif: 'Lora', Georgia, 'Times New Roman', serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
-  [data-theme="light"]{
-    --bg: #f4f6fa; --card: #ffffff; --border: #e3e7ee;
-    --text: #1a1d23; --text-dim: #5a6373;
-    --accent: #2563eb; --accent-soft: rgba(37,99,235,0.10);
-    --accent-border: rgba(37,99,235,0.35);
-    --correct-bg: rgba(52,168,83,0.12); --correct-border: #34a853; --correct-text: #1b7a3a;
-    --wrong-bg: rgba(234,67,53,0.10); --wrong-border: #ea4335; --wrong-text: #c53030;
-    --chip-bg: #eef1f7; --chip-border: #d8dee9;
-    --option-bg: #f8fafc; --option-hover: #eef2f8; --option-border: #d8dee9;
-    --opt-letter-bg: #e3e8f0; --opt-letter-text: #5a6373;
-    --header-grad-1: #ffffff; --header-grad-2: #f4f6fa;
-    --expl-bg: #f0f3f8;
-    --footer-border: #e3e7ee;
-    --scroll-thumb: #c4cbd8; --scroll-thumb-hover: #a8b1c0;
+  [data-theme="dark"]{
+    --bg: #1e1a15;
+    --bg-texture: #262018;
+    --page: #2a2419;
+    --card: #322b1e;
+    --border: #3d3529;
+    --border-dark: #4d4232;
+    --text: #e8dfc8;
+    --text-dim: #b8a988;
+    --text-faint: #857a64;
+    --accent: #d4a24c;
+    --accent-light: #e8be6a;
+    --accent-soft: rgba(212,162,76,0.12);
+    --accent-border: rgba(212,162,76,0.32);
+    --ribbon: #a67c00;
+    --highlight: #3a2f18;
+    --correct-bg: rgba(125,157,109,0.18);
+    --correct-border: #8db078;
+    --correct-text: #c8dfb8;
+    --wrong-bg: rgba(184,115,99,0.18);
+    --wrong-border: #c98878;
+    --wrong-text: #f0bfb3;
   }
   *{ box-sizing: border-box; margin: 0; padding: 0; }
   body{
-    background: var(--bg); color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    line-height: 1.6; min-height: 100vh; padding: 20px 16px 80px;
-    transition: background 0.3s ease, color 0.3s ease;
-  }
-  .container{ max-width: 760px; margin: 0 auto; }
-  .theme-toggle{
-    position: fixed; top: 16px; right: 16px; z-index: 9999;
-    width: 46px; height: 46px; border-radius: 50%;
-    background: var(--card); border: 1px solid var(--border);
-    color: var(--text-dim); cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.25s ease;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-  }
-  .theme-toggle:hover{ color: var(--accent); border-color: var(--accent-border); background: var(--accent-soft); transform: scale(1.05); }
-  .theme-toggle:active{ transform: scale(0.95); }
-  .theme-toggle svg{ width: 22px; height: 22px; }
-  .theme-toggle .icon-sun{ display: none; }
-  .theme-toggle .icon-moon{ display: block; }
-  [data-theme="light"] .theme-toggle .icon-sun{ display: block; }
-  [data-theme="light"] .theme-toggle .icon-moon{ display: none; }
-  .hero{
-    text-align: center; padding: 26px 18px 22px;
-    background: linear-gradient(180deg, var(--header-grad-1) 0%, var(--header-grad-2) 100%);
-    border: 1px solid var(--border); border-radius: 16px;
-    margin-bottom: 22px; position: relative; overflow: hidden;
-    transition: background 0.3s ease, border-color 0.3s ease;
-  }
-  .hero::before{ content: ""; position: absolute; top: -60px; right: -60px; width: 180px; height: 180px; background: radial-gradient(circle, var(--accent-soft), transparent 70%); pointer-events: none; }
-  .hero-logo{
-    width: 84px; height: 84px;
-    margin: 0 auto 14px;
-    display: block;
-    border-radius: 50%;
-    box-shadow: 0 8px 24px rgba(110,168,254,0.28);
-    transition: transform 0.3s ease;
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 20% 30%, var(--bg-texture) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, var(--bg-texture) 0%, transparent 40%);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.65;
+    min-height: 100vh;
+    padding: 20px 16px 80px;
+    transition: background 0.35s ease, color 0.35s ease;
     position: relative;
+  }
+  body::before{
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.006) 2px, rgba(0,0,0,0.006) 3px),
+      repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,0.006) 2px, rgba(0,0,0,0.006) 3px);
+    pointer-events: none;
     z-index: 1;
   }
-  .hero-logo:hover{ transform: scale(1.06); }
-  @media (max-width: 400px){ .hero-logo{ width: 72px; height: 72px; margin-bottom: 12px; } }
-  .brand-line{ font-size: 0.72rem; letter-spacing: 0.22em; color: var(--accent); font-weight: 700; text-transform: uppercase; margin-bottom: 8px; position: relative; z-index: 1; }
-  .brand-title{ font-size: 1.9rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; line-height: 1.2; position: relative; z-index: 1; }
-  .brand-title span{ color: var(--accent); }
-  .brand-sub{ color: var(--text-dim); font-size: 0.85rem; margin-top: 8px; letter-spacing: 0.05em; position: relative; z-index: 1; }
-  .brand-sub strong{ color: var(--accent); font-weight: 700; }
-  .hero-divider{ height: 1px; background: linear-gradient(90deg, transparent 0%, var(--border) 50%, transparent 100%); margin: 22px 0 18px; position: relative; z-index: 1; }
-  .exams-label{ margin-bottom: 10px; font-size: 0.72rem; letter-spacing: 0.18em; color: var(--text-dim); text-transform: uppercase; position: relative; z-index: 1; }
-  .exams{ display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; position: relative; z-index: 1; }
-  .chip{ background: var(--chip-bg); border: 1px solid var(--chip-border); color: var(--text-dim); font-size: 0.76rem; font-weight: 500; padding: 5px 11px; border-radius: 999px; transition: all 0.2s; }
-  .chip:hover{ color: var(--accent); border-color: var(--accent-border); background: var(--accent-soft); }
-  .support{ display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; padding-top: 18px; border-top: 1px dashed var(--border); position: relative; z-index: 1; }
-  .support-link{ display: inline-flex; align-items: center; gap: 7px; background: var(--option-bg); border: 1px solid var(--border); color: var(--text-dim); text-decoration: none; font-size: 0.8rem; padding: 7px 13px; border-radius: 10px; transition: all 0.2s; }
-  .support-link:hover{ color: var(--accent); border-color: var(--accent-border); background: var(--accent-soft); }
-  .support-link svg{ width: 15px; height: 15px; flex-shrink: 0; }
-  .section-title{ text-align: center; margin: 8px 0 16px; }
-  .section-title h2{ font-size: 1.15rem; font-weight: 600; color: var(--text); }
-  .section-title p{ font-size: 0.82rem; color: var(--text-dim); margin-top: 4px; }
-  .page-info{ text-align: center; color: var(--text-dim); font-size: 0.82rem; margin-bottom: 16px; }
-  .page-info strong{ color: var(--accent); }
-  .question-card{ background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; margin-bottom: 16px; transition: all 0.3s ease; animation: fadeIn 0.3s ease; position: relative; }
-  @keyframes fadeIn{ from{ opacity: 0; transform: translateY(6px); } to{ opacity: 1; transform: translateY(0); } }
-  .question-card.answered{ border-color: var(--border); }
-  .q-head{ display: flex; gap: 12px; align-items: flex-start; margin-bottom: 16px; }
-  .q-index{ flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; justify-content: center; }
-  .q-text{ flex: 1; font-size: 1.02rem; font-weight: 500; color: var(--text); }
-  .share-btns{ display: flex; gap: 6px; margin-left: auto; flex-shrink: 0; }
-  .share-btn{ width: 32px; height: 32px; border-radius: 9px; background: var(--option-bg); border: 1px solid var(--border); color: var(--text-dim); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; padding: 0; }
-  .share-btn:hover{ color: var(--accent); border-color: var(--accent-border); background: var(--accent-soft); }
-  .share-btn:active{ transform: scale(0.95); }
-  .share-btn svg{ width: 15px; height: 15px; }
-  .share-btn.img-share:hover{ color: #7ee2a8; border-color: rgba(52,168,83,0.5); background: rgba(52,168,83,0.12); }
-  .options{ display: flex; flex-direction: column; gap: 10px; }
-  .option{ display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--option-bg); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-size: 0.95rem; cursor: pointer; text-align: left; font-family: inherit; transition: all 0.18s; width: 100%; }
-  .option:not(:disabled):hover{ background: var(--option-hover); border-color: var(--option-border); }
-  .option:not(:disabled):active{ transform: scale(0.99); }
+  [data-theme="dark"] body::before{
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.008) 2px, rgba(255,255,255,0.008) 3px),
+      repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.008) 2px, rgba(255,255,255,0.008) 3px);
+  }
+  .container{ max-width: 820px; margin: 0 auto; position: relative; z-index: 2; }
+  .bookmark-toggle{
+    position: fixed; top: -8px; right: 24px; z-index: 9999;
+    width: 44px; height: 68px;
+    background: linear-gradient(180deg, var(--accent-light), var(--ribbon));
+    border: none; cursor: pointer;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 82%, 0 100%);
+    display: flex; align-items: flex-start; justify-content: center;
+    padding-top: 12px; color: #ffffff;
+    transition: transform 0.25s ease, filter 0.25s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+    font-family: inherit;
+  }
+  .bookmark-toggle:hover{ transform: translateY(4px); filter: brightness(1.1); }
+  .bookmark-toggle svg{ width: 20px; height: 20px; pointer-events: none; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2)); }
+  .bookmark-toggle .icon-sun{ display: none; }
+  .bookmark-toggle .icon-moon{ display: block; }
+  [data-theme="dark"] .bookmark-toggle .icon-sun{ display: block; }
+  [data-theme="dark"] .bookmark-toggle .icon-moon{ display: none; }
+  .book-header{
+    background: var(--page); border: 1px solid var(--border); border-radius: 6px;
+    padding: 30px 24px 24px; margin-bottom: 24px; position: relative;
+    box-shadow: 0 1px 0 var(--border-dark), 0 8px 20px rgba(120,80,20,0.06), inset 0 0 40px rgba(120,80,20,0.02);
+    text-align: center;
+  }
+  .book-header::before{
+    content: ""; position: absolute; top: 8px; left: 8px; right: 8px; bottom: 8px;
+    border: 1px solid var(--border); border-radius: 3px; pointer-events: none; opacity: 0.5;
+  }
+  .book-logo{
+    width: 76px; height: 76px; border-radius: 50%; margin: 0 auto 14px;
+    display: block; box-shadow: 0 6px 18px rgba(120,80,20,0.18); position: relative; z-index: 1;
+  }
+  .book-brand-line{
+    font-family: var(--sans); font-size: 0.66rem; letter-spacing: 0.24em;
+    color: var(--accent); font-weight: 700; text-transform: uppercase;
+    margin-bottom: 8px; position: relative; z-index: 1;
+  }
+  .book-title{
+    font-family: var(--serif); font-size: 2rem; font-weight: 700;
+    color: var(--text); letter-spacing: -0.01em; line-height: 1.15;
+    margin-bottom: 4px; position: relative; z-index: 1;
+  }
+  .book-title span{ color: var(--accent); }
+  .book-subtitle{
+    font-family: var(--serif); font-style: italic; color: var(--text-dim);
+    font-size: 0.92rem; position: relative; z-index: 1;
+  }
+  .book-divider{
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--border-dark) 20%, var(--border-dark) 80%, transparent);
+    margin: 20px auto; max-width: 200px; position: relative; z-index: 1;
+  }
+  .book-divider::before{
+    content: "❦"; position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%); background: var(--page);
+    padding: 0 10px; color: var(--accent); font-size: 0.8rem;
+  }
+  .chapter-bar{
+    background: var(--page); border: 1px solid var(--border); border-radius: 6px;
+    padding: 16px 18px; margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(120,80,20,0.04); position: relative;
+  }
+  .chapter-bar-label{
+    font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.18em;
+    color: var(--text-faint); text-transform: uppercase; margin-bottom: 10px;
+    font-weight: 600; text-align: center;
+  }
+  .chapter-chips{ display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+  .chapter-chip{
+    background: transparent; border: 1px solid var(--border-dark); color: var(--text-dim);
+    font-family: var(--sans); font-size: 0.78rem; font-weight: 500;
+    padding: 7px 14px; border-radius: 4px; cursor: pointer; transition: all 0.2s;
+  }
+  .chapter-chip:hover{ color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+  .chapter-chip.active{
+    background: var(--accent); border-color: var(--accent); color: #ffffff;
+    font-weight: 600; box-shadow: 0 3px 8px rgba(166,124,0,0.35);
+  }
+  [data-theme="dark"] .chapter-chip.active{ color: #1e1a15; box-shadow: 0 3px 8px rgba(212,162,76,0.4); }
+  .page-meta{
+    text-align: center; color: var(--text-faint); font-family: var(--serif);
+    font-style: italic; font-size: 0.85rem; margin-bottom: 22px;
+  }
+  .page-meta strong{
+    color: var(--accent); font-style: normal; font-weight: 700; font-family: var(--sans);
+  }
+  .question-card{
+    background: var(--page); border: 1px solid var(--border); border-radius: 6px;
+    padding: 26px 24px 22px; margin-bottom: 20px; position: relative;
+    box-shadow: 0 1px 0 var(--border-dark), 0 6px 16px rgba(120,80,20,0.05);
+    transition: all 0.3s ease;
+    animation: pageIn 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  [data-theme="dark"] .question-card{ box-shadow: 0 1px 0 var(--border-dark), 0 6px 16px rgba(0,0,0,0.35); }
+  .question-card::before{
+    content: ""; position: absolute; left: 0; top: 20px; bottom: 20px;
+    width: 3px; background: var(--exam-color, var(--accent));
+    border-radius: 0 3px 3px 0; opacity: 0.85;
+  }
+  @keyframes pageIn{ from{ opacity: 0; transform: translateX(-12px); } to{ opacity: 1; transform: translateX(0); } }
+  .exam-badge{
+    position: absolute; top: 12px; right: 12px;
+    background: var(--exam-color, var(--accent)); color: #ffffff;
+    font-family: var(--sans); font-size: 0.62rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 3px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.18); z-index: 3;
+  }
+  .q-head{ display: flex; gap: 14px; align-items: flex-start; margin-bottom: 18px; padding-right: 70px; }
+  .q-index{
+    flex-shrink: 0; font-family: var(--serif); font-style: italic;
+    color: var(--text-faint); font-size: 1.05rem; font-weight: 700;
+    padding-top: 2px; min-width: 32px;
+  }
+  .q-text{
+    flex: 1; font-family: var(--serif); font-size: 1.08rem; font-weight: 600;
+    line-height: 1.55; color: var(--text);
+  }
+  .options{ display: flex; flex-direction: column; gap: 8px; padding-left: 46px; }
+  .option{
+    display: flex; align-items: flex-start; gap: 12px; padding: 11px 14px;
+    background: transparent; border: 1px solid var(--border); border-radius: 4px;
+    color: var(--text); font-family: var(--sans); font-size: 0.94rem;
+    cursor: pointer; text-align: left; transition: all 0.15s; width: 100%; line-height: 1.55;
+  }
+  .option:not(:disabled):hover{ background: var(--accent-soft); border-color: var(--accent-border); }
   .option:disabled{ cursor: default; }
-  .opt-letter{ flex-shrink: 0; width: 26px; height: 26px; border-radius: 8px; background: var(--opt-letter-bg); color: var(--opt-letter-text); font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+  .opt-letter{
+    flex-shrink: 0; font-family: var(--serif); font-style: italic;
+    font-weight: 700; color: var(--text-faint); font-size: 0.95rem; min-width: 22px;
+  }
   .option.correct{ background: var(--correct-bg); border-color: var(--correct-border); color: var(--correct-text); }
-  .option.correct .opt-letter{ background: var(--correct-border); color: #fff; }
+  .option.correct .opt-letter{ color: var(--correct-border); }
   .option.wrong{ background: var(--wrong-bg); border-color: var(--wrong-border); color: var(--wrong-text); }
-  .option.wrong .opt-letter{ background: var(--wrong-border); color: #fff; }
-  .option .tick{ margin-left: auto; font-weight: 700; font-size: 1rem; }
-  .explanation{ max-height: 0; overflow: hidden; transition: max-height 0.4s, margin 0.3s, padding 0.3s; margin-top: 0; padding: 0 14px; }
-  .question-card.answered .explanation{ max-height: 600px; margin-top: 14px; padding: 14px; background: var(--expl-bg); border-left: 3px solid var(--accent); border-radius: 8px; }
-  .explanation-label{ color: var(--accent); font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
-  .explanation-text{ color: var(--text-dim); font-size: 0.92rem; }
-  .nav{ display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
-  .btn{ background: var(--option-bg); border: 1px solid var(--border); color: var(--text); font-family: inherit; font-size: 0.85rem; font-weight: 500; padding: 9px 18px; border-radius: 9px; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; }
-  .btn:hover:not(:disabled){ background: var(--accent-soft); border-color: var(--accent-border); color: var(--accent); }
-  .btn:disabled{ opacity: 0.35; cursor: not-allowed; }
-  .btn.primary{ background: var(--accent-soft); border-color: var(--accent-border); color: var(--accent); }
-  .bottom-bar{ margin-top: 28px; padding: 16px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; display: flex; flex-direction: column; gap: 14px; transition: all 0.3s ease; }
-  .jump-bar{ display: flex; align-items: center; gap: 10px; justify-content: center; flex-wrap: wrap; }
-  .jump-bar label{ font-size: 0.82rem; color: var(--text-dim); }
-  .jump-bar input{ width: 78px; background: var(--option-bg); border: 1px solid var(--border); color: var(--text); padding: 7px 10px; border-radius: 8px; font-family: inherit; font-size: 0.88rem; text-align: center; outline: none; transition: border-color 0.2s; }
-  .jump-bar input:focus{ border-color: var(--accent-border); background: var(--option-hover); }
-  .visitor-bar{ display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--text-dim); padding-top: 12px; border-top: 1px dashed var(--border); }
-  .visitor-badge{ display: inline-flex; align-items: center; gap: 6px; background: var(--option-bg); border: 1px solid var(--border); padding: 6px 14px; border-radius: 999px; color: var(--accent); font-weight: 600; font-size: 0.82rem; }
+  .option.wrong .opt-letter{ color: var(--wrong-border); }
+  .option .tick{ margin-left: auto; font-weight: 700; font-size: 1rem; font-family: var(--sans); font-style: normal; }
+  .explanation{
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.5s ease, margin 0.3s ease, padding 0.3s ease;
+    margin-top: 0; padding: 0 14px; margin-left: 46px;
+  }
+  .question-card.answered .explanation{
+    max-height: 800px; margin-top: 16px; padding: 14px 16px;
+    background: var(--highlight); border-left: 4px solid var(--accent);
+    border-radius: 4px; position: relative;
+  }
+  .question-card.answered .explanation::before{
+    content: "✎"; position: absolute; top: -10px; left: -10px;
+    background: var(--accent); color: #ffffff; width: 24px; height: 24px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; box-shadow: 0 2px 6px rgba(120,80,20,0.3);
+  }
+  [data-theme="dark"] .question-card.answered .explanation::before{ color: #1e1a15; }
+  .explanation-label{
+    font-family: var(--sans); font-size: 0.68rem; font-weight: 700;
+    color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 6px;
+  }
+  .explanation-text{
+    font-family: var(--serif); font-size: 0.94rem; line-height: 1.65; color: var(--text);
+  }
+  [data-theme="dark"] .explanation-text{ color: #e0d4b3; }
+  [data-theme="light"] .explanation-text{ color: #2b2620; }
+  .share-btns{ display: flex; gap: 6px; position: absolute; bottom: 16px; right: 16px; }
+  .share-btn{
+    width: 34px; height: 34px; border-radius: 50%; background: var(--card);
+    border: 1px solid var(--border); color: var(--text-faint);
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; padding: 0; box-shadow: 0 2px 6px rgba(120,80,20,0.08);
+  }
+  .share-btn:hover{ color: var(--accent); border-color: var(--accent); background: var(--accent-soft); transform: translateY(-2px); }
+  .share-btn:active{ transform: translateY(0); }
+  .share-btn svg{ width: 15px; height: 15px; }
+  .page-nav{
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    margin-top: 26px; padding: 18px 22px; background: var(--page);
+    border: 1px solid var(--border); border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(120,80,20,0.04);
+  }
+  .page-nav-btn{
+    background: transparent; border: 1px solid var(--border-dark); color: var(--text);
+    font-family: var(--serif); font-size: 0.92rem; font-weight: 600;
+    padding: 10px 20px; border-radius: 4px; cursor: pointer; transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .page-nav-btn:hover:not(:disabled){ background: var(--accent-soft); border-color: var(--accent); color: var(--accent); }
+  .page-nav-btn:disabled{ opacity: 0.35; cursor: not-allowed; }
+  .page-nav-info{
+    font-family: var(--serif); font-style: italic; font-size: 0.88rem;
+    color: var(--text-dim); text-align: center;
+  }
+  .page-nav-info strong{ color: var(--text); font-style: normal; font-weight: 700; }
+  .bottom-panel{
+    margin-top: 22px; padding: 18px 20px; background: var(--page);
+    border: 1px solid var(--border); border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(120,80,20,0.04);
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .jump-row{ display: flex; align-items: center; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .jump-row label{ font-family: var(--serif); font-style: italic; font-size: 0.88rem; color: var(--text-dim); }
+  .jump-row input{
+    width: 74px; background: var(--card); border: 1px solid var(--border-dark);
+    color: var(--text); padding: 7px 10px; border-radius: 4px;
+    font-family: var(--serif); font-size: 0.92rem; text-align: center;
+    outline: none; transition: border-color 0.2s;
+  }
+  .jump-row input:focus{ border-color: var(--accent); background: var(--accent-soft); }
+  .jump-row button{
+    background: var(--accent); border: none; color: #ffffff;
+    font-family: var(--sans); font-size: 0.85rem; font-weight: 600;
+    padding: 8px 18px; border-radius: 4px; cursor: pointer; transition: all 0.2s;
+  }
+  [data-theme="dark"] .jump-row button{ color: #1e1a15; }
+  .jump-row button:hover{ transform: translateY(-1px); box-shadow: 0 4px 10px rgba(166,124,0,0.3); }
+  .visitor-row{ display: flex; justify-content: center; padding-top: 12px; border-top: 1px dashed var(--border); }
+  .visitor-badge{
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--accent-soft); border: 1px solid var(--accent-border);
+    padding: 6px 14px; border-radius: 999px; color: var(--accent);
+    font-family: var(--sans); font-weight: 600; font-size: 0.8rem;
+  }
   .visitor-badge svg{ width: 14px; height: 14px; }
-  .loader{ text-align: center; color: var(--text-dim); padding: 40px 0; font-size: 0.9rem; }
-  .loader::after{ content: ""; display: inline-block; width: 14px; height: 14px; margin-left: 8px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; vertical-align: middle; }
+  .book-footer{
+    text-align: center; font-family: var(--serif); font-style: italic;
+    color: var(--text-faint); font-size: 0.82rem; margin-top: 36px;
+    padding-top: 24px; border-top: 1px solid var(--border);
+  }
+  .book-footer img{ width: 32px; height: 32px; border-radius: 50%; margin-bottom: 10px; opacity: 0.7; }
+  .book-footer strong{ color: var(--accent); font-weight: 700; font-style: normal; }
+  .loader{
+    text-align: center; color: var(--text-dim); padding: 50px 0;
+    font-family: var(--serif); font-style: italic; font-size: 0.95rem;
+  }
+  .loader::after{
+    content: ""; display: inline-block; width: 14px; height: 14px;
+    margin-left: 8px; border: 2px solid var(--border-dark);
+    border-top-color: var(--accent); border-radius: 50%;
+    animation: spin 0.8s linear infinite; vertical-align: middle;
+  }
   @keyframes spin{ to{ transform: rotate(360deg); } }
-  .toast{ position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--card); color: var(--text); border: 1px solid var(--accent-border); padding: 11px 20px; border-radius: 12px; font-size: 0.85rem; z-index: 10000; opacity: 0; transition: all 0.3s; box-shadow: 0 8px 24px rgba(0,0,0,0.4); max-width: 90vw; text-align: center; }
+  .toast{
+    position: fixed; bottom: 30px; left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--card); color: var(--text);
+    border: 1px solid var(--accent-border); padding: 12px 22px;
+    border-radius: 6px; font-family: var(--sans); font-size: 0.85rem;
+    z-index: 10000; opacity: 0; transition: all 0.3s;
+    box-shadow: 0 8px 24px rgba(120,80,20,0.25);
+    max-width: 90vw; text-align: center;
+  }
   .toast.show{ opacity: 1; transform: translateX(-50%) translateY(0); }
-  .share-modal-overlay{ position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 9998; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; display: flex; align-items: flex-end; justify-content: center; padding: 0; }
+  .share-modal-overlay{
+    position: fixed; inset: 0; background: rgba(30,26,21,0.75);
+    z-index: 9998; opacity: 0; pointer-events: none; transition: opacity 0.25s ease;
+    display: flex; align-items: flex-end; justify-content: center; padding: 0;
+  }
   .share-modal-overlay.show{ opacity: 1; pointer-events: auto; }
-  .share-modal{ background: var(--card); border: 1px solid var(--border); border-bottom: none; border-radius: 20px 20px 0 0; width: 100%; max-width: 520px; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1); max-height: 85vh; overflow-y: auto; }
+  .share-modal{
+    background: var(--card); border: 1px solid var(--border); border-bottom: none;
+    border-radius: 20px 20px 0 0; width: 100%; max-width: 520px;
+    transform: translateY(100%);
+    transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+    max-height: 85vh; overflow-y: auto;
+  }
   .share-modal-overlay.show .share-modal{ transform: translateY(0); }
-  .share-modal-header{ padding: 18px 20px 12px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--card); z-index: 2; }
-  .share-modal-title{ font-size: 1rem; font-weight: 600; color: var(--text); }
-  .share-modal-close{ width: 32px; height: 32px; border-radius: 50%; background: var(--option-bg); border: 1px solid var(--border); color: var(--text-dim); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; padding: 0; line-height: 1; transition: all 0.2s; }
-  .share-modal-close:hover{ color: #ff9a92; border-color: #ea4335; background: rgba(234,67,53,0.1); }
-  .share-preview{ padding: 14px 20px; background: var(--expl-bg); margin: 14px 20px; border-radius: 12px; border-left: 3px solid var(--accent); font-size: 0.82rem; color: var(--text-dim); max-height: 100px; overflow: hidden; text-overflow: ellipsis; line-height: 1.4; }
-  .share-preview strong{ color: var(--accent); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; display: block; margin-bottom: 4px; }
-  .share-grid{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 8px 20px 24px; }
+  .share-modal-header{
+    padding: 18px 20px 12px; display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--card); z-index: 2;
+  }
+  .share-modal-title{ font-family: var(--serif); font-size: 1.05rem; font-weight: 700; color: var(--text); }
+  .share-modal-close{
+    width: 32px; height: 32px; border-radius: 50%; background: var(--bg);
+    border: 1px solid var(--border); color: var(--text-dim); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; padding: 0; line-height: 1; transition: all 0.2s;
+  }
+  .share-modal-close:hover{ color: var(--wrong-border); border-color: var(--wrong-border); background: var(--wrong-bg); }
+  .share-preview{
+    padding: 14px 20px; background: var(--bg); margin: 14px 20px;
+    border-radius: 8px; border-left: 3px solid var(--accent);
+    font-family: var(--serif); font-size: 0.85rem; color: var(--text-dim);
+    max-height: 100px; overflow: hidden; line-height: 1.4;
+  }
+  .share-preview strong{
+    color: var(--accent); font-family: var(--sans); font-size: 0.72rem;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    display: block; margin-bottom: 4px;
+  }
+  .share-grid{
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 10px; padding: 8px 20px 24px;
+  }
   @media (min-width: 480px){ .share-grid{ grid-template-columns: repeat(4, 1fr); } }
-  .share-item{ display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 6px; background: var(--option-bg); border: 1px solid var(--border); border-radius: 12px; cursor: pointer; text-decoration: none; color: var(--text-dim); font-size: 0.72rem; font-weight: 500; transition: all 0.2s; text-align: center; font-family: inherit; }
-  .share-item:hover{ background: var(--option-hover); border-color: var(--option-border); color: var(--text); transform: translateY(-2px); }
+  .share-item{
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    padding: 14px 6px; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 10px; cursor: pointer; text-decoration: none; color: var(--text-dim);
+    font-family: var(--sans); font-size: 0.72rem; font-weight: 500;
+    transition: all 0.2s; text-align: center;
+  }
+  .share-item:hover{ background: var(--accent-soft); border-color: var(--accent-border); color: var(--accent); transform: translateY(-2px); }
   .share-item:active{ transform: translateY(0) scale(0.97); }
-  .share-item-icon{ width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+  .share-item-icon{
+    width: 42px; height: 42px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+  }
   .share-item-icon svg{ width: 22px; height: 22px; }
   .icon-whatsapp{ background: rgba(37,211,102,0.15); color: #25d366; }
   .icon-telegram{ background: rgba(0,136,204,0.15); color: #0088cc; }
   .icon-instagram{ background: rgba(225,48,108,0.15); color: #e1306c; }
-  .icon-copy{ background: rgba(110,168,254,0.15); color: #6ea8fe; }
-  .icon-download{ background: rgba(52,168,83,0.15); color: #7ee2a8; }
+  .icon-copy{ background: rgba(166,124,0,0.15); color: #a67c00; }
+  .icon-download{ background: rgba(125,157,109,0.15); color: #7d9d6d; }
   .icon-native{ background: rgba(160,166,177,0.15); color: #a0a6b1; }
   .icon-preview{ background: rgba(255,193,7,0.15); color: #ffc107; }
   .share-preview-full{ padding: 0 20px 20px; }
-  .share-preview-full img{ width: 100%; border-radius: 12px; border: 1px solid var(--border); }
-  .quick-links{
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 22px 20px;
-    margin-top: 32px;
-    text-align: center;
-    transition: all 0.3s ease;
+  .share-preview-full img{ width: 100%; border-radius: 8px; border: 1px solid var(--border); }
+  .format-modal-overlay{
+    position: fixed; inset: 0; background: rgba(30,26,21,0.8);
+    z-index: 10006; opacity: 0; pointer-events: none;
+    transition: opacity 0.25s ease; display: flex;
+    align-items: center; justify-content: center; padding: 20px;
+    backdrop-filter: blur(4px);
   }
-  .quick-links-title{
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 4px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+  .format-modal-overlay.show{ opacity: 1; pointer-events: auto; }
+  .format-modal{
+    background: var(--page); border: 2px solid var(--accent-border);
+    border-radius: 16px; width: 100%; max-width: 440px;
+    transform: translateY(30px) scale(0.94);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 24px 80px rgba(0,0,0,0.4), 0 0 60px var(--accent-soft);
+    overflow: hidden;
   }
-  .quick-links-title svg{ width: 18px; height: 18px; color: var(--accent); }
-  .quick-links-sub{ font-size: 0.78rem; color: var(--text-dim); margin-bottom: 16px; }
-  .quick-links-grid{ display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
-  .ql-chip{ display: inline-flex; align-items: center; gap: 6px; background: var(--option-bg); border: 1px solid var(--border); color: var(--text-dim); text-decoration: none; font-size: 0.82rem; font-weight: 600; padding: 8px 15px; border-radius: 999px; transition: all 0.2s; cursor: pointer; }
-  .ql-chip:hover{ color: var(--accent); border-color: var(--accent-border); background: var(--accent-soft); transform: translateY(-2px); }
-  .ql-chip.active{ background: var(--accent); border-color: var(--accent); color: #ffffff; box-shadow: 0 4px 12px rgba(110,168,254,0.4); }
-  .ql-chip.active:hover{ color: #ffffff; transform: translateY(-2px); }
-  .ql-chip .ql-badge{ background: rgba(110,168,254,0.2); color: var(--accent); font-size: 0.65rem; font-weight: 700; padding: 2px 6px; border-radius: 999px; }
-  .ql-chip.active .ql-badge{ background: rgba(255,255,255,0.25); color: #ffffff; }
-  .coming-soon{ text-align: center; padding: 50px 22px 40px; background: linear-gradient(180deg, var(--header-grad-1) 0%, var(--header-grad-2) 100%); border: 1px solid var(--border); border-radius: 18px; margin-bottom: 22px; position: relative; overflow: hidden; }
-  .coming-soon::before{ content: ""; position: absolute; top: -80px; right: -80px; width: 220px; height: 220px; background: radial-gradient(circle, var(--accent-soft), transparent 70%); pointer-events: none; }
-  .coming-soon-icon{ font-size: 4rem; line-height: 1; margin-bottom: 18px; display: inline-block; animation: bounce 2.5s ease-in-out infinite; position: relative; z-index: 1; }
-  @keyframes bounce{ 0%, 100%{ transform: translateY(0); } 50%{ transform: translateY(-12px); } }
-  .coming-soon-title{ font-size: 2rem; font-weight: 800; color: var(--text); letter-spacing: -0.02em; margin-bottom: 10px; position: relative; z-index: 1; }
-  .coming-soon-title span{ color: var(--accent); }
-  .coming-soon-exam{ display: inline-block; background: var(--accent-soft); border: 1px solid var(--accent-border); color: var(--accent); font-size: 0.85rem; font-weight: 700; padding: 6px 16px; border-radius: 999px; margin-bottom: 16px; letter-spacing: 0.05em; position: relative; z-index: 1; }
-  .coming-soon-text{ color: var(--text-dim); font-size: 0.95rem; max-width: 480px; margin: 0 auto 28px; line-height: 1.7; position: relative; z-index: 1; }
-  .coming-soon-text strong{ color: var(--text); }
-  .coming-soon-actions{ display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
-  .coming-soon-btn{ display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 12px; font-size: 0.88rem; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.2s; border: 1px solid transparent; font-family: inherit; }
-  .coming-soon-btn.primary{ background: linear-gradient(135deg, #25d366, #128c7e); color: #ffffff; box-shadow: 0 4px 16px rgba(37,211,102,0.35); }
-  .coming-soon-btn.primary:hover{ transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,0.5); }
-  .coming-soon-btn.secondary{ background: var(--option-bg); border-color: var(--border); color: var(--text-dim); }
-  .coming-soon-btn.secondary:hover{ background: var(--accent-soft); border-color: var(--accent-border); color: var(--accent); transform: translateY(-2px); }
-  .coming-soon-btn svg{ width: 18px; height: 18px; }
-  .footer{ text-align: center; color: var(--text-dim); font-size: 0.78rem; margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--footer-border); }
-  .footer-logo{ width: 36px; height: 36px; border-radius: 50%; margin-bottom: 8px; opacity: 0.85; transition: opacity 0.2s; }
-  .footer-logo:hover{ opacity: 1; }
-  .footer strong{ color: var(--accent); font-weight: 600; }
-
-  /* ===================== PWA INSTALL POPUP ===================== */
-  .pwa-popup-overlay{
-    position: fixed; inset: 0; background: rgba(0,0,0,0.75);
-    z-index: 10005; opacity: 0; pointer-events: none;
-    transition: opacity 0.35s ease;
+  .format-modal-overlay.show .format-modal{ transform: translateY(0) scale(1); }
+  .format-modal-header{
+    padding: 18px 20px 14px; display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid var(--border); position: relative;
+  }
+  .format-modal-title{
+    font-family: var(--serif); font-size: 1.15rem; font-weight: 700; color: var(--text);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .format-modal-close{
+    width: 32px; height: 32px; border-radius: 50%; background: var(--bg);
+    border: 1px solid var(--border); color: var(--text-dim); cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    padding: 20px;
-    backdrop-filter: blur(6px);
+    font-size: 1.2rem; line-height: 1; padding: 0; transition: all 0.2s;
+  }
+  .format-modal-close:hover{
+    color: var(--wrong-border); border-color: var(--wrong-border);
+    background: var(--wrong-bg); transform: rotate(90deg);
+  }
+  .format-modal-body{ padding: 20px; }
+  .format-label{
+    font-family: var(--sans); font-size: 0.72rem; color: var(--text-faint);
+    text-transform: uppercase; letter-spacing: 0.12em;
+    font-weight: 700; margin-bottom: 10px;
+  }
+  .format-grid{
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 8px; margin-bottom: 20px;
+  }
+  .format-btn{
+    background: var(--bg); border: 2px solid var(--border);
+    border-radius: 10px; padding: 14px 8px 12px;
+    cursor: pointer; transition: all 0.2s; text-align: center;
+    font-family: inherit; display: flex; flex-direction: column;
+    align-items: center; gap: 6px;
+  }
+  .format-btn:hover{ border-color: var(--accent-light); background: var(--accent-soft); }
+  .format-btn.active{
+    border-color: var(--accent); background: var(--accent-soft);
+    box-shadow: 0 4px 12px rgba(166,124,0,0.2);
+  }
+  .format-icon{ font-size: 1.6rem; line-height: 1; }
+  .format-name{
+    font-family: var(--serif); font-size: 0.85rem; font-weight: 700;
+    color: var(--text);
+  }
+  .format-size{
+    font-family: var(--sans); font-size: 0.62rem;
+    color: var(--text-faint); letter-spacing: 0.04em;
+  }
+  .format-tag{
+    font-family: var(--sans); font-size: 0.6rem; font-weight: 700;
+    background: var(--accent); color: #ffffff;
+    padding: 2px 8px; border-radius: 999px;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    margin-top: 2px;
+  }
+  [data-theme="dark"] .format-tag{ color: #1e1a15; }
+  .format-btn.active .format-tag{ background: var(--accent-light); }
+  .format-options{
+    display: flex; flex-direction: column; gap: 10px;
+    margin-bottom: 20px; padding: 14px 16px;
+    background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+  }
+  .format-toggle{
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--sans); font-size: 0.85rem;
+    color: var(--text); cursor: pointer; user-select: none;
+  }
+  .format-toggle input{ display: none; }
+  .format-toggle-switch{
+    position: relative; width: 42px; height: 24px;
+    background: var(--border-dark); border-radius: 999px;
+    transition: all 0.25s; flex-shrink: 0;
+  }
+  .format-toggle-switch::after{
+    content: ""; position: absolute; top: 3px; left: 3px;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: #ffffff; transition: all 0.25s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  .format-toggle input:checked + .format-toggle-switch{ background: var(--accent); }
+  .format-toggle input:checked + .format-toggle-switch::after{ left: calc(100% - 21px); }
+  [data-theme="dark"] .format-toggle input:checked + .format-toggle-switch::after{ background: #1e1a15; }
+  .format-actions{ display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .format-action-btn{
+    background: var(--bg); border: 1px solid var(--border-dark);
+    color: var(--text); font-family: var(--sans);
+    font-size: 0.8rem; font-weight: 600;
+    padding: 12px 8px; border-radius: 8px;
+    cursor: pointer; transition: all 0.2s;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 4px;
+  }
+  .format-action-btn:hover{
+    border-color: var(--accent); color: var(--accent);
+    background: var(--accent-soft); transform: translateY(-1px);
+  }
+  .format-action-btn.primary{
+    background: linear-gradient(135deg, var(--accent-light), var(--accent));
+    border-color: var(--accent); color: #ffffff;
+    box-shadow: 0 4px 12px rgba(166,124,0,0.3);
+  }
+  .format-action-btn.primary:hover{
+    color: #ffffff; filter: brightness(1.1);
+    box-shadow: 0 6px 16px rgba(166,124,0,0.45);
+  }
+  [data-theme="dark"] .format-action-btn.primary{ color: #1e1a15; }
+  @media (max-width: 420px){
+    .format-grid{ grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .format-btn{ padding: 10px 4px 8px; }
+    .format-icon{ font-size: 1.3rem; }
+    .format-name{ font-size: 0.75rem; }
+    .format-size{ font-size: 0.55rem; }
+    .format-tag{ font-size: 0.52rem; padding: 2px 6px; }
+    .format-actions{ grid-template-columns: 1fr; }
+  }
+  .pwa-popup-overlay{
+    position: fixed; inset: 0; background: rgba(30,26,21,0.8);
+    z-index: 10005; opacity: 0; pointer-events: none;
+    transition: opacity 0.35s ease; display: flex;
+    align-items: center; justify-content: center;
+    padding: 20px; backdrop-filter: blur(6px);
   }
   .pwa-popup-overlay.show{ opacity: 1; pointer-events: auto; }
-
   .pwa-popup{
-    background: linear-gradient(160deg, #232833 0%, #1a1d23 100%);
-    border: 2px solid var(--accent-border);
-    border-radius: 24px;
-    width: 100%; max-width: 420px;
+    background: var(--page); border: 2px solid var(--accent-border);
+    border-radius: 16px; width: 100%; max-width: 420px;
     transform: translateY(40px) scale(0.92);
     transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
-    box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 60px rgba(110,168,254,0.25);
-    overflow: hidden;
-    position: relative;
-    text-align: center;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.4), 0 0 60px var(--accent-soft);
+    overflow: hidden; position: relative; text-align: center;
   }
-  .pwa-popup-overlay.show .pwa-popup{
-    transform: translateY(0) scale(1);
-  }
-
-  .pwa-popup::before{
-    content: "";
-    position: absolute;
-    top: -100px; right: -100px;
-    width: 280px; height: 280px;
-    background: radial-gradient(circle, rgba(110,168,254,0.25), transparent 70%);
-    pointer-events: none;
-  }
-
+  .pwa-popup-overlay.show .pwa-popup{ transform: translateY(0) scale(1); }
   .pwa-popup-close{
-    position: absolute;
-    top: 14px; right: 14px;
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.12);
-    color: #a0a6b1;
-    cursor: pointer;
+    position: absolute; top: 14px; right: 14px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--bg); border: 1px solid var(--border);
+    color: var(--text-dim); cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    font-size: 1.3rem;
-    line-height: 1;
-    padding: 0;
-    z-index: 5;
-    transition: all 0.2s;
-    font-family: inherit;
+    font-size: 1.3rem; line-height: 1; padding: 0;
+    z-index: 5; transition: all 0.2s; font-family: inherit;
   }
   .pwa-popup-close:hover{
-    background: rgba(234,67,53,0.15);
-    border-color: rgba(234,67,53,0.4);
-    color: #ff9a92;
-    transform: rotate(90deg);
+    background: var(--wrong-bg); border-color: var(--wrong-border);
+    color: var(--wrong-text); transform: rotate(90deg);
   }
-
-  .pwa-popup-logo-wrap{
-    padding: 32px 20px 0;
-    position: relative;
-    z-index: 2;
-  }
+  .pwa-popup-logo-wrap{ padding: 32px 20px 0; }
   .pwa-popup-logo{
-    width: 92px; height: 92px;
-    border-radius: 50%;
-    box-shadow: 0 12px 32px rgba(110,168,254,0.4), 0 0 0 6px rgba(110,168,254,0.12);
+    width: 84px; height: 84px; border-radius: 50%;
+    box-shadow: 0 12px 32px rgba(166,124,0,0.35), 0 0 0 6px var(--accent-soft);
     animation: pwaLogoFloat 3s ease-in-out infinite;
   }
-  @keyframes pwaLogoFloat{
-    0%, 100%{ transform: translateY(0); }
-    50%{ transform: translateY(-6px); }
-  }
-
-  .pwa-popup-body{
-    padding: 22px 26px 28px;
-    position: relative;
-    z-index: 2;
-  }
-
+  @keyframes pwaLogoFloat{ 0%, 100%{ transform: translateY(0); } 50%{ transform: translateY(-6px); } }
+  .pwa-popup-body{ padding: 22px 26px 28px; }
   .pwa-popup-badge{
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    background: rgba(52,168,83,0.15);
-    border: 1px solid rgba(52,168,83,0.4);
-    color: #7ee2a8;
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    border-radius: 999px;
-    margin-bottom: 12px;
+    display: inline-flex; align-items: center; gap: 5px;
+    background: var(--accent-soft); border: 1px solid var(--accent-border);
+    color: var(--accent); font-family: var(--sans);
+    font-size: 0.66rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 999px; margin-bottom: 12px;
   }
-
   .pwa-popup h2{
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: #e4e6eb;
-    letter-spacing: -0.02em;
-    margin-bottom: 6px;
-    line-height: 1.2;
+    font-family: var(--serif); font-size: 1.5rem; font-weight: 700;
+    color: var(--text); letter-spacing: -0.01em;
+    margin-bottom: 6px; line-height: 1.2;
   }
   .pwa-popup h2 span{ color: var(--accent); }
-
   .pwa-popup-sub{
-    font-size: 0.85rem;
-    color: #a0a6b1;
-    margin-bottom: 18px;
+    font-family: var(--serif); font-style: italic;
+    font-size: 0.85rem; color: var(--text-dim); margin-bottom: 18px;
   }
-
   .pwa-popup-features{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 22px;
-    text-align: left;
+    display: flex; flex-direction: column; gap: 8px;
+    margin-bottom: 22px; text-align: left;
   }
   .pwa-feature{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 14px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 12px;
-    font-size: 0.84rem;
-    color: #e4e6eb;
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px; background: var(--bg);
+    border: 1px solid var(--border); border-radius: 8px;
+    font-family: var(--sans); font-size: 0.84rem; color: var(--text);
   }
   .pwa-feature-icon{
-    width: 30px; height: 30px;
-    border-radius: 8px;
-    background: rgba(110,168,254,0.15);
-    color: var(--accent);
+    width: 30px; height: 30px; border-radius: 8px;
+    background: var(--accent-soft); color: var(--accent);
     display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    font-size: 1rem;
+    flex-shrink: 0; font-size: 1rem;
   }
-  .pwa-feature strong{ color: #e4e6eb; font-weight: 600; }
-
-  .pwa-popup-actions{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
+  .pwa-popup-actions{ display: flex; flex-direction: column; gap: 10px; }
   .pwa-install-btn{
-    background: linear-gradient(135deg, #6ea8fe, #4a8ce0);
-    border: none;
-    color: #ffffff;
-    font-family: inherit;
-    font-size: 1rem;
-    font-weight: 700;
-    padding: 15px 24px;
-    border-radius: 14px;
-    cursor: pointer;
-    transition: all 0.25s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    box-shadow: 0 6px 20px rgba(110,168,254,0.45);
-    width: 100%;
+    background: linear-gradient(135deg, #d4a24c, #a67c00);
+    border: none; color: #ffffff;
+    font-family: var(--sans); font-size: 1rem; font-weight: 700;
+    padding: 15px 24px; border-radius: 10px; cursor: pointer;
+    transition: all 0.25s; display: flex; align-items: center;
+    justify-content: center; gap: 8px;
+    box-shadow: 0 6px 20px rgba(166,124,0,0.45); width: 100%;
   }
-  .pwa-install-btn:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 10px 28px rgba(110,168,254,0.6);
-  }
-  .pwa-install-btn:active{ transform: translateY(0); }
-  .pwa-install-btn:disabled{ opacity: 0.6; cursor: not-allowed; }
+  .pwa-install-btn:hover{ transform: translateY(-2px); box-shadow: 0 10px 28px rgba(166,124,0,0.6); }
   .pwa-install-btn svg{ width: 20px; height: 20px; }
-
   .pwa-later-btn{
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.12);
-    color: #a0a6b1;
-    font-family: inherit;
-    font-size: 0.85rem;
-    font-weight: 500;
-    padding: 12px 24px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-    width: 100%;
+    background: transparent; border: 1px solid var(--border-dark);
+    color: var(--text-dim); font-family: var(--sans);
+    font-size: 0.85rem; font-weight: 500;
+    padding: 12px 24px; border-radius: 8px;
+    cursor: pointer; transition: all 0.2s; width: 100%;
   }
-  .pwa-later-btn:hover{
-    background: rgba(255,255,255,0.05);
-    border-color: rgba(255,255,255,0.2);
-    color: #e4e6eb;
-  }
-
-  /* iOS instructions */
+  .pwa-later-btn:hover{ background: var(--bg); border-color: var(--accent); color: var(--accent); }
   .pwa-ios-steps{
-    background: rgba(110,168,254,0.08);
-    border: 1px solid rgba(110,168,254,0.25);
-    border-radius: 12px;
-    padding: 14px 16px;
-    margin-bottom: 16px;
-    text-align: left;
+    background: var(--accent-soft); border: 1px solid var(--accent-border);
+    border-radius: 8px; padding: 14px 16px;
+    margin-bottom: 16px; text-align: left;
   }
   .pwa-ios-steps h4{
-    font-size: 0.82rem;
-    color: var(--accent);
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    font-weight: 700;
+    font-family: var(--sans); font-size: 0.78rem; color: var(--accent);
+    margin-bottom: 10px; text-transform: uppercase;
+    letter-spacing: 0.06em; font-weight: 700;
   }
   .pwa-ios-step{
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 0.82rem;
-    color: #a0a6b1;
-    margin-bottom: 8px;
-    line-height: 1.5;
+    display: flex; align-items: flex-start; gap: 10px;
+    font-family: var(--sans); font-size: 0.82rem;
+    color: var(--text); margin-bottom: 8px; line-height: 1.5;
   }
   .pwa-ios-step:last-child{ margin-bottom: 0; }
   .pwa-ios-step-num{
-    background: rgba(110,168,254,0.2);
-    color: var(--accent);
-    width: 22px; height: 22px;
-    border-radius: 50%;
+    background: var(--accent); color: #ffffff;
+    width: 22px; height: 22px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 0.72rem;
-    font-weight: 700;
-    flex-shrink: 0;
+    font-size: 0.72rem; font-weight: 700; flex-shrink: 0;
   }
-
-  @media (max-width: 420px){
-    .pwa-popup-logo{ width: 78px; height: 78px; }
+  [data-theme="dark"] .pwa-ios-step-num{ color: #1e1a15; }
+  @media (max-width: 520px){
+    body{ padding: 16px 12px 60px; }
+    .book-header{ padding: 24px 18px 20px; }
+    .book-title{ font-size: 1.6rem; }
+    .book-logo{ width: 64px; height: 64px; }
+    .chapter-bar{ padding: 12px 14px; }
+    .chapter-chip{ font-size: 0.74rem; padding: 6px 11px; }
+    .question-card{ padding: 22px 18px 18px; }
+    .q-text{ font-size: 1rem; }
+    .q-head{ padding-right: 60px; gap: 10px; }
+    .q-index{ font-size: 0.95rem; min-width: 26px; }
+    .options{ padding-left: 36px; }
+    .explanation{ margin-left: 36px; }
+    .option{ font-size: 0.9rem; padding: 10px 12px; }
+    .exam-badge{ top: 10px; right: 10px; font-size: 0.58rem; padding: 3px 8px; }
+    .share-btns{ bottom: 12px; right: 12px; }
+    .share-btn{ width: 30px; height: 30px; }
+    .page-nav{ padding: 14px 16px; }
+    .page-nav-btn{ font-size: 0.85rem; padding: 8px 14px; }
+    .bookmark-toggle{ right: 14px; width: 40px; height: 60px; }
+    .pwa-popup-logo{ width: 74px; height: 74px; }
     .pwa-popup h2{ font-size: 1.3rem; }
     .pwa-popup-body{ padding: 20px 22px 24px; }
-    .pwa-feature{ font-size: 0.8rem; padding: 9px 12px; }
   }
-
   ::-webkit-scrollbar{ width: 8px; }
   ::-webkit-scrollbar-track{ background: var(--bg); }
-  ::-webkit-scrollbar-thumb{ background: var(--scroll-thumb); border-radius: 4px; }
-  ::-webkit-scrollbar-thumb:hover{ background: var(--scroll-thumb-hover); }
+  ::-webkit-scrollbar-thumb{ background: var(--border-dark); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover{ background: var(--accent); }
 </style>
 </head>
 <body>
 
-<button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
-  <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<button class="bookmark-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
+  <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
   </svg>
-  <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
     <circle cx="12" cy="12" r="4"/>
     <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
   </svg>
 </button>
 
 <div class="container" id="mainContainer">
-  <div class="loader">Loading...</div>
+  <div class="loader">Loading questions</div>
 </div>
 
 <div class="share-modal-overlay" id="shareModalOverlay">
@@ -510,52 +722,27 @@
   </div>
 </div>
 
-<!-- ============== PWA INSTALL POPUP ============== -->
 <div class="pwa-popup-overlay" id="pwaOverlay">
-  <div class="pwa-popup" id="pwaPopup">
+  <div class="pwa-popup">
     <button class="pwa-popup-close" id="pwaCloseBtn" aria-label="Close">×</button>
-
     <div class="pwa-popup-logo-wrap">
       <img src="logo-192.png" alt="RPrep Logo" class="pwa-popup-logo" />
     </div>
-
     <div class="pwa-popup-body">
       <div class="pwa-popup-badge">✨ Free App</div>
       <h2>Install <span>RPrep App</span></h2>
       <p class="pwa-popup-sub">Home screen pe add karo, offline bhi chale</p>
-
       <div class="pwa-popup-features">
-        <div class="pwa-feature">
-          <div class="pwa-feature-icon">📱</div>
-          <div>Home screen pe <strong>app icon</strong></div>
-        </div>
-        <div class="pwa-feature">
-          <div class="pwa-feature-icon">⚡</div>
-          <div><strong>Fast loading</strong> — no browser</div>
-        </div>
-        <div class="pwa-feature">
-          <div class="pwa-feature-icon">📚</div>
-          <div><strong>Offline</strong> me questions padho</div>
-        </div>
+        <div class="pwa-feature"><div class="pwa-feature-icon">📱</div><div>Home screen pe <strong>app icon</strong></div></div>
+        <div class="pwa-feature"><div class="pwa-feature-icon">⚡</div><div><strong>Fast loading</strong> — no browser</div></div>
+        <div class="pwa-feature"><div class="pwa-feature-icon">📚</div><div><strong>Offline</strong> me questions padho</div></div>
       </div>
-
-      <!-- iOS instructions (JS will show/hide) -->
       <div class="pwa-ios-steps" id="pwaIosSteps" style="display:none;">
         <h4>iOS Safari me install karein:</h4>
-        <div class="pwa-ios-step">
-          <span class="pwa-ios-step-num">1</span>
-          <span>Neeche <strong>Share</strong> button (⬆️) dabao</span>
-        </div>
-        <div class="pwa-ios-step">
-          <span class="pwa-ios-step-num">2</span>
-          <span><strong>"Add to Home Screen"</strong> select karo</span>
-        </div>
-        <div class="pwa-ios-step">
-          <span class="pwa-ios-step-num">3</span>
-          <span>Top-right <strong>"Add"</strong> dabao</span>
-        </div>
+        <div class="pwa-ios-step"><span class="pwa-ios-step-num">1</span><span>Neeche <strong>Share</strong> button (⬆️) dabao</span></div>
+        <div class="pwa-ios-step"><span class="pwa-ios-step-num">2</span><span><strong>"Add to Home Screen"</strong> select karo</span></div>
+        <div class="pwa-ios-step"><span class="pwa-ios-step-num">3</span><span>Top-right <strong>"Add"</strong> dabao</span></div>
       </div>
-
       <div class="pwa-popup-actions">
         <button class="pwa-install-btn" id="pwaInstallBtn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -577,62 +764,28 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script>
-  // ===================== CONFIG =====================
   const PER_PAGE = 5;
   const SITE_URL = 'https://www.rprep.online';
+  const IG_HANDLE = '@nursingstudyvault';
 
-  const SUBDOMAIN_MAP = {
-    'aiims':   'AIIMS',
-    'rrb':     'RRB',
-    'esic':    'ESIC',
-    'dsssb':   'DSSSB',
-    'pgimer':  'PGIMER',
-    'jipmer':  'JIPMER',
-    'sgpgims': 'SGPGIMS',
-    'nimhans': 'NIMHANS',
-    'bhu':     'BHU',
-    'state':   'State',
-    'general': 'General'
-  };
-
-  const ALL_EXAMS = [
-    { key: 'aiims',   label: 'AIIMS' },
-    { key: 'rrb',     label: 'RRB' },
-    { key: 'esic',    label: 'ESIC' },
-    { key: 'dsssb',   label: 'DSSSB' },
-    { key: 'pgimer',  label: 'PGIMER' },
-    { key: 'jipmer',  label: 'JIPMER' },
-    { key: 'sgpgims', label: 'SGPGIMS' },
-    { key: 'nimhans', label: 'NIMHANS' },
-    { key: 'bhu',     label: 'BHU' },
-    { key: 'state',   label: 'State' },
-    { key: 'general', label: 'General' }
+  const EXAMS = [
+    { key: 'AIIMS',   label: 'AIIMS',   color: '#1e3a8a' },
+    { key: 'RRB',     label: 'RRB',     color: '#065f46' },
+    { key: 'ESIC',    label: 'ESIC',    color: '#6b21a8' },
+    { key: 'DSSSB',   label: 'DSSSB',   color: '#991b1b' },
+    { key: 'PGIMER',  label: 'PGIMER',  color: '#0f766e' },
+    { key: 'JIPMER',  label: 'JIPMER',  color: '#7c2d12' },
+    { key: 'SGPGIMS', label: 'SGPGIMS', color: '#7c2d12' },
+    { key: 'NIMHANS', label: 'NIMHANS', color: '#4c1d95' },
+    { key: 'BHU',     label: 'BHU',     color: '#78350f' },
+    { key: 'State',   label: 'State',   color: '#1e40af' },
+    { key: 'General', label: 'General', color: '#44403c' }
   ];
 
-  const hostname = window.location.hostname;
-  const urlParamsForSub = new URLSearchParams(window.location.search);
-  const testSub = urlParamsForSub.get('sub');
-  let currentSub = '';
-  if (testSub !== null){
-    currentSub = testSub.toLowerCase();
-  } else {
-    const parts = hostname.split('.');
-    if (parts[0] === 'localhost' || parts[0] === '127' || /^\d+$/.test(parts[0])){
-      currentSub = '';
-    } else if (parts.length >= 3){
-      currentSub = parts[0];
-    } else if (parts.length === 2 && parts[0] !== 'www'){
-      currentSub = parts[0];
-    }
-  }
-
-  const currentExam = SUBDOMAIN_MAP.hasOwnProperty(currentSub) ? SUBDOMAIN_MAP[currentSub] : null;
-  const isQBankAll = (currentSub === '' || currentSub === 'www' || currentSub === 'qbank');
-
-  // ===================== STATE =====================
   let allQuestions = [];
   let currentPage = 1;
   let totalPages = 1;
+  let currentExamFilter = '';
   const answeredState = {};
   const LETTERS = ['A', 'B', 'C', 'D', 'E'];
 
@@ -645,7 +798,7 @@
   const sharePreviewFull = document.getElementById('sharePreviewFull');
   const sharePreviewImg = document.getElementById('sharePreviewImg');
 
-  let listEl, pageInfoEl, navBarEl, pageNumEl, pageTotalEl, rangeStartEl, rangeEndEl, totalCountEl, prevBtn, nextBtn, jumpInput, jumpBtn;
+  let listEl, pageInfoEl, pageNavEl, pageNumEl, pageTotalEl, rangeStartEl, rangeEndEl, totalCountEl, prevBtn, nextBtn, jumpInput, jumpBtn;
 
   function escapeHtml(str){
     return String(str == null ? '' : str)
@@ -661,17 +814,20 @@
   }
   function getShareUrl(serial){ return SITE_URL + '/?q=' + serial; }
   function getDisplayUrl(serial){ return 'www.rprep.online/?q=' + serial; }
+  function getExamColor(exam){
+    const e = EXAMS.find(x => x.key === exam);
+    return e ? e.color : '#a67c00';
+  }
 
-  // ===================== THEME =====================
   (function(){
-    const saved = localStorage.getItem('rprep_theme') || 'dark';
+    const saved = localStorage.getItem('rprep_theme') || 'light';
     document.documentElement.setAttribute('data-theme', saved);
   })();
   document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.getElementById('themeToggle');
     if (themeToggle){
       themeToggle.addEventListener('click', () => {
-        const current = document.documentElement.getAttribute('data-theme') || 'dark';
+        const current = document.documentElement.getAttribute('data-theme') || 'light';
         const next = current === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', next);
         localStorage.setItem('rprep_theme', next);
@@ -679,223 +835,109 @@
     }
   });
 
-  // ===================== PWA INSTALL POPUP =====================
   (function(){
     const PWA_KEY = 'rprep_pwa_prompt_shown';
-    const INTERVAL_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
-    const DELAY_MS = 15 * 1000; // 15 sec
+    const INTERVAL_MS = 7 * 24 * 60 * 60 * 1000;
+    const DELAY_MS = 15 * 1000;
     let deferredPrompt = null;
     let pwaShown = false;
-
     const overlay = document.getElementById('pwaOverlay');
-    const popup = document.getElementById('pwaPopup');
     const closeBtn = document.getElementById('pwaCloseBtn');
     const installBtn = document.getElementById('pwaInstallBtn');
     const installBtnText = document.getElementById('pwaInstallBtnText');
     const laterBtn = document.getElementById('pwaLaterBtn');
     const iosSteps = document.getElementById('pwaIosSteps');
-
     function isInstalled(){
       return window.matchMedia('(display-mode: standalone)').matches ||
              window.navigator.standalone === true ||
              document.referrer.includes('android-app://');
     }
-
-    function isIOS(){
-      return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    }
-
+    function isIOS(){ return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream; }
     function showPopup(){
-      if (pwaShown) return;
-      if (isInstalled()) return;
+      if (pwaShown || isInstalled()) return;
       const lastShown = parseInt(localStorage.getItem(PWA_KEY) || '0', 10);
       if (Date.now() - lastShown < INTERVAL_MS) return;
       pwaShown = true;
-
-      // iOS → show steps
-      if (isIOS()){
-        iosSteps.style.display = 'block';
-        installBtnText.textContent = 'Got It';
-      }
-
+      if (isIOS()){ iosSteps.style.display = 'block'; installBtnText.textContent = 'Got It'; }
       overlay.classList.add('show');
     }
-
     function hidePopup(markShown){
       overlay.classList.remove('show');
-      if (markShown){
-        localStorage.setItem(PWA_KEY, Date.now().toString());
-      }
+      if (markShown) localStorage.setItem(PWA_KEY, Date.now().toString());
     }
-
-    // Capture native install prompt
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      // If popup already shown and user clicked install, use it
-    });
-
+    window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; });
     installBtn.addEventListener('click', async () => {
-      if (isIOS()){
-        // Just close on iOS (instructions shown)
-        hidePopup(true);
-        return;
-      }
-      if (!deferredPrompt){
-        // No native prompt available — show fallback instructions
-        hidePopup(true);
-        showToast('Chrome menu (⋮) → "Install app" dabao');
-        return;
-      }
+      if (isIOS()){ hidePopup(true); return; }
+      if (!deferredPrompt){ hidePopup(true); showToast('Chrome menu (⋮) → "Install app" dabao'); return; }
       deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      console.log('[PWA] User choice:', outcome);
+      await deferredPrompt.userChoice;
       deferredPrompt = null;
       hidePopup(true);
     });
-
     closeBtn.addEventListener('click', () => hidePopup(true));
     laterBtn.addEventListener('click', () => hidePopup(true));
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) hidePopup(true);
-    });
-
-    // Hide if already installed
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) hidePopup(true); });
     if (isInstalled()) return;
-
-    // Auto-show after delay
     setTimeout(showPopup, DELAY_MS);
-
-    // Listen for app install
-    window.addEventListener('appinstalled', () => {
-      console.log('[PWA] App installed');
-      hidePopup(true);
-    });
+    window.addEventListener('appinstalled', () => hidePopup(true));
   })();
 
-  // ===================== QUICK LINKS =====================
-  function buildQuickLinks(activeExamKey){
-    const chips = ALL_EXAMS.map(ex => {
-      const isActive = ex.key === activeExamKey;
-      const url = 'https://' + ex.key + '.rprep.online';
-      return '<a class="ql-chip ' + (isActive ? 'active' : '') + '" href="' + url + '">' +
-        ex.label +
-        (isActive ? '<span class="ql-badge">✓ You\'re here</span>' : '') +
-      '</a>';
-    }).join('');
-    return '<div class="quick-links">' +
-      '<div class="quick-links-title">' +
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>' +
-        'Explore More Exams' +
-      '</div>' +
-      '<div class="quick-links-sub">Har exam ka apna practice section</div>' +
-      '<div class="quick-links-grid">' + chips + '</div>' +
-    '</div>';
-  }
-
-  // ===================== COMING SOON =====================
-  function renderComingSoon(){
-    const examLabel = currentExam || 'This Exam';
-    const header = '<div class="hero">' +
-      '<img src="logo-circle.png" alt="RPrep Logo" class="hero-logo" />' +
-      '<div class="brand-line">Special design by RPrep</div>' +
-      '<div class="brand-title">Digital <span>QBank</span></div>' +
-      '<div class="brand-sub">Government Nursing Exams</div>' +
-    '</div>';
-
-    const waText = encodeURIComponent('Hi! ' + examLabel + ' questions kab aa rahe hain? Please update karein.');
-    const comingSoon = '<div class="coming-soon">' +
-      '<div class="coming-soon-icon">🚀</div>' +
-      '<div class="coming-soon-title">Coming <span>Soon</span></div>' +
-      '<div class="coming-soon-exam">' + escapeHtml(examLabel) + '</div>' +
-      '<div class="coming-soon-text">' +
-        '<strong>' + escapeHtml(examLabel) + '</strong> ke questions <strong>jald hi</strong> aa rahe hain!<br>' +
-        'Tab tak doosre exams practice karein neeche se.' +
-      '</div>' +
-      '<div class="coming-soon-actions">' +
-        '<a class="coming-soon-btn primary" href="https://wa.me/919783713848?text=' + waText + '" target="_blank" rel="noopener">' +
-          '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2z"/></svg>' +
-          'Updates ke liye WhatsApp' +
-        '</a>' +
-        '<a class="coming-soon-btn secondary" href="https://qbank.rprep.online">' +
-          '📚 All Questions Dekhein' +
-        '</a>' +
-      '</div>' +
-    '</div>';
-
-    const footer = '<div class="footer">' +
-      '<img src="logo-circle.png" alt="RPrep" class="footer-logo" />' +
-      '<div>© ' + new Date().getFullYear() + ' <strong>RPrep Digital QBank</strong> · Made for Nursing Aspirants</div>' +
-    '</div>';
-
-    containerEl.innerHTML = header + comingSoon + buildQuickLinks(currentSub) + footer;
-  }
-
-  // ===================== MAIN UI =====================
   function renderMainUI(){
-    const brandSub = currentExam
-      ? '<strong>' + escapeHtml(currentExam) + '</strong> questions'
-      : 'Government Nursing Exams';
-
-    const header = '<div class="hero">' +
-      '<img src="logo-circle.png" alt="RPrep Logo" class="hero-logo" />' +
-      '<div class="brand-line">Special design by RPrep</div>' +
-      '<div class="brand-title">Digital <span>QBank</span></div>' +
-      '<div class="brand-sub">' + brandSub + '</div>' +
-      '<div class="hero-divider"></div>' +
-      '<div class="exams-label">Exams Covered</div>' +
-      '<div class="exams">' +
-        '<span class="chip">AIIMS NORCET</span>' +
-        '<span class="chip">RRB Nursing Superintendent</span>' +
-        '<span class="chip">ESIC Nursing Officer</span>' +
-        '<span class="chip">DSSSB Nursing Officer</span>' +
-        '<span class="chip">PGIMER</span>' +
-        '<span class="chip">JIPMER</span>' +
-        '<span class="chip">SGPGIMS</span>' +
-        '<span class="chip">NIMHANS</span>' +
-        '<span class="chip">BHU</span>' +
-        '<span class="chip">State Nursing Exams</span>' +
-      '</div>' +
-      '<div class="support">' +
-        '<a class="support-link" href="https://wa.me/919783713848" target="_blank" rel="noopener">' +
-          '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2z"/></svg>' +
-          'WhatsApp' +
-        '</a>' +
-        '<a class="support-link" href="https://www.instagram.com/nursingstudyvault" target="_blank" rel="noopener">' +
-          '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.8.25 2.23.42.56.22.96.48 1.38.9.42.42.68.82.9 1.38.17.42.37 1.05.42 2.23.07 1.25.07 1.62.07 4.85s0 3.6-.07 4.85c-.05 1.17-.25 1.8-.42 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.17-1.05.37-2.23.42-1.25.07-1.62.07-4.85.07s-3.6 0-4.85-.07c-1.17-.05-1.8-.25-2.23-.42-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.17-.42-.37-1.05-.42-2.23C2.2 15.6 2.2 15.23 2.2 12s0-3.6.07-4.85c.05-1.17.25-1.8.42-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.17 1.05-.37 2.23-.42C8.4 2.2 8.77 2.2 12 2.2zm0 3.06a4.94 4.94 0 110 9.88 4.94 4.94 0 010-9.88zm0 8.14a3.2 3.2 0 100-6.4 3.2 3.2 0 000 6.4z"/></svg>' +
-          'Instagram' +
-        '</a>' +
-        '<a class="support-link" href="mailto:support@rprep.online">' +
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>' +
-          'Email Support' +
-        '</a>' +
+    const header = '<div class="book-header">' +
+      '<img src="logo-circle.png" alt="RPrep Logo" class="book-logo" />' +
+      '<div class="book-brand-line">Special Design by RPrep</div>' +
+      '<div class="book-title">Digital <span>QBank</span></div>' +
+      '<div class="book-subtitle">Nursing Officer Preparation</div>' +
+      '<div class="book-divider"></div>' +
+      '<div style="font-family:var(--serif);font-size:0.85rem;color:var(--text-dim);font-style:italic;position:relative;z-index:1;">' +
+        'NORCET · RRB · ESIC · DSSSB · PGIMER · JIPMER · SGPGIMS · NIMHANS · BHU · State' +
       '</div>' +
     '</div>';
 
-    const sectionTitle = '<div class="section-title">' +
-      '<h2>' + (currentExam ? escapeHtml(currentExam) + ' Questions' : 'Practice Questions') + '</h2>' +
-      '<p>' + (currentExam ? escapeHtml(currentExam) + ' practice questions' : 'Choose the correct answer — explanation will appear below') + '</p>' +
+    const examCounts = {};
+    allQuestions.forEach(q => {
+      const e = q.exam || 'General';
+      examCounts[e] = (examCounts[e] || 0) + 1;
+    });
+    let chips = '<button class="chapter-chip ' + (currentExamFilter === '' ? 'active' : '') + '" data-exam="">All (' + allQuestions.length + ')</button>';
+    EXAMS.forEach(ex => {
+      if (examCounts[ex.key] > 0){
+        const active = currentExamFilter === ex.key ? 'active' : '';
+        chips += '<button class="chapter-chip ' + active + '" data-exam="' + ex.key + '">' + ex.label + ' (' + examCounts[ex.key] + ')</button>';
+      }
+    });
+    Object.keys(examCounts).forEach(k => {
+      if (!EXAMS.find(x => x.key === k)){
+        const active = currentExamFilter === k ? 'active' : '';
+        chips += '<button class="chapter-chip ' + active + '" data-exam="' + k + '">' + k + ' (' + examCounts[k] + ')</button>';
+      }
+    });
+
+    const chapterBar = '<div class="chapter-bar">' +
+      '<div class="chapter-bar-label">📚 Filter by Chapter</div>' +
+      '<div class="chapter-chips">' + chips + '</div>' +
     '</div>';
 
-    const pageInfo = '<div class="page-info" id="pageInfo" style="display:none;">' +
-      'Showing <strong id="rangeStart">1</strong>–<strong id="rangeEnd">5</strong> of <strong id="totalCount">0</strong> questions' +
-      ' · Page <strong id="pageNum">1</strong>/<strong id="pageTotal">1</strong>' +
+    const pageMeta = '<div class="page-meta" id="pageMeta" style="display:none;">' +
+      'Page <strong id="rangeStart">1</strong>–<strong id="rangeEnd">5</strong> of <strong id="totalCount">0</strong>' +
+      ' · <strong id="pageNum">1</strong>/<strong id="pageTotal">1</strong>' +
     '</div>';
 
-    const list = '<div id="list"><div class="loader">Loading questions</div></div>';
+    const list = '<div id="list"></div>';
 
-    const nav = '<div class="nav" id="navBar" style="display:none;">' +
-      '<button class="btn" id="prevBtn">← Previous</button>' +
-      '<button class="btn primary" id="nextBtn">Next →</button>' +
+    const pageNav = '<div class="page-nav" id="pageNav" style="display:none;">' +
+      '<button class="page-nav-btn" id="prevBtn">◀ Previous Page</button>' +
+      '<div class="page-nav-info" id="pageNavInfo">Page 1</div>' +
+      '<button class="page-nav-btn" id="nextBtn">Next Page ▶</button>' +
     '</div>';
 
-    const bottomBar = '<div class="bottom-bar">' +
-      '<div class="jump-bar">' +
-        '<label for="jumpInput">Jump to question:</label>' +
+    const bottomPanel = '<div class="bottom-panel">' +
+      '<div class="jump-row">' +
+        '<label for="jumpInput">Jump to Q#:</label>' +
         '<input id="jumpInput" type="number" min="1" placeholder="#" />' +
-        '<button class="btn primary" id="jumpBtn">Go</button>' +
+        '<button id="jumpBtn">Go</button>' +
       '</div>' +
-      '<div class="visitor-bar">' +
+      '<div class="visitor-row">' +
         '<span class="visitor-badge">' +
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
             '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>' +
@@ -906,16 +948,16 @@
       '</div>' +
     '</div>';
 
-    const footer = '<div class="footer">' +
-      '<img src="logo-circle.png" alt="RPrep" class="footer-logo" />' +
-      '<div>© ' + new Date().getFullYear() + ' <strong>RPrep Digital QBank</strong> · Made for Nursing Aspirants</div>' +
+    const footer = '<div class="book-footer">' +
+      '<img src="logo-circle.png" alt="RPrep" />' +
+      '<div>© ' + new Date().getFullYear() + ' <strong>RPrep Digital QBank</strong> · Professional Nursing Officer Preparation</div>' +
     '</div>';
 
-    containerEl.innerHTML = header + sectionTitle + pageInfo + list + nav + bottomBar + buildQuickLinks(currentSub) + footer;
+    containerEl.innerHTML = header + chapterBar + pageMeta + list + pageNav + bottomPanel + footer;
 
     listEl = document.getElementById('list');
-    pageInfoEl = document.getElementById('pageInfo');
-    navBarEl = document.getElementById('navBar');
+    pageInfoEl = document.getElementById('pageMeta');
+    pageNavEl = document.getElementById('pageNav');
     pageNumEl = document.getElementById('pageNum');
     pageTotalEl = document.getElementById('pageTotal');
     rangeStartEl = document.getElementById('rangeStart');
@@ -930,9 +972,17 @@
     nextBtn.addEventListener('click', () => { if (currentPage < totalPages){ currentPage++; renderPage(); } });
     jumpBtn.addEventListener('click', doJump);
     jumpInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') doJump(); });
+
+    document.querySelectorAll('.chapter-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        currentExamFilter = chip.dataset.exam;
+        currentPage = 1;
+        renderMainUI();
+        applyFilterAndRender();
+      });
+    });
   }
 
-  // ===================== FIREBASE =====================
   const firebaseConfig = {
     apiKey: "AIzaSyANC-KBp6zIVnEW1evY5CNkjW43k8ZGgHc",
     authDomain: "rpreppdf.firebaseapp.com",
@@ -946,31 +996,19 @@
   firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
   const COLLECTION = "qbank";
-  const STATUS_COLLECTION = "examStatus";
 
-  // ===================== VISITOR COUNTER =====================
   function initVisitorCounter(){
     const SESSION_KEY = 'rprep_visited_session';
     const counterRef = db.collection('meta').doc('visitors');
-
     if (!sessionStorage.getItem(SESSION_KEY)){
       counterRef.get().then(doc => {
-        if (!doc.exists){
-          return counterRef.set({ count: 1 });
-        } else {
-          const current = doc.data().count;
-          if (typeof current !== 'number'){
-            return counterRef.set({ count: 1 });
-          }
-          return counterRef.update({ count: firebase.firestore.FieldValue.increment(1) });
-        }
-      }).then(() => {
-        sessionStorage.setItem(SESSION_KEY, '1');
-      }).catch(err => {
-        console.warn('Visitor increment error:', err.message);
-      });
+        if (!doc.exists) return counterRef.set({ count: 1 });
+        const current = doc.data().count;
+        if (typeof current !== 'number') return counterRef.set({ count: 1 });
+        return counterRef.update({ count: firebase.firestore.FieldValue.increment(1) });
+      }).then(() => sessionStorage.setItem(SESSION_KEY, '1'))
+        .catch(err => console.warn('Visitor error:', err.message));
     }
-
     counterRef.onSnapshot(doc => {
       const el = document.getElementById('visitorCount');
       if (!el) return;
@@ -978,11 +1016,8 @@
         const data = doc.data();
         const count = typeof data.count === 'number' ? data.count : 0;
         el.textContent = count;
-      } else {
-        el.textContent = '—';
-      }
+      } else el.textContent = '—';
     }, err => {
-      console.warn('Visitor listen error:', err.message);
       const el = document.getElementById('visitorCount');
       if (el) el.textContent = '—';
     });
@@ -990,24 +1025,10 @@
 
   async function loadQuestions(){
     try {
-      if (!isQBankAll && currentExam){
-        try {
-          const statusDoc = await db.collection(STATUS_COLLECTION).doc(currentExam).get();
-          if (statusDoc.exists && statusDoc.data().comingSoon === true){
-            renderComingSoon();
-            return;
-          }
-        } catch(e){ console.warn('Status check failed', e); }
-      }
-
       const snapshot = await db.collection(COLLECTION).get();
       allQuestions = [];
       snapshot.forEach(doc => {
         const q = doc.data();
-        if (!isQBankAll && currentExam){
-          if (q.exam !== currentExam) return;
-        }
-
         let options = [];
         if (Array.isArray(q.options)) options = q.options;
         else if (q.options && typeof q.options === 'object')
@@ -1023,25 +1044,18 @@
           correct = idx >= 0 ? idx : 0;
         }
 
-        let serial = (typeof q.serialNumber === 'number') ? q.serialNumber : null;
-
         allQuestions.push({
           id: doc.id,
           question: q.question || q.title || q.q || 'Untitled',
           options: options, correct: correct,
           explanation: q.explanation || q.answer_text || q.solution || 'No explanation provided.',
-          serialNumber: serial,
-          exam: q.exam || null
+          serialNumber: (typeof q.serialNumber === 'number') ? q.serialNumber : null,
+          exam: q.exam || 'General'
         });
       });
 
-      if (!isQBankAll && currentExam && allQuestions.length === 0){
-        renderComingSoon();
-        return;
-      }
-
-      if (isQBankAll && allQuestions.length === 0){
-        renderComingSoon();
+      if (allQuestions.length === 0){
+        containerEl.innerHTML = '<div class="loader">No questions found.</div>';
         return;
       }
 
@@ -1050,19 +1064,11 @@
         allQuestions.sort((a,b) => a.serialNumber - b.serialNumber);
       } else {
         allQuestions.sort((a,b) => a.id.localeCompare(b.id));
-        allQuestions.forEach((q, i) => {
-          if (q.serialNumber === null) q.serialNumber = i + 1;
-        });
+        allQuestions.forEach((q, i) => { if (q.serialNumber === null) q.serialNumber = i + 1; });
       }
 
       renderMainUI();
-      totalPages = Math.ceil(allQuestions.length / PER_PAGE);
-      currentPage = 1;
-      pageInfoEl.style.display = 'block';
-      navBarEl.style.display = 'flex';
-      handleUrlHash();
-      renderPage();
-
+      applyFilterAndRender();
       initVisitorCounter();
     } catch (err){
       console.error(err);
@@ -1070,11 +1076,27 @@
     }
   }
 
-  function handleUrlHash(){
+  function getFilteredQuestions(){
+    if (!currentExamFilter) return allQuestions;
+    return allQuestions.filter(q => q.exam === currentExamFilter);
+  }
+
+  function applyFilterAndRender(){
+    const filtered = getFilteredQuestions();
+    totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
+    if (currentPage > totalPages) currentPage = totalPages;
+    if (currentPage < 1) currentPage = 1;
+    pageInfoEl.style.display = 'block';
+    pageNavEl.style.display = 'flex';
+    handleUrlHash(filtered);
+    renderPage(filtered);
+  }
+
+  function handleUrlHash(filtered){
     const params = new URLSearchParams(window.location.search);
     const q = parseInt(params.get('q'), 10);
     if (!isNaN(q) && q >= 1){
-      const idx = allQuestions.findIndex(item => item.serialNumber === q);
+      const idx = filtered.findIndex(item => item.serialNumber === q);
       if (idx >= 0){
         currentPage = Math.floor(idx / PER_PAGE) + 1;
         setTimeout(() => scrollToQuestionBySerial(q), 400);
@@ -1087,43 +1109,56 @@
     if (card){
       card.scrollIntoView({ behavior: 'smooth', block: 'center' });
       card.style.transition = 'box-shadow 0.4s ease';
-      card.style.boxShadow = '0 0 0 2px var(--accent)';
+      card.style.boxShadow = '0 0 0 3px var(--accent)';
       setTimeout(() => { card.style.boxShadow = ''; }, 2000);
     }
   }
 
-  function renderPage(){
-    if (!allQuestions.length) return;
+  function renderPage(filtered){
+    if (!filtered) filtered = getFilteredQuestions();
+    if (!filtered.length){
+      listEl.innerHTML = '<div class="loader">Is exam me abhi questions nahi hain.</div>';
+      pageNumEl.textContent = '1';
+      pageTotalEl.textContent = '1';
+      rangeStartEl.textContent = '0';
+      rangeEndEl.textContent = '0';
+      totalCountEl.textContent = '0';
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+      return;
+    }
+
     const start = (currentPage - 1) * PER_PAGE;
-    const end = Math.min(start + PER_PAGE, allQuestions.length);
-    const slice = allQuestions.slice(start, end);
+    const end = Math.min(start + PER_PAGE, filtered.length);
+    const slice = filtered.slice(start, end);
     listEl.innerHTML = '';
 
     slice.forEach((data) => {
       const serial = data.serialNumber;
+      const examColor = getExamColor(data.exam);
       const card = document.createElement('div');
       card.className = 'question-card';
       card.dataset.serial = serial;
+      card.style.setProperty('--exam-color', examColor);
 
       const head = document.createElement('div');
       head.className = 'q-head';
-      head.innerHTML = '<span class="q-index">' + serial + '</span>' +
-        '<span class="q-text">' + escapeHtml(data.question) + '</span>' +
-        '<span class="share-btns">' +
-          '<button class="share-btn link-share" title="Share link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button>' +
-          '<button class="share-btn img-share" title="Share as image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></button>' +
-        '</span>';
+      head.innerHTML = '<span class="q-index">Q' + serial + '.</span>' +
+        '<span class="q-text">' + escapeHtml(data.question) + '</span>';
       card.appendChild(head);
 
-      head.querySelector('.link-share').addEventListener('click', (e) => { e.stopPropagation(); openShareModal(data, serial, 'link'); });
-      head.querySelector('.img-share').addEventListener('click', (e) => { e.stopPropagation(); openShareModal(data, serial, 'image'); });
+      const badge = document.createElement('span');
+      badge.className = 'exam-badge';
+      badge.textContent = data.exam;
+      badge.style.background = examColor;
+      card.appendChild(badge);
 
       const optionsWrap = document.createElement('div');
       optionsWrap.className = 'options';
       data.options.forEach((optText, optIdx) => {
         const btn = document.createElement('button');
         btn.className = 'option';
-        btn.innerHTML = '<span class="opt-letter">' + (LETTERS[optIdx] || '?') + '</span><span>' + escapeHtml(optText) + '</span>';
+        btn.innerHTML = '<span class="opt-letter">(' + (LETTERS[optIdx] || '?') + ')</span><span>' + escapeHtml(optText) + '</span>';
         btn.addEventListener('click', () => {
           if (card.classList.contains('answered')) return;
           card.classList.add('answered');
@@ -1140,7 +1175,7 @@
 
       const expl = document.createElement('div');
       expl.className = 'explanation';
-      expl.innerHTML = '<div class="explanation-label">Explanation</div><div class="explanation-text">' + escapeHtml(data.explanation) + '</div>';
+      expl.innerHTML = '<div class="explanation-label">✎ Explanation</div><div class="explanation-text">' + escapeHtml(data.explanation) + '</div>';
       card.appendChild(expl);
 
       if (answeredState[data.id] !== undefined){
@@ -1153,6 +1188,15 @@
         });
       }
 
+      const shareBtns = document.createElement('div');
+      shareBtns.className = 'share-btns';
+      shareBtns.innerHTML =
+        '<button class="share-btn link-share" title="Share link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button>' +
+        '<button class="share-btn img-share" title="Share as image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></button>';
+      shareBtns.querySelector('.link-share').addEventListener('click', (e) => { e.stopPropagation(); openShareModal(data, serial, 'link'); });
+      shareBtns.querySelector('.img-share').addEventListener('click', (e) => { e.stopPropagation(); openShareModal(data, serial, 'image'); });
+      card.appendChild(shareBtns);
+
       listEl.appendChild(card);
     });
 
@@ -1160,7 +1204,7 @@
     pageTotalEl.textContent = totalPages;
     rangeStartEl.textContent = start + 1;
     rangeEndEl.textContent = end;
-    totalCountEl.textContent = allQuestions.length;
+    totalCountEl.textContent = filtered.length;
 
     prevBtn.disabled = currentPage === 1;
     nextBtn.disabled = currentPage === totalPages;
@@ -1171,7 +1215,8 @@
   function doJump(){
     const val = parseInt(jumpInput.value, 10);
     if (isNaN(val) || val < 1){ jumpInput.value = ''; return; }
-    const idx = allQuestions.findIndex(item => item.serialNumber === val);
+    const filtered = getFilteredQuestions();
+    const idx = filtered.findIndex(item => item.serialNumber === val);
     if (idx < 0){
       jumpInput.value = '';
       jumpInput.placeholder = 'Not found';
@@ -1179,7 +1224,7 @@
     }
     window._jumpInProgress = true;
     currentPage = Math.floor(idx / PER_PAGE) + 1;
-    renderPage();
+    renderPage(filtered);
     setTimeout(() => {
       scrollToQuestionBySerial(val);
       window._jumpInProgress = false;
@@ -1187,7 +1232,6 @@
     jumpInput.value = '';
   }
 
-  // ===================== SHARE =====================
   function buildShareText(data, serial){
     return '🧠 RPrep Digital QBank\n' +
       '━━━━━━━━━━━━━━━━━━━━\n\n' +
@@ -1202,7 +1246,7 @@
       'Q' + serial + '. ' + data.question + '\n\n' +
       data.options.map((o,i) => LETTERS[i] + '. ' + o).join('\n') +
       '\n\n🔍 Answer + Explanation: ' + getShareUrl(serial) + '\n\n' +
-      '#nursing #norcet #nursingexam #rprep';
+      '📲 ' + IG_HANDLE;
   }
 
   function openShareModal(data, serial, mode){
@@ -1302,209 +1346,506 @@
     document.body.removeChild(ta);
   }
 
-  // ===================== PREMIUM IMAGE =====================
   function generateImage(data, serial, action){
-    showToast('Generating image...');
-    loadLogo().then(function(logo){ renderCard(data, serial, action, logo); });
+    openImageFormatModal(data, serial, action);
   }
-  const LOGO_SRC = 'logo-circle.png';
-  let _logoP = null;
-  function loadLogo(){
-    if (!_logoP){
-      _logoP = new Promise(function(res){
-        const im = new Image();
-        im.onload = function(){ res(im); };
-        im.onerror = function(){ res(null); };
-        im.src = LOGO_SRC;
+
+  function openImageFormatModal(data, serial, action){
+    const existing = document.getElementById('formatModalOverlay');
+    if (existing) existing.remove();
+
+    const modal = document.createElement('div');
+    modal.id = 'formatModalOverlay';
+    modal.className = 'format-modal-overlay';
+    modal.innerHTML = `
+      <div class="format-modal">
+        <div class="format-modal-header">
+          <div class="format-modal-title">📸 Generate Image</div>
+          <button class="format-modal-close" id="formatModalClose">×</button>
+        </div>
+        <div class="format-modal-body">
+          <div class="format-label">Choose Format</div>
+          <div class="format-grid">
+            <button class="format-btn" data-format="square">
+              <span class="format-icon">◼️</span>
+              <span class="format-name">Square</span>
+              <span class="format-size">1080×1080</span>
+              <span class="format-tag">IG Feed</span>
+            </button>
+            <button class="format-btn active" data-format="portrait">
+              <span class="format-icon">📖</span>
+              <span class="format-name">Portrait</span>
+              <span class="format-size">1080×1350</span>
+              <span class="format-tag">IG Post ★</span>
+            </button>
+            <button class="format-btn" data-format="story">
+              <span class="format-icon">⚡</span>
+              <span class="format-name">Story</span>
+              <span class="format-size">1080×1920</span>
+              <span class="format-tag">IG Story</span>
+            </button>
+          </div>
+
+          <div class="format-options">
+            <label class="format-toggle">
+              <input type="checkbox" id="optShowAnswer" checked />
+              <span class="format-toggle-switch"></span>
+              <span>Show correct answer (green highlight)</span>
+            </label>
+            <label class="format-toggle">
+              <input type="checkbox" id="optShowQR" checked />
+              <span class="format-toggle-switch"></span>
+              <span>Show QR code</span>
+            </label>
+          </div>
+
+          <div class="format-actions">
+            <button class="format-action-btn primary" id="formatPreviewBtn">👁️ Preview</button>
+            <button class="format-action-btn" id="formatDownloadBtn">⬇️ Download</button>
+            <button class="format-action-btn" id="formatShareBtn">📤 Share</button>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    setTimeout(() => modal.classList.add('show'), 10);
+
+    let currentFormat = 'portrait';
+
+    modal.querySelectorAll('.format-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        modal.querySelectorAll('.format-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFormat = btn.dataset.format;
       });
-    }
-    return _logoP;
+    });
+
+    modal.querySelector('#formatModalClose').addEventListener('click', () => closeFormatModal(modal));
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeFormatModal(modal); });
+
+    modal.querySelector('#formatPreviewBtn').addEventListener('click', () => {
+      const showAnswer = modal.querySelector('#optShowAnswer').checked;
+      const showQR = modal.querySelector('#optShowQR').checked;
+      closeFormatModal(modal);
+      renderBookImage(data, serial, 'preview', currentFormat, showAnswer, showQR);
+    });
+    modal.querySelector('#formatDownloadBtn').addEventListener('click', () => {
+      const showAnswer = modal.querySelector('#optShowAnswer').checked;
+      const showQR = modal.querySelector('#optShowQR').checked;
+      closeFormatModal(modal);
+      renderBookImage(data, serial, 'download', currentFormat, showAnswer, showQR);
+    });
+    modal.querySelector('#formatShareBtn').addEventListener('click', () => {
+      const showAnswer = modal.querySelector('#optShowAnswer').checked;
+      const showQR = modal.querySelector('#optShowQR').checked;
+      closeFormatModal(modal);
+      renderBookImage(data, serial, 'share', currentFormat, showAnswer, showQR);
+    });
   }
-  function renderCard(data, serial, action, logo){
-    const displayUrl = getDisplayUrl(serial);
+
+  function closeFormatModal(modal){
+    modal.classList.remove('show');
+    setTimeout(() => modal.remove(), 250);
+  }
+
+  async function renderBookImage(data, serial, action, format, showAnswer, showQR){
+    showToast('Generating image...');
+    const logo = await loadLogo();
+
+    const FORMATS = {
+      square:   { w: 1080, h: 1080, pad: 60 },
+      portrait: { w: 1080, h: 1350, pad: 70 },
+      story:    { w: 1080, h: 1920, pad: 80 }
+    };
+    const F = FORMATS[format] || FORMATS.portrait;
+    const W = F.w, H = F.h, PAD = F.pad;
+    const S = 2;
+
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
-    const W = 1080, PAD = 64, S = 2;
-    const FONT = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
-    const GOLD = '#6ea8fe', NAVY = '#1a1d23', NAVY2 = '#1e222a', CARD = '#1f232a';
-    const LINE = '#333843', BLUE_L = '#9cc3ff', TXT = '#e4e6eb', TXT2 = '#e4e6eb', DIM = '#a0a6b1';
-    const Q_FONT = '700 54px ' + FONT;
-    const OPT_FONT = '500 40px ' + FONT;
-    function rr(x, y, w, h, r){
-      ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r);
-      ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r);
-      ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+    canvas.width = W * S;
+    canvas.height = H * S;
+    ctx.scale(S, S);
+    ctx.textBaseline = 'middle';
+
+    const CREAM = '#faf4e6';
+    const PAPER = '#fffdf7';
+    const INK = '#2b2620';
+    const INK_DIM = '#6b5f4f';
+    const INK_FAINT = '#9e917c';
+    const AMBER = '#a67c00';
+    const AMBER_LIGHT = '#d4a24c';
+    const BORDER = '#e8dcc3';
+    const BORDER_DARK = '#d4c5a4';
+    const GREEN_BG = '#e6f0e0';
+    const GREEN_BORDER = '#7d9d6d';
+    const GREEN_TEXT = '#2e4a26';
+
+    const SERIF = 'Lora, Georgia, "Times New Roman", serif';
+    const SANS = 'Inter, -apple-system, "Segoe UI", Roboto, sans-serif';
+
+    ctx.fillStyle = CREAM;
+    ctx.fillRect(0, 0, W, H);
+
+    for (let i = 0; i < H; i += 4){
+      ctx.fillStyle = 'rgba(120,80,20,0.006)';
+      ctx.fillRect(0, i, W, 2);
     }
-    function spacing(px){ if ('letterSpacing' in ctx) ctx.letterSpacing = px + 'px'; }
-    function fit(txt, weight, size, maxW){
-      let f = size; ctx.font = weight + ' ' + f + 'px ' + FONT;
-      while (ctx.measureText(txt).width > maxW && f > 18){ f--; ctx.font = weight + ' ' + f + 'px ' + FONT; }
-    }
-    function drawLogo(cx, cy, size, ringW){
-      const r = size / 2;
-      ctx.save(); ctx.shadowColor = 'rgba(110,168,254,0.35)'; ctx.shadowBlur = 26;
-      ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fill();
+
+    ctx.strokeStyle = BORDER_DARK;
+    ctx.lineWidth = 2;
+    ctx.strokeRect(PAD * 0.4, PAD * 0.4, W - PAD * 0.8, H - PAD * 0.8);
+    ctx.strokeStyle = BORDER;
+    ctx.lineWidth = 1;
+    ctx.strokeRect(PAD * 0.55, PAD * 0.55, W - PAD * 1.1, H - PAD * 1.1);
+
+    ctx.fillStyle = AMBER;
+    ctx.fillRect(PAD * 0.4, PAD * 0.4, W - PAD * 0.8, 4);
+
+    let y = PAD + 8;
+
+    const logoSize = 68;
+    const logoCx = PAD + logoSize / 2;
+    const logoCy = y + logoSize / 2;
+
+    if (logo){
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(logoCx, logoCy, logoSize / 2, 0, Math.PI * 2);
+      ctx.clip();
+      ctx.drawImage(logo, logoCx - logoSize / 2, logoCy - logoSize / 2, logoSize, logoSize);
       ctx.restore();
-      if (logo){
-        ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.clip();
-        ctx.drawImage(logo, cx - r, cy - r, size, size); ctx.restore();
-      } else {
-        ctx.fillStyle = '#0C2646'; ctx.font = '800 ' + Math.round(size * 0.5) + 'px ' + FONT;
-        ctx.textAlign = 'center'; ctx.fillText('R', cx, cy + 2);
-      }
-      ctx.strokeStyle = GOLD; ctx.lineWidth = ringW;
-      ctx.beginPath(); ctx.arc(cx, cy, r + ringW * 2 + 3, 0, Math.PI * 2); ctx.stroke();
+      ctx.strokeStyle = AMBER_LIGHT;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(logoCx, logoCy, logoSize / 2 + 2, 0, Math.PI * 2);
+      ctx.stroke();
+    } else {
+      ctx.fillStyle = PAPER;
+      ctx.beginPath();
+      ctx.arc(logoCx, logoCy, logoSize / 2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = AMBER;
+      ctx.font = '700 ' + Math.round(logoSize * 0.55) + 'px ' + SERIF;
+      ctx.textAlign = 'center';
+      ctx.fillText('R', logoCx, logoCy + 2);
     }
-    const cardW = W - PAD * 2;
-    const optTextX = 128, optMaxW = cardW - optTextX - 32;
-    const qLines = wrapText(ctx, data.question, W - PAD * 2, Q_FONT);
-    const optLines = data.options.map(o => wrapText(ctx, o, optMaxW, OPT_FONT));
-    const headerH = 200;
-    const optHs = optLines.map(l => Math.max(l.length * 54 + 56, 112));
-    const ctaH = 316;
-    const H = headerH + 64 + 44 + qLines.length * 76 + 44 + optHs.reduce((s, h) => s + h + 22, 0) + 18 + ctaH + 44 + 116 + 44;
-    canvas.width = W * S; canvas.height = H * S;
-    ctx.scale(S, S); ctx.textBaseline = 'middle';
-    ctx.fillStyle = NAVY; ctx.fillRect(0, 0, W, H);
-    let g = ctx.createRadialGradient(W - 80, headerH + 120, 20, W - 80, headerH + 120, 560);
-    g.addColorStop(0, 'rgba(110,168,254,0.10)'); g.addColorStop(1, 'rgba(110,168,254,0)');
-    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-    g = ctx.createRadialGradient(40, H - 240, 20, 40, H - 240, 520);
-    g.addColorStop(0, 'rgba(76,141,246,0.12)'); g.addColorStop(1, 'rgba(76,141,246,0)');
-    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-    g = ctx.createLinearGradient(0, 0, W, headerH);
-    g.addColorStop(0, '#232833'); g.addColorStop(1, NAVY2);
-    ctx.fillStyle = g; ctx.fillRect(0, 0, W, headerH);
-    g = ctx.createLinearGradient(0, 0, W, 0);
-    g.addColorStop(0, 'rgba(110,168,254,0)'); g.addColorStop(0.5, GOLD); g.addColorStop(1, 'rgba(110,168,254,0)');
-    ctx.fillStyle = g; ctx.fillRect(0, headerH - 3, W, 3);
-    const lcx = PAD + 74, lcy = headerH / 2 - 1;
-    drawLogo(lcx, lcy, 124, 3);
-    const tx = lcx + 62 + 34;
+
     ctx.textAlign = 'left';
-    spacing(5); ctx.fillStyle = GOLD; ctx.font = '700 19px ' + FONT;
-    ctx.fillText('SPECIAL DESIGN BY RPREP', tx, lcy - 46);
-    spacing(0); ctx.font = '800 46px ' + FONT; ctx.fillStyle = TXT;
-    ctx.fillText('Digital ', tx, lcy - 6);
-    ctx.fillStyle = GOLD;
-    ctx.fillText('QBank', tx + ctx.measureText('Digital ').width, lcy - 6);
-    ctx.fillStyle = DIM; ctx.font = '400 25px ' + FONT;
-    ctx.fillText(data.exam ? data.exam + ' · Government Nursing Exams' : 'Government Nursing Exams', tx, lcy + 40);
+    ctx.fillStyle = AMBER;
+    ctx.font = '700 15px ' + SANS;
+    if ('letterSpacing' in ctx) ctx.letterSpacing = '3px';
+    ctx.fillText('RPREP DIGITAL QBANK', logoCx + logoSize / 2 + 18, logoCy - 11);
+    if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
+
+    ctx.fillStyle = INK_DIM;
+    ctx.font = 'italic 19px ' + SERIF;
+    ctx.fillText('Professional Nursing Officer Preparation', logoCx + logoSize / 2 + 18, logoCy + 15);
+
     const qTxt = 'Q' + serial;
-    ctx.font = '800 38px ' + FONT;
-    const bw = ctx.measureText(qTxt).width + 64;
-    ctx.fillStyle = GOLD; rr(W - PAD - bw, lcy - 33, bw, 66, 33); ctx.fill();
-    ctx.fillStyle = NAVY; ctx.textAlign = 'center';
-    ctx.fillText(qTxt, W - PAD - bw / 2, lcy + 1);
+    ctx.font = '700 26px ' + SERIF;
+    const qBadgeW = ctx.measureText(qTxt).width + 34;
+    const qBadgeH = 48;
+    const qBadgeX = W - PAD - qBadgeW;
+    const qBadgeY = logoCy - qBadgeH / 2;
+
+    ctx.fillStyle = AMBER;
+    roundRectPath(ctx, qBadgeX, qBadgeY, qBadgeW, qBadgeH, 6);
+    ctx.fill();
+
+    ctx.fillStyle = PAPER;
+    ctx.font = '700 24px ' + SERIF;
+    ctx.textAlign = 'center';
+    ctx.fillText(qTxt, qBadgeX + qBadgeW / 2, qBadgeY + qBadgeH / 2 + 1);
     ctx.textAlign = 'left';
-    let y = headerH + 64;
-    ctx.fillStyle = GOLD; ctx.fillRect(PAD, y - 2, 56, 4);
-    ctx.font = '700 24px ' + FONT; spacing(5);
-    ctx.fillText('QUESTION', PAD + 76, y);
-    spacing(0);
-    y += 44;
-    ctx.fillStyle = TXT; ctx.font = Q_FONT;
-    qLines.forEach((line, i) => ctx.fillText(line, PAD, y + i * 76 + 38));
-    y += qLines.length * 76 + 44;
-    optLines.forEach((lines, i) => {
-      const h = optHs[i];
-      ctx.fillStyle = CARD; rr(PAD, y, cardW, h, 28); ctx.fill();
-      ctx.strokeStyle = LINE; ctx.lineWidth = 2; rr(PAD, y, cardW, h, 28); ctx.stroke();
-      const cx = PAD + 66, cy = y + h / 2;
-      const bg = ctx.createLinearGradient(cx - 34, cy - 34, cx + 34, cy + 34);
-      bg.addColorStop(0, '#9cc3ff'); bg.addColorStop(1, '#4a8ce0');
-      ctx.fillStyle = bg;
-      ctx.beginPath(); ctx.arc(cx, cy, 34, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = NAVY; ctx.font = '800 32px ' + FONT; ctx.textAlign = 'center';
-      ctx.fillText(LETTERS[i], cx, cy + 1);
-      ctx.textAlign = 'left'; ctx.fillStyle = TXT2; ctx.font = OPT_FONT;
-      const startY = cy - ((lines.length - 1) * 54) / 2;
-      lines.forEach((line, k) => ctx.fillText(line, PAD + optTextX, startY + k * 54 + 1));
-      y += h + 22;
+
+    y = logoCy + logoSize / 2 + 18;
+    ctx.strokeStyle = BORDER_DARK;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(PAD, y);
+    ctx.lineTo(W - PAD, y);
+    ctx.stroke();
+
+    ctx.fillStyle = CREAM;
+    ctx.fillRect(W / 2 - 14, y - 9, 28, 18);
+    ctx.fillStyle = AMBER;
+    ctx.font = '15px ' + SERIF;
+    ctx.textAlign = 'center';
+    ctx.fillText('❦', W / 2, y);
+
+    y += 42;
+    const examText = (data.exam || 'General').toUpperCase();
+    ctx.font = '700 14px ' + SANS;
+    if ('letterSpacing' in ctx) ctx.letterSpacing = '2.5px';
+    const examW = ctx.measureText(examText).width + 32;
+    if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
+
+    ctx.fillStyle = PAPER;
+    roundRectPath(ctx, PAD, y - 16, examW, 32, 4);
+    ctx.fill();
+    ctx.strokeStyle = AMBER_LIGHT;
+    ctx.lineWidth = 1.5;
+    roundRectPath(ctx, PAD, y - 16, examW, 32, 4);
+    ctx.stroke();
+
+    ctx.fillStyle = AMBER;
+    ctx.font = '700 14px ' + SANS;
+    if ('letterSpacing' in ctx) ctx.letterSpacing = '2.5px';
+    ctx.textAlign = 'left';
+    ctx.fillText(examText, PAD + 16, y + 1);
+    if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
+
+    y += 50;
+
+    const optCount = data.options.length;
+    const estimatedOptionsHeight = optCount * 80;
+    const bottomSectionHeight = (showQR ? 180 : 90) + 70;
+    const availableQHeight = H - y - estimatedOptionsHeight - bottomSectionHeight - PAD;
+
+    const qLen = data.question.length;
+    let qFontSize = 42;
+    if (qLen > 80) qFontSize = 38;
+    if (qLen > 140) qFontSize = 34;
+    if (qLen > 220) qFontSize = 30;
+    if (qLen > 320) qFontSize = 26;
+    if (qLen > 450) qFontSize = 22;
+    if (format === 'story') qFontSize += 4;
+
+    let qLines = wrapText(ctx, data.question, W - PAD * 2, '600 ' + qFontSize + 'px ' + SERIF);
+    let qLineH = qFontSize * 1.42;
+    let qTotal = qLines.length * qLineH;
+
+    while (qTotal > availableQHeight && qFontSize > 16){
+      qFontSize -= 2;
+      qLines = wrapText(ctx, data.question, W - PAD * 2, '600 ' + qFontSize + 'px ' + SERIF);
+      qLineH = qFontSize * 1.42;
+      qTotal = qLines.length * qLineH;
+    }
+
+    ctx.font = '600 ' + qFontSize + 'px ' + SERIF;
+    ctx.fillStyle = INK;
+    ctx.textAlign = 'left';
+    qLines.forEach((line, i) => {
+      ctx.fillText(line, PAD, y + i * qLineH + qFontSize * 0.5);
     });
-    y += 18;
-    g = ctx.createLinearGradient(PAD, y, W - PAD, y + ctaH);
-    g.addColorStop(0, '#232833'); g.addColorStop(1, NAVY2);
-    ctx.save(); ctx.shadowColor = 'rgba(110,168,254,0.22)'; ctx.shadowBlur = 34;
-    ctx.fillStyle = g; rr(PAD, y, cardW, ctaH, 34); ctx.fill();
-    ctx.restore();
-    ctx.strokeStyle = GOLD; ctx.lineWidth = 3; rr(PAD, y, cardW, ctaH, 34); ctx.stroke();
-    const leftW = cardW - 40 - 236 - 24 - 40;
-    ctx.textAlign = 'left';
-    const ty = y + 92, ix = PAD + 58;
-    ctx.strokeStyle = GOLD; ctx.lineWidth = 5; ctx.lineCap = 'round';
-    ctx.beginPath(); ctx.arc(ix - 4, ty - 4, 13, 0, Math.PI * 2); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(ix + 6, ty + 6); ctx.lineTo(ix + 17, ty + 17); ctx.stroke();
-    ctx.fillStyle = GOLD;
-    fit('Answer + Explanation dekho', '800', 42, leftW - 50);
-    ctx.fillText('Answer + Explanation dekho', PAD + 90, ty);
-    ctx.fillStyle = DIM;
-    fit('QR code scan karke Answer dekhe', '400', 28, leftW);
-    ctx.fillText('QR code scan karke Answer dekhe', PAD + 40, y + 150);
-    const ux = PAD + 40, uy = y + 184, uh = 76;
-    ctx.fillStyle = NAVY; rr(ux, uy, leftW, uh, 22); ctx.fill();
-    ctx.strokeStyle = LINE; ctx.lineWidth = 2; rr(ux, uy, leftW, uh, 22); ctx.stroke();
-    const gx = ux + 42, gy = uy + uh / 2;
-    ctx.strokeStyle = BLUE_L; ctx.lineWidth = 3;
-    ctx.beginPath(); ctx.arc(gx, gy, 16, 0, Math.PI * 2); ctx.stroke();
-    ctx.beginPath(); ctx.ellipse(gx, gy, 6.5, 16, 0, 0, Math.PI * 2); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(gx - 16, gy); ctx.lineTo(gx + 16, gy); ctx.stroke();
-    ctx.fillStyle = BLUE_L;
-    fit(displayUrl, '700', 34, leftW - 90);
-    ctx.fillText(displayUrl, ux + 78, gy + 1);
-    const qrBox = 236;
-    const qx = PAD + cardW - 40 - qrBox, qy = y + (ctaH - qrBox) / 2;
-    ctx.fillStyle = '#ffffff'; rr(qx, qy, qrBox, qrBox, 28); ctx.fill();
-    try {
-      const qr = qrcode(0, 'M'); qr.addData(getShareUrl(serial)); qr.make();
-      const n = qr.getModuleCount();
-      const cell = Math.floor((qrBox - 40) / n);
-      const off = (qrBox - cell * n) / 2;
-      ctx.fillStyle = '#0b1220';
-      for (let r = 0; r < n; r++){
-        for (let c = 0; c < n; c++){
-          if (qr.isDark(r, c)) ctx.fillRect(qx + off + c * cell, qy + off + r * cell, cell, cell);
-        }
+    y += qTotal + 30;
+
+    const optFontSize = format === 'story' ? 26 : 24;
+    const letterFontSize = format === 'story' ? 24 : 22;
+    const optPadX = 22;
+    const optPadY = 16;
+    const optGap = 12;
+
+    data.options.forEach((optText, i) => {
+      const isCorrect = (i === data.correct) && showAnswer;
+      const letter = '(' + (LETTERS[i] || '?') + ')';
+
+      ctx.font = '600 ' + optFontSize + 'px ' + SANS;
+      const optLines = wrapText(ctx, optText, W - PAD * 2 - 80, '600 ' + optFontSize + 'px ' + SANS);
+      const lineH = optFontSize * 1.4;
+      const boxH = Math.max(60, optLines.length * lineH + optPadY * 2);
+
+      if (isCorrect){
+        ctx.fillStyle = GREEN_BG;
+      } else {
+        ctx.fillStyle = PAPER;
       }
-    } catch (e) {}
-    y += ctaH + 44;
-    drawLogo(W / 2, y + 34, 64, 2);
-    ctx.fillStyle = '#7d8696'; ctx.font = '500 24px ' + FONT; ctx.textAlign = 'center';
-    spacing(4);
-    ctx.fillText('NORCET  ·  RRB  ·  ESIC  ·  DSSSB', W / 2, y + 116);
-    spacing(0);
-    ctx.strokeStyle = LINE; ctx.lineWidth = 3;
-    ctx.strokeRect(1.5, 1.5, W - 3, H - 3);
+      roundRectPath(ctx, PAD, y, W - PAD * 2, boxH, 6);
+      ctx.fill();
+
+      if (isCorrect){
+        ctx.strokeStyle = GREEN_BORDER;
+        ctx.lineWidth = 2;
+      } else {
+        ctx.strokeStyle = BORDER;
+        ctx.lineWidth = 1.5;
+      }
+      roundRectPath(ctx, PAD, y, W - PAD * 2, boxH, 6);
+      ctx.stroke();
+
+      if (isCorrect){
+        ctx.fillStyle = GREEN_BORDER;
+        roundRectPath(ctx, PAD, y + 8, 4, boxH - 16, 2);
+        ctx.fill();
+      }
+
+      ctx.fillStyle = isCorrect ? GREEN_BORDER : AMBER;
+      ctx.font = '700 ' + letterFontSize + 'px ' + SERIF;
+      ctx.textAlign = 'left';
+      const letterY = y + boxH / 2;
+      ctx.fillText(letter, PAD + optPadX, letterY);
+
+      ctx.fillStyle = isCorrect ? GREEN_TEXT : INK;
+      ctx.font = '600 ' + optFontSize + 'px ' + SANS;
+      const textStartX = PAD + optPadX + 46;
+      const textStartY = y + (boxH - (optLines.length - 1) * lineH) / 2;
+      optLines.forEach((line, k) => {
+        ctx.fillText(line, textStartX, textStartY + k * lineH);
+      });
+
+      if (isCorrect){
+        ctx.fillStyle = GREEN_BORDER;
+        ctx.font = '700 30px ' + SANS;
+        ctx.textAlign = 'right';
+        ctx.fillText('✓', W - PAD - optPadX, letterY);
+        ctx.textAlign = 'left';
+      }
+
+      y += boxH + optGap;
+    });
+
+    y += 10;
+
+    ctx.strokeStyle = BORDER_DARK;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(PAD, y);
+    ctx.lineTo(W - PAD, y);
+    ctx.stroke();
+
+    y += 24;
+
+    const qrSize = 130;
+    const hasQR = showQR && typeof qrcode !== 'undefined';
+
+    if (hasQR){
+      const qrX = W - PAD - qrSize;
+      const qrY = y;
+
+      ctx.fillStyle = '#ffffff';
+      roundRectPath(ctx, qrX - 8, qrY - 8, qrSize + 16, qrSize + 16, 8);
+      ctx.fill();
+      ctx.strokeStyle = BORDER_DARK;
+      ctx.lineWidth = 1;
+      roundRectPath(ctx, qrX - 8, qrY - 8, qrSize + 16, qrSize + 16, 8);
+      ctx.stroke();
+
+      try {
+        const qr = qrcode(0, 'M');
+        qr.addData(getShareUrl(serial));
+        qr.make();
+        const n = qr.getModuleCount();
+        const cell = Math.floor((qrSize - 20) / n);
+        const off = (qrSize - cell * n) / 2;
+        ctx.fillStyle = '#0b1220';
+        for (let r = 0; r < n; r++){
+          for (let c = 0; c < n; c++){
+            if (qr.isDark(r, c)){
+              ctx.fillRect(qrX + off + c * cell, qrY + off + r * cell, cell, cell);
+            }
+          }
+        }
+      } catch(e){ console.warn('QR failed', e); }
+
+      ctx.textAlign = 'left';
+
+      ctx.fillStyle = AMBER;
+      ctx.font = '700 22px ' + SANS;
+      if ('letterSpacing' in ctx) ctx.letterSpacing = '3px';
+      ctx.fillText('✨ SCAN TO REVEAL', PAD, y + 22);
+      if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
+
+      ctx.strokeStyle = BORDER_DARK;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(PAD, y + 40);
+      ctx.lineTo(PAD + 260, y + 40);
+      ctx.stroke();
+
+      ctx.fillStyle = INK;
+      ctx.font = '700 24px ' + SERIF;
+      ctx.fillText('Answer & Explanation', PAD, y + 70);
+
+      ctx.fillStyle = INK_DIM;
+      ctx.font = '500 17px ' + SANS;
+      ctx.fillText('Full solution on website', PAD, y + 100);
+
+      ctx.fillStyle = AMBER;
+      ctx.font = '700 18px ' + SANS;
+      ctx.fillText('www.rprep.online', PAD, y + 132);
+
+      y += qrSize + 24;
+    } else {
+      ctx.textAlign = 'left';
+      ctx.fillStyle = AMBER;
+      ctx.font = '700 22px ' + SERIF;
+      ctx.fillText('Answer + Explanation dekho:', PAD, y + 10);
+
+      ctx.fillStyle = INK;
+      ctx.font = '600 22px ' + SANS;
+      ctx.fillText('www.rprep.online/?q=' + serial, PAD, y + 45);
+
+      y += 80;
+    }
+
+    y = H - PAD - 10;
+    ctx.textAlign = 'center';
+    ctx.fillStyle = AMBER;
+    ctx.font = '700 18px ' + SANS;
+    if ('letterSpacing' in ctx) ctx.letterSpacing = '2px';
+    ctx.fillText('📸 Follow ' + IG_HANDLE, W / 2, y - 20);
+    if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
+
+    ctx.fillStyle = INK_FAINT;
+    ctx.font = 'italic 15px ' + SERIF;
+    ctx.fillText('Professional Nursing Officer Preparation', W / 2, y + 6);
+
     canvas.toBlob(function(blob){
       if (!blob){ showToast('Image failed'); return; }
-      if (action === true){
+
+      if (action === true || action === 'preview'){
+        shareModalTitle.textContent = 'Image Preview';
+        sharePreviewFull.style.display = 'block';
         const url = URL.createObjectURL(blob);
         sharePreviewImg.src = url;
-        sharePreviewFull.style.display = 'block';
-        sharePreviewFull.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        setTimeout(function(){ URL.revokeObjectURL(url); }, 60000);
+        shareGrid.innerHTML = '';
+        shareOverlay.classList.add('show');
+        setTimeout(() => URL.revokeObjectURL(url), 120000);
         showToast('Preview ready');
         return;
       }
-      const file = new File([blob], 'rprep-q' + serial + '.png', { type: 'image/png' });
+
+      const filename = 'rprep-q' + serial + '-' + format + '.png';
+      const file = new File([blob], filename, { type: 'image/png' });
+
       if (action === 'share' && navigator.canShare && navigator.canShare({ files: [file] })){
         navigator.share({ files: [file], title: 'RPrep Q' + serial, text: buildShareText(data, serial) })
-          .then(function(){ closeShareModal(); })
-          .catch(function(err){ if (err.name !== 'AbortError') downloadImage(blob, serial); });
+          .catch(err => { if (err.name !== 'AbortError') downloadImage(blob, serial, format); });
       } else {
-        downloadImage(blob, serial);
-        closeShareModal();
+        downloadImage(blob, serial, format);
       }
     }, 'image/png');
   }
-  function downloadImage(blob, serial){
+
+  function downloadImage(blob, serial, format){
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url; a.download = 'rprep-q' + serial + '.png';
+    a.href = url; a.download = 'rprep-q' + serial + '-' + (format || 'image') + '.png';
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
     setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
     showToast('Image downloaded!');
   }
+
+  function roundRectPath(ctx, x, y, w, h, r){
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  function loadLogo(){
+    return new Promise(function(res){
+      const im = new Image();
+      im.onload = function(){ res(im); };
+      im.onerror = function(){ res(null); };
+      im.src = 'logo-circle.png';
+    });
+  }
+
   function wrapText(ctx, text, maxWidth, font){
     ctx.font = font;
     const words = String(text).split(' ');
@@ -1518,10 +1859,8 @@
     return lines;
   }
 
-  // ===================== INIT =====================
   loadQuestions();
 
-  // ===================== SERVICE WORKER =====================
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('/service-worker.js')
