@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>RPrep Admin Panel</title>
+<title>QELPREV Admin Panel</title>
 <link rel="manifest" href="/manifest.json" />
 <meta name="theme-color" content="#0f1218" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="RPrep Admin" />
+<meta name="apple-mobile-web-app-title" content="QELPREV Admin" />
 <link rel="apple-touch-icon" href="/logo-192.png" />
 <style>
   :root{
@@ -276,7 +276,7 @@
   <!-- LOGIN SCREEN -->
   <div class="login-wrap" id="loginWrap">
     <div class="login-box">
-      <h1>RPrep <span>Admin</span></h1>
+      <h1>QELPREV <span>Admin</span></h1>
       <p>Authorized access only</p>
       <form id="loginForm">
         <div class="field">
@@ -297,7 +297,7 @@
 
     <div class="admin-header">
       <div class="brand">
-        <h2>RPrep <span>Admin Panel</span></h2>
+        <h2>QELPREV <span>Admin Panel</span></h2>
         <p>QBank Management · Global Serial Numbers</p>
       </div>
       <div class="user-info">
@@ -507,9 +507,22 @@ Explanation: HTML stands for..."></textarea>
         <strong>⚠️ Warning:</strong> Ye sab questions ke serial numbers <strong>rewrite</strong> karega.
       </div>
 
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom: 20px;">
         <button class="btn" id="serialCheckBtn">🔍 Check Current Status</button>
         <button class="btn purple" id="serialRegenerateBtn">🔢 Regenerate Global Serials</button>
+      </div>
+
+      <!-- NEW SHUFFLE FEATURE -->
+      <div style="background:var(--card); border:1px solid var(--border); border-radius:8px; padding:20px; margin-top:20px;">
+        <h4 style="margin-top:0; color:var(--accent);">🔀 Shuffle Specific Exam Serials</h4>
+        <p class="panel-sub" style="margin-bottom:10px;">Sirf selected exam ke questions ke global serial numbers ko randomly shuffle karega. Baaki exams safe rahenge.</p>
+        
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+          <select id="shuffleExamSelect" class="input" style="flex:1; min-width:200px; padding:10px; border-radius:6px; border:1px solid var(--border); background:var(--bg); color:var(--text);">
+            <option value="">-- Loading Exams --</option>
+          </select>
+          <button class="btn primary" id="shuffleExamBtn">🔀 Shuffle Selected Exam</button>
+        </div>
       </div>
     </div>
 
@@ -1685,6 +1698,73 @@ Explanation: HTML stands for..."></textarea>
         .catch((err) => console.warn("[PWA] SW failed:", err));
     });
   }
+
+    // === SHUFFLE SPECIFIC EXAM SERIALS ===
+    async function loadShuffleExams() {
+      try {
+        const snap = await db.collection(COLLECTION).get();
+        const exams = new Set();
+        snap.forEach(doc => {
+          const data = doc.data();
+          if (data.exam) exams.add(data.exam);
+        });
+        
+        const sel = document.getElementById('shuffleExamSelect');
+        sel.innerHTML = '<option value="">-- Select Exam --</option>';
+        Array.from(exams).sort().forEach(exam => {
+          sel.innerHTML += `<option value="${exam}">${exam}</option>`;
+        });
+      } catch(e) {
+        console.error(e);
+      }
+    }
+
+    document.getElementById('shuffleExamBtn').addEventListener('click', async () => {
+      const exam = document.getElementById('shuffleExamSelect').value;
+      if (!exam) { toast('Pehle exam select karo!', 'error'); return; }
+      
+      const btn = document.getElementById('shuffleExamBtn');
+      btn.disabled = true;
+      btn.textContent = '⏳ Shuffling...';
+
+      try {
+        const snap = await db.collection(COLLECTION).where('exam', '==', exam).get();
+        if (snap.empty) { toast('Is exam me koi question nahi mila!', 'error'); btn.disabled = false; btn.textContent = '🔀 Shuffle Selected Exam'; return; }
+
+        const docs = [];
+        snap.forEach(doc => { docs.push({ id: doc.id, serial: doc.data().serialNumber || 0 }); });
+        const serialPool = docs.map(d => d.serial).sort((a, b) => a - b);
+        
+        for (let i = serialPool.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [serialPool[i], serialPool[j]] = [serialPool[j], serialPool[i]];
+        }
+
+        const batch = db.batch();
+        let updatedCount = 0;
+
+        docs.forEach((doc, index) => {
+          const newSerial = serialPool[index];
+          if (doc.serial !== newSerial) {
+            batch.update(db.collection(COLLECTION).doc(doc.id), { serialNumber: newSerial });
+            updatedCount++;
+          }
+        });
+
+        await batch.commit();
+        toast(`✅ ${updatedCount} questions ke serials shuffle ho gaye for ${exam}!`, 'success');
+        document.getElementById('serialCheckBtn').click(); 
+      } catch(e) {
+        console.error(e);
+        toast('Error: ' + e.message, 'error');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '🔀 Shuffle Selected Exam';
+      }
+    });
+
+    setTimeout(loadShuffleExams, 2000);
+
 </script>
 </body>
 </html>
