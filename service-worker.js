@@ -1,6 +1,6 @@
-// RPrep Digital QBank — Service Worker
+// QELPREV Digital QBank — Service Worker
 // Version bump karne se cache refresh hoga
-const CACHE_VERSION = 'rprep-v1';
+const CACHE_VERSION = 'qelprev-v1';
 const CACHE_NAME = CACHE_VERSION;
 
 const CORE_ASSETS = [

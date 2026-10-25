@@ -3,15 +3,16 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
-<title>RPrep Digital QBank</title>
+<title>QELPREV Digital QBank</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="/logo-circle.png" />
 <link rel="manifest" href="/manifest.json" />
 <meta name="theme-color" content="#faf4e6" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-<meta name="apple-mobile-web-app-title" content="RPrep QBank" />
+<meta name="apple-mobile-web-app-title" content="QELPREV QBank" />
 <link rel="apple-touch-icon" href="/logo-192.png" />
-<meta property="og:title" content="RPrep Digital QBank" />
+<meta property="og:title" content="QELPREV Digital QBank" />
 <meta property="og:description" content="Nursing Officer Preparation — NORCET, RRB, ESIC, DSSSB" />
 <meta property="og:image" content="https://www.rprep.online/preview.png" />
 <meta property="og:url" content="https://www.rprep.online" />
@@ -22,46 +23,46 @@
 <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #faf4e6;
-    --bg-texture: #f2e9d4;
-    --page: #fffdf7;
-    --card: #ffffff;
-    --border: #e8dcc3;
-    --border-dark: #d4c5a4;
-    --text: #2b2620;
-    --text-dim: #6b5f4f;
-    --text-faint: #9e917c;
-    --accent: #a67c00;
-    --accent-light: #d4a24c;
-    --accent-soft: rgba(166,124,0,0.09);
-    --accent-border: rgba(166,124,0,0.28);
-    --ribbon: #b8860b;
-    --highlight: #fffbe0;
-    --correct-bg: #e6f0e0;
-    --correct-border: #7d9d6d;
-    --correct-text: #2e4a26;
-    --wrong-bg: #f5e0dd;
-    --wrong-border: #b87363;
-    --wrong-text: #6b2a1f;
-    --serif: 'Lora', Georgia, 'Times New Roman', serif;
-    --sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --bg: #EAF2FF;
+    --bg-texture: #DCE8FF;
+    --page: #FFFFFF;
+    --card: #FFFFFF;
+    --border: #D6E2FF;
+    --border-dark: #B8C8F0;
+    --text: #0B1B3A;
+    --text-dim: #4A5A7A;
+    --text-faint: #8A9AB8;
+    --accent: #2D5BFF;
+    --accent-light: #19D3C5;
+    --accent-soft: rgba(45,91,255,0.08);
+    --accent-border: rgba(45,91,255,0.28);
+    --ribbon: #2D5BFF;
+    --highlight: #7BF2E6;
+    --correct-bg: #E0F7F4;
+    --correct-border: #19D3C5;
+    --correct-text: #0B5A52;
+    --wrong-bg: #FDE8E8;
+    --wrong-border: #E06B6B;
+    --wrong-text: #7A1F1F;
+    --serif: 'Sora', 'Poppins', sans-serif;
+    --sans: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
   [data-theme="dark"]{
-    --bg: #1e1a15;
-    --bg-texture: #262018;
-    --page: #2a2419;
-    --card: #322b1e;
-    --border: #3d3529;
-    --border-dark: #4d4232;
-    --text: #e8dfc8;
-    --text-dim: #b8a988;
-    --text-faint: #857a64;
-    --accent: #d4a24c;
-    --accent-light: #e8be6a;
-    --accent-soft: rgba(212,162,76,0.12);
-    --accent-border: rgba(212,162,76,0.32);
-    --ribbon: #a67c00;
-    --highlight: #3a2f18;
+    --bg: #0B1B3A;
+    --bg-texture: #102347;
+    --page: #102347;
+    --card: #13294F;
+    --border: #1E3A6B;
+    --border-dark: #2A4A80;
+    --text: #EAF2FF;
+    --text-dim: #A8B8D8;
+    --text-faint: #6E7E9E;
+    --accent: #19D3C5;
+    --accent-light: #7BF2E6;
+    --accent-soft: rgba(25,211,197,0.12);
+    --accent-border: rgba(25,211,197,0.32);
+    --ribbon: #2D5BFF;
+    --highlight: #1A3A6B;
     --correct-bg: rgba(125,157,109,0.18);
     --correct-border: #8db078;
     --correct-text: #c8dfb8;
@@ -691,6 +692,22 @@
   ::-webkit-scrollbar-thumb{ background: var(--border-dark); border-radius: 4px; }
   ::-webkit-scrollbar-thumb:hover{ background: var(--accent); }
 </style>
+
+<style id="qelprev-modern-theme">
+  body { background-color: var(--bg) !important; background-image: radial-gradient(circle at top, var(--accent-soft) 0%, transparent 40%) !important; font-family: var(--sans) !important; }
+  .book-header { background: var(--page) !important; border-radius: 20px !important; padding: 40px 20px !important; box-shadow: 0 10px 30px rgba(11, 27, 58, 0.05) !important; border: 1px solid var(--border) !important; margin-bottom: 30px !important; }
+  .book-title { font-family: var(--sans) !important; font-weight: 800 !important; letter-spacing: -0.02em !important; }
+  .book-title span { color: var(--accent) !important; }
+  .book-brand-line { font-size: 0.75rem !important; letter-spacing: 0.1em !important; color: var(--accent) !important; font-weight: 600 !important; text-transform: uppercase !important; }
+  .book-divider { display: none !important; }
+  .question-card { background: var(--card) !important; border-radius: 16px !important; border: 1px solid var(--border) !important; box-shadow: 0 4px 15px rgba(11, 27, 58, 0.03) !important; padding: 30px !important; }
+  .option { border-radius: 12px !important; border: 1.5px solid var(--border) !important; padding: 16px 20px !important; transition: all 0.2s ease !important; font-family: var(--sans) !important; }
+  .option:not(:disabled):hover { border-color: var(--accent) !important; background: var(--accent-soft) !important; transform: translateY(-1px) !important; }
+  .chapter-chip { border-radius: 20px !important; padding: 8px 16px !important; font-weight: 500 !important; border: 1px solid var(--border-dark) !important; background: var(--page) !important; }
+  .chapter-chip.active { background: var(--accent) !important; color: #fff !important; border-color: var(--accent) !important; }
+  .book-footer { background: transparent !important; border-top: 1px solid var(--border) !important; padding-top: 30px !important; margin-top: 40px !important; color: var(--text-dim) !important; font-family: var(--sans) !important; font-size: 0.85rem !important; }
+  .page-meta, .book-footer, .book-subtitle, .page-nav-info { font-style: normal !important; font-family: var(--sans) !important; }
+</style>
 </head>
 <body>
 
@@ -726,11 +743,11 @@
   <div class="pwa-popup">
     <button class="pwa-popup-close" id="pwaCloseBtn" aria-label="Close">×</button>
     <div class="pwa-popup-logo-wrap">
-      <img src="logo-192.png" alt="RPrep Logo" class="pwa-popup-logo" />
+      <img src="logo-192.png" alt="QELPREV Logo" class="pwa-popup-logo" />
     </div>
     <div class="pwa-popup-body">
       <div class="pwa-popup-badge">✨ Free App</div>
-      <h2>Install <span>RPrep App</span></h2>
+      <h2>Install <span>QELPREV App</span></h2>
       <p class="pwa-popup-sub">Home screen pe add karo, offline bhi chale</p>
       <div class="pwa-popup-features">
         <div class="pwa-feature"><div class="pwa-feature-icon">📱</div><div>Home screen pe <strong>app icon</strong></div></div>
@@ -884,8 +901,8 @@
 
   function renderMainUI(){
     const header = '<div class="book-header">' +
-      '<img src="logo-circle.png" alt="RPrep Logo" class="book-logo" />' +
-      '<div class="book-brand-line">Special Design by RPrep</div>' +
+      '<img src="logo-circle.png" alt="QELPREV Logo" class="book-logo" />' +
+      '<div class="book-brand-line">Special Design by QELPREV</div>' +
       '<div class="book-title">Digital <span>QBank</span></div>' +
       '<div class="book-subtitle">Nursing Officer Preparation</div>' +
       '<div class="book-divider"></div>' +
@@ -949,8 +966,8 @@
     '</div>';
 
     const footer = '<div class="book-footer">' +
-      '<img src="logo-circle.png" alt="RPrep" />' +
-      '<div>© ' + new Date().getFullYear() + ' <strong>RPrep Digital QBank</strong> · Professional Nursing Officer Preparation</div>' +
+      '<img src="logo-circle.png" alt="QELPREV" />' +
+      '<div>© ' + new Date().getFullYear() + ' <strong>QELPREV Digital QBank</strong> · Professional Nursing Officer Preparation</div>' +
     '</div>';
 
     containerEl.innerHTML = header + chapterBar + pageMeta + list + pageNav + bottomPanel + footer;
@@ -1233,7 +1250,7 @@
   }
 
   function buildShareText(data, serial){
-    return '🧠 RPrep Digital QBank\n' +
+    return '🧠 QELPREV Digital QBank\n' +
       '━━━━━━━━━━━━━━━━━━━━\n\n' +
       'Q' + serial + '. ' + data.question + '\n\n' +
       data.options.map((o,i) => LETTERS[i] + '. ' + o).join('\n') +
@@ -1242,7 +1259,7 @@
       '📲 www.rprep.online';
   }
   function buildIgCaption(data, serial){
-    return '🧠 RPrep Digital QBank\n\n' +
+    return '🧠 QELPREV Digital QBank\n\n' +
       'Q' + serial + '. ' + data.question + '\n\n' +
       data.options.map((o,i) => LETTERS[i] + '. ' + o).join('\n') +
       '\n\n🔍 Answer + Explanation: ' + getShareUrl(serial) + '\n\n' +
@@ -1293,7 +1310,7 @@
       nativeBtn.type = 'button';
       nativeBtn.innerHTML = '<span class="share-item-icon icon-native"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></span>More';
       nativeBtn.addEventListener('click', () => {
-        navigator.share({ title: 'RPrep Q' + serial, text: buildShareText(data, serial), url: link })
+        navigator.share({ title: 'QELPREV Q' + serial, text: buildShareText(data, serial), url: link })
           .catch(err => { if (err.name !== 'AbortError') console.log(err); });
       });
       shareGrid.appendChild(nativeBtn);
@@ -1397,6 +1414,11 @@
               <span class="format-toggle-switch"></span>
               <span>Show QR code</span>
             </label>
+            <label class="format-toggle">
+              <input type="checkbox" id="optShowExp" />
+              <span class="format-toggle-switch"></span>
+              <span>Include Explanation (if available)</span>
+            </label>
           </div>
 
           <div class="format-actions">
@@ -1426,20 +1448,23 @@
     modal.querySelector('#formatPreviewBtn').addEventListener('click', () => {
       const showAnswer = modal.querySelector('#optShowAnswer').checked;
       const showQR = modal.querySelector('#optShowQR').checked;
+      const showExp = modal.querySelector('#optShowExp').checked;
       closeFormatModal(modal);
-      renderBookImage(data, serial, 'preview', currentFormat, showAnswer, showQR);
+      renderBookImage(data, serial, 'preview', currentFormat, showAnswer, showQR, showExp);
     });
     modal.querySelector('#formatDownloadBtn').addEventListener('click', () => {
       const showAnswer = modal.querySelector('#optShowAnswer').checked;
       const showQR = modal.querySelector('#optShowQR').checked;
+      const showExp = modal.querySelector('#optShowExp').checked;
       closeFormatModal(modal);
-      renderBookImage(data, serial, 'download', currentFormat, showAnswer, showQR);
+      renderBookImage(data, serial, 'download', currentFormat, showAnswer, showQR, showExp);
     });
     modal.querySelector('#formatShareBtn').addEventListener('click', () => {
       const showAnswer = modal.querySelector('#optShowAnswer').checked;
       const showQR = modal.querySelector('#optShowQR').checked;
+      const showExp = modal.querySelector('#optShowExp').checked;
       closeFormatModal(modal);
-      renderBookImage(data, serial, 'share', currentFormat, showAnswer, showQR);
+      renderBookImage(data, serial, 'share', currentFormat, showAnswer, showQR, showExp);
     });
   }
 
@@ -1448,7 +1473,17 @@
     setTimeout(() => modal.remove(), 250);
   }
 
-  async function renderBookImage(data, serial, action, format, showAnswer, showQR){
+  async function renderBookImage(data, serial, action, format, showAnswer, showQR, showExp){
+    // Watermark logo pre-load karo taaki canvas me blank na aaye
+    if (!window.qelprevWatermark) {
+      window.qelprevWatermark = new Image();
+      window.qelprevWatermark.src = 'watermark-logo.png';
+      await new Promise((resolve) => {
+        window.qelprevWatermark.onload = resolve;
+        window.qelprevWatermark.onerror = resolve; // Agar na mile toh bhi aage badho
+      });
+    }
+
     showToast('Generating image...');
     const logo = await loadLogo();
 
@@ -1468,13 +1503,13 @@
     ctx.scale(S, S);
     ctx.textBaseline = 'middle';
 
-    const CREAM = '#faf4e6';
-    const PAPER = '#fffdf7';
-    const INK = '#2b2620';
-    const INK_DIM = '#6b5f4f';
-    const INK_FAINT = '#9e917c';
-    const AMBER = '#a67c00';
-    const AMBER_LIGHT = '#d4a24c';
+    const CREAM = '#EAF2FF';
+    const PAPER = '#FFFFFF';
+    const INK = '#0B1B3A';
+    const INK_DIM = '#4A5A7A';
+    const INK_FAINT = '#8A9AB8';
+    const AMBER = '#2D5BFF';
+    const AMBER_LIGHT = '#19D3C5';
     const BORDER = '#e8dcc3';
     const BORDER_DARK = '#d4c5a4';
     const GREEN_BG = '#e6f0e0';
@@ -1484,28 +1519,45 @@
     const SERIF = 'Lora, Georgia, "Times New Roman", serif';
     const SANS = 'Inter, -apple-system, "Segoe UI", Roboto, sans-serif';
 
-    ctx.fillStyle = CREAM;
-    ctx.fillRect(0, 0, W, H);
+    
+    // ==========================================
+    // NEW QELPREV MODERN IMAGE DESIGN
+    // ==========================================
 
-    for (let i = 0; i < H; i += 4){
-      ctx.fillStyle = 'rgba(120,80,20,0.006)';
-      ctx.fillRect(0, i, W, 2);
+    // 1. Background & Modern Border
+    ctx.fillStyle = '#EAF2FF'; // Ice background
+    ctx.fillRect(0, 0, W, H);
+    
+    // Top Accent Line
+    ctx.fillStyle = '#2D5BFF'; // Ultramarine
+    ctx.fillRect(0, 0, W, 8);
+
+    // Inner White Card (Modern Look)
+    const cardMargin = PAD * 0.5;
+    roundRectPath(ctx, cardMargin, cardMargin + 8, W - (cardMargin * 2), H - (cardMargin * 2) - 8, 16);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fill();
+    ctx.strokeStyle = '#D6E2FF';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // === WATERMARK ===
+    // Logo pehle se load karke rakha hai (function ke shuru me)
+    if (window.qelprevWatermark) {
+      ctx.save();
+      ctx.globalAlpha = 0.04; // 4% opacity (bahut halka)
+      const wmSize = 450;
+      const wmX = W / 2 - wmSize / 2;
+      const wmY = H / 2 - wmSize / 2;
+      ctx.drawImage(window.qelprevWatermark, wmX, wmY, wmSize, wmSize);
+      ctx.restore();
     }
 
-    ctx.strokeStyle = BORDER_DARK;
-    ctx.lineWidth = 2;
-    ctx.strokeRect(PAD * 0.4, PAD * 0.4, W - PAD * 0.8, H - PAD * 0.8);
-    ctx.strokeStyle = BORDER;
-    ctx.lineWidth = 1;
-    ctx.strokeRect(PAD * 0.55, PAD * 0.55, W - PAD * 1.1, H - PAD * 1.1);
+    let y = PAD + 20;
 
-    ctx.fillStyle = AMBER;
-    ctx.fillRect(PAD * 0.4, PAD * 0.4, W - PAD * 0.8, 4);
-
-    let y = PAD + 8;
-
-    const logoSize = 68;
-    const logoCx = PAD + logoSize / 2;
+    // 2. Logo & Header
+    const logoSize = 64;
+    const logoCx = PAD + logoSize / 2 + 10;
     const logoCy = y + logoSize / 2;
 
     if (logo){
@@ -1515,220 +1567,201 @@
       ctx.clip();
       ctx.drawImage(logo, logoCx - logoSize / 2, logoCy - logoSize / 2, logoSize, logoSize);
       ctx.restore();
-      ctx.strokeStyle = AMBER_LIGHT;
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.arc(logoCx, logoCy, logoSize / 2 + 2, 0, Math.PI * 2);
-      ctx.stroke();
     } else {
-      ctx.fillStyle = PAPER;
+      // Fallback Q logo
+      ctx.fillStyle = '#0B1B3A';
       ctx.beginPath();
       ctx.arc(logoCx, logoCy, logoSize / 2, 0, Math.PI * 2);
       ctx.fill();
-      ctx.fillStyle = AMBER;
-      ctx.font = '700 ' + Math.round(logoSize * 0.55) + 'px ' + SERIF;
+      ctx.fillStyle = '#19D3C5';
+      ctx.font = '800 ' + Math.round(logoSize * 0.55) + 'px ' + SANS;
       ctx.textAlign = 'center';
-      ctx.fillText('R', logoCx, logoCy + 2);
+      ctx.fillText('Q', logoCx, logoCy + 4);
     }
 
+    // Header Text
+    const textX = logoCx + logoSize / 2 + 15;
     ctx.textAlign = 'left';
-    ctx.fillStyle = AMBER;
-    ctx.font = '700 15px ' + SANS;
-    if ('letterSpacing' in ctx) ctx.letterSpacing = '3px';
-    ctx.fillText('RPREP DIGITAL QBANK', logoCx + logoSize / 2 + 18, logoCy - 11);
-    if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
+    
+    ctx.fillStyle = '#2D5BFF';
+    ctx.font = '700 12px ' + SANS;
+    if ('letterSpacing' in ctx) ctx.letterSpacing = '1.5px';
+    ctx.fillText('SPECIAL DESIGN BY QELPREV', textX, logoCy - 14);
+    
+    ctx.fillStyle = '#0B1B3A';
+    ctx.font = '800 24px ' + SANS;
+    ctx.fillText('Digital QBank', textX, logoCy + 10);
 
-    ctx.fillStyle = INK_DIM;
-    ctx.font = 'italic 19px ' + SERIF;
-    ctx.fillText('Professional Nursing Officer Preparation', logoCx + logoSize / 2 + 18, logoCy + 15);
-
+    // Q Badge
     const qTxt = 'Q' + serial;
-    ctx.font = '700 26px ' + SERIF;
-    const qBadgeW = ctx.measureText(qTxt).width + 34;
-    const qBadgeH = 48;
-    const qBadgeX = W - PAD - qBadgeW;
+    ctx.font = '700 24px ' + SANS;
+    const qBadgeW = ctx.measureText(qTxt).width + 30;
+    const qBadgeH = 44;
+    const qBadgeX = W - PAD - qBadgeW - 10;
     const qBadgeY = logoCy - qBadgeH / 2;
 
-    ctx.fillStyle = AMBER;
-    roundRectPath(ctx, qBadgeX, qBadgeY, qBadgeW, qBadgeH, 6);
+    ctx.fillStyle = '#2D5BFF';
+    roundRectPath(ctx, qBadgeX, qBadgeY, qBadgeW, qBadgeH, 8);
     ctx.fill();
 
-    ctx.fillStyle = PAPER;
-    ctx.font = '700 24px ' + SERIF;
+    ctx.fillStyle = '#FFFFFF';
     ctx.textAlign = 'center';
-    ctx.fillText(qTxt, qBadgeX + qBadgeW / 2, qBadgeY + qBadgeH / 2 + 1);
-    ctx.textAlign = 'left';
+    ctx.fillText(qTxt, qBadgeX + qBadgeW / 2, qBadgeY + qBadgeH / 2 + 2);
 
-    y = logoCy + logoSize / 2 + 18;
-    ctx.strokeStyle = BORDER_DARK;
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(PAD, y);
-    ctx.lineTo(W - PAD, y);
-    ctx.stroke();
+    // Divider Line
+    y = logoCy + logoSize / 2 + 20;
+    ctx.strokeStyle = '#EAF2FF';
+    ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(PAD + 10, y); ctx.lineTo(W - PAD - 10, y); ctx.stroke();
 
-    ctx.fillStyle = CREAM;
-    ctx.fillRect(W / 2 - 14, y - 9, 28, 18);
-    ctx.fillStyle = AMBER;
-    ctx.font = '15px ' + SERIF;
-    ctx.textAlign = 'center';
-    ctx.fillText('❦', W / 2, y);
-
-    y += 42;
+    // 3. Exam Tag
+    y += 25;
     const examText = (data.exam || 'General').toUpperCase();
-    ctx.font = '700 14px ' + SANS;
-    if ('letterSpacing' in ctx) ctx.letterSpacing = '2.5px';
-    const examW = ctx.measureText(examText).width + 32;
-    if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
-
-    ctx.fillStyle = PAPER;
-    roundRectPath(ctx, PAD, y - 16, examW, 32, 4);
+    ctx.font = '700 13px ' + SANS;
+    const examW = ctx.measureText(examText).width + 24;
+    
+    ctx.fillStyle = '#EAF2FF';
+    roundRectPath(ctx, PAD + 10, y - 14, examW, 28, 6);
     ctx.fill();
-    ctx.strokeStyle = AMBER_LIGHT;
-    ctx.lineWidth = 1.5;
-    roundRectPath(ctx, PAD, y - 16, examW, 32, 4);
-    ctx.stroke();
-
-    ctx.fillStyle = AMBER;
-    ctx.font = '700 14px ' + SANS;
-    if ('letterSpacing' in ctx) ctx.letterSpacing = '2.5px';
+    
+    ctx.fillStyle = '#2D5BFF';
     ctx.textAlign = 'left';
-    ctx.fillText(examText, PAD + 16, y + 1);
-    if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
+    ctx.fillText(examText, PAD + 22, y + 1);
+    y += 35;
 
-    y += 50;
-
-    const optCount = data.options.length;
-    const estimatedOptionsHeight = optCount * 80;
-    const bottomSectionHeight = (showQR ? 180 : 90) + 70;
-    const availableQHeight = H - y - estimatedOptionsHeight - bottomSectionHeight - PAD;
-
-    const qLen = data.question.length;
-    let qFontSize = 42;
-    if (qLen > 80) qFontSize = 38;
-    if (qLen > 140) qFontSize = 34;
-    if (qLen > 220) qFontSize = 30;
-    if (qLen > 320) qFontSize = 26;
-    if (qLen > 450) qFontSize = 22;
-    if (format === 'story') qFontSize += 4;
-
-    let qLines = wrapText(ctx, data.question, W - PAD * 2, '600 ' + qFontSize + 'px ' + SERIF);
-    let qLineH = qFontSize * 1.42;
-    let qTotal = qLines.length * qLineH;
-
-    while (qTotal > availableQHeight && qFontSize > 16){
-      qFontSize -= 2;
-      qLines = wrapText(ctx, data.question, W - PAD * 2, '600 ' + qFontSize + 'px ' + SERIF);
-      qLineH = qFontSize * 1.42;
-      qTotal = qLines.length * qLineH;
+    // 4. Question Text
+    let qFontSize = 34;
+    let qLines = wrapText(ctx, data.question, W - PAD * 2 - 20, '700 ' + qFontSize + 'px ' + SANS);
+    if (qLines.length > 4) {
+        qFontSize = 28;
+        qLines = wrapText(ctx, data.question, W - PAD * 2 - 20, '700 ' + qFontSize + 'px ' + SANS);
     }
-
-    ctx.font = '600 ' + qFontSize + 'px ' + SERIF;
-    ctx.fillStyle = INK;
-    ctx.textAlign = 'left';
+    
+    ctx.fillStyle = '#0B1B3A';
+    ctx.font = '700 ' + qFontSize + 'px ' + SANS;
+    const qLineH = qFontSize * 1.4;
+    
     qLines.forEach((line, i) => {
-      ctx.fillText(line, PAD, y + i * qLineH + qFontSize * 0.5);
+      ctx.fillText(line, PAD + 10, y + i * qLineH + qFontSize * 0.5);
     });
-    y += qTotal + 30;
+    y += (qLines.length * qLineH) + 20;
 
-    const optFontSize = format === 'story' ? 26 : 24;
-    const letterFontSize = format === 'story' ? 24 : 22;
-    const optPadX = 22;
-    const optPadY = 16;
+    // 5. Options
+    const optFontSize = 22;
     const optGap = 12;
 
     data.options.forEach((optText, i) => {
       const isCorrect = (i === data.correct) && showAnswer;
-      const letter = '(' + (LETTERS[i] || '?') + ')';
+      const letter = '(' + String.fromCharCode(65 + i) + ')';
 
-      ctx.font = '600 ' + optFontSize + 'px ' + SANS;
-      const optLines = wrapText(ctx, optText, W - PAD * 2 - 80, '600 ' + optFontSize + 'px ' + SANS);
-      const lineH = optFontSize * 1.4;
-      const boxH = Math.max(60, optLines.length * lineH + optPadY * 2);
+      ctx.font = '500 ' + optFontSize + 'px ' + SANS;
+      const optLines = wrapText(ctx, optText, W - PAD * 2 - 80, '500 ' + optFontSize + 'px ' + SANS);
+      const boxH = Math.max(56, optLines.length * (optFontSize * 1.4) + 24);
 
-      if (isCorrect){
-        ctx.fillStyle = GREEN_BG;
-      } else {
-        ctx.fillStyle = PAPER;
-      }
-      roundRectPath(ctx, PAD, y, W - PAD * 2, boxH, 6);
+      // Box Background
+      ctx.fillStyle = isCorrect ? '#E0F7F4' : '#FFFFFF';
+      roundRectPath(ctx, PAD + 10, y, W - PAD * 2 - 20, boxH, 10);
       ctx.fill();
-
-      if (isCorrect){
-        ctx.strokeStyle = GREEN_BORDER;
-        ctx.lineWidth = 2;
-      } else {
-        ctx.strokeStyle = BORDER;
-        ctx.lineWidth = 1.5;
-      }
-      roundRectPath(ctx, PAD, y, W - PAD * 2, boxH, 6);
+      
+      // Box Border
+      ctx.strokeStyle = isCorrect ? '#19D3C5' : '#EAF2FF';
+      ctx.lineWidth = isCorrect ? 2 : 1.5;
+      roundRectPath(ctx, PAD + 10, y, W - PAD * 2 - 20, boxH, 10);
       ctx.stroke();
 
-      if (isCorrect){
-        ctx.fillStyle = GREEN_BORDER;
-        roundRectPath(ctx, PAD, y + 8, 4, boxH - 16, 2);
-        ctx.fill();
-      }
+      // Letter
+      ctx.fillStyle = isCorrect ? '#19D3C5' : '#8A9AB8';
+      ctx.font = '700 20px ' + SANS;
+      ctx.fillText(letter, PAD + 24, y + boxH / 2);
 
-      ctx.fillStyle = isCorrect ? GREEN_BORDER : AMBER;
-      ctx.font = '700 ' + letterFontSize + 'px ' + SERIF;
-      ctx.textAlign = 'left';
-      const letterY = y + boxH / 2;
-      ctx.fillText(letter, PAD + optPadX, letterY);
-
-      ctx.fillStyle = isCorrect ? GREEN_TEXT : INK;
-      ctx.font = '600 ' + optFontSize + 'px ' + SANS;
-      const textStartX = PAD + optPadX + 46;
-      const textStartY = y + (boxH - (optLines.length - 1) * lineH) / 2;
+      // Text
+      ctx.fillStyle = '#0B1B3A';
+      ctx.font = '500 ' + optFontSize + 'px ' + SANS;
+      const textStartY = y + (boxH - (optLines.length - 1) * (optFontSize * 1.4)) / 2;
       optLines.forEach((line, k) => {
-        ctx.fillText(line, textStartX, textStartY + k * lineH);
+        ctx.fillText(line, PAD + 70, textStartY + k * (optFontSize * 1.4));
       });
 
+      // Tick mark
       if (isCorrect){
-        ctx.fillStyle = GREEN_BORDER;
-        ctx.font = '700 30px ' + SANS;
+        ctx.fillStyle = '#19D3C5';
+        ctx.font = '800 22px ' + SANS;
         ctx.textAlign = 'right';
-        ctx.fillText('✓', W - PAD - optPadX, letterY);
+        ctx.fillText('✓', W - PAD - 24, y + boxH / 2 + 2);
         ctx.textAlign = 'left';
       }
 
       y += boxH + optGap;
     });
 
-    y += 10;
+    y += 15;
 
-    ctx.strokeStyle = BORDER_DARK;
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(PAD, y);
-    ctx.lineTo(W - PAD, y);
-    ctx.stroke();
+    // 6. Explanation (Agar toggle ON hai)
+    if (showExp && data.explanation) {
+      ctx.fillStyle = '#F4F7FF'; // Very light blue
+      const expText = data.explanation;
+      ctx.font = '500 16px ' + SANS;
+      
+      const maxExpW = W - PAD * 2 - 60;
+      let expLines = wrapText(ctx, expText, maxExpW, '500 16px ' + SANS);
+      
+      // Max 4 lines in image
+      if (expLines.length > 4) {
+        expLines = expLines.slice(0, 4);
+        expLines[3] += '...';
+      }
 
-    y += 24;
+      const expH = expLines.length * 24 + 30;
+      
+      roundRectPath(ctx, PAD + 10, y, W - PAD * 2 - 20, expH, 8);
+      ctx.fill();
+      
+      // Aqua left border for explanation
+      ctx.fillStyle = '#19D3C5';
+      roundRectPath(ctx, PAD + 10, y, 4, expH, 4);
+      ctx.fill();
 
-    const qrSize = 130;
+      ctx.fillStyle = '#0B1B3A';
+      let expY = y + 22;
+      for(let i=0; i<expLines.length; i++) {
+          ctx.fillText(expLines[i], PAD + 26, expY);
+          expY += 24;
+      }
+      y += expH + 20;
+    }
+
+    // 7. QR Code / Footer Area
+    const qrSize = 110;
     const hasQR = showQR && typeof qrcode !== 'undefined';
+    const footerY = H - PAD - 50;
+    
+    // Agar explanation nahi hai, toh QR ko thoda upar shift karo taaki balance lage
+    let currentY = y;
+    if (!showExp || !data.explanation) {
+       currentY = footerY - 180; // Adjust QR vertical position
+    }
 
     if (hasQR){
-      const qrX = W - PAD - qrSize;
-      const qrY = y;
+      const qrX = W - PAD - qrSize - 10;
+      const qrY = footerY - qrSize - 15;
 
-      ctx.fillStyle = '#ffffff';
-      roundRectPath(ctx, qrX - 8, qrY - 8, qrSize + 16, qrSize + 16, 8);
+      // QR White Box
+      ctx.fillStyle = '#FFFFFF';
+      roundRectPath(ctx, qrX - 6, qrY - 6, qrSize + 12, qrSize + 12, 8);
       ctx.fill();
-      ctx.strokeStyle = BORDER_DARK;
+      ctx.strokeStyle = '#EAF2FF';
       ctx.lineWidth = 1;
-      roundRectPath(ctx, qrX - 8, qrY - 8, qrSize + 16, qrSize + 16, 8);
       ctx.stroke();
 
+      // QR Draw
       try {
         const qr = qrcode(0, 'M');
         qr.addData(getShareUrl(serial));
         qr.make();
         const n = qr.getModuleCount();
-        const cell = Math.floor((qrSize - 20) / n);
+        const cell = Math.floor((qrSize - 16) / n);
         const off = (qrSize - cell * n) / 2;
-        ctx.fillStyle = '#0b1220';
+        ctx.fillStyle = '#0B1B3A';
         for (let r = 0; r < n; r++){
           for (let c = 0; c < n; c++){
             if (qr.isDark(r, c)){
@@ -1738,90 +1771,172 @@
         }
       } catch(e){ console.warn('QR failed', e); }
 
+      // Text left of QR
       ctx.textAlign = 'left';
-
-      ctx.fillStyle = AMBER;
-      ctx.font = '700 22px ' + SANS;
-      if ('letterSpacing' in ctx) ctx.letterSpacing = '3px';
-      ctx.fillText('✨ SCAN TO REVEAL', PAD, y + 22);
-      if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
-
-      ctx.strokeStyle = BORDER_DARK;
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(PAD, y + 40);
-      ctx.lineTo(PAD + 260, y + 40);
-      ctx.stroke();
-
-      ctx.fillStyle = INK;
-      ctx.font = '700 24px ' + SERIF;
-      ctx.fillText('Answer & Explanation', PAD, y + 70);
-
-      ctx.fillStyle = INK_DIM;
-      ctx.font = '500 17px ' + SANS;
-      ctx.fillText('Full solution on website', PAD, y + 100);
-
-      ctx.fillStyle = AMBER;
-      ctx.font = '700 18px ' + SANS;
-      ctx.fillText('www.rprep.online', PAD, y + 132);
-
-      y += qrSize + 24;
-    } else {
-      ctx.textAlign = 'left';
-      ctx.fillStyle = AMBER;
-      ctx.font = '700 22px ' + SERIF;
-      ctx.fillText('Answer + Explanation dekho:', PAD, y + 10);
-
-      ctx.fillStyle = INK;
-      ctx.font = '600 22px ' + SANS;
-      ctx.fillText('www.rprep.online/?q=' + serial, PAD, y + 45);
-
-      y += 80;
+      ctx.fillStyle = '#2D5BFF';
+      ctx.font = '800 16px ' + SANS;
+      ctx.fillText('SCAN TO REVEAL', PAD + 10, qrY + 25);
+      
+      ctx.fillStyle = '#0B1B3A';
+      ctx.font = '600 18px ' + SANS;
+      ctx.fillText('Answer & Explanation', PAD + 10, qrY + 50);
+      
+      ctx.fillStyle = '#8A9AB8';
+      ctx.font = '500 13px ' + SANS;
+      ctx.fillText('Full solution on website', PAD + 10, qrY + 70);
+      
+      ctx.fillStyle = '#2D5BFF';
+      ctx.font = '600 14px ' + SANS;
+      ctx.fillText('www.rprep.online', PAD + 10, qrY + 90);
     }
 
-    y = H - PAD - 10;
+    // ==========================================
+        // ==========================================
+    // 8. PREMIUM 3-COLUMN FOOTER (FINAL CLEAN)
+    // ==========================================
+    
+    // Top Divider Line
+    ctx.strokeStyle = '#D6E2FF';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(PAD + 10, footerY - 15);
+    ctx.lineTo(W - PAD - 10, footerY - 15);
+    ctx.stroke();
+
+    // --- LEFT: BRAND LOGO & NAME ---
+    ctx.textAlign = 'left';
+    if (logo) {
+      const fLogoSize = 24;
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(PAD + 10 + fLogoSize/2, footerY + 15, fLogoSize/2, 0, Math.PI*2);
+      ctx.clip();
+      ctx.drawImage(logo, PAD + 10, footerY + 15 - fLogoSize/2, fLogoSize, fLogoSize);
+      ctx.restore();
+    }
+    
+    ctx.fillStyle = '#0B1B3A';
+    ctx.font = '800 16px ' + SANS;
+    ctx.fillText('QELPREV', PAD + 42, footerY + 21);
+
+    // --- CENTER: SOCIAL ---
+    ctx.textAlign = 'left'; // Start measuring from left
+    
+    const instaText = 'Instagram ';
+    const handleText = '@qelprev';
+    
+    // Font set karo taaki exact width mil sake
+    ctx.font = '700 13px ' + SANS;
+    const instaW = ctx.measureText(instaText).width;
+    const handleW = ctx.measureText(handleText).width;
+    
+    // Total width nikal kar center se adjust karo
+    const totalWidth = instaW + handleW;
+    const startX = (W - totalWidth) / 2;
+    
+    // Draw "Instagram"
+    ctx.fillStyle = '#0B1B3A'; // Midnight
+    ctx.fillText(instaText, startX, footerY + 15);
+    
+    // Draw "@qelprev" in Blue
+    ctx.fillStyle = '#2D5BFF'; // Ultramarine
+    ctx.fillText(handleText, startX + instaW, footerY + 15);
+    
+    // Tagline below (Center aligned)
     ctx.textAlign = 'center';
-    ctx.fillStyle = AMBER;
-    ctx.font = '700 18px ' + SANS;
-    if ('letterSpacing' in ctx) ctx.letterSpacing = '2px';
-    ctx.fillText('📸 Follow ' + IG_HANDLE, W / 2, y - 20);
-    if ('letterSpacing' in ctx) ctx.letterSpacing = '0px';
+    ctx.fillStyle = '#8A9AB8';
+    ctx.font = '500 11px ' + SANS;
+    ctx.fillText('Nursing Officer Preparation', W / 2, footerY + 32);
 
-    ctx.fillStyle = INK_FAINT;
-    ctx.font = 'italic 15px ' + SERIF;
-    ctx.fillText('Professional Nursing Officer Preparation', W / 2, y + 6);
+    // --- RIGHT: WEBSITE & COPYRIGHT ---
+    ctx.textAlign = 'right';
+    ctx.fillStyle = '#0B1B3A'; // Midnight (Cleaner than bright blue)
+    ctx.font = '700 14px ' + SANS;
+    ctx.fillText('www.rprep.online', W - PAD - 10, footerY + 15);
+    
+    ctx.fillStyle = '#8A9AB8';
+    ctx.font = '500 11px ' + SANS;
+    ctx.fillText('© ' + new Date().getFullYear() + ' All rights reserved', W - PAD - 10, footerY + 32);
 
-    canvas.toBlob(function(blob){
-      if (!blob){ showToast('Image failed'); return; }
+    ctx.textAlign = 'left';
 
-      if (action === true || action === 'preview'){
-        shareModalTitle.textContent = 'Image Preview';
-        sharePreviewFull.style.display = 'block';
-        const url = URL.createObjectURL(blob);
-        sharePreviewImg.src = url;
-        shareGrid.innerHTML = '';
-        shareOverlay.classList.add('show');
-        setTimeout(() => URL.revokeObjectURL(url), 120000);
-        showToast('Preview ready');
-        return;
-      }
+// END NEW DESIGN
 
-      const filename = 'rprep-q' + serial + '-' + format + '.png';
-      const file = new File([blob], filename, { type: 'image/png' });
+    // === DOWNLOAD/SHARE LOGIC (Fixed) ===
+    const dataUrl = canvas.toDataURL('image/png');
+    
+    if (action === 'preview') {
+      // Remove existing preview
+      const existing = document.getElementById('qelprev-preview-modal');
+      if (existing) existing.remove();
 
-      if (action === 'share' && navigator.canShare && navigator.canShare({ files: [file] })){
-        navigator.share({ files: [file], title: 'RPrep Q' + serial, text: buildShareText(data, serial) })
-          .catch(err => { if (err.name !== 'AbortError') downloadImage(blob, serial, format); });
-      } else {
-        downloadImage(blob, serial, format);
-      }
-    }, 'image/png');
-  }
+      // Create new preview modal
+      const modal = document.createElement('div');
+      modal.id = 'qelprev-preview-modal';
+      modal.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(11,27,58,0.85); z-index:99999; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px; backdrop-filter: blur(4px);';
+      
+      modal.innerHTML = `
+        <div style="width:100%; max-width:500px; display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+          <h3 style="color:#fff; margin:0; font-family:Poppins, sans-serif; font-size:18px;">Image Preview</h3>
+          <button id="close-preview-btn" style="background:rgba(255,255,255,0.2); border:none; color:#fff; font-size:24px; width:36px; height:36px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center;">&times;</button>
+        </div>
+        <img src="${dataUrl}" style="max-width:100%; max-height:75vh; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.3); object-fit:contain;" />
+        <button id="download-from-preview" style="margin-top:20px; background:#2D5BFF; color:#fff; border:none; padding:12px 24px; border-radius:8px; font-family:Poppins, sans-serif; font-weight:600; font-size:16px; cursor:pointer; display:flex; align-items:center; gap:8px;">
+          ⬇️ Download Image
+        </button>
+      `;
+      
+      document.body.appendChild(modal);
 
-  function downloadImage(blob, serial, format){
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url; a.download = 'rprep-q' + serial + '-' + (format || 'image') + '.png';
+      // Close on X click
+      modal.querySelector('#close-preview-btn').onclick = () => modal.remove();
+      
+      // Close on background click
+      modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+      
+      // Download button inside preview
+      modal.querySelector('#download-from-preview').onclick = () => {
+        const a = document.createElement('a');
+        a.href = dataUrl;
+        a.download = 'qelprev-q' + serial + '-' + format + '.png';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      };
+      
+    } else if (action === 'download') {
+      const a = document.createElement('a');
+      a.href = dataUrl;
+      a.download = 'qelprev-q' + serial + '-' + format + '.png';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    } else if (action === 'share') {
+      canvas.toBlob(async function(blob) {
+        const file = new File([blob], 'qelprev-q' + serial + '.png', { type: 'image/png' });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          try {
+            await navigator.share({
+              files: [file],
+              title: 'QELPREV Q' + serial,
+              text: buildShareText(data, serial),
+              url: link
+            });
+          } catch (err) {
+            console.log('Share failed', err);
+          }
+        } else {
+          // Fallback to download if share not supported
+          const a = document.createElement('a');
+          a.href = dataUrl;
+          a.download = 'qelprev-q' + serial + '.png';
+          a.click();
+        }
+      }, 'image/png');
+    }
+    // ==========================================
+
+    a.href = url; a.download = 'qelprev-q' + serial + '-' + (format || 'image') + '.png';
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
     setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
     showToast('Image downloaded!');
@@ -1870,5 +1985,7 @@
   }
 
 </script>
+
+
 </body>
 </html>
